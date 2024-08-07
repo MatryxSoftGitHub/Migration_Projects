@@ -1,0 +1,17 @@
+﻿//For Object repository
+
+List<String> lsOpenTag = {"<basepath>","<icon>"}
+List<String> lsClosingTag = {"</basepath>","</icon>"}
+List<String> lsUnWantedTag = {"capname=","id=","searchtimeout=","refimgid=","addcaps=","usecache=","isrooted=","<repository","<codegen","</codegen>","<rootfolder","</rootfolder>","namespace=","<item","</item>","</folder>","<folder","<appfolder","</appfolder>"}
+List<String> lsPathTag = {"tag[","input[","button[","@innertext[","combobox"}
+List<String>lsAttr= {"innertext","title","name"}
+
+//FileLocations
+String sDir = "C:\Ranorex\"
+
+String sRanoraxORFile = "RanorexORFiles\Workday_RanorexRepository.txt"
+
+//OutPut File Locations
+String sFileName1 = "ATAppObjectsFiles\DeleteUnmantedTags1.txt"
+String sFileName2 = "ATAppObjectsFiles\ATFormat2.txt"
+String sFileName3 = "ATAppObjectsFiles\ParantObj_Path3.txt"

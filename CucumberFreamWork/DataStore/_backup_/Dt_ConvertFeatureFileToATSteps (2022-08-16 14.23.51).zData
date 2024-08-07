@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="90B75138">
+		<List Name="StringList" ItemType="String"/>
+		<Record Name="Record_ConvertFeatureFileToATSteps">
+			<Field Name="RowId" Type="String" Unique="true"/>
+			<Field Name="lsFeatureFile" Type="StringList"/>
+			<Field Name="lsKeyWords" Type="StringList"/>
+			<Field Name="lsUpdatedFile" Type="StringList"/>
+			<Field Name="sParametersAndInputFile" Type="String"/>
+			<Field Name="lsDeleteDir" Type="StringList"/>
+			<Field Name="lsTCFeatureFiles" Type="StringList"/>
+			<Field Name="lsUpdatedTCFiles" Type="StringList"/>
+		</Record>
+		<List Name="Record_ConvertFeatureFileToATStepsList" ItemType="Record_ConvertFeatureFileToATSteps"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_ConvertFeatureFileToATSteps" Type="Record_ConvertFeatureFileToATStepsList">
+			<Record_ConvertFeatureFileToATSteps>
+				<RowId>1</RowId>
+				<lsFeatureFile>
+					<String>CreateAdHocPayment.feature</String>
+					<String>CreateAdHocTransaction.feature</String>
+					<String>PurchaseOrderEvent.feature</String>
+				</lsFeatureFile>
+				<lsKeyWords>
+					<String>Given</String>
+					<String>When</String>
+					<String>Then</String>
+					<String>And</String>
+					<String>But</String>
+				</lsKeyWords>
+				<lsUpdatedFile>
+					<String>GettingStepNameAndInfoAndParameters.txt</String>
+					<String>ConvertDataDrivenToATSteps.z</String>
+				</lsUpdatedFile>
+				<sParametersAndInputFile>ATSteps.json</sParametersAndInputFile>
+				<lsDeleteDir>
+					<String>DataFile</String>
+					<String>UpdatedFiles</String>
+				</lsDeleteDir>
+				<lsTCFeatureFiles>
+					<String>CreateAdHocPayment.feature</String>
+					<String>CreateAdHocTransaction.feature</String>
+					<String>PurchaseOrderEvent.feature</String>
+				</lsTCFeatureFiles>
+				<lsUpdatedTCFiles>
+					<String>ConvertToATTestCase.txt</String>
+					<String>GettingStepsFromFeatureFile.z</String>
+				</lsUpdatedTCFiles>
+			</Record_ConvertFeatureFileToATSteps>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_ConvertFeatureFileToATSteps">
+			<Field Name="RowId"/>
+			<Field Name="lsFeatureFile" Width="201"/>
+			<Field Name="lsKeyWords"/>
+			<Field Name="lsUpdatedFile" Width="296"/>
+			<Field Name="sParametersAndInputFile"/>
+			<Field Name="lsDeleteDir"/>
+			<Field Name="lsUpdatedTCFiles" Width="180"/>
+			<Field Name="lsTCFeatureFiles" Width="202"/>
+		</Object>
+	</Layout>
+</DataStore>

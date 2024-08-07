@@ -1,0 +1,13 @@
+﻿String sApp_Type
+String sCommonFilePath ="C:\CucumbetToAT\"
+String sFeatureFile = sCommonFilePath+"FeatureFiles\"
+String sUpdatedFiles = sCommonFilePath+"UpdatedFiles\"
+String sDataFile = sCommonFilePath+"DataFile\"
+String sUpdatedTCFiles =sCommonFilePath+"UpdatedTCFiles\"
+
+
+
+String sUFTExcelPath = "C:\VBtoZLanguage\Default"
+String sCSVExcelPath = "C:\VBtoZLanguage\ConvertedCSV\Default"
+String sActCSVFilePath = "E:\CSVFile\"
+

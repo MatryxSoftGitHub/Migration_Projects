@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="4BD5767D">
+		<Record Name="DTWorkDataRecord">
+			<Field Name="sStartProxy" Label="sStartProxy" Type="String"/>
+			<Field Name="TreasuryAdministrator" Label="TreasuryAdministrator" Type="String"/>
+			<Field Name="GlobalChiefFinancialOfficer" Label="GlobalChiefFinancialOfficer" Type="String"/>
+			<Field Name="BPNameVar" Label="BPNameVar" Type="String"/>
+			<Field Name="AdHocBankTransactionDate" Label="AdHocBankTransactionDate" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="CompanyName" Label="CompanyName" Type="String"/>
+			<Field Name="BankAccount" Label="BankAccount" Type="String"/>
+			<Field Name="TransactionAmount" Label="TransactionAmount" Type="String"/>
+			<Field Name="ReferrenceName" Label="ReferrenceName" Type="String"/>
+			<Field Name="Company" Label="Company" Type="String"/>
+			<Field Name="BankAccount" Label="BankAccount" Type="String"/>
+			<Field Name="PayeeName" Label="PayeeName" Type="String"/>
+			<Field Name="PaymentDate" Label="PaymentDate" Type="String"/>
+			<Field Name="ControlTotalAmount" Label="ControlTotalAmount" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="string" Label="string" Type="String"/>
+			<Field Name="TransferDate" Label="TransferDate" Type="String"/>
+			<Field Name="CurrencyName" Label="CurrencyName" Type="String"/>
+			<Field Name="Amount" Label="Amount" Type="String"/>
+			<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+			<Field Name="InitiatingCompany" Label="InitiatingCompany" Type="String"/>
+			<Field Name="InitiatingAccount" Label="InitiatingAccount" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="ToAccountName" Label="ToAccountName" Type="String"/>
+			<Field Name="TransferDate" Label="TransferDate" Type="String"/>
+			<Field Name="CurrencyName" Label="CurrencyName" Type="String"/>
+			<Field Name="Amount" Label="Amount" Type="String"/>
+			<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+			<Field Name="InitiatingCompany" Label="InitiatingCompany" Type="String"/>
+			<Field Name="InitiatingAccount" Label="InitiatingAccount" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="ToAccountName" Label="ToAccountName" Type="String"/>
+			<Field Name="SpendCategory" Label="SpendCategory" Type="String"/>
+			<Field Name="Quantity" Label="Quantity" Type="String"/>
+			<Field Name="UnitCost" Label="UnitCost" Type="String"/>
+			<Field Name="CostCenter" Label="CostCenter" Type="String"/>
+			<Field Name="TransactionLines_RevenueSpendCategory" Label="TransactionLines_RevenueSpendCategory" Type="String"/>
+			<Field Name="TransactionLines_Memo" Label="TransactionLines_Memo" Type="String"/>
+			<Field Name="TransactionLines_CostCenter" Label="TransactionLines_CostCenter" Type="String"/>
+			<Field Name="UserName" Label="UserName" Type="String"/>
+			<Field Name="Password" Label="Password" Type="String"/>
+			<Field Name="sBpName" Label="sBpName" Type="String"/>
+			<Field Name="sStartProxy" Label="sStartProxy" Type="String"/>
+			<Field Name="ProxyAs" Label="ProxyAs" Type="String"/>
+			<Field Name="string" Label="string" Type="String"/>
+			<Field Name="sStopProxy" Label="sStopProxy" Type="String"/>
+		</Record>
+		<List Name="DTWorkDataList" ItemType="DTWorkDataRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="DTWorkData" Label="DT_WorkData" Type="DTWorkDataList">
+			<DTWorkDataRecord>
+				<sStartProxy>Create Expense Report</sStartProxy>
+				<TreasuryAdministrator>James Ready</TreasuryAdministrator>
+				<GlobalChiefFinancialOfficer>Matthew Mahoney</GlobalChiefFinancialOfficer>
+				<BPNameVar>Create Expense Report</BPNameVar>
+				<AdHocBankTransactionDate>12/29/2020</AdHocBankTransactionDate>
+				<Memo>NYT Operating - JPMC USD-4785</Memo>
+				<CompanyName>NYT USD  - New York Home Office</CompanyName>
+				<BankAccount>NYT Operating - JPMC USD-4785</BankAccount>
+				<TransactionAmount>45</TransactionAmount>
+				<ReferrenceName>KS-ABT001</ReferrenceName>
+				<Company>NYT USD  - New York Home Office</Company>
+				<PayeeName>AM Best Rating Services</PayeeName>
+				<PaymentDate>Inc. - 9279</PaymentDate>
+				<ControlTotalAmount>12/30/2020</ControlTotalAmount>
+				<string>James Ready</string>
+				<TransferDate>NYT Bermuda - JPMC USD-2175</TransferDate>
+				<CurrencyName>01/31/2021</CurrencyName>
+				<Amount>USD</Amount>
+				<PaymentType>100</PaymentType>
+				<InitiatingCompany>Wire</InitiatingCompany>
+				<InitiatingAccount>NYT USD  - New York Home Office</InitiatingAccount>
+				<ToAccountName>Test1-BATS</ToAccountName>
+				<SpendCategory>NYT Bermuda - JPMC USD-2175</SpendCategory>
+				<Quantity>Advertising</Quantity>
+				<UnitCost>1</UnitCost>
+				<CostCenter>1000</CostCenter>
+				<TransactionLines_RevenueSpendCategory>100-000 General Overhead</TransactionLines_RevenueSpendCategory>
+				<TransactionLines_Memo>Cash Conversion (1/1/2020)</TransactionLines_Memo>
+				<TransactionLines_CostCenter>Test Ad Hoc Transaction KS 1</TransactionLines_CostCenter>
+				<UserName>100-050 Corporate Accounting (Default)</UserName>
+				<Password>lkumar</Password>
+				<sBpName>Matryx1@2020</sBpName>
+				<ProxyAs>Start Proxy</ProxyAs>
+				<sStopProxy>Stop Proxy</sStopProxy>
+			</DTWorkDataRecord>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="DTWorkData"/>
+	</Layout>
+</DataStore>

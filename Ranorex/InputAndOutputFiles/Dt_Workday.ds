@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="E192B811">
+		<Record Name="DtWorkdayRecord">
+			<Field Name="UserName" Label="UserName" Type="String"/>
+			<Field Name="Password" Label="Password" Type="String"/>
+			<Field Name="sStartProxy" Label="sStartProxy" Type="String"/>
+			<Field Name="ProxyAs" Label="ProxyAs" Type="String"/>
+			<Field Name="AdHocBankTransactionDate" Label="AdHocBankTransactionDate" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="CompanyName" Label="CompanyName" Type="String"/>
+			<Field Name="BankAccount" Label="BankAccount" Type="String"/>
+			<Field Name="TransactionAmount" Label="TransactionAmount" Type="String"/>
+			<Field Name="ReferrenceName" Label="ReferrenceName" Type="String"/>
+			<Field Name="TransactionLines_RevenueSpendCategory" Label="TransactionLines_RevenueSpendCategory" Type="String"/>
+			<Field Name="TransactionLines_Memo" Label="TransactionLines_Memo" Type="String"/>
+			<Field Name="TransactionLines_CostCenter" Label="TransactionLines_CostCenter" Type="String"/>
+			<Field Name="sStr" Label="sStr" Type="String"/>
+		</Record>
+		<List Name="DtWorkdayList" ItemType="DtWorkdayRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="DtWorkday" Label="Dt_Workday" Type="DtWorkdayList">
+			<DtWorkdayRecord>
+				<UserName>msadmin</UserName>
+				<Password>admin@123</Password>
+				<sStartProxy>Start Proxy</sStartProxy>
+				<ProxyAs>Narayan</ProxyAs>
+				<AdHocBankTransactionDate>12/29/2020</AdHocBankTransactionDate>
+				<Memo>Test  Ad Hoc Transaction 1</Memo>
+				<CompanyName>NYT USD  - New York Home Office</CompanyName>
+				<BankAccount>NYT Controlled Disbursement Opersting - JPMC USD - 1183</BankAccount>
+				<TransactionAmount>45</TransactionAmount>
+				<ReferrenceName>KS-ABT001</ReferrenceName>
+				<TransactionLines_RevenueSpendCategory></TransactionLines_RevenueSpendCategory>
+				<TransactionLines_Memo></TransactionLines_Memo>
+				<TransactionLines_CostCenter></TransactionLines_CostCenter>
+			</DtWorkdayRecord>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="DtWorkday"/>
+	</Layout>
+</DataStore>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="85410B8C">
+		<Record Name="CreateAdHocTransactionRecord">
+			<Field Name="PageTitle" Label="PageTitle" Type="String"/>
+			<Field Name="userName" Label="userName" Type="String"/>
+			<Field Name="password" Label="password" Type="String"/>
+			<Field Name="startProxy" Label="startProxy" Type="String"/>
+			<Field Name="ActAs" Label="ActAs" Type="String"/>
+			<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="Company" Label="Company" Type="String"/>
+			<Field Name="BankAccount" Label="BankAccount" Type="String"/>
+			<Field Name="Currency" Label="Currency" Type="String"/>
+			<Field Name="TransactionAmount" Label="TransactionAmount" Type="String"/>
+			<Field Name="Purpose" Label="Purpose" Type="String"/>
+			<Field Name="Reference" Label="Reference" Type="String"/>
+			<Field Name="LinesCompany" Label="LinesCompany" Type="String"/>
+			<Field Name="SelectRevenueSpendCategory" Label="SelectRevenueSpendCategory" Type="String"/>
+			<Field Name="LedgerAccount" Label="LedgerAccount" Type="String"/>
+			<Field Name="Amount" Label="Amount" Type="String"/>
+			<Field Name="LinesMemo" Label="LinesMemo" Type="String"/>
+			<Field Name="CostCenter" Label="CostCenter" Type="String"/>
+		</Record>
+		<List Name="CreateAdHocTransactionList" ItemType="CreateAdHocTransactionRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="CreateAdHocTransaction" Label="CreateAdHocTransaction" Type="CreateAdHocTransactionList">
+			<CreateAdHocTransactionRecord>
+				<PageTitle>Workday transre_preview</PageTitle>
+				<userName>lkumar</userName>
+				<password>Matryx1@2020</password>
+				<startProxy>Start Proxy</startProxy>
+				<ActAs>Albert Wong</ActAs>
+				<PaymentType>Test Ad Hoc Transaction</PaymentType>
+				<Memo>Test Ad Hoc Transaction</Memo>
+				<Company>NYT USD  - New York Home Office</Company>
+				<BankAccount>NYT ACH Tax - JPMC USD-3465</BankAccount>
+				<Currency>USD</Currency>
+				<TransactionAmount>500</TransactionAmount>
+				<Purpose>Bank Fees</Purpose>
+				<Reference>ABT001</Reference>
+				<LinesCompany>NYT USD  - New York Home Office</LinesCompany>
+				<SelectRevenueSpendCategory>2039 Debt</SelectRevenueSpendCategory>
+				<LedgerAccount>Not Required</LedgerAccount>
+				<Amount>500</Amount>
+				<LinesMemo>Test Ad Hoc Bank Transaction Line</LinesMemo>
+				<CostCenter>100-050 Corporate Accounting (Default)</CostCenter>
+			</CreateAdHocTransactionRecord>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="CreateAdHocTransaction"/>
+	</Layout>
+</DataStore>

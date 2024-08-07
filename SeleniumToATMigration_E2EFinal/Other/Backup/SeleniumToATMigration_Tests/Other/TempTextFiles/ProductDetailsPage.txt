@@ -1,0 +1,268 @@
+class ViewProductQualitybyImages : Step
+%StepInfo[Desc="ViewProductQualitybyImages",Group="null"]
+Main()
+{
+Actions actions = new Actions(driver);
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+System.out.println("View product function");
+Thread.sleep(3000);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+int iNumOfProducts = ProductsViewImages.size();
+System.out.println(iNumOfProducts);
+Thread.sleep(5000);
+for (WebElement listProductImages : ProductsViewImages)
+{
+Thread.sleep(3000);
+actions.moveToElement(listProductImages).perform();
+Thread.sleep(2000);
+ViewImagesBlock.click();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock).perform();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock, 100, 50).perform();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock, 60, 40).perform();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock).perform();
+}
+}
+class NavigateToBuyProduct : Step
+%StepInfo[Desc="NavigateToBuyProduct",Group="null"]
+Main()
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+System.out.println("Buy the product using Buy now option");
+Thread.sleep(3000);
+WebDriverWait wait = new WebDriverWait(driver, 30);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+wait.until(ExpectedConditions.visibilityOf(Btn_BUYNOW));
+Btn_BUYNOW.click();
+}
+class AddAndNavigateToCart : Step
+%StepInfo[Desc="AddAndNavigateToCart",Group="null"]
+Main()
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+System.out.println("Add the product to the cart");
+Thread.sleep(3000);
+WebDriverWait wait = new WebDriverWait(driver, 30);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+wait.until(ExpectedConditions.visibilityOf(Btn_GoToCart));
+Btn_GoToCart.click();
+Thread.sleep(5000);
+Btn_PlaceOrder.click();
+}
+class RemoveProductsFromCart : Step
+%StepInfo[Desc="RemoveProductsFromCart",Group="null"]
+Main()
+{
+try
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Actions actions = new Actions(driver);
+System.out.println("Remove product from the cart");
+Thread.sleep(1000);
+Lnk_Cart.click();
+int iNumOfProducts = Lnk_RemoveProducts.size();
+//System.out.println(iNumOfProducts);
+for (int i = 0; i <= iNumOfProducts; i++)
+{
+Thread.sleep(3000);
+actions.moveToElement(Btn_RemoveInCart).perform();
+Thread.sleep(2000);
+Btn_RemoveInCart.click();
+if (Blk_RemoveItem.isDisplayed() == true)
+{
+actions.moveToElement(Btn_RemoveInBlk).perform();
+Thread.sleep(2000);
+Btn_RemoveInBlk.click();
+//System.out.println("Product removed successfully");
+}
+}
+}
+catch (Exception e)
+{
+System.out.println(e.getMessage());
+}
+}
+class CheckProduct : Step
+%StepInfo[Desc="CheckProduct",Group="null"]
+Main()
+{
+System.out.println("Add details to Delivery Address to book product");
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+JavascriptExecutor js = (JavascriptExecutor) driver;
+Actions actions = new Actions(driver);
+WebDriverWait wait = new WebDriverWait(driver, 10);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+Thread.sleep(2000);
+Txt_EnterPincode.sendKeys(Keys.CONTROL, "a");
+Txt_EnterPincode.sendKeys("560094");
+Lnk_PincodeCheck.click();
+Thread.sleep(5000);
+Lnk_FAssured.click();
+Thread.sleep(4000);
+actions.moveToElement(Lnk_ProductRatings).perform();
+wait.until(ExpectedConditions.visibilityOf(Lnk_ProductRatings));
+js.executeScript("arguments[0].scrollIntoView(true);", Lnk_ProductRatings);
+js.executeScript("arguments[0].click();", Lnk_ProductRatings);
+Thread.sleep(2000);
+}
+class ViewProductQualitybyImages : Step
+%StepInfo[Desc="ViewProductQualitybyImages",Group="null"]
+Main()
+{
+Actions actions = new Actions(driver);
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+System.out.println("View product function");
+Thread.sleep(3000);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+int iNumOfProducts = ProductsViewImages.size();
+System.out.println(iNumOfProducts);
+Thread.sleep(5000);
+for (WebElement listProductImages : ProductsViewImages)
+{
+Thread.sleep(3000);
+actions.moveToElement(listProductImages).perform();
+Thread.sleep(2000);
+ViewImagesBlock.click();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock).perform();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock, 100, 50).perform();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock, 60, 40).perform();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock).perform();
+}
+}
+class NavigateToBuyProduct : Step
+%StepInfo[Desc="NavigateToBuyProduct",Group="null"]
+Main()
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+System.out.println("Buy the product using Buy now option");
+Thread.sleep(3000);
+WebDriverWait wait = new WebDriverWait(driver, 30);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+wait.until(ExpectedConditions.visibilityOf(Btn_BUYNOW));
+Btn_BUYNOW.click();
+}
+class AddAndNavigateToCart : Step
+%StepInfo[Desc="AddAndNavigateToCart",Group="null"]
+Main()
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+System.out.println("Add the product to the cart");
+Thread.sleep(3000);
+WebDriverWait wait = new WebDriverWait(driver, 30);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+wait.until(ExpectedConditions.visibilityOf(Btn_GoToCart));
+Btn_GoToCart.click();
+Thread.sleep(5000);
+Btn_PlaceOrder.click();
+}
+class RemoveProductsFromCart : Step
+%StepInfo[Desc="RemoveProductsFromCart",Group="null"]
+Main()
+{
+try
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Actions actions = new Actions(driver);
+System.out.println("Remove product from the cart");
+Thread.sleep(1000);
+Lnk_Cart.click();
+int iNumOfProducts = Lnk_RemoveProducts.size();
+//System.out.println(iNumOfProducts);
+for (int i = 0; i <= iNumOfProducts; i++)
+{
+Thread.sleep(3000);
+actions.moveToElement(Btn_RemoveInCart).perform();
+Thread.sleep(2000);
+Btn_RemoveInCart.click();
+if (Blk_RemoveItem.isDisplayed() == true)
+{
+actions.moveToElement(Btn_RemoveInBlk).perform();
+Thread.sleep(2000);
+Btn_RemoveInBlk.click();
+//System.out.println("Product removed successfully");
+}
+}
+}
+catch (Exception e)
+{
+System.out.println(e.getMessage());
+}
+}
+class CheckProduct : Step
+%StepInfo[Desc="CheckProduct",Group="null"]
+Main()
+{
+System.out.println("Add details to Delivery Address to book product");
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+JavascriptExecutor js = (JavascriptExecutor) driver;
+Actions actions = new Actions(driver);
+WebDriverWait wait = new WebDriverWait(driver, 10);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+Thread.sleep(2000);
+Txt_EnterPincode.sendKeys(Keys.CONTROL, "a");
+Txt_EnterPincode.sendKeys("560094");
+Lnk_PincodeCheck.click();
+Thread.sleep(5000);
+Lnk_FAssured.click();
+Thread.sleep(4000);
+actions.moveToElement(Lnk_ProductRatings).perform();
+wait.until(ExpectedConditions.visibilityOf(Lnk_ProductRatings));
+js.executeScript("arguments[0].scrollIntoView(true);", Lnk_ProductRatings);
+js.executeScript("arguments[0].click();", Lnk_ProductRatings);
+Thread.sleep(2000);
+}

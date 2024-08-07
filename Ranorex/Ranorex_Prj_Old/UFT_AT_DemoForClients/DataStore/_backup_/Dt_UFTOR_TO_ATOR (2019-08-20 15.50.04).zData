@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="3BF71656">
+		<Record Name="Record_ConvertingUFTORtoExactATOR">
+			<Field Name="TestcaseID" Type="String"/>
+			<Field Name="SourceFile" Type="String"/>
+			<Field Name="DestinationFile" Type="String"/>
+			<Field Name="sFinalDestination" Type="String"/>
+		</Record>
+		<List Name="Record_UFTOR_TO_ATORList" ItemType="Record_ConvertingUFTORtoExactATOR"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_UFTOR_TO_ATOR" Label="UFTOR_TO_ATOR" Type="Record_UFTOR_TO_ATORList">
+			<Record_ConvertingUFTORtoExactATOR>
+				<TestcaseID>ConvertingUFTOR_ExactATOR</TestcaseID>
+				<SourceFile>C:\VBtoZLanguage\UFTObjectRepo.txt</SourceFile>
+				<DestinationFile>C:\VBtoZLanguage\ConvertUFTtoATRepo.txt</DestinationFile>
+				<sFinalDestination>C:\VBtoZLanguage\ConvertedAT.txt</sFinalDestination>
+			</Record_ConvertingUFTORtoExactATOR>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_UFTOR_TO_ATOR">
+			<Field Name="TestcaseID" Width="174"/>
+			<Field Name="SourceFile" Width="253"/>
+			<Field Name="DestinationFile" Width="247"/>
+			<Field Name="sFinalDestination"/>
+		</Object>
+	</Layout>
+</DataStore>

@@ -1,0 +1,25 @@
+class aprrove : Step
+	%StepInfo[Desc="aprrove",Group="null"]
+	Main()
+		JSExecutor.WaitWhileExists(30)
+		// Inbox icon or button
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Btn_Inbox)
+		JSExecutor.executeScript("arguments[0].Click()", Btn_Inbox)
+		Sleep(5)
+		String InboxItemName = "Ad Hoc Payment: "
+		AppObject LabelInboxItemName = driver.findElement(By.xpath("//div[@data-automation-id=\"inbox_row_title\" and contains(text(),\"" + InboxItemName + "\")]"))
+		LabelInboxItemName.Click()
+		Sleep(5)
+		if (Txt_areaComment.IsPresent() == true)
+			Txt_areaComment.SetValue("Approved")
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Btn_Approve)
+		Sleep(5)
+		if (Btn_Approve.IsPresent() == true)
+			JSExecutor.executeScript("arguments[0].Click()", Btn_Approve)
+		else if (Btn_Submit.IsPresent() == true)
+			JSExecutor.executeScript("arguments[0].Click()", Btn_Submit)
+		else if (Btn_Ok.IsPresent() == true)
+			JSExecutor.executeScript("arguments[0].Click()", Btn_Ok)
+		else
+			Print("Check the button for approval")

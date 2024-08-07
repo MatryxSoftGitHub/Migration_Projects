@@ -1,0 +1,79 @@
+class ForwardVideoTC : Test
+	%TestInfo[Desc="ForwardVideoTC",Group="null",Table="null"]
+	parameter String UserId
+	parameter String UserPwd
+	parameter String ChannelName
+	Main()
+		//Navigate to Youtube User Account
+		step SignIn
+			YoutubeSearchChannelPage.WaitWhileExists(30)
+			//Search and Select the Channel
+			step SearchString
+				YoutubeForwardVideoPage.WaitWhileExists(30)
+				//Forward video play, like and subscribe the channel
+				step PlayListLooping
+				YoutubeSignOutPage.WaitWhileExists(30)
+				//SignOut from the User Account
+				step SignOut
+				AppOnStart()
+				config.GetURL()
+class LoginUser : Test
+	%TestInfo[Desc="LoginUser",Group="null",Table="null"]
+	parameter String UserId
+	parameter String UserPwd
+	parameter String ChannelName
+	Main()
+		//Navigate to Youtube User Account
+		step SignIn
+			YoutubeSearchChannelPage.WaitWhileExists(30)
+			//Search and Select the Channel
+			step SearchString
+				YoutubeVideoStreamingPage.WaitWhileExists(30)
+				//Like the Played Video and Subscribe the channel
+				step PlayListLooping
+				YoutubeSignOutPage.WaitWhileExists(30)
+				//SignOut from the User Account
+				step SignOut
+				AppOnStart()
+				config.GetURL()
+class AdHocPaymentEvent_Test : Test
+	%TestInfo[Desc="AdHocPaymentEvent_Test",Group="null",Table="null"]
+	Main()
+		Print("Test Started")
+		// Step-1(Login to workday Application)
+		Print("Login to workday Application")
+		step LoginToWorkday_Step
+		Print("Login to workday Application is successfull")
+		// Step-2(Start Proxy and Act as step)
+		Print("Search for Start proxy and act as")
+		step StartProxyAndActAs_Step
+		Print("Act as Start proxy is successfull")
+		// Step-3(Search for business flow step)
+		Print("Search for business flow")
+		step SearchForBP_Step
+		Print("BP displayed successfull")
+		// Step-4(Add details to AdHocPayment Page Step)
+		Print("Add details to AdHocPayment Page Step")
+		step AddDetailsToAdHocPaymentPage_Step
+		Print("Details are added successfully to AdHocPayment Page")
+		// Step-5(Add details to lines tab in AdHocPayment Page Step)
+		Print("Add details to lines tab in AdHocPayment Page Step")
+		step AddDetailsToLinesTab_Step
+		Print("Details are added successfully to lines tab in AdHocPayment Page")
+		// Step-6(Upload file and Click on submit button)
+		Print("Upload file to the Business flow")
+		step Uploadfile
+		Sleep(5)
+		step ClickOnSubmit
+		Sleep(5)
+		Print("File has uploaded and clicked on Submit button")
+		// Step-7(Approve flow for the BP of workday)
+		// Aproval process
+		Print("Approving the business flow")
+		step StartProxyAndActAs_Step
+		Sleep(3)
+		step aprrove
+		Sleep(5)
+		step StopProxy_Step
+		Print("Business flow approved successfully")
+		Print("Test Completed")

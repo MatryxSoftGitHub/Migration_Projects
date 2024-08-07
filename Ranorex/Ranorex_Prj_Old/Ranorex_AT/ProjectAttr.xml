@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Types CRC="7F276151"/>
+	<Declare>
+		<Attributes>
+			<Attribute Name="RunCount" Type="Integer" Optional="true"/>
+			<Attribute Name="RunGroup" Type="String" Optional="true"/>
+			<Attribute Name="RunPriority" Type="Integer" Optional="true"/>
+			<Attribute Name="Author" Type="String"/>
+		</Attributes>
+	</Declare>
+</Project>

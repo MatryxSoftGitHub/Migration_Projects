@@ -1,0 +1,243 @@
+class aprrove : Step
+	%StepInfo[Desc="aprrove",Group="null"]
+	Main()
+		ApprovalProcessPages.JSExecutor.WaitWhileExists(30)
+		// Inbox icon or button
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Btn_Inbox)
+		ApprovalProcessPages.JSExecutor.executeScript("arguments[0].Click()", Btn_Inbox)
+		Sleep(5)
+		String InboxItemName = "Ad Hoc Payment: "
+		AppObject LabelInboxItemName = driver.findElement(By.xpath("//div[@data-automation-id=\"inbox_row_title\" and contains(text(),\"" + InboxItemName + "\")]"))
+		ApprovalProcessPages.LabelInboxItemName.Click()
+		Sleep(5)
+		if (ApprovalProcessPages.Txt_areaComment.IsPresent() == true)
+			ApprovalProcessPages.Txt_areaComment.SetValue("Approved")
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Btn_Approve)
+		Sleep(5)
+		if (ApprovalProcessPages.Btn_Approve.IsPresent() == true)
+			ApprovalProcessPages.JSExecutor.executeScript("arguments[0].Click()", Btn_Approve)
+		else if (ApprovalProcessPages.Btn_Submit.IsPresent() == true)
+			ApprovalProcessPages.JSExecutor.executeScript("arguments[0].Click()", Btn_Submit)
+		else if (ApprovalProcessPages.Btn_Ok.IsPresent() == true)
+			ApprovalProcessPages.JSExecutor.executeScript("arguments[0].Click()", Btn_Ok)
+		else
+			Print("Check the button for approval")
+class SendKeysAndClickEnterUsingTableName_RadioBtn : Step
+	%StepInfo[Desc="SendKeysAndClickEnterUsingTableName_RadioBtn",Group="null"]
+	parameter String TableName
+	parameter String columnName
+	parameter String TestData
+	Main()
+		if (TestData.Trim().IsEmpty())
+			Print("Skipping the step as the user did not enter any data in the data sheet")
+		else
+			try
+				Sleep(9)
+				AppObject textColName = driver
+				.findElement(By.xpath("//span[text()='" + columnName + "']/ancestor::td"))
+				String dataAutoId = textColName.GetAttr("data-automation-id")
+				Print(dataAutoId)
+				List<String> colData = dataAutoId.Split("-")
+				String colNum = colData[1]
+				AppObject SpanTablePromotion = driver.findElement(By.xpath("(//caption[text()='" + TableName
+				+ "']/following-sibling::tbody//td[contains(@headers,\"columnheader" + colNum
+				+ "\")]//span[@data-automation-id=\"promptIcon\"])"))
+				JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+				JSExecutor.executeScript("arguments[0].scrollIntoView(true)", SpanTablePromotion)
+				Sleep(2)
+				CommonsFunctions.SpanTablePromotion.IsPresent()
+				CommonsFunctions.SpanTablePromotion.Click()
+				Sleep(2)
+				AppObject TableNameWithRowHeader = driver.findElement(By.xpath("//caption[text()='" + TableName
+				step + "']/following-sibling::tbody//td[contains
+				CommonsFunctions.TableNameWithRowHeader.SetValue(TestData)
+				TableNameWithRowHeader.GenKeyEvents ("<Enter>")
+				Sleep(5)
+				AppObject Rbtn_Grid = driver
+				.findElement(By.xpath("//div[text()='" + TestData + "']/..//input[@type=\"radio\"]"))
+				if (CommonsFunctions.Rbtn_Grid.IsPresent() == true)
+					Sleep(5)
+					JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Rbtn_Grid)
+					Sleep(2)
+					CommonsFunctions.JSExecutor.executeScript("arguments[0].Click()", Rbtn_Grid)
+				AppObject VerifyTableSelectedData = driver.findElement(By.xpath("//td[contains(@headers,\"columnheader"
+				+ colNum + "\")]//div[contains(@data-automation-id,\"selectedItem\")]//p[text()='" + TestData
+				+ "']"))
+				if (CommonsFunctions.VerifyTableSelectedData.IsPresent())
+					Print("Table Radio Data is selected " + TestData)
+				else
+					Print("Table Radio Data is not selected ")
+			catch (Exception e)
+				Print("Element not found")
+class SendKeys_Table : Step
+	%StepInfo[Desc="SendKeys_Table",Group="null"]
+	parameter String columnName
+	parameter String TestData
+	Main()
+		if (TestData.Trim().IsEmpty())
+			Print("Skipping the step as the user did not enter any data in the data sheet")
+		else
+			try
+				Sleep(5)
+				AppObject textColName = driver.findElement(By.xpath("//span[text()='" + columnName + "']/ancestor::td"))
+				String dataAutoId = textColName.GetAttr("data-automation-id")
+				Print(dataAutoId)
+				List<String> colData = dataAutoId.Split("-")
+				String colNum = colData[1]
+				AppObject inputRowHeader = driver.findElement(By.xpath("(//td[contains(@headers,\"columnheader" + colNum + "\")]//input)[1]"))
+				CommonsFunctions.inputRowHeader.Click()
+				inputRowHeader.GenKeyEvents ("<Ctrl-A>”)
+				Print("Entering the data" + TestData)
+				CommonsFunctions.inputRowHeader.SetValue(TestData)
+				Print("Data has been entered into the field")
+			catch (NoSuchElementException e)
+				Print("Element not found")
+			catch (Exception e)
+				Print("Fail to sendkeys and click enter for the element")
+class ClickOnSubmit : Step
+	%StepInfo[Desc="ClickOnSubmit",Group="null"]
+	Main()
+		Sleep(2)
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Btn_Submit)
+		CreateAdHocPaymentPage.Btn_Submit.IsPresent()
+		CreateAdHocPaymentPage.Btn_Submit.Click()
+class Uploadfile : Step
+	%StepInfo[Desc="Uploadfile",Group="null"]
+	Main()
+		String filePath = "E:\\vidyaWorkspace482020\\EclipseWorkspace\\WorkdayBP_Selenium\\UploadFiles\\SampleUploadFile.txt"
+		Sleep(2)
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", AttachmentsTab)
+		Sleep(3)
+		CreateAdHocPaymentPage.actions.moveToElement(AttachmentsTab).Click().perform()
+		CreateAdHocPaymentPage.Btn_SelectFiles.IsPresent()
+		Sleep(3)
+		CreateAdHocPaymentPage.fileUpload.SetValue(filePath)
+		Sleep(3)
+class AddDetailsToLinesTab_Step : Step
+	%StepInfo[Desc="AddDetailsToLinesTab_Step",Group="null"]
+	Main()
+		// Add details to lines tab in Create Ad Hoc Payment Page
+		// ---------------------------------------------------------------------------------------------------
+		CreateAdHocPaymentPage.JSExecutor.WaitWhileExists(30)
+		Sleep(2)
+		// Navigate to lines tab
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", LinesTab)
+		CreateAdHocPaymentPage.actions.moveToElement(LinesTab).Click().perform()
+		Integer localVar = 1
+		if (localVar > 1)
+			CreateAdHocPaymentPage.AddRow.Click()
+			Sleep(2)
+		CreateAdHocPaymentPage.JSExecutor.executeScript("arguments[0].Click()", ColumnLine)
+		CreateAdHocPaymentPage.Header.IsPresent()
+		Sleep(2)
+		CreateAdHocPaymentPage.TextColmnName.Click()
+		Sleep(2)
+		// Spend Category
+		func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "Spend Category", "Advertising")
+		// Quantity
+		func.SendKeys_Table("Quantity", "1" + Keys.ENTER)
+		Sleep(2)
+		// Unit Cost
+		func.SendKeys_Table("Unit Cost", "1000")
+		Sleep(2)
+		// Cost Center
+		func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "*Cost Center", "100-000 General Overhead")
+		Sleep(2)
+class AddDetailsToAdHocPaymentPage_Step : Step
+	%StepInfo[Desc="AddDetailsToAdHocPaymentPage_Step",Group="null"]
+	Main()
+		// Add details to Create Ad Hoc Payment Page
+		// ---------------------------------------------------------------------------------------------------
+		CreateAdHocPaymentPage.Thread.WaitWhileExists(30)
+		// Company
+		Sleep(5)
+		CreateAdHocPaymentPage.Txt_Company.SetValue("NYT USD  - New York Home Office")
+		Txt_Company.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		// Bank Account
+		CreateAdHocPaymentPage.Txt_BankAccount.SetValue("NYT Operating - JPMC USD-4785")
+		Txt_BankAccount.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		// label payee ---------------------
+		// Rdo_LabelPayee.Click()
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		CreateAdHocPaymentPage.JSExecutor.executeScript("arguments[0].Click()", Rdo_LabelPayee)
+		Sleep(5)
+		// Text payee
+		CreateAdHocPaymentPage.Txt_LabelPayee.SetValue("AM Best Rating Services, Inc. - 9279")
+		Sleep(2)
+		Txt_LabelPayee.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		//		// Currency//
+		//		JSExecutor.executeScript("arguments[0].Click()", SpanIconOption)//
+		//		Txt_Currency.Click()
+		//		Txt_Currency.SetValue("USD")
+		//		Txt_Currency.GenKeyEvents ("<Enter>")
+		//
+		//		// Payment Date
+		//		Txt_PaymentDate.SetValue("08-31-2020")
+		//
+		//		// Payment Type
+		//		Txt_PaymentType.SetValue("ACH")
+		//		Sleep(2)
+		//		Txt_PaymentType.GenKeyEvents ("<Enter>")
+		// ControlTotalAmount
+		Txt_ControlTotalAmount.GenKeyEvents ("<Ctrl-A>”)
+		CreateAdHocPaymentPage.Txt_ControlTotalAmount.SetValue("1000")
+		// Memo
+		CreateAdHocPaymentPage.Txt_Memo.SetValue("TestMemo1")
+class SearchForBP_Step : Step
+	%StepInfo[Desc="SearchForBP_Step",Group="null"]
+	parameter String sBPSearchValue
+	Main()
+		//Search for BP---------------------------------------------------------------------------------------------------
+		HomePage.Txt_BPSearch.WaitWhileExists(30)
+		HomePage.Txt_BPSearch.Click()
+		HomePage.Txt_BPSearch.SetValue(sBPSearchValue)
+		Txt_BPSearch.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		HomePage.Lnk_BPSearch.Click()
+class LoginToWorkday_Step : Step
+	%StepInfo[Desc="LoginToWorkday_Step",Group="null"]
+	Main()
+		LoginPage.sTxt_Username.WaitWhileExists(30)
+		LoginPage.sTxt_Username.SetValue(config.GetUsername())
+		LoginPage.Txt_Password.SetValue(config.GetPassword())
+		LoginPage.Btn_SignIn.Click()
+		LoginPage.Lnk_Skip.Click()
+class StartProxyAndActAs_Step : Step
+	%StepInfo[Desc="StartProxyAndActAs_Step",Group="null"]
+	parameter String sStartProxy
+	parameter String sActAs
+	Main()
+		ProxyAs_Page.Txt_WorkdaySearch.WaitWhileExists(30)
+		//Search for Start proxy--------------------------------------------------------------------------------------
+		Txt_WorkdaySearch.GenKeyEvents ("<Ctrl-A>”)
+		ProxyAs_Page.Txt_WorkdaySearch.SetValue(sStartProxy)
+		Sleep(5)
+		Txt_WorkdaySearch.GenKeyEvents ("<Enter>")
+		ProxyAs_Page.Lnk_StartProxy.Click()
+		//Act As Start proxy--------------------------------------------------------------------------------------------------
+		ProxyAs_Page.Txt_ActAs.Click()
+		ProxyAs_Page.Txt_ActAs.SetValue(sActAs)
+		Txt_ActAs.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		ProxyAs_Page.Btn_Ok.Click()
+		Sleep(5)
+class StopProxy_Step : Step
+	%StepInfo[Desc="StopProxy_Step",Group="null"]
+	parameter String sStopProxy
+	Main()
+		ProxyAs_Page.Txt_WorkdaySearch.WaitWhileExists(30)
+		//Search for Stop proxy--------------------------------------------------------------------------------------
+		Txt_WorkdaySearch.GenKeyEvents ("<Ctrl-A>”)
+		ProxyAs_Page.Txt_WorkdaySearch.SetValue(sStopProxy)
+		Sleep(5)
+		Txt_WorkdaySearch.GenKeyEvents ("<Enter>")
+		ProxyAs_Page.Lnk_StopProxy.Click()
+		Sleep(3)
+		ProxyAs_Page.Btn_Ok.Click()

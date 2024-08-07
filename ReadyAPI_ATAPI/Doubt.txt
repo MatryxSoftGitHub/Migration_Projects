@@ -1,0 +1,34 @@
+def hmac_sha(String secretKey, String data, String hmacSHA)
+public void fetchStringValues(testRunner, context, log, def responseXpath, def testStepName, def parameterName)
+public String hmacGeneration(String hmacKey, String tokenValue, String serverTimeStamp, String hmacSHA, String TokenName)
+PowerShall
+public def expiredHmacToken(String datetime)
+public def expiredHmacToken(String datetime)
+public void generateHash(testRunner, log, String authorizationHeader, String hashHeader, String HeaderStatus, String request, String testStepName, String serverTimestamp, String HMACKey, boolean includeTimeStampInHash, String hmacSHA)
+public String[] pollUntilActiveSessionLengthMatches(testRunner, context, log, testCaseName, responseTestStepName, dbTestStepName, responseXpath, dbXpath)
+public def runPowerShellScript(String Path, String ServerName, String UserName, String Password, String Action)
+public def CheckIsHex(def HexadecimalVal)
+public def waitForResponse(testRunner, context, testCaseName, testStepName, ResponseXpath)
+public void removeEmptyContentFromRestRequest(testRunner, log, c
+public def poolForTaskCompletion(testRunner, context, log, String tes
+public String generateJDBCResponseXML(log,context,sqlCmd,placeHolderList,fetchSize,dbConnectionString)
+public def IntToGuid(String Path, int data) 
+public def ConvertGUIDToInteger(log, def registerPpsResult)
+
+public String formatXml(String xmlValue)
+public def pollToUpdateDCMRecords(testRunner, context, log, def testCaseName, def testStepName, def statusXPath, def expectedStatus)
+def void settingExpectedXPath(testRunner, log, context, def expectedStatus,def propertyName, def internalserviceFaultCodeXPath , def deserializationEr
+public def convertXmlToJson(log, def XmlString)
+public void sendStudiesWithIWatt(log, context,def configuredXMLFilePath, def dcmFilesPath)
+public void generatingAuthTocken(log,context,testRunner)
+
+   /* ===============================================
+XML Report Generation START
+=================================================*/
+
+public void updateDCMSuiteBatchFile(context,def type, def patientCount, def studyCount, def seriesCount, def imageCount, def modality)
+public void sendImagesToExisitingSeries(context, def patientName, def patientId,def studyUID,def seriesUID)
+public void sendSeriesToExisitingStudy(context, def patientName, def patientId,def studyUID)
+public void generateHashandAccept(testRunner, log, String authorizationHeader, String hashHeader, String HeaderStatus, String request, String testStepName, String 
+String runStoredProc(log,context,sqlStoredProcCall,placeHolderList,fetchSize,dbConnectionString)
+{

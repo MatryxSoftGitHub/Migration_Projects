@@ -1,0 +1,310 @@
+﻿class Approval : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String sStartProxy
+	parameter String TreasuryAdministrator
+	parameter String GlobalChiefFinancialOfficer
+	Main()
+		Sleep(3)
+		WorkdayHomePage.Txt_Search.Click()
+		WorkdayHomePage.Txt_Search.TypeKeys("<Down> AKey  ControlKey up ")
+		Sleep(3)
+		WorkdayHomePage.Txt_Search.TypeKeys(sStartProxy)
+		UA.GenKeyEvents("<ENTER>")
+		WorkdayHomePage.Lnk_StartProxyPage.Lnk_StartProxy.Click()
+		WorkdayHomePage.MainContent.Txt_ActAs.TypeKeys(TreasuryAdministrator)
+		UA.GenKeyEvents("<ENTER>")
+		Sleep(3)
+		WorkdayHomePage.MainContent.Btn_Ok.Click()
+		Sleep(5)
+		WorkdayHomePage.Lnk_MailBox.Click()
+		WorkdayHomePage.MainContent.Txt_Comment.TypeKeys("Approved")
+		WorkdayHomePage.MainContent.Btn_Approve.Click()
+		Sleep(5)
+		WorkdayHomePage.MainContent.Btn_Done.Click()
+		Sleep(3)
+		WorkdayHomePage.Txt_Search.Click()
+		WorkdayHomePage.Txt_Search.TypeKeys("<Down> AKey  ControlKey up ")
+		Sleep(3)
+		WorkdayHomePage.Txt_Search.TypeKeys(sStartProxy)
+		UA.GenKeyEvents("<ENTER>")
+		WorkdayHomePage.Lnk_StartProxyPage.Lnk_StartProxy.Click()
+		WorkdayHomePage.MainContent.Txt_ActAs.TypeKeys(GlobalChiefFinancialOfficer)
+		UA.GenKeyEvents("<ENTER>")
+		Sleep(3)
+		WorkdayHomePage.MainContent.Btn_Ok.Click()
+		Sleep(5)
+		WorkdayHomePage.Lnk_MailBox.Click()
+		WorkdayHomePage.MainContent.Txt_Comment.TypeKeys("Approved")
+		WorkdayHomePage.MainContent.Btn_Approve.Click()
+		Sleep(5)
+		WorkdayHomePage.MainContent.Btn_Done.Click()
+class BPOfWorkday : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String BPNameVar
+	Main()
+		Sleep(10)
+class CreateAdHocBankTransactionEvent_Workday : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String AdHocBankTransactionDate
+	parameter String Memo
+	parameter String CompanyName
+	parameter String BankAccount
+	parameter String TransactionAmount
+	parameter String ReferrenceName
+	Main()
+		CreateAdHocBankTransactionWorkday.Txt_Date.SetFocus()
+		CreateAdHocBankTransactionWorkday.Txt_Date.Click()
+		CreateAdHocBankTransactionWorkday.Txt_Date.TypeKeys(AdHocBankTransactionDate)
+		CreateAdHocBankTransactionWorkday.Txt_Memo.TypeKeys(Memo)
+		Sleep(2)
+		CreateAdHocBankTransactionWorkday.Txt_Company.TypeKeys(CompanyName)
+		Sleep(2)
+		CreateAdHocBankTransactionWorkday.Txt_BankAccount.TypeKeys(BankAccount)
+		Sleep(3)
+		CreateAdHocBankTransactionWorkday.Rbtn_Withdrawal.SetFocus()
+		Sleep(2)
+		CreateAdHocBankTransactionWorkday.Rbtn_Withdrawal.Click()
+		CreateAdHocBankTransactionWorkday.Txt_TransactionAmount.TypeKeys("<Down> AKey  ControlKey up ")
+		CreateAdHocBankTransactionWorkday.Txt_TransactionAmount.TypeKeys(TransactionAmount)
+		CreateAdHocBankTransactionWorkday.Txt_Reference.TypeKeys(ReferrenceName)
+class CreateAdHocPayment_Workday : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String Company
+	parameter String BankAccount
+	parameter String PayeeName
+	parameter String PaymentDate
+	parameter String ControlTotalAmount
+	parameter String Memo
+	parameter String string
+	Main()
+		WorkdayHomePage.MainContent.Txt_Company.TypeKeys(Company)
+		WorkdayHomePage.MainContent.Txt_BankAccount.TypeKeys(BankAccount)
+		Sleep(3)
+		WorkdayHomePage.MainContent.Rbtn_Payee.SetFocus()
+		Sleep(1)
+		WorkdayHomePage.MainContent.Rbtn_Payee.Click()
+		WorkdayHomePage.MainContent.Txt_Payee.TypeKeys(PayeeName)
+		UA.GenKeyEvents("<ENTER>")
+		WorkdayHomePage.MainContent.WebTxt_PaymentDate.Click()
+		WorkdayHomePage.MainContent.Txt_Date.SetFocus()
+		WorkdayHomePage.MainContent.Txt_Date.Click()
+		WorkdayHomePage.MainContent.Txt_Date.TypeKeys(PaymentDate)
+		WorkdayHomePage.MainContent.Txt_ControlTotalAmount.TypeKeys("<Down> AKey  ControlKey up ")
+		WorkdayHomePage.MainContent.Txt_ControlTotalAmount.TypeKeys(ControlTotalAmount)
+		WorkdayHomePage.MainContent.Txt_Memo.TypeKeys(Memo)
+		//WorkdayHomePage.MainContent.Tab_Lines.Click()
+		//Lines Tab
+		//omePage.MainContent.Txt_SpendCategory.TypeKeys()
+		//.GenKeyEvents("<ENTER>")
+		//omePage.Rbtn_Advertising.Click()
+		//omePage.MainContent.Txt_Quantity.TypeKeys()
+		//omePage.MainContent.Txt_UnitCost.TypeKeys()
+		//omePage.MainContent.Txt_CostCenter.TypeKeys()
+		//
+class CreateBankAccountTransferForSettlement_Workday : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String TransferDate
+	parameter String CurrencyName
+	parameter String Amount
+	parameter String PaymentType
+	parameter String InitiatingCompany
+	parameter String InitiatingAccount
+	parameter String Memo
+	parameter String ToAccountName
+	Main()
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_Date.TypeKeys(TransferDate)
+		Sleep(2)
+		//untTransferForSettlement.TransferPaymentDetails.Txt_Amount.TypeKeys("<Down> AKey  ControlKey up ")
+		Sleep(3)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_Amount.TypeKeys(Amount)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_Currency.TypeKeys(CurrencyName)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_PaymentType.TypeKeys(PaymentType)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_IntiatingCompany.TypeKeys(InitiatingCompany)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_IntiatingAccount.TypeKeys(InitiatingAccount)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_Memo.TypeKeys(Memo)
+		CreateBankAccountTransferForSettlement.Txt_ToAccount.TypeKeys(ToAccountName)
+		Sleep(5)
+		// i=0;i<50;i++)
+		//
+		//10)
+		//
+		//.Diagnostics.Debug.WriteLine(i);
+		//.Success("Texts match!");
+		//teBankAccountTransferForSettlement.Lnk_SelectFiles.SetFocus()
+		//
+		//
+		//
+		//"result: ")
+		//.Diagnostics.Debug.WriteLine(i);
+		//.Failure("Texts don't match!"); 														
+		//teBankAccountTransferForSettlement.Lnk_SelectFiles.SetFocus()
+		//
+		//
+		//nt==(Amount))
+		//
+		//w new InvalidOperationException("Amount "+Amount+" is equal.");
+		//
+		//
+		//.Amount <= 0)
+		//
+		//w new ArgumentOutOfRangeException("Amount "+Amount+" is not equal.");
+		//
+		//UA.GenKeyEvents("<Down> PageDown  ControlKey up ")
+		CreateBankAccountTransferForSettlement.Lnk_SelectFiles.SetFocus()
+		CreateBankAccountTransferForSettlement.Lnk_SelectFiles.Click()
+		Sleep(2)
+		Open.Cbo_File.Click()
+		Open.Txt_File.TypeKeys(@"F:\Workday_Ranorex\Text Document.txt")
+		Open.Btn_Open.Click()
+class CreateBankAccountTransferForSettlement_Workday_Old : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String TransferDate
+	parameter String CurrencyName
+	parameter String Amount
+	parameter String PaymentType
+	parameter String InitiatingCompany
+	parameter String InitiatingAccount
+	parameter String Memo
+	parameter String ToAccountName
+	Main()
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_Date.TypeKeys(TransferDate)
+		Sleep(2)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_Amount.TypeKeys("<Down> AKey  ControlKey up ")
+		Sleep(3)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_Amount.TypeKeys(Amount)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_Currency.TypeKeys(CurrencyName)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_PaymentType.TypeKeys(PaymentType)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_IntiatingCompany.TypeKeys(InitiatingCompany)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_IntiatingAccount.TypeKeys(InitiatingAccount)
+		CreateBankAccountTransferForSettlement.TransferPaymentDetails.Txt_Memo.TypeKeys(Memo)
+		CreateBankAccountTransferForSettlement.Txt_ToAccount.TypeKeys(ToAccountName)
+		Sleep(5)
+		   //UA.GenKeyEvents("<Down> PageDown  ControlKey up ")
+		CreateBankAccountTransferForSettlement.Lnk_SelectFiles.SetFocus()
+		CreateBankAccountTransferForSettlement.Lnk_SelectFiles.Click()
+		Sleep(2)
+		Open.Cbo_File.Click()
+		Open.Txt_File.TypeKeys(@"F:\Workday_Ranorex\Text Document.txt")
+		Open.Btn_Open.Click()
+class LinesTab : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String SpendCategory
+	parameter String Quantity
+	parameter String UnitCost
+	parameter String CostCenter
+	Main()
+		WorkdayHomePage.MainContent.Tab_Lines.Click()
+		Sleep(1)
+		WorkdayHomePage.MainContent.Txt_SpendCategory.Click()
+		Sleep(1)
+		WorkdayHomePage.MainContent.Txt_SpendCategory.TypeKeys(SpendCategory)
+		//	WorkdayHomePage.MainContent.Txt_SpendCategory.Focus(SpendCategory);
+		UA.GenKeyEvents("<ENTER>")
+		WorkdayHomePage.Rbtn_Advertising.Click()
+		Sleep(2)
+		WorkdayHomePage.MainContent.Txt_Quantity.TypeKeys("<Down> AKey  ControlKey up ")
+		WorkdayHomePage.MainContent.Txt_Quantity.TypeKeys(Quantity)
+		WorkdayHomePage.MainContent.Txt_UnitCost.TypeKeys("<Down> AKey  ControlKey up ")
+		WorkdayHomePage.MainContent.Txt_UnitCost.TypeKeys(UnitCost)
+		WorkdayHomePage.MainContent.Txt_CostCenter.TypeKeys(CostCenter)
+		WorkdayHomePage.MainContent.Tab_Attachments.Click()
+		WorkdayHomePage.MainContent.Lnk_SelectFiles.Click()
+		Sleep(2)
+		Open.Cbo_File.Click()
+		Open.Txt_File.TypeKeys(@"F:\Workday_Ranorex\Text Document.txt")
+		//var projectDirectory =   System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.FullName;
+		//WorkdayHomePage.MainContent.Lnk_SelectFiles.TypeKeys(projectDirectory"\\Text Document.txt")
+		Open.Btn_Open.Click()
+		//WorkdayHomePage.MainContent.Btn_Submit.Click()
+class SearchBP : Step
+	%StepInfo[Desc="",Group=""]
+	Main()
+		WorkdayHomePage.Txt_Search.Click()
+		WorkdayHomePage.Txt_Search.TypeKeys("<Down> AKey  ControlKey up ")
+		WorkdayHomePage.Txt_Search.TypeKeys("Create Bank Account Transfer For Settlement")
+		UA.GenKeyEvents("<Down> Down  ControlKey up ")
+		Sleep(4)
+		UA.GenKeyEvents("<ENTER>")
+		Sleep(5)
+		//eBankAccountTransferForSettlement.Dlg_TakingTooLongToProcess.Visible)
+		//
+		//ankAccountTransferForSettlement.Btn_Cancel.Click()
+		//HomePage.Txt_Search.TypeKeys("Create Bank Account Transfer For Settlement")
+		//d.GenKeyEvents("<Down>")
+		//ard.Down(Keys.ControlKey);
+		//d.GenKeyEvents("<ENTER>")
+		// 
+class TransactionLinesTab : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String TransactionLines_RevenueSpendCategory
+	parameter String TransactionLines_Memo
+	parameter String TransactionLines_CostCenter
+	Main()
+		CreateAdHocBankTransactionWorkday.Tab_AdHocBankTransactionLines.Click()
+		//CreateAdHocBankTransactionWorkday.Txt_Company_LinesTab.TypeKeys(TransactionLines_CompanyName)
+		CreateAdHocBankTransactionWorkday.Txt_RevenueSpendCategory.TypeKeys(TransactionLines_RevenueSpendCategory)
+		Sleep(2)
+		CreateAdHocBankTransactionWorkday.Btn_Memo_LinesTab.Click()
+		CreateAdHocBankTransactionWorkday.Txt_Memo_LinesTab.TypeKeys(TransactionLines_Memo)
+		CreateAdHocBankTransactionWorkday.Txt_CostCenter.TypeKeys(TransactionLines_CostCenter)
+		CreateAdHocBankTransactionWorkday.Tab_Attachments.Click()
+		CreateAdHocBankTransactionWorkday.Lnk_SelectFiles.Click()
+		Sleep(3)
+		Open.Cbo_File.Click()
+		Open.Txt_File.TypeKeys(@"F:\Workday_Ranorex\Text Document.txt")
+		// CreateAdHocBankTransactionWorkday.Lnk_SelectFiles.TypeKeys(@"F:\Workday_Ranorex\Text Document.txt")
+		Open.Btn_Open.Click()
+class Workday_Login : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String UserName
+	parameter String Password
+	Main()
+		WorkdayHomePage.LoginPage.Txt_Username.Click()
+		WorkdayHomePage.LoginPage.Txt_Username.TypeKeys(UserName)
+		WorkdayHomePage.LoginPage.Txt_Password.Click()
+		WorkdayHomePage.LoginPage.Txt_Password.TypeKeys(Password)
+		// WorkdayHomePage.LoginPage.Txt_Password.TypeKeys(Password)
+		WorkdayHomePage.LoginPage.Btn_SignIn.Click()
+		WorkdayHomePage.LoginPage.Btn_Skip.Click()
+class Workday_SearchBP : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String sBpName
+	Main()
+		WorkdayHomePage.Txt_Search.Click()
+		WorkdayHomePage.Txt_Search.TypeKeys("<Down> AKey  ControlKey up ")
+		WorkdayHomePage.Txt_Search.TypeKeys(sBpName)
+		Sleep(4)
+		UA.GenKeyEvents("<ENTER>")
+		Sleep(5)
+class Workday_StartProxy : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String sStartProxy
+	parameter String ProxyAs
+	parameter String string
+	Main()
+		Sleep(5)
+		WorkdayHomePage.Txt_Search.Click()
+		WorkdayHomePage.Txt_Search.TypeKeys("<Down> AKey  ControlKey up ")
+		Sleep(3)
+		WorkdayHomePage.Txt_Search.TypeKeys(sStartProxy)
+		UA.GenKeyEvents("<ENTER>")
+		WorkdayHomePage.Lnk_StartProxyPage.Lnk_StartProxy.Click()
+		WorkdayHomePage.MainContent.Txt_ActAs.TypeKeys(ProxyAs)
+		UA.GenKeyEvents("<ENTER>")
+		Sleep(3)
+		WorkdayHomePage.MainContent.Btn_Ok.Click()
+		Sleep(5)
+class Workday_StopProxy : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String sStopProxy
+	Main()
+		Sleep(2)
+		WorkdayHomePage.Txt_Search.Click()
+		WorkdayHomePage.Txt_Search.TypeKeys("<Down> AKey  ControlKey up ")
+		WorkdayHomePage.Txt_Search.TypeKeys(sStopProxy)
+		UA.GenKeyEvents("<ENTER>")
+		WorkdayHomePage.Lnk_StopProxy.Click()
+		Sleep(2)
+		WorkdayHomePage.MainContent.Btn_Ok.Click()
+
+

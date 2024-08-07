@@ -1,0 +1,82 @@
+﻿class AdHocBankTransactionEvent : Test
+	%TestInfo[Group="Workday",Table="DtWorkday"]
+	Main()
+		DtWorkdayRecord dtWorkdayRecord = DataStore.Query ("DtWorkday[1]")
+		
+		step Workday_Login
+			UserName:dtWorkdayRecord.UserName
+			Password:dtWorkdayRecord.Password
+		step Workday_StartProxy
+			sStartProxy:dtWorkdayRecord.sStartProxy
+			ProxyAs:dtWorkdayRecord.ProxyAs
+			sStr:dtWorkdayRecord.sStr
+		step Workday_SearchBP
+			sBpName:dtWorkdayRecord.sBpName
+		step BPOfWorkday
+			BPNameVar:dtWorkdayRecord.BPNameVar
+		step CreateAdHocBankTransactionEvent_Workday
+			AdHocBankTransactionDate:dtWorkdayRecord.AdHocBankTransactionDate
+			Memo:dtWorkdayRecord.Memo
+			CompanyName:dtWorkdayRecord.CompanyName
+			BankAccount:dtWorkdayRecord.BankAccount
+			TransactionAmount:dtWorkdayRecord.TransactionAmount
+			ReferrenceName:dtWorkdayRecord.ReferrenceName
+		step TransactionLinesTab
+			TransactionLines_RevenueSpendCategory:dtWorkdayRecord.TransactionLines_RevenueSpendCategory
+			TransactionLines_Memo:dtWorkdayRecord.TransactionLines_Memo
+			TransactionLines_CostCenter:dtWorkdayRecord.TransactionLines_CostCenter
+		//[-] step Workday_StopProxy
+			//[ ]sStopProxy:_
+		
+class AdHocPaymentEvent : Test
+	%TestInfo[Desc="",Group="Workday"]
+	Main()
+		step Workday_Login
+			UserName:_
+			Password:_
+		step Workday_StartProxy
+			sStartProxy:_
+			ProxyAs:_
+		step Workday_SearchBP
+			sBpName:_
+		step BPOfWorkday
+			BPNameVar:_
+		step CreateAdHocPayment_Workday
+			Memo:_
+			ControlTotalAmount:_
+			PaymentDate:_
+			PayeeName:_
+			BankAccount:_
+			Company:_
+		step LinesTab
+			SpendCategory:_
+			Quantity:_
+			UnitCost:_
+			CostCenter:_
+		//[-] step Approval
+			//[ ]TreasuryAdministrator:_
+			//[ ]GlobalChiefFinancialOfficer:_
+		//[-] step Workday_StopProxy
+			//[ ]sStopProxy:_
+class BankAccountTransferForSettlement : Test
+	%TestInfo[Desc="",Group="Workday"]
+	Main()
+		step Workday_Login
+			UserName:_
+			Password:_
+		step Workday_StartProxy
+		step SearchBP
+		//[-] step Workday_SearchBP
+			//[ ]sBpName:_
+		//[-] step BPOfWorkday
+			//[ ]BPNameVar:_
+		step CreateBankAccountTransferForSettlement_Workday
+			TransferDate:_
+			CurrencyName:_
+			Amount:_
+			PaymentType:_
+			InitiatingCompany:_
+			InitiatingAccount:_
+			Memo:_
+			ToAccountName:_
+

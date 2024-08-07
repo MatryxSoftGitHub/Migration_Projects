@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="FB3646BE">
+		<Record Name="CreateADHocPaymentRecord">
+			<Field Name="PageTitle" Label="PageTitle" Type="String"/>
+			<Field Name="userName" Label="userName" Type="String"/>
+			<Field Name="password" Label="password" Type="String"/>
+			<Field Name="StartProxy" Label="StartProxy" Type="String"/>
+			<Field Name="ActAs" Label="ActAs" Type="String"/>
+			<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+			<Field Name="Company" Label="Company" Type="String"/>
+			<Field Name="Supplier" Label="Supplier" Type="String"/>
+			<Field Name="Currency" Label="Currency" Type="String"/>
+			<Field Name="Company" Label="Company" Type="String"/>
+			<Field Name="BankAccount" Label="Bank Account" Type="String"/>
+			<Field Name="Payee" Label="Payee" Type="String"/>
+			<Field Name="Currency" Label="Currency" Type="String"/>
+			<Field Name="PaymentType" Label="Payment Type" Type="String"/>
+			<Field Name="ShipToAddress" Label="ShipTo Address" Type="String"/>
+			<Field Name="HandlingCode" Label="HandlingCode" Type="String"/>
+			<Field Name="ControlTotalAmount" Label="Control Total Amount" Type="String"/>
+			<Field Name="FreightAmount" Label="Freight Amount" Type="String"/>
+			<Field Name="OtherCharges" Label="Other Charges" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="LinesCompany" Label="Lines Company" Type="String"/>
+			<Field Name="SpendCategory" Label="Spend Category" Type="String"/>
+			<Field Name="TaxApplicability" Label="Tax Applicability" Type="String"/>
+			<Field Name="Quantity" Label="Quantity" Type="String"/>
+			<Field Name="UnitCost" Label="Unit Cost" Type="String"/>
+			<Field Name="LinesMemo" Label="LinesMemo" Type="String"/>
+			<Field Name="LinesCostCenter" Label="Lines Cost Center" Type="String"/>
+			<Field Name="AdditionalWorktags" Label="Additional Worktags" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="Company" Label="Company" Type="String"/>
+			<Field Name="BankAccount" Label="Bank Account" Type="String"/>
+			<Field Name="Currency" Label="Currency" Type="String"/>
+			<Field Name="TransactionAmount" Label="Transaction Amount" Type="String"/>
+			<Field Name="Purpose" Label="Purpose" Type="String"/>
+			<Field Name="Reference" Label="Reference" Type="String"/>
+			<Field Name="LinesCompany" Label="Lines Company" Type="String"/>
+			<Field Name="SelectRevenueSpendCategory" Label="Select Revenue/Spend Category" Type="String"/>
+			<Field Name="LedgerAccount" Label="Ledger Account" Type="String"/>
+			<Field Name="Amount" Label="Amount" Type="String"/>
+			<Field Name="LinesMemo" Label="LinesMemo" Type="String"/>
+			<Field Name="CostCenter" Label="Cost Center" Type="String"/>
+			<Field Name="Supplier" Label="Supplier" Type="String"/>
+			<Field Name="Currency" Label="Currency" Type="String"/>
+			<Field Name="FreightAmount" Label="Freight Amount" Type="String"/>
+			<Field Name="OtherCharges" Label="Other Charges" Type="String"/>
+			<Field Name="PaymentTerms" Label="Payment Terms" Type="String"/>
+			<Field Name="OverridePaymentType" Label="Override Payment Type" Type="String"/>
+			<Field Name="ShippingTerms" Label="Shipping Terms" Type="String"/>
+			<Field Name="ShippingMethod" Label="Shipping Method" Type="String"/>
+			<Field Name="ShippingInstructions" Label="Shipping Instructions" Type="String"/>
+			<Field Name="SupplierContract" Label="Supplier Contract" Type="String"/>
+			<Field Name="DefaultTaxOption" Label="Default Tax Option" Type="String"/>
+			<Field Name="DefaultTaxCode" Label="Default Tax Code" Type="String"/>
+			<Field Name="IssueOption" Label="Issue Option" Type="String"/>
+			<Field Name="Buyer" Label="Buyer" Type="String"/>
+			<Field Name="BillToContact" Label="BillToContact" Type="String"/>
+			<Field Name="BillToContactDetails" Label="BillToContactDetails" Type="String"/>
+			<Field Name="BillToAddress" Label="BillTo Address" Type="String"/>
+			<Field Name="ShipToContact" Label="ShipTo Contact" Type="String"/>
+			<Field Name="ShipToContactDetail" Label="ShipTo Contact Detail" Type="String"/>
+			<Field Name="ShipToAddress" Label="ShipTo Address" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="InternalMemo" Label="Internal Memo" Type="String"/>
+		</Record>
+		<List Name="CreateADHocPaymentList" ItemType="CreateADHocPaymentRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="CreateADHocPayment" Label="CreateADHocPayment" Type="CreateADHocPaymentList">
+			<CreateADHocPaymentRecord>
+				<PageTitle>Workday transre_preview</PageTitle>
+				<userName>lkumar</userName>
+				<password>Matryx1@2020</password>
+				<StartProxy>Start Proxy</StartProxy>
+				<ActAs>Alice Chow</ActAs>
+				<Company>NYT USD  - New York Home Office</Company>
+				<Supplier>Arrosoft Solutions LLC</Supplier>
+				<Currency>USD</Currency>
+				<BankAccount>NYT ACH Tax - JPMC USD-3465</BankAccount>
+				<Payee>EVP I LP Mgmt</Payee>
+				<ShipToAddress>One Liberty Plaza 165 Broadway NewYork?NY 10006 United States of America</ShipToAddress>
+				<HandlingCode>Immediate</HandlingCode>
+				<ControlTotalAmount>400</ControlTotalAmount>
+				<FreightAmount>100</FreightAmount>
+				<OtherCharges>100</OtherCharges>
+				<Memo>Test PO</Memo>
+				<LinesCompany>NYT USD  - New York Home Office</LinesCompany>
+				<SpendCategory>Advertising</SpendCategory>
+				<TaxApplicability>Sales/Use Tax</TaxApplicability>
+				<Quantity>1</Quantity>
+				<UnitCost>400</UnitCost>
+				<LinesMemo>Test Ad Hoc Bank Transaction Line</LinesMemo>
+				<LinesCostCenter>100-000 General Overhead</LinesCostCenter>
+				<AdditionalWorktags>Customer: Farmers</AdditionalWorktags>
+				<TransactionAmount>500</TransactionAmount>
+				<Purpose>Bank Fees</Purpose>
+				<Reference>ABT001</Reference>
+				<SelectRevenueSpendCategory>2039 Debt</SelectRevenueSpendCategory>
+				<LedgerAccount>Not Required</LedgerAccount>
+				<Amount>500</Amount>
+				<CostCenter>100-050 Corporate Accounting (Default)</CostCenter>
+				<PaymentTerms>Checked</PaymentTerms>
+				<OverridePaymentType>ACH</OverridePaymentType>
+				<ShippingTerms>FOB Origin</ShippingTerms>
+				<ShippingMethod>Standard Shipping</ShippingMethod>
+				<ShippingInstructions>Packages must not be greater than 150 pounds.  If heavier? use 1Day Freight.</ShippingInstructions>
+				<SupplierContract>CON-1080: SDCWD Test Contract</SupplierContract>
+				<DefaultTaxOption>Calculate Tax Due to Supplier</DefaultTaxOption>
+				<DefaultTaxCode>United States - New York City?NY(8.875%)</DefaultTaxCode>
+				<IssueOption>Print</IssueOption>
+				<Buyer>Victor Delgado</Buyer>
+				<BillToContact>Victor Delgado</BillToContact>
+				<BillToContactDetails>Victor Delgado</BillToContactDetails>
+				<BillToAddress>One Liberty Plaza 165 Broadway NewYork?NY 10006 United States of America</BillToAddress>
+				<ShipToContact>Victor Delgado</ShipToContact>
+				<ShipToContactDetail>Victor Delgado</ShipToContactDetail>
+				<InternalMemo>Test PO for Arrosoft Solutions LLC</InternalMemo>
+			</CreateADHocPaymentRecord>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="CreateADHocPayment"/>
+	</Layout>
+</DataStore>

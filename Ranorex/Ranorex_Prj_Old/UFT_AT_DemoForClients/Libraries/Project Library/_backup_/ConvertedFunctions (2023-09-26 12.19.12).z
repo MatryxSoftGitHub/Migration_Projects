@@ -1,0 +1,1949 @@
+﻿// //#####################################################################################
+// //     Common Functions
+// //#####################################################################################
+String Error_Description = "Failed due to data issue"
+String FailComments = "Failed coments"
+String sDesktopFilePath = ""
+// // Environment.LoadFromFile "\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Global_Path_Configuration.xml"
+	// // %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+// // Environment.Value("TestStatus") = True
+	// // %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// 
+// //****PbWindow***********************************************************************
+// //@Author Aravind.BC
+// //@Date 17 Feb 2018
+// //@Description This function will import the external excel sheet into UFT Global sheet
+// //@Param sheetPath --> Full path of the excel sheet along with file name
+// //EX:  importSheet("C:\Automation\TestData\Branch\createNewUser.xlsx")
+// //***************************************************************************
+// importSheet(String sheetPath)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// DataTable.ImportSheet sheetPath,1,"Global"	
+	// //Error handling
+	// if GetErrorCount()>0 
+		//  writeReportLog("Failed in importSheet","Failed", Error_Description,"")
+// 
+// //***************************************************************************
+// //@Author Aravind.BC
+// //@Date 17 Feb 2018
+// //@Description This function will Export the Global sheet content into External Excel file
+// //@Param sheetPath --> Full path along with file name where you want to save
+// //EX:  exportSheet("C:\Automation\TestData\Branch\createNewUser.xlsx")
+// //***************************************************************************
+// exportSheet(String sheetPath)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// DataTable.ExportSheet sheetPath,"Global","Sheet1"
+	// //Error handling
+	// if GetErrorCount()>0 
+		//  writeReportLog("Failed in exportSheet","Failed", Error_Description,"")
+// 
+// //@Author Devaraj
+// //@Date 16 Apr 2018
+// //@Description This function will import the external excel sheet(specific sheet) into UFT Global sheet
+// //@Param sheetPath --> Full path of the excel sheet along with file name
+// importSpecificSheet(String sheetPath,String sourceSheet)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// if sourceSheet = "Joint" or sourceSheet = "Cosigner" or sourceSheet = "Login" 
+		// DataTable.AddSheet(sourceSheet)
+		// DataTable.ImportSheet sheetPath,sourceSheet,sourceSheet
+	// else
+		// DataTable.ImportSheet sheetPath,sourceSheet,"Global"
+	// //Error handling
+	// if GetErrorCount()>0 
+		//  writeReportLog("Failed in importSpecificSheet","Failed", Error_Description,"")
+// 
+// //@Author Devaraj
+// //@Date 16 Apr 2018
+// //@Description This function will Export the Global sheet content into External Excel file(specific sheet)
+// //@Param sheetPath --> Full path along with file name where you want to save
+// exportSpecificSheet(String sheetPath,String destinationSheet)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// if destinationSheet = "Joint" or destinationSheet = "Cosigner" 
+		// DataTable.ExportSheet sheetPath,destinationSheet,destinationSheet
+	// else
+		// DataTable.ExportSheet sheetPath,"Global",destinationSheet
+	// //Error handling
+	// if GetErrorCount()>0 
+		//  writeReportLog("Failed in exportSpecificSheet","Failed", Error_Description,"")
+// 
+// //***************************************************************************
+// //@Author Devaraj
+// //@Date 18 Apr 2018
+// //@Description This is to set Row in Data Sheet
+// //@Param sheetName --> Set Row in Data Sheet Based on Customer Type
+// //***************************************************************************
+// set_Row_Data_Sheet(String sheetName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// for itr = 1 To DataTable.GetSheet(sheetName).GetRowCount
+			// if DataTable.Value("UsedData",sheetName) = "Y" 
+				// DataTable.GetSheet(sheetName).SetValue(Row
+				// else	    
+				// Exit for
+	// //Error handling
+	// if GetErrorCount()>0 
+		//  writeReportLog("Failed in set_Row_Data_Sheet","Failed", Error_Description,"")
+// 
+// //**************************************************************************************
+// TerminateTest(String ExceptionMessage)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Add Framework Recovery Scenarios here
+	//  writeReportLog(ExceptionMessage,"Failed",FailComments,"")
+	// ExitTest
+	// //Error handling
+	// if GetErrorCount()>0 
+		//  writeReportLog("Failed in TerminateTest","Failed", Error_Description,"")
+
+//**************************************************************************************
+// sendKeys(String keys)
+	// %FuncInfo[Desc="It is use to send KeyBoard action to the desktop / Wshell object",Group="CommonFunctions"]
+		// UA.GenKeyEvents(keys) 
+		// 
+		// //Error handling
+		// if GetErrorCount()>0 
+			// writeReportLog("Failed in sendKeys","Failed", Error_Description,"")
+
+//**************************************************************************************
+clickOnReportsAndforms_AndScroll(Integer nScrolls, Boolean pforward)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	//Scrolling to Bottom of the Report
+	BranchPlus.HoverMouse()
+	w_bp_frame.ReportsFrame.dw_report.Click()
+	MouseWheel(nScrolls, pforward)
+	Sleep(5)
+	//Error Handling
+	if GetErrorCount()>0  			
+		writeReportLog("Failed to clickOnReportsAndforms_AndScroll","Failed", Error_Description ,"")
+
+//**************************************************************************************
+//Ex:  MouseWheel(1,False) --> Scroll Down
+//  MouseWheel(1,True) ->> Scroll UP
+MouseScroll(String sWheelTurns, MouseScrollDirection sScrollDirection)
+	%FuncInfo[Desc="This scrolls the mouse wheel up/down based on the input for the turns given as input",Group="Other"]
+	//Author: Kavyashree Parkala
+	System.Execute (GetRunDir ()+"\Project\Other\DoMouseScroll.exe "+ sScrollDirection + " " + sWheelTurns)
+	
+MouseWheel(Integer nScrolls, Boolean pforward)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	String sWheelTurns = nScrolls.Format()
+	if pforward == true
+		System.Execute (GetRunDir ()+"\Project\Other\DoMouseScroll.exe "+ "up" + " " + sWheelTurns)
+	else
+		System.Execute (GetRunDir ()+"\Project\Other\DoMouseScroll.exe "+ "down" + " " + sWheelTurns)
+	if GetErrorCount()>0 
+		writeReportLog("Failed in MouseWheel","Failed", Error_Description,"")
+
+//**************************************************************************************
+//@Method validateDataAndReport
+//@Date 16 Feb 2018
+//@Description //This Fucntion will compare actualData & ExepctedData and will Log/Report 
+//EX:validateDataAndReport("$100", "$210", "Validation for Distribution of Check Amount")
+//**************************************************************************************
+validateDataAndReport(Object actualData,Object expectedData,String customMessage)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	if actualData.ToUpper() == expectedData.ToUpper()
+		// writeReportLog( customMessage & "  is Matching","Passed",FailComments,"YES")
+		writeReportLog( customMessage + "  is Matching | Actual and Expected data is : " + actualData,"Passed",FailComments,"")
+		//Msgbox "PASS: " & customMessage & "  is Matching"	
+	else
+		writeReportLog( customMessage + "  is Not Matching. Actual >> " +  actualData + " Expected Data >> " + expectedData,"Failed",FailComments,"")
+		//Msgbox "FAIL: " & customMessage & "  is Not Matching. Actual >> " &  actualData & " Expected Data >> " & expectedData
+	//Error handling
+	if GetErrorCount()>0 
+		writeReportLog("Failed in validateDataAndReport","Failed", Error_Description,"")
+
+//**************************************************************************************************
+//@Method validatePartialDataAndReport
+//@Date 16 Feb 2018
+//@Description ////This Fucntion will compare actualData with "PARTIAL" ExepctedData and will Log/Report 
+//EX: validatePartialDataAndReport("THIS FORM PRODUCED BY EQUIFAX","EQUIFAX","Validating for Credit Report")
+//*****************************************************************************************************
+// validatePartialDataAndReport(String actualData,String expectedData,String customMessage)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //if IndexOf((actualData).ToUpper(),(expectedData).ToUpper()) > 0 		
+	// if actualData.ToUpper().Contains(expectedData.ToUpper())
+		// writeReportLog(customMessage + "  is Matching","Passed",FailComments,"YES")
+		// //Msgbox "PASS: " & customMessage & "  is Matching"	
+	// else
+		// writeReportLog(customMessage + "  is Not Matching. Actual >> " +  actualData + " Expected Data >> " + expectedData,"Failed",FailComments,"")
+		// //Msgbox "FAIL: " & customMessage & "  is Not Matching. Actual >> " &  actualData & " Expected Data >> " & expectedData
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in validatePartialDataAndReport","Failed", Error_Description,"")
+
+//====================================================================================================
+// writeSummaryReport(String summaryReportPath,String ReportPath,String Test_ScenarioAuto,String startTime,String endTime,String Scenariostatus,String Application,String State,String Build,String Executiondate,String LoggedUser)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// forReading = 1
+	// forWriting = 2
+	// Set fso = CreateObject( "Scripting.FileSystemObject" )
+	// Set textFile = fso.Open( summaryReportPath, forReading )
+	// if Not textFile.AtEndOfStream  text = textFile.ReadAll    
+	// textFile.Close
+	// testDuration = fncFetchExecutionTime(startTime, endTime)
+	// Select Case Scenariostatus
+		// Case "Passed"
+			// replaceText = "<tr name=""tablerow""><td>"+Test_ScenarioAuto+"</td><td class=""stime"">"&startTime&"</td><td class=""etime"">"&endTime&"</td><td>"&testDuration&"</td><td class=""bg-success text-white""><a HREF=" & ReportPath & ">Passed</a></td></tr>" &vbCrLf& "<!-- Inject Result Row TR -->"            
+		// Case "Failed"
+			// replaceText = "<tr name=""tablerow""><td>"+Test_ScenarioAuto+"</td><td class=""stime"">"&startTime&"</td><td class=""etime"">"&endTime&"</td><td>"&testDuration&"</td><td class=""bg-danger text-white""><a HREF=" & ReportPath & ">Failed</a></td></tr>" &vbCrLf& "<!-- Inject Result Row TR -->"        
+		// Case "Skipped"
+			// replaceText = "<tr name=""tablerow""><td>"+Test_ScenarioAuto+"</td><td class=""stime"">"&startTime&"</td><td class=""etime"">"&endTime&"</td><td>"&testDuration&"</td><td class=""bg-warning text-white""><a HREF=" & ReportPath & ">Skipped</a></td></tr>" &vbCrLf& "<!-- Inject Result Row TR -->"    
+	// Select
+	// newText = Replace( text, "<!-- Inject Result Row TR -->", replaceText)
+	// newText = Replace( newText, "<!-- Inject Application -->", Application)
+	// newText = Replace( newText, "<!-- Inject State -->", State)
+	// newText = Replace( newText, "<!-- Inject Build -->", Build)
+	// newText = Replace( newText, "<!-- Inject Date -->", Executiondate)
+	// newText = Replace( newText, "<!-- Inject Executed By -->", LoggedUser)
+	// Set textFile = fso.Open( summaryReportPath, forWriting )
+	// textFile.WriteLine newText
+	// textFile.Close
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in writeSummaryReport","Failed", Error_Description,"")
+
+//====================================================================================================
+////====================================================================================================
+//  FunctionName        : FetchExecutionTime
+//  Description         : This function will return the execution time in HH:MM:SS
+//  Input Parameter     : None
+//  Return Value        : None
+//  Author            : Pradeep HL
+//  Date Created    : 3/30/2012
+//====================================================================================================
+// Public fncFetchExecutionTime(intExecStart, intExecEnd)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// s = DateDiff("s",  intExecStart, intExecEnd)
+	// m = Int(s/60)
+	// s = s mod 60
+	// h = Int(m / 60)
+	// m = m mod 60
+	// //Returning the time in required format
+	// fncFetchExecutionTime = LdgZ(h) &":"& LdgZ(m) &":"& LdgZ(s) 
+	// blnResult=True
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in fncFetchExecutionTime","Failed", Error_Description,"")
+
+//====================================================================================================
+//  FunctionName    : LdgZ
+//  Description         : This function will add leading Zeros to the time
+//  Input Parameter     : None
+//  Return Value        : None
+//  Author            : Pradeep HL
+//  Date Created    : 3/30/2012
+//====================================================================================================
+// Public LdgZ(ByVal N) 
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// if (N>=0) and (N<10) 
+		// LdgZ = "0"& N 
+	// else
+		// LdgZ = ""& N
+	// blnResult=true
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in LdgZ","Failed", Error_Description,"")
+
+//====================================================================================================
+//  FunctionName    : GetLoggedUser
+//  Description         : This function to get current user profile
+//  Input Parameter     : None
+//  Return Value        : None
+//  Author            : Pradeep HL
+//  Date Created    : 3/30/2012
+//====================================================================================================
+// GetLoggedUser()
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// strComputer = "."
+	// Set objWMIService = GetObject("winmgmts:{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2") 
+	// Set colComputer = objWMIService.ExecQuery ("Select * from Win32_ComputerSystem") 
+	// for Each objComputer in colComputer
+	// strUsrName = objComputer.UserName
+	// GetLoggedUser = strUsrName
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in GetLoggedUser","Failed", Error_Description,"")
+
+//====================================================================================================
+writeReportLog(String StepDescription,String Scenariostatus,String FailComments,String SnapshotRequired)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// 
+	//Validating for the Value in the Scenario Status
+	// if Scenariostatus = "Passed" and Scenariostatus = "Failed" and Scenariostatus = "Skipped" and Scenariostatus = "Warning" 
+		// LogFailureMessage("Failed in Method writeReportLog","Scenario Status is Empty. Please pass the proper value other wise custom reports will not get updated") 
+	// //Reading the required Data from Env Variables
+	// Environment.Value("ReportStep") = Environment.Value("ReportStep") + 1
+	// stepNumber = Environment.Value("ReportStep")
+	// LogFolder = Environment.Value("LogFolder")
+	// ReportName = Environment.Value("TestName")& ""& Environment.Value("TestNameSuffix") &".html"  
+	// forReading = 1
+	// forWriting = 2
+	// Set fso = CreateObject("Scripting.FileSystemObject" )
+	// Set textFile = fso.Open(LogFolder&"\"&ReportName, forReading )
+	// if Not textFile.AtEndOfStream  
+		// text = textFile.ReadAll    
+		// textFile.Close
+	// //testDuration = fncFetchExecutionTime(startTime, endTime)
+	// sFilename = CaptureScreenshot(LogFolder)
+	// Select Case Scenariostatus
+		// Case "Passed"
+			// if SnapshotRequired = "Y" 
+			// replaceText = "<tr name=""tablerow""><td>"&stepNumber&"</td><td>"&StepDescription&"</td><td class=""bg-success text-white""><a HREF=" & sFilename & ">Passed</a></td><td>"&FailComments&"</td></tr>" &vbCrLf& "<!-- Inject Result Row TR -->"
+			// else    
+			// replaceText = "<tr name=""tablerow""><td>"&stepNumber&"</td><td>"&StepDescription&"</td><td class=""bg-success text-white"">Passed</td><td>"&FailComments&"</td></tr>" &vbCrLf& "<!-- Inject Result Row TR -->"
+			// //UFT Logger
+			// if SnapshotRequired = "Y" 
+				// LogSuccessMessage_And_CaptureScreenShot(StepDescription,FailComments)
+			// else
+				// Reporter.ReportEvent micPass,StepDescription,FailComments
+		// Case "Failed"
+			// replaceText = "<tr name=""tablerow""><td>"&stepNumber&"</td><td>"&StepDescription&"</td><td class=""bg-danger text-white""><a HREF=" & sFilename & ">Failed</a></td><td>"&FailComments&"</td></tr>" &vbCrLf& "<!-- Inject Result Row TR -->"    
+			// //Logging the Failure in UFT Report
+			// LogFailureMessage(StepDescription,FailComments)        	
+			// //Reporter.ReportEvent micFail,StepDescription,FailComments
+			// Environment.Value("TestStatus") = False       	       	     	
+		// Case "Skipped"
+			// replaceText = "<tr name=""tablerow""><td>"&stepNumber&"</td><td>"&StepDescription&"</td><td class=""bg-warning text-white""><a HREF=" & sFilename & ">Skipped</a></td><td>"&FailComments&"</td></tr>" &vbCrLf& "<!-- Inject Result Row TR -->"    
+			// Reporter.ReportEvent micWarning,StepDescription,FailComments
+		// Case "Warning"
+			// replaceText = "<tr name=""tablerow""><td>"&stepNumber&"</td><td>"&StepDescription&"</td><td class=""bg-warning text-white""><a HREF=" & sFilename & ">Warning</a></td><td>"&FailComments&"</td></tr>" &vbCrLf& "<!-- Inject Result Row TR -->"    
+			// Reporter.ReportEvent micWarning,StepDescription,FailComments
+
+//====================================================================================================
+// InitilizeTestReport(String summaryReportPath,String startTime,String Application,String State,String Build,String Executiondate,String TestName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// forReading = 1
+	// forWriting = 2
+	// Set fso = CreateObject( "Scripting.FileSystemObject" )
+	// Set textFile = fso.Open(summaryReportPath, forReading )
+	// if Not textFile.AtEndOfStream  text = textFile.ReadAll    
+	// textFile.Close
+	// //testDuration = fncFetchExecutionTime(startTime, endTime)
+	// newText = Replace( text, "<!-- Inject Application -->", Application)
+	// newText = Replace( newText, "<!-- Inject State -->", State)
+	// newText = Replace( newText, "<!-- Inject Build -->", Build)
+	// newText = Replace( newText, "<!-- Inject Date -->", Executiondate)
+	// newText = Replace( newText, "<!-- Inject Starttime -->", startTime)
+	// //newText = Replace( newText, "<!-- Inject Endtime -->", endTime)
+	// //newText = Replace( newText, "<!-- Inject Duration -->", testDuration)
+	// newText = Replace( newText, "<!-- Inject TestName -->", TestName)
+	// newText = Replace( newText, "<!-- Inject Executed By -->", Environment.Value("UserName"))
+	// osName = Environment.Value("OS")
+	// osName = Replace(osName,"Workstation","")
+	// hostName = Environment.Value("LocalHostName") & " | " & GetIPAddress() 
+	// newText = Replace( newText, "<!-- Inject Windows Version -->", osName)
+	// newText = Replace( newText, "<!-- VM Name -->", hostName)
+	// Set textFile = fso.Open( summaryReportPath, forWriting )
+	// textFile.WriteLine newText
+	// textFile.Close
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in InitilizeTestReport","Failed", Error_Description,"")
+
+//====================================================================================================
+// WrapupTestReport(String summaryReportPath,String startTime,String endTime)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// forReading = 1
+	// forWriting = 2
+	// Set fso = CreateObject( "Scripting.FileSystemObject" )
+	// Set textFile = fso.Open(summaryReportPath, forReading )
+	// if Not textFile.AtEndOfStream  text = textFile.ReadAll    
+	// textFile.Close
+	// testDuration = fncFetchExecutionTime(startTime, endTime)
+	// newText = Replace( text, "<!-- Inject Endtime -->", endTime)
+	// newText = Replace( newText, "<!-- Inject Duration -->", testDuration)
+	// Set textFile = fso.Open( summaryReportPath, forWriting )
+	// textFile.WriteLine newText
+	// textFile.Close
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in WrapupTestReport","Failed", Error_Description,"")
+
+//====================================================================================================
+CopyFile(String FiletoCopy,String DestinationFolder)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	
+	System.CopyFile (FiletoCopy, DestinationFolder)
+	// String fso
+				// String Filepath,WarFileLocation
+
+//====================================================================================================
+CaptureScreenshot(String sFilePath)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	String sDateTimeNow, sFileName
+	DateTime dt = DateTime.Now()
+	sDateTimeNow = dt.Format("yyyyMMddhhss")
+	sFileName = "Desktop_" + sDateTimeNow+".png"
+	sFilePath = sFilePath+sFileName
+	UA.SaveSnapshot(sFilePath)
+//====================================================================================================
+//******************************************************************************************************************
+// getTodaysDate()
+//******************************************************************************************************************
+String getTodaysDate()
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	Date dt = Date.Now()
+	String sDateTimeNow = dt.Format("M/d/yyyy")
+	return sDateTimeNow
+//*******************************************************************************************
+//This will generate the Today//s Date in MM/DD/YYYY format
+String getTodaysDate_mmddyyyy_format()    
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	Date dt = Date.Now()
+	String sDateTimeNow = dt.Format("MM/dd/yyyy")
+	return sDateTimeNow
+	
+//**********************************************************************************************************************************************************
+//@methodName: updateSummaryReport(startTime,endTime)
+//@Description: This Is the last that should be ed in the Test to Generate the Summary Report
+//@Author: Hemanth
+//Ex:  updateSummaryReport("","")
+//*******************************************************************************************************************************************************
+// updateSummaryReport(String startTime,String endTime)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// appVersion = getAppVersionNumber_From_DB()
+	// buildNumber = getBuildNumber_From_DB()
+	// currentState = Environment.Value("StateName")	
+	// branchID = getBranchID_From_DB()
+	// WrapupTestReport(Environment.Value("LogFolder") & "\" & Environment.Value("TestName") & ""& Environment.Value("TestNameSuffix") & ".html",startTime,endTime)	
+	// if Environment.Value("TestStatus") 
+		// writeSummaryReport(Environment.Value("LogFolder")&"\Execution_Summary\SFAutomationSummaryReport.html",Environment.Value("LogFolder")&"\"&Environment.Value("TestName")& ""& Environment.Value("TestNameSuffix")&".html",Environment.Value("TestName")& ""& Environment.Value("TestNameSuffix"),startTime,endTime,"Passed","Branch Plus",currentState & "_" & branchID,appVersion & " | " & buildNumber,date(),Environment.Value("UserName"))
+	// else
+		// writeSummaryReport(Environment.Value("LogFolder")&"\Execution_Summary\SFAutomationSummaryReport.html",Environment.Value("LogFolder")&"\"&Environment.Value("TestName")& ""& Environment.Value("TestNameSuffix") &".html",Environment.Value("TestName")& ""& Environment.Value("TestNameSuffix"),startTime,endTime,"Failed","Branch Plus",currentState & "_" & branchID,appVersion & " | " & buildNumber,date(),Environment.Value("UserName"))
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in updateSummaryReport","Failed", Error_Description,"")
+
+//UFT On Pass Capture Screen Shot
+// LogSuccessMessage_And_CaptureScreenShot(String LogSummary,String LogDetails )
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// screenShotFileName = captureDesktopScreenShot()
+	// Reporter.ReportEvent micPass, LogSummary, LogDetails, screenShotFileName	
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in LogSuccessMessage_And_CaptureScreenShot","Failed", Error_Description,"")
+
+//UFT On Pass Capture Screen Shot
+// LogSuccessMessage(String LogSummary,String LogDetails )
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// Reporter.ReportEvent micPass, LogSummary, LogDetails, screenShotFileName	
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: LogSuccessMessage","Failed", Error_Description ,"")
+
+//UFT Log Failure Message
+// LogFailureMessage(String LogSummary,String LogDetails )
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// screenShotFileName = captureDesktopScreenShot()
+	// Reporter.ReportEvent micFail, LogSummary, LogDetails, screenShotFileName
+	// //Exiting the Test on Validation Failure
+	// //ExitTest
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in LogFailureMessage","Failed", Error_Description,"")
+
+// captureDesktopScreenShot()	
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// String sDateTimeNow, sDesktopFileName
+	// DateTime dt = DateTime.Now()
+	// sDateTimeNow = dt.Format("yyyyMMddhhss")
+	// sDesktopFileName = "Desktop_" + sDateTimeNow+".png"
+	// sDesktopFileName = sDesktopFilePath + sDesktopFileName
+	// UA.CaptureImage (sDesktopFileName)
+
+String generateRandomNumber()	
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// rndNum = DateDiff("s",CDate("1/1/1970"), Now()) * 1000
+	// //LogMessage "Random Number Generated" , rndNum
+	// generateRandomNumber = rndNum
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in generateRandomNumber","Failed", Error_Description,"")
+	DateTime dt = DateTime.Now()
+	String rndNum = dt.Format("MMddyyyyhhmmss")
+	return rndNum
+	
+
+//***************************************************************************************************************************
+//@Method:  Generate_RandomNumber(randomNumber_Length)
+//@Author: Sumithra
+//@Date 9th july 2018
+//@Description: This function is to generate random number of specic length
+//Ex:  Generate_RandomNumber(10)
+//***************************************************************************************************************************
+String Generate_RandomNumber(Integer randomNumber_Length)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	String sMaxVal ="", sMinVal = "",sOne="1",sZero="0",sNine="9"
+	for(Integer iLoop =1; iLoop<=randomNumber_Length;iLoop++)
+		if iLoop==1
+			sMinVal=sOne
+		else
+			sMinVal=sZero
+		sMinVal = sMinVal+sMinVal
+	for(Integer iLoop =1; iLoop<=randomNumber_Length;iLoop++)
+			sMaxVal = sMaxVal+sNine
+	Real rRandomValues = Random.Generate (Integer.Parse(sMinVal),Integer.Parse(sMaxVal))
+	return rRandomValues.Format()
+	
+// '******************************************************************************************************************* 
+// '@methodName : random_AlphaSpecial_String() 
+// '@Author     : Chandra 
+// '@Date       : 30 July 2018 
+// '@Description: This Function will get random Alphabets and Special  charaters 
+//  
+// 'Ex: Call random_AlphaSpecial_String(20) 
+// '******************************************************************************************************************* 
+String random_AlphaSpecial_String(Integer strLen) 
+	String str = ""
+	//'Constant String 
+	const String LETTERS = "abcdefghijklmnopqrstuvwxyz,'-" 
+	for (Integer i = 1 ; i<= strLen ; i++)
+		 //Generate Random Character and Concatenate 
+		str = str + LETTERS[Random.Generate( 1, LETTERS.Length())]
+	//Error handling  
+	  if GetErrorCount() > 0                  
+		  writeReportLog("Failed to generate random_AlphaSpecial_String","Failed", "" ,"") 
+	return str
+
+// '******************************************************************************************************************* 
+// '@methodName : random_AlphaNumeric_String() 
+// '@Author     : Chandra 
+// '@Date       : 30 July 2018 
+// '@Description: This Function will get random Alphabets and Numeric  charaters 
+//  
+// 'Ex: Call random_AlphaNumeric_String(20) 
+// '******************************************************************************************************************* 
+String random_AlphaNumeric_String(Integer strLen) 
+	String str = ""
+	//'Constant String 
+	const String LETTERS = "abcdefghijklmnopqrstuvwxyz0123456789" 
+	for (Integer i = 1 ; i<= strLen ; i++)
+		 //Generate Random Character and Concatenate 
+		str = str + LETTERS[Random.Generate( 1, LETTERS.Length())]
+	//Error handling  
+	  if GetErrorCount() > 0                  
+		  writeReportLog("Failed to generate random_AlphaNumeric_String","Failed", "" ,"") 
+	return str
+
+// '******************************************************************************************************************* 
+// '@methodName : random_AlphaNumericSpecialChar_String() 
+// '@Author     : Chandra 
+// '@Date       : 30 July 2018 
+// '@Description: This Function will get random Alphabets, Numarics and Special  charaters 
+//  
+// 'Ex: Call random_AlphaNumericSpecialChar_String(20) 
+// '******************************************************************************************************************* 
+ String random_AlphaNumeric_SplCharacter_String( Integer strLen ) 
+	String str = ""
+	// 'Constant String 
+	const String  LETTERS = "abcdefghijklmnopqrstuvwxyz0123456789,'-" 
+	for (Integer i = 1 ; i<= strLen ; i++)
+		//  'Generate Random Character and Concatenate 
+		str = str + LETTERS[Random.Generate( 1, LETTERS.Length())]
+	// 'Error handling  
+	 if GetErrorCount() > 0                  
+		 writeReportLog("Failed to generate random_AlphaNumericSpecialChar_String","Failed", "" ,"") 
+	return str
+
+//***************************************************************************************************************************
+//@Method:  Kill Any Process
+//@Author: Jeevan
+//@Date 20th july 2018
+//@Description: This function is to Kill any Process running from Task Manager
+//Ex:  KillProcess("UFT.exe")
+//***************************************************************************************************************************
+KillProcess(String sProcessName) 
+	 %FuncInfo[Desc="This function will kill system process.Do not add extension with the process name.",Group="Process"] 
+	 String sProcess = "Taskkill " + "/IM " + sProcessName +"*" + " /" + "F" 
+	 System.Execute (sProcess)  
+
+//**********************************************************************************************
+//@methodName: Generate_RandomNumber_UserDefind(LengthOfRandomNumber)
+//@Description: This function is to get random number of specified length
+//@Author: Ranjitha N
+//@Date 22 Aug 2018
+//Ex:  Generate_RandomNumber_UserDefind("9","10")
+//    msgbox Generate_RandomNumber_UserDefind("ABCDEFGHIJKLMNOPQRSTUVWXYS","10")
+//***********************************************************************************************  
+String Generate_RandomNumber_UserDefind(String rand_Number,String strLen )
+	%FuncInfo[Desc="This function is to get random number of specified length",Group="CommonFunctions"]
+	//String str
+	//Constant String
+	// LETTERS = rand_Number
+	// for i = 1 to strLen
+		// //Generate Random Character and Concatenate
+		// str = str & Substring( LETTERS, RandomNumber( 1, Len( LETTERS ) ), 1 )
+	// Generate_RandomNumber_UserDefind = str
+	//Error handling 
+	// if GetErrorCount()>0  			
+			// writeReportLog("Failed to  Generate_RandomNumber_UserDefind","Failed", Error_Description ,"")
+			// 
+	String str="",str1=""
+	for (Integer iLoop = 1; iLoop<=rand_Number.Length(); iLoop++)
+		if rand_Number.Length()==1
+			str=rand_Number[iLoop]
+			break
+		else
+			str1 = rand_Number[iLoop]+","
+			str = str+str1
+	// Print (sss)
+	List<String> lsrand_Number = str.Split (",")
+	str1=""
+	for (Integer iLoop = 1; iLoop<=Integer.Parse(strLen); iLoop++)
+		str1 =str1+ lsrand_Number.Random()
+	return str1
+
+//*****************************************************************************************************************
+//@methodName: random_AlphaCharacter_String( ByVal strLen)
+//@Author Ranjitha
+//@Date 28 July 2018
+//@Description This will generate alpha characters with required length
+//Ex:  random_AlphaCharacter_String(20)
+//*****************************************************************************************************************
+String random_AlphaCharacter_String(Integer ByValstrLen )
+	%FuncInfo[Desc="This will generate alpha characters with required length",Group="CommonFunctions"]
+	String str = ""
+	//Constant List of String
+	const List<String> lsLETTERS = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","yz"}
+	for (Integer iLoop = 1; iLoop<=ByValstrLen); iLoop++)
+		str =str+ lsLETTERS.Random()
+	return str
+
+//***********************************************************************************************************
+//@methodName: handle_Dialog()
+//@Description: This will click on the Button Name Specified in the Dialog Box if it Exists
+//@Author:Sumithra 
+//@Date 27 September 2018
+//Ex:  handle_Dialog("branch\.exe","Close the program")
+	// handle_Dialog("RDP Clip Monitor","Close the program")
+//************************************************************************************************************
+// handle_Dialog(String dialogWindow,String buttonName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// 
+	// if (DialogBox["*{dialogWindow}*"].WaitWhileExists(5) == true)
+		// DialogBox["*{dialogWindow}*"].PushButton["*{buttonName}*"].Click()			
+	// //Handling On Error
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/handle_Dialog","Failed", Error_Description ,"")
+
+//***********************************************************************************************************************
+//@methodName: changeSystemDateTime(newDate)
+//@Author: Karthik
+//@Date 25 Nov 2018
+//@Description This will change the system date
+//Ex:  changeSystemDateTime("11/10/2018")
+//***********************************************************************************************************************
+changeSystemDateTime(String newDate)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	System.Execute("date {newDate}") 
+	//	Set oShell = CreateObject("WScript.Shell")
+	//	oShell.run "cmd.exe /C date "& newDate
+	//Open Command Prompt in Admin Mode
+	if GetErrorCount()>0  			
+			writeReportLog("Failed to changeSystemDateTime","Failed", Error_Description ,"")
+
+//**************************************************************************************************************************
+//@Method: addDays_for_SepecifiedDate(number_of_Days_to_add,date_Value)
+//@Author: Karthik
+//@Date 11 Dec 2018
+//@Description: This function add Months/Days to date passed to function.
+//@Return Value : This function returns modified date in the format MM/DD/YYYY
+//Ex: msgbox addDays_for_SepecifiedDate("d",3,"11/12/2018")
+//	 msgbox addDays_for_SepecifiedDate("m",3,"11/12/2018")
+//***************************************************************************************************************************
+String addDays_for_SepecifiedDate(String interval,String numberToAdd,String date_Value)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	String sDate,sMonth,sYear,sFormattedDateTime
+	DateTime dtNewDateTime
+	Integer iLoop = 1,iCount =0,iY,iInnerLoop,i
+	if interval.ToLower() =="d"
+		dtNewDateTime = DateTime.Parse ("dd/MM/yyyy", date_Value)
+		dtNewDateTime = dtNewDateTime.Add (Integer.Parse(numberToAdd))
+		sFormattedDateTime = dtNewDateTime.Format ("MM/dd/yyyy")
+	if interval.ToLower() =="m"
+		sDate = date_Value.GetField ("/", 1)
+		sMonth = date_Value.GetField ("/", 2)
+		sYear = date_Value.GetField ("/", 3)
+		i = Integer.Parse(sMonth)+Integer.Parse(numberToAdd)
+		for (iInnerLoop = 1; iInnerLoop <= 10; ++iInnerLoop)
+			if i>12
+				i = i-12
+				iCount++// for years
+				 continue
+			else
+				break
+		iY = Integer.Parse (sYear)+iCount++
+		if i== 2//for leap year
+			if sDate =="29" || sDate =="30" || sDate =="31" 
+				if iY % 4 == 0
+					if iY % 100 != 0
+						sDate="29"
+					else
+						sDate="28"
+		sFormattedDateTime = i.Format ()+"/"+sDate+"/"+iY.Format ()
+	return sFormattedDateTime
+		
+	// modified_Date =  DateAdd(interval,numberToAdd,date_Value)
+		// //return modified date
+	// addDays_for_SepecifiedDate = Right("0" & month(modified_Date),2) & "/" &  Right("0" & Day(modified_Date), 2) & "/" & year(modified_Date)
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: addDays_for_SepecifiedDate","Failed", Error_Description ,"")
+
+//***********************************************************************************************************************
+//@methodName: handle_Browser_DialogPopup(browserTitle,dialogTitle,buttonName)
+//@Author: Chandra
+//@Date 18 Mar 2019
+//@Description This will handle the security alert popup in IE
+//Ex:  handle_Browser_DialogPopup("NADA Used Car Guide","Security Alert","Yes")
+//***********************************************************************************************************************
+handle_Browser_DialogPopup(String browserTitle,String dialogTitle,String buttonName)
+	%FuncInfo[Desc="This will handle the security alert popup in IE",Group="CommonFunctions"]
+	if (TopWin["*{browserTitle}*"].DialogBox["*{dialogTitle}*"].PushButton["*{buttonName}*"].WaitWhileExists(15) == true )
+		TopWin["*{browserTitle}*"].DialogBox["*{dialogTitle}*"].PushButton["*{buttonName}*"].Click()
+	else if TopWin["*{browserTitle}*"].DialogBox["*{dialogTitle}*"].PushButton["*{buttonName}*"].WaitWhileExists(5) 
+		TopWin["*{browserTitle}*"].DialogBox["*{dialogTitle}*"].PushButton["*{buttonName}*"].Click()
+	//Error handling
+	if GetErrorCount()>0 
+		writeReportLog("Failed in handle_Browser_DialogPopup","Failed", Error_Description,"")
+
+//*********************************************************************************************
+//@methodName: formatDateWithSpecifiedDelimeter(date_Value,format)
+//@Author Chandra
+//@Date 19 Dec 2018
+//@Description This is to get Specified date formate as YYYY DD MM 
+//Ex: Result = formatDateWithSpecifiedDelimeter("12/19/2018","YYYYDDMM","/")
+// 	 Result = formatDateWithSpecifiedDelimeter("12/19/2018","YYYYMMDD","-")
+// 	 Result = formatDateWithSpecifiedDelimeter("12/19/2018","MMDDYYYY","-")
+//*********************************************************************************************
+String formatDateWithSpecifiedDelimeter(String date_Value,String dateformat,String formatSymbal)
+	%FuncInfo[Desc="This is to get Specified date formate as YYYY DD MM ",Group="CommonFunctions"]
+	//Get Date Based on formate like YYYYDDMM or YYYYMMDD etc	
+	String RequiredDateformat
+	List<String> lsDate = date_Value.Split("/")
+	if dateformat.ToUpper()==("YYYYMMDD")
+		RequiredDateformat = lsDate[3]+formatSymbal+lsDate[2]+formatSymbal+lsDate[1]
+	else if dateformat.ToUpper()==("YYYYDDMM")
+		RequiredDateformat = lsDate[3]+formatSymbal+lsDate[1]+formatSymbal+lsDate[2]
+	else if dateformat.ToUpper()==("MMDDYYYY")
+		RequiredDateformat = lsDate[2]+formatSymbal+lsDate[1]+formatSymbal+lsDate[3]
+	return RequiredDateformat
+
+//****************************** GENERIC FUNCTION ***********************************************
+//@methodName: is_FileExists(filePath)
+//@Author Chandra
+//@Date 03 Jan 2018
+//@Description This is to verify if the file exists in particular location
+//Ex:  is_FileExists("C:\Users\ap1\Downloads\Statistics_Report.txt")
+//	 is_FileExists("\\sfc-nas-1\Downloads\Statistics_Report.xlsx")	
+//*********************************************************************************************
+is_FileExists(String filePath)
+	%FuncInfo[Desc="This is to verify if the file exists in particular location",Group="CommonFunctions"]
+	//Initializing the file system objects
+	Boolean is_FileExists = false
+	is_FileExists = System.FileExists (filePath)
+	
+	if GetErrorCount()>0  			
+		writeReportLog("Failed in Step/: is_FileExists ","Failed", Error_Description ,"")
+
+//****************************** GENERIC FUNCTION ***********************************************
+//@methodName: createExcel_And_AddColumns(sheetPath,sheetName,ColumnHdrInArray)
+//@Author Chandra
+//@Date 03 Jan 2019
+//@Description This is to Create an Excel in perticular location, specified sheet name and Add an single or multiple Columns 
+//Ex: ColumnHdrArray = {"ACCOUNT_ID","ACCOUNT_COMPONENT_OPTION","CHARGED_AMOUNT","REFUNDED_AMOUNT","ACCOUNT_COMPONENT_STATUS","REFUNDED_DATETIME")
+// createExcel_And_AddColumns("C:\Users\ap1\Downloads\Statistics_Report.xlsx","Insurance Cancellation",ColumnHdrArray)
+//*********************************************************************************************
+// createExcel_And_AddColumns(String sheetPath,String sheetName,String ColumnHdrInArray)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Creating the Excel Object
+	// set objExcel = createobject("excel.application")
+	// //Creating the Workbooks object
+	// set objWB = objExcel.workbooks.Add
+	// //Creating the sheet object
+	// set objsheet = objwb.worksheets.Add
+	// //Add Sheet in Excel
+	// objsheet.Name = (sheetName)
+	// for colCount = 0 To Ubound(ColumnHdrInArray)
+	// //add columns in Excel
+	// objsheet.cells(1,colCount + 1).Value = ColumnHdrInArray(colCount)
+	// //Saving the workbook after changes
+	// objWb.SaveAs sheetPath
+	// //closing the workbook
+	// objWB.close
+	// //Quit the Excel and destroying the Excel object
+	// objExcel.Quit
+	// set objExcel=nothing
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: createExcel_And_AddColumns ","Failed", Error_Description ,"")
+
+//**********************************************************************************************
+//@methodName: setWindowsDefaultPrinter(strPrinterName)
+//@Description: This is to set windows default printer 
+//@Author: Chandra
+//@Date 26 FEB 2018
+//Ex:  setWindowsDefaultPrinter("PrimoPDF")
+//*********************************************************************************************** 
+// setWindowsDefaultPrinter(String strPrinterName)
+	// %FuncInfo[Desc="This is to set windows default printer",Group="CommonFunctions"]
+	// String WshNetwork
+	// WshNetwork = CreateObject("WScript.Network")
+	// WshNetwork.SetValue(DefaultPrinter strPrinterName 
+	// //Error Handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in Step/: setWindowsDefaultPrinter","Failed", Error_Description ,"")
+
+//**********************************************************************************************
+//@methodName: runBatFile_WaitTillClose_InCmdPrmt(commandLine)
+//@Description: This is to Run CMD file and Wait until close cmd widnow
+//@Author: Chandra
+//@Date 26 FEB 2018
+//Ex:  runBatFile_WaitTillClose_InCmdPrmt("C:\SupportRoot\Batch\sync.CMD")
+//*********************************************************************************************** 
+// runBatFile_WaitTillClose_InCmdPrmt(String commandLine)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //	Set objShell = CreateObject("Wscript.Shell")
+	// //	//Launch the CMD window
+	// //	 objShell.Run(commandLine)
+	// //	Set oShell = CreateObject("Shell.Application")
+	// //	oShell.ShellExecute "cmd.exe","/C "& commandLine,,"runas",1
+	// //	Set oShell = Nothing
+	// startTimeNB = time()
+	// Set oShell = CreateObject("Shell.Application")
+	// oShell.ShellExecute commandLine,,,"runas",1
+	// Set oShell = Nothing
+	// Sleep 5
+	// if Window("regexpwndclass:=ConsoleWindowClass").WaitWhileExists(10) 
+		// for Iterator = 1 To 80 Step 1
+			// if Window("regexpwndclass:=ConsoleWindowClass").WaitWhileExists(2) = False 				
+				// Exit for
+		// Sleep 30
+	// endTimeNB = time()
+	// totNBTaken = DateDiff("n",startTimeNB, endTimeNB)
+	// writeReportLog("Execution of Nightly Job is Completed","Passed","Time Taken(Min)" & totNBTaken,"")	
+	// //Error Handling    
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: runBatFile_WaitTillClose_InCmdPrmt","Failed", Error_Description ,"")
+
+//*************************************************************************************************************************************************
+//@Method: runSQLQuery_FetchMultipleValues(query, requiredFieldName)   
+//@Author Karthik Shekar
+//@Date 3 Oct 2018
+//@Description This function is run the SQL query
+//Ex: runSQLQuery_FetchMultipleValues(query, "loan_nbr:trans_id")   
+//*************************************************************************************************************************************************
+// runSQLQuery_FetchMultipleValues(String query,String requiredFieldName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Variable declaration
+	// String conn, rs
+	// LogSuccessMessage("Test Data Get Query",query)
+	// //Object declaration
+	// Set conn= createobject("adodb.connection")
+	// set rs = createobject("adodb.recordset")
+	// //Connection string
+	// conn.Open =  "Dsn=branch;Uid=support;Pwd=sql;"
+	// //Executing the Query
+	// rs.open query, conn
+	// //Validating for Query No Results
+	// if rs.EOF 
+		// writeReportLog("Looks Like Query >> " & query &  " did not found any record","Failed", Error_Description,"")
+		// ExitTest
+	// else
+		// //splitting the name
+		// arr = Split(requiredFieldName,":")
+		// for i = 0 To UBound(arr)
+		// if i <> 0 
+		// outputString = outputString & ":"
+		// requiredFieldName = rs.Fields(arr(i))
+		// outputString = outputString & requiredFieldName
+		// //Returing the Value
+		// runSQLQuery_FetchMultipleValues = outputString 
+	// rs.Close
+	// conn.Close 	  
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: runSQLQuery_FetchMultipleValues","Failed", Error_Description ,"")
+
+//*********************************************************************************************
+//@methodName: validate_InsightObject(Parent_Object,Object_Name,CustomReport)
+//@Author Chandra
+//@Date 28 May 2019
+//@Modified Karthik
+//@Modified Date 28 May 2019
+//@Description This is Validate Insight object based on Parent object and Object name 
+//Ex  validate_InsightObject("forms_InsightObjects","DirectLoanContract_Header","Validating for the Direct Loan Header")
+//******************************************************************************************
+// validate_InsightObject(String Parent_Object,String Object_Name,String CustomMsg)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Validating Insight Objsect
+	// if PbWindow(""&Parent_Object&"").InsightObject(""&Object_Name&"").WaitWhileExists(10) 
+		// //Error Handling
+		// if GetErrorCount()>0  			
+			// //msgbox "Object Not Present in Repo"
+			// writeReportLog("<font color=//orange//>"& CustomMsg &" does not exist in Object Repository, Please verify</font>","Failed", Error_Description ,"")
+		// else
+			// PbWindow(""&Parent_Object&"").InsightObject(""&Object_Name&"").HoverMouse			
+			// writeReportLog("Validation of "& CustomMsg &" has been displayed successfully","Passed", "","Y")		
+	// else		
+		// writeReportLog("Validation of "& CustomMsg &" has been Failed. i.e., Required data is not present","Failed", "","Y")	
+	// //Error handling 
+	// if GetErrorCount()>0  			
+			// writeReportLog("Failed to validate_InsightObject","Failed", Error_Description ,"")
+
+//**************************************************************************************************************
+//@Method get_RandomNumber_Within_Range(MinimumRange, MaximumRange)
+//@Author Chandra
+//@Date 06 Feb 2019
+//@Description This will get the Rand Number with in Range of values( MinimumRange, MaximumRange ) 
+//@Retruning the Random Number
+//Ex:  get_RandomNumber_Within_Range(1, 50)
+//***************************************************************************************************************
+Integer get_RandomNumber_Within_Range(String MinimumRange,String MaximumRange)
+	%FuncInfo[Desc="This will get the Rand Number with in Range of values( MinimumRange, MaximumRange ) ",Group="CommonFunctions"]
+	Integer iRandom = Random.Generate (Integer.Parse(MinimumRange),Integer.Parse(MaximumRange))
+	return iRandom
+	// String iMax : iMax = MaximumRange
+	// String iMin : iMin = MinimumRange
+	// //get Random Number within the Range
+	// Randomize
+	// get_RandomNumber_Within_Range = Int(((iMax - iMin) * Rnd) + iMin)
+	// //Error handling 
+	// if GetErrorCount()>0  			
+			// writeReportLog("Failed to get_RandomNumber_Within_Range","Failed", Error_Description ,"")
+//*********************************************************************
+//@methodName: isIndependentDialogExist()
+//@Author Karthik
+//@Date 17 July 2019
+//@Description This will return the status of Independent Dialog
+//EX: msgbox isIndependentDialogExist("Prepare To Scan")
+//*********************************************************************
+Boolean isIndependentDialogExist(String dialogName)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	Boolean bIndependentDialogExist = DialogBox["*{dialogName}*"].WaitWhileExists(10)
+	if GetErrorCount()>0 
+		writeReportLog("Failed in method isIndependentDialogExist","Failed", Error_Description,"")
+	return bIndependentDialogExist
+
+//*************************************************************************
+//@methodName: validate_StaticText_InIndependentDialog()
+//@Author Karthik
+//@Date 17 July 2019
+//@Description This will valdiate for the Static Text which in Independent Dialog
+//EX:  validate_StaticText_InIndependentDialog("Prepare To Scan","Prepare")
+//***************************************************************************
+validate_StaticText_InIndependentDialog(String dialogName,String expectedStaticText)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	//
+	if DialogBox["*{dialogName}*"].IsPresent()
+	//Fetching actual Static Text
+	String actStaticText = DialogBox["*{dialogName}*"].StaticText["*{expectedStaticText}*"].GetAttr("Title")
+	//Validating
+	validateDataAndReport(actStaticText,expectedStaticText,"Validation of Static Text in Independent Dialog " + dialogName)
+	//Error Handling
+	if GetErrorCount()>0 
+		writeReportLog("Failed in method validate_StaticText_InIndependentDialog","Failed", Error_Description,"")
+
+//*************************************************************************
+//@methodName: clickButton_InIndependentDialog()
+//@Author Karthik
+//@Date 17 July 2019
+//@Description This will valdiate for the Static Text which is available inside the Branch Frame
+//EX:  clickButton_InIndependentDialog("Prepare To Scan","OK")
+//***************************************************************************
+clickButton_InIndependentDialog(String dialogName,String buttonToClick)
+	%FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	if DialogBox["*{dialogName}*"].PushButton["*{buttonToClick}*"].WaitWhileExists(5) 
+		DialogBox["*{dialogName}*"].PushButton["*{buttonToClick}*"].Click()
+	else if DialogBox["*{dialogName}*"].PushButton["*{buttonToClick}*"].WaitWhileExists(5) 
+		DialogBox["*{dialogName}*"].PushButton["*{buttonToClick}*"].Click()
+	else
+		writeReportLog("Looks like Button " + buttonToClick + " is not available in Independent Dialog " + dialogName,"Failed","","")
+	//Error Handling
+	if GetErrorCount()>0 
+		writeReportLog("Failed in method clickButton_InIndependentDialog","Failed", Error_Description,"")
+
+//**************************************************************************************************
+//@method getStateCode
+//@Description this Method will Provide the State Code if we pass the StateName for the US States
+//@Return State Code
+//@Input State Name for which you want state Code
+//@Author Karthik Shekar
+//EX: msgbox getStateCode("Alabama")
+//**************************************************************************************************
+String getStateCode(String stateName)
+	%FuncInfo[Desc="this Method will Provide the State Code if we pass the StateName for the US States",Group="CommonFunctions"]
+	String getStateCode
+	switch (stateName.ToUpper())
+		case ("GEORGIA").ToUpper()
+		case ("SOUTH CAROLINA")
+			getStateCode = "SC"
+		case ("NORTH CAROLINA")
+			getStateCode = "NC"
+		case ("VIRGINIA")
+			getStateCode = "VA"
+		case ("INDIAN")
+			getStateCode = "IN"
+		case ("OHIO")
+			getStateCode = "OH"
+		case ("KENTUCKY")
+			getStateCode = "KY"
+		case ("TENNESSEE")
+			getStateCode = "TN"
+		case ("ALABAMA")
+			getStateCode = "AL"
+		case ("FLORIDA")
+			getStateCode = "FL"
+		case ("TEXAS")
+			getStateCode = "TX"
+		default
+			// writeReportLog("Looks like state code has not been defiend in function getStateCode for state " & stateName,"Failed","","")
+	
+
+//********************************************************************************************
+//@Method addNewDataTableAndimportSheet
+//@Descripton this will add a new Data Table in UFT and Import the Specified sheet into that Data Table
+//@Author Karthik
+//@Date 30 July 2019
+// addNewDataTableAndimportSheet("c:\testdata.xlsx","DLAdditionalValidation","DLAdditionVal")
+// addNewDataTableAndimportSheet("c:\testdata.xlsx","DLAdditionalValidation","Global")
+//**********************************************************************************************
+// addNewDataTableAndimportSheet(String sheetPath,String sourceSheet,String dataTableSheetName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //	 
+	// //	DataTable.AddSheet(sourceSheet)
+	// //	DataTable.ImportSheet sheetPath,sourceSheet,sourceSheet	
+	// //	//Error handling
+	// //	if GetErrorCount()>0 
+	// //		 writeReportLog("Failed in addNewDataTableAndimportSheet","Failed", Error_Description,"")
+	// //	
+	// DataTable.AddSheet(dataTableSheetName)
+	// DataTable.ImportSheet sheetPath,sourceSheet,dataTableSheetName	
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in addNewDataTableAndimportSheet","Failed", Error_Description,"")
+
+//********************************************************************************************
+//@Method identifySuiteToExecute
+//@Descripton this will identify the Suite to execute from the SuiteToExecute file
+//@Author Karthik
+//@Date 30 July 2019
+// identifySuiteToExecute()
+//**********************************************************************************************
+// identifySuiteToExecute()	
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Importing the Data Sheet
+	// addNewDataTableAndimportSheet(Environment.Value("BranchPlusSharedPath") & "\SuiteToExecute.xlsx","SuiteName","SuiteName")
+	// //Current Host Name
+	// hostName = Environment.Value("LocalHostName")
+	// //rowCnt
+	// rowCnt = DataTable.GetSheet("SuiteName").GetRowCount	
+	// found = false
+	// //identifying the Log Folder
+	// for itr = 1 To rowCnt Step 1
+		// actHostName = DataTable.Value("LocalHostName","SuiteName")	
+		// if hostName = actHostName 
+			// //Creating new Environment Variable and assigning the Value
+			// Environment.Value("SuiteToExecute") = DataTable.Value("Suite_Name","SuiteName") 
+			// identifySuiteToExecute = Environment.Value("SuiteToExecute")
+			// found = true
+			// Exit for
+		// else
+			// DataTable.GetSheet("SuiteName").SetValue(Row
+	// //Default Value
+	// if found = false 
+		// Environment.Value("SuiteToExecute") = "Smoke"
+		// identifySuiteToExecute = "Smoke"
+	// //Removing the Data sheet added
+	// DataTable.DeleteSheet("SuiteName")
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in configureCustomReport","Failed", Error_Description,"")
+
+//*********************************************************************************************************s
+//@MethodName saveFile_Using_PrimoPDFDialog
+//@Description this function will handle the Save as Pop up when Primo PDF printer is set as defualt
+//@Author Karthik
+//@Param folderPath --> specify the path were you need to save the File
+//		fileName --> Specify the file name on which you need to save
+//@Return Complete path of the file along with File Name
+//@Modified by -->Arun Prakash R M
+//@Comments -->Added if,else in case Primopdf Swf objects are not identified, handled 2nd Security Alert
+//ex: msgbox saveFile_Using_PrimoPDFDialog("\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Downloads","test.Pdf")
+//**************************************************************************************************************
+// saveFile_Using_PrimoPDFDialog(String folderPath,String fileName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Handling the Security alert Pop-Up
+	// for Iterator = 1 To 100 Step 1
+		// if isIndependentDialogExist("Security Alert") 
+			// clickButton_InIndependentDialog("Security Alert","No")
+		// else
+			// Exit for
+	// //	//Handling the Warning Pop-Up
+	// //	for itr = 1 To 5 Step 1		
+	// //		if SwfWindow("swfname:=PrimoPDF").Dialog("regexpwndtitle:=Security Alert").WaitWhileExists(5) 
+	// //			SwfWindow("swfname:=PrimoPDF").Dialog("regexpwndtitle:=Security Alert").WinButton("regexpwndtitle:=&Yes").Click()
+	// //		else
+	// //			Exit for
+	// //				
+	// //	
+	// //	
+	// //	//Handling the Script Error Pop-up
+	// //	for itr2 = 1 To 3 
+	// //		if SwfWindow("swfname:=PrimoPDF").Window("regexpwndtitle:=Script Error").WinObject("regexpwndclass:=Internet Explorer_Server").WaitWhileExists(3) 
+	// //			 SwfWindow("swfname:=PrimoPDF").Window("regexpwndtitle:=Script Error").WinObject("regexpwndclass:=Internet Explorer_Server").HoverMouse
+	// //			 sendKeys("Y")
+	// //		
+	// //	
+	// if SwfWindow("swfname:=PrimoPDF").SwfButton("regexpwndtitle:=Create PDF").WaitWhileExists(10) 
+		// //Click on Create PDF Button
+		// SwfWindow("swfname:=PrimoPDF").SwfButton("regexpwndtitle:=Create PDF").Click()
+		// //Editing the Path
+		// SwfWindow("swfname:=PrimoPDF").Dialog("regexpwndtitle:=Save As").WinEdit("regexpwndclass:=Edit").GetAttr(("visible",true,20000)
+		// //## Win 10 Specific Handling
+		// //	if Environment.Value("OS") = "Windows 10" 
+		// SwfWindow("swfname:=PrimoPDF").Dialog("regexpwndtitle:=Save As").WinEdit("regexpwndclass:=Edit").set(folderPath & "\" & fileName)
+		// //	else
+		// Sleep(2)
+		// //		 SwfWindow("swfname:=PrimoPDF").Dialog("regexpwndtitle:=Save As").WinEdit("regexpwndclass:=Edit").set("")
+		// //		 Sleep(0,500)	
+		// //		 SwfWindow("swfname:=PrimoPDF").Dialog("regexpwndtitle:=Save As").WinEdit("regexpwndclass:=Edit")TypeKeys(folderPath & "\" & fileName)
+		// //	
+		// Sleep(3) 
+		// //Click on Save Button
+		// SwfWindow("swfname:=PrimoPDF").Dialog("text:=Save As").WinButton("regexpwndtitle:=&Save").Click()
+	// else
+		// //UIAWindow("PrimoPDF by Nitro PDF").UIAButton("Create PDF").Click()
+		// UIAWindow("name:=PrimoPDF by Nitro PDF Software").UIAButton("name:=Create PDF").Click()
+		// Dialog("regexpwndtitle:=Save As").WinEdit("regexpwndclass:=Edit").GetAttr(("visible",true,20000)
+		// Dialog("regexpwndtitle:=Save As").WinEdit("regexpwndclass:=Edit").set(folderPath & "\" & fileName)
+		// Sleep 5
+		// Dialog("regexpwndtitle:=Save As").WinButton("regexpwndtitle:=&Save").Click()
+		// //returing the Complete FIle Path
+	// saveFile_Using_PrimoPDFDialog = folderPath & "\" & fileName
+	// LogSuccessMessage("PDF File Name and Path saved:",folderPath & "\" & fileName)
+	// //Error Handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in saveFile_Using_PrimoPDFDialog","Failed", Error_Description ,"")
+
+//**************************************************************************************************************
+//@Method get_RandomNumber_Within_Range(MinimumRange, MaximumRange)
+//@Author Chandra
+//@Date 06 Feb 2019
+//@Description This will get the Rand Number with in Range of values( MinimumRange, MaximumRange ) 
+//@Retruning the Random Number
+//Ex:  get_RandomNumber_Within_Range(1, 50)
+//***************************************************************************************************************
+Integer get_RandomNumber_Within_Range1(String MinimumRange, String MaximumRange)
+	%FuncInfo[Desc="This will get the Rand Number with in Range of values( MinimumRange, MaximumRange )",Group="CommonFunctions"]
+	Integer iRandom = Random.Generate (Integer.Parse(MinimumRange),Integer.Parse(MaximumRange))
+	return iRandom
+	
+	// String iMax : iMax = MaximumRange
+	// String iMin : iMin = MinimumRange
+	// //get Random Number within the Range
+	// Randomize
+	// get_RandomNumber_Within_Range = Int(((iMax - iMin) * Rnd) + iMin)
+	//Error handling 
+	if GetErrorCount()>0  			
+			writeReportLog("Failed to get_RandomNumber_Within_Range","Failed", Error_Description ,"")
+
+//*****************************************************************************************************************************************************************
+//@methodName: getDataFromXML_StoreIntoDataTable(str_FilePath,nodeName,sheetName)
+//@Description: This function will Fetch the data from XML file and will place into Data Table
+//@Author: GG
+//@Date 31 Dec 2018
+//@Returning the node count
+//Ex:  getDataFromXML_StoreIntoDataTable("\\s1-nas-1\SHARED\AUTOMATION\Branch\Downloads\1546409854000","bottomRow","nbr_p_l_accounts","Statistic-Reports")
+//******************************************************************************************************************************************************************
+// getDataFromXML_StoreIntoDataTable(String str_FilePath,String rowName,String nodeName,String sheetName,String DatatableColName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// strNodePath = getXMLNodePath_BasedOnRowName_StatisticsReports(rowName) & nodeName
+	// //Get XML Node Count
+	// get_XML_NodeCount(node_Count,obj_Node,str_FilePath&".xml",strNodePath)
+	// //Adding New Column to the Data Table Based on SheetName and Nodename
+	// //DatatableColName = addColumn_InDataTable_BasedOnNodeNameAndSheetName(nodeName,sheetName)
+	// for count = 1 To node_Count
+		// //Store Terms in Data Table			
+		// DataTable.SetValue(CurrentRow(count)
+		// strAccountTerm = obj_Node(count-1).Text
+		// DataTable.Value(DatatableColName,sheetName) = strAccountTerm
+	// getDataFromXML_StoreIntoDataTable = node_Count
+	// //Error handling
+//	if GetErrorCount()>0  			
+//		 writeReportLog("Failed in Step/Function: Download_RateChart_And_Store_Terms_InDatatable","Failed", Error_Description ,"")
+//	 
+
+//*****************************************************************************************************************************************************************
+//@methodName: getXMLNodePath_BasedOnRowName_StatisticsReports(rowName)
+//@Description: This function will Fetch the NodePath based on RowName
+//@Author: GG
+//@Date 31 Dec 2018
+//@Returning the node Path
+//Ex:  getXMLNodePath_BasedOnRowName_StatisticsReports("bottomRow")
+//******************************************************************************************************************************************************************
+// getXMLNodePath_BasedOnRowName_StatisticsReports(String rowName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// if rowName = "AccountSummaryRow" 
+		// getXMLNodePath_BasedOnRowName_StatisticsReports = "/d_rpt_stats_main/d_rpt_stats_acct_summary/d_rpt_stats_acct_summary_row/"
+	// else if rowName = "monthSummary"  
+		// getXMLNodePath_BasedOnRowName_StatisticsReports = "/d_rpt_stats_main/d_rpt_stats_branch_ops/d_rpt_stats_branch_ops_row/"
+	// else if rowName = "delinquencyActivityRow"  
+		// getXMLNodePath_BasedOnRowName_StatisticsReports = "/d_rpt_accttype_stats_main/d_rpt_accttype_stats_del/d_rpt_accttype_stats_del_activity_row/"
+	// else if rowName = "delinquencyRow" 
+		// getXMLNodePath_BasedOnRowName_StatisticsReports = "/d_rpt_accttype_stats_main/d_rpt_accttype_stats_del/d_rpt_accttype_stats_del_row/"
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/Function: getXMLNodePath_BasedOnRowName_StatisticsReports","Failed", Error_Description ,"")
+
+//******************************************************************************************************************
+//@methodName: getValueFromDataTable(sheetName,refColName,refColValue,colName)
+//@Description: This function will Fetch the value from DataTable based on Sheetname,ref col name, ref col value
+//@Author: GG
+//@Date 31 Dec 2018
+//@Returning the node count
+//Ex:  getValueFromDataTable(sheetName_Before,"AccountType","former Borrower","BeginValues")
+//******************************************************************************************************************
+// getValueFromDataTable(String sheetName,String refColName,String refColValue,String colName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Fetching the row count from Data Table based on the sheetname
+	// count = DataTable.GetSheet(sheetName).GetRowCount()
+	// for Iterator = 1 To count
+	// //Fetching the value from DataTable based on sheet name and ref col name
+	// value = DataTable.GetSheet(sheetName).GetParameter(refColName).ValueByRow(Iterator)
+		// if value = refColValue 
+			// //Fetching Actual value required from Data table
+			// reportValue = DataTable.GetSheet(sheetName).GetParameter(colName).ValueByRow(Iterator)
+			// //Returning the cell value from Data Table
+			// getValueFromDataTable = reportValue
+			// Exit for 
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/Function: getValueFromDataTable","Failed", Error_Description ,"")
+
+//*************************************************************************************************************************************************
+//@Method: runSQLQuery_FetchMultipleValues_WithWarning(query, requiredFieldName)   
+//@Author Sumithra
+//@Date 13 Aug 2019
+//@Description This function is run the SQL query to fetch multiple values with warning
+//Ex: runSQLQuery_FetchMultipleValues_WithWarning(query, "loan_nbr:trans_id")   
+//*************************************************************************************************************************************************
+// runSQLQuery_FetchMultipleValues_WithWarning(String query,String requiredFieldNames)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Variable declaration
+	// String conn, rs
+	// LogSuccessMessage("Test Data Get Query",query)
+	// //Object declaration
+	// Set conn= createobject("adodb.connection")
+	// set rs = createobject("adodb.recordset")
+	// //Connection string
+	// conn.Open =  "Dsn=branch;Uid=support;Pwd=sql;"
+	// //Executing the Query
+	// rs.open query, conn
+	// //Validating for Query No Results
+	// if rs.EOF 
+		// writeReportLog("Looks Like Query >> " & query &  " did not found any record","Warning", Error_Description,"")		 
+		// //Exit Test and Update Summary Report
+		// exitTestAndUpdateSummaryReport()
+	// else
+		// //splitting the name
+		// arr = Split(requiredFieldNames,";")
+		// for i = 0 To UBound(arr)
+		// if i <> 0 
+		// outputString = outputString & ";"
+		// requiredFieldNames = rs.Fields(arr(i))
+		// outputString = outputString & requiredFieldNames
+		// //Returing the Value
+		// runSQLQuery_FetchMultipleValues_WithWarning = outputString 
+	// rs.Close
+	// conn.Close 	  
+	// //if Query Does not Return Any Result
+	// if GetErrorCount()>0 
+		// writeReportLog("DB column Names " & requiredFieldName & " which you are looking is not available in the query Result; Query : " & query ,"Warning", Error_Description,"")		
+
+//*****************************************************************************************************************************************
+//@methodName: selectRow_DataTable_BasedOnColumnValues(parameterName,sheetName,act_ColumnValue)
+//@Description: This function is to select the Row Based on Column values
+//@Author: GG
+//@Date 15 FEB 2019
+//Ex:  selectRow_DataTable_BasedOnColumnValues("coa","Daily Managers Repot","descr")
+//*****************************************************************************************************************************************
+// selectRow_DataTable_BasedOnColumnValues(String parameterName1,String parameterName2,String sheetName,String act_ColumnValue1,String act_ColumnValue2)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Get the row count from data table
+	// rowCount = DataTable.GetSheet(sheetName).GetRowCount
+	// flag = false
+	// for itr = 1 To rowCount
+		// //Set current row as current iteration
+		// DataTable.GetSheet(sheetName).SetValue(CurrentRow(itr)
+		// //Get the Bank Name 
+		// exp_ColumnValue1 = DataTable.Value(parameterName1,sheetName)
+		// exp_ColumnValue2 = DataTable.Value(parameterName2,sheetName)
+		// //Comparing the Bank Account Name is match set it as current row in Data table
+		// if ToUpper(act_ColumnValue1) = ToUpper(exp_ColumnValue1) and ToUpper(act_ColumnValue2) = ToUpper(exp_ColumnValue2) 
+		// flag = true
+			// //Set current row as current iteration
+			// DataTable.GetSheet(sheetName).SetValue(CurrentRow(itr)
+			// Exit for
+	// if flag = false 
+		// writeReportLog("Column Value :" & act_ColumnValue & " is not available in Data Table","Failed","","")
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: selectRow_DataTable_BasedOnColumnValues","Failed", Error_Description ,"")
+
+////*****************************************************************************************************************************************
+////@methodName: get_Data_From_XML_And_Store_InDatatable(str_FilePath,reportType,nodeTreeName,nodeName)
+////@Description: This function is to get data from XML and store into datatable
+////@Author: GG
+////@Date 13 FEB 2019
+//
+////Ex:  get_Data_From_XML_And_Store_InDatatable(str_FilePath,reportType,nodeTreeName,nodeName)
+////*****************************************************************************************************************************************
+// get_Data_From_XML_And_Store_InDatatable(String str_FilePath,String reportType,String nodeTreeName,String nodeName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Get the Node Tree from from XML 
+	// strNodePath = get_XMLNodePath_BasedOn_ReportType_And_NodeTreeName(reportType,nodeTreeName)
+	// //Appending the Node name to Node Path
+	// strNodePath = strNodePath & nodeName
+	// //Get XML Node Count
+	// get_XML_NodeCount(node_Count,obj_Node,str_FilePath&".xml",strNodePath)
+	// //Add sheet in Data Table
+	// DataTable.AddSheet(reportType).AddParameter nodeName,""
+	// for count = 1 To node_Count
+		// //Store Terms in Data Table			
+		// DataTable.SetValue(CurrentRow(count)
+		// //Get the Text from XML node		
+		// strXMLData = obj_Node(count-1).Text
+		// //Adding the Data into data table
+		// DataTable.Value(nodeName,reportType) = strXMLData
+	// //Error handling 
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to get_Data_From_XML_And_Store_InDatatable","Failed", Error_Description ,"")
+
+//save file
+// File_SaveAS(String fileName,String fileType)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Input File Name
+	// w_bp_frame.Dialog("regexpwndtitle:=Save As").WinEdit("nativeclass:=Edit","index:=0")TypeKeys fileName	
+	// Sleep(5)	
+	// //Input File Type
+	// w_bp_frame.Dialog("regexpwndtitle:=Save As").WinComboBox("nativeclass:=ComboBox","text:=Text with headers").Select fileType	 
+	// Wait 3
+	// //Click on Save
+	// w_bp_frame.Dialog("regexpwndtitle:=Save As").WinButton("regexpwndtitle:=&Save").Click()
+	// File_SaveAS = fileName
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: File_SaveAS","Failed", Error_Description ,"")
+
+//get xml node count
+// get_XML_NodeCount(String Byref nodeCount,String Byref objNode,String filePath,String nodePath)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// Sleep 5
+	// //Creates COM object between VBScript process and XML process
+	// Set objXMLDoc = CreateObject("Microsoft.XMLDOM")
+	// //Establish a asynchronous connection
+	// objXMLDoc.Async = False
+	// //Load XML File
+	// objXMLDoc.Load(filePath)
+	// //Create Object to Perform Action on Nodes
+	// Set objNode = objXMLDoc.SelectNodes(nodePath)
+	// //Fetch Node Count			
+	// nodeCount = objNode.Length
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: get_XML_NodeCount","Failed", Error_Description ,"")
+
+//*****************************************************************************************************************************************
+//@methodName: selectRow_DataTable_BasedOnColumnValue(parameterName,sheetName,act_ColumnValue)
+//@Description: This function is to select the Row Based on Column Name
+//@Author: GG
+//@Date 15 FEB 2019
+//Ex:  selectRow_DataTable_BasedOnColumnValue("coa","Daily Managers Repot","descr")
+//*****************************************************************************************************************************************
+// selectRow_DataTable_BasedOnColumnValue(String parameterName,String sheetName,String act_ColumnValue)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Get the row count from data table
+	// rowCount = DataTable.GetSheet(sheetName).GetRowCount
+	// flag = false
+	// for itr = 1 To rowCount
+		// //Set current row as current iteration
+		// DataTable.GetSheet(sheetName).SetValue(CurrentRow(itr)
+		// //Get the Bank Name 
+		// exp_ColumnValue = DataTable.Value(parameterName,sheetName)
+		// //Comparing the Bank Account Name is match set it as current row in Data table
+		// if ToUpper(act_ColumnValue) = ToUpper(exp_ColumnValue) 
+		// flag = true
+			// //Set current row as current iteration
+			// DataTable.GetSheet(sheetName).SetValue(CurrentRow(itr)
+			// Exit for
+	// if flag = false 
+		// writeReportLog("Column Value :" & act_ColumnValue & " is not available in Data Table","Failed","","")
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: selectRow_DataTable_BasedOnColumnValue","Failed", Error_Description ,"")
+
+//*******************************************************************************************************
+//@methodName : get_XMLNodePath_BasedOn_ReportType_And_NodeTreeName(reportType,nodeTreeName)
+//@Author     : GG
+//@Date       : 10 APR 2019
+//@Description: This is to get the Data from XML based on Report Type and Node Tree Name
+//Ex:  get_XMLNodePath_BasedOn_ReportType_And_NodeTreeName("Employee Delinquency Tracker","Tracker Details") get_XMLNodePath_BasedOn_ReportType_And_NodeTreeName
+//*******************************************************************************************************
+// get_XMLNodePath_BasedOn_ReportType_And_NodeTreeName(String reportType,String nodeTreeName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// if ToUpper(reportType) = ToUpper("Employee Delinquency Tracker Report") 
+		// if ToUpper(nodeTreeName) = ToUpper("Tracker Details") 
+			// get_XMLNodePath_BasedOn_ReportType_And_NodeTreeName = "/d_rpt_employee_delinquency_tracker/d_rpt_emp_del_footer/d_rpt_emp_del_footer_row/d_rpt_emp_del_footer_group1/"
+	// else if ToUpper(reportType) = ToUpper("Daily Managers Report") 
+		// if ToUpper(nodeTreeName) = ToUpper("Account Details") 
+			// get_XMLNodePath_BasedOn_ReportType_And_NodeTreeName = "/d_rpt_daily_mgrs_main/d_rpt_daily_mgrs_activity/d_rpt_daily_mgrs_activity_row/d_rpt_daily_mgrs_activity_group1/"
+	// //Handling for Wrong/unhandled report type
+	// else
+		// writeReportLog("Wrong Value Passed in Report Name " & reportType,"Failed","Name: get_XMLNodePath_BasedOn_ReportType_And_NodeTreeName","")	
+	// //Error handling 
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to get_XMLNodePath_BasedOn_ReportType_And_NodeTreeName","Failed", Error_Description ,"")
+
+//*******************************************************************************************************
+//@methodName : getCurrentTimeInMilliSeconds
+//@Author     : Karthik
+//@Description: This will generate the Random unique number ( i.e., current time in Milli Seconds )
+//Ex:  getCurrentTimeInMilliSeconds()
+//*******************************************************************************************************
+String getCurrentTimeInMilliSeconds()
+	%FuncInfo[Desc="This will generate the Random unique number ( i.e., current time in Milli Seconds )",Group="CommonFunctions"]
+	//getCurrentTimeInMilliSeconds = Day(Now)&"_"&Month(Now)&"_"&Year(Now)&"_"&Hour(Now)&"_"&Minute(Now)&"_"&Second(Now)
+	DateTime dt = DateTime.Now()
+	String sDateTimeNow = dt.Format("ddMMyyyyhhmmss")
+	return sDateTimeNow
+
+//****************************************************************************************************
+//@Method getRequiredDataFromUFTDataSheet
+//@Description This method will get the Field Value for the specified Field Name from the UFT Data Table by
+//			  filtering for the unique Row Value Specified
+//@Author Kathik.Shekar
+//@Date 10 Sep 2019
+//
+//Ex: msgbox  getRequiredDataFromUFTDataSheet("SQLDT","acct_class:FMR_BRWR","mth_led_bal")
+//    msgbox  getRequiredDataFromUFTDataSheet("SQLDT","acct_class:NEW_LOAN","mth_led_bal")
+//****************************************************************************************************
+// getRequiredDataFromUFTDataSheet(String dataTableSheetName,String uniqueColumnNameValue,String requiredColumnName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Get Row Count
+	// rowCnt = DataTable.GetSheet(dataTableSheetName).GetRowCount
+	// if rowCnt < 1 
+		// //Logger		
+		// writeReportLog("UFT Data Table "& dataTableSheetName & " Does not have any data in it","Failed","","")
+	// //Setting to Current Row
+	// DataTable.GetSheet(dataTableSheetName).SetValue(CurrentRow(1)
+	// //Getting required Field name and Value
+	// uniFieldName = Split(uniqueColumnNameValue,":")(0)
+	// uniFieldValue = Split(uniqueColumnNameValue,":")(1)
+	// //Flag
+	// found = false
+	// for itr = 1 To rowCnt Step 1
+		// if uniFieldValue = DataTable.Value(uniFieldName,dataTableSheetName) 
+			// found = True
+			// getRequiredDataFromUFTDataSheet = DataTable.Value(requiredColumnName,dataTableSheetName)
+			// Exit for
+		// else
+			// DataTable.GetSheet(dataTableSheetName).SetValue(Row
+	// //Logger for Not Found Data
+	// if found = false 
+		// writeReportLog("Required Unique details //"& uniqueColumnNameValue & "// is not there in the UFT data sheet " & dataTableSheetName,"Failed","","")
+
+//*********************************************************************************************
+//@methodName: SleepUntillReportLoads(Parent_Object,Object_Name,CustomReport)
+//@Author Sumithra
+//@Date 19 September 2019
+//@Description This will Sleep untill report is loads
+//Ex  SleepUntillReportLoads("ReportHeader","ReportName")
+//******************************************************************************************
+waitUntillReportLoads(String ParentObject,String ObjectName)
+	%FuncInfo[Desc="This will Sleep untill report is loads",Group="CommonFunctions"]
+	$ParentObject.$ObjectName.WaitUntilExists(20)
+		
+	//PbWindow(""&ParentObject&"").InsightObject(""&ObjectName&"").GetAttr( "visible",true)
+	//PbWindow(""&ParentObject&"").InsightObject(""&ObjectName&"").HoverMouse	
+
+//*****************************************************************************************
+//@Method calculateEMI
+//@Author Karthik.Shekar
+//@Description This function will calculate the expected EMI based on the Finance Amount, Annual Interest Rate(APR) & Number of months
+//@Param
+//	financedAmount --> Amount Financed to Customer
+//	interestRateAnnual --> Annual Interest Rate ( in decimals )
+//	numOfMonths --> Number of Months for which loan has been issued
+//@return This function will return the computed EMI
+//EX: msgbox calculateEMI("10000","0.20","36")
+//EX: msgbox calculateEMI("9000","0.19","24")
+//*******************************************************************************************
+
+calculateEMI(Real financedAmount, Real interestRateAnnual, Real numOfMonths)
+	%FuncInfo[Desc="This function will calculate the expected EMI based on the Finance Amount, Annual Interest Rate(APR) & Number of months",Group="CommonFunctions"]
+	//print "Data: " & financedAmount & "," & interestRateAnnual  & "," &  numOfMonths
+	//On Error resume 
+	Real monthlyRate = interestRateAnnual / 12
+	//Actual Calculation
+	Real emi = 1 + monthlyRate
+	emi = Math.Pow(emi,numOfMonths)
+	emi = 1 / emi
+	emi = 1 - emi
+	emi = emi/monthlyRate
+	emi = financedAmount / emi
+	emi = emi - 0.005
+	//Logger
+	// writeReportLog("Expected EMI is " & Round(emi,2),"Passed","Financed Amount = " &financedAmount & ";Annual Interest Rate = " & interestRateAnnual & ";Number of Months =" & numOfMonths,"")
+	//Returning the calculated EMI
+	//calculateEMI = formatNumber(emi)
+		//calculateEMI = Round(Round(emi,3),2)
+	// 	print "2nd forumla Round(Round(Round(emi,4),3),2) >>" & Round(Round(Round(emi,4),3),2)
+	// 	print "1st formula Round(Round(emi,3),2) >>" & Round(Round(emi,3),2)
+	// 	print "2nd forumla Round(emi,2) >>" & Round(emi,2)
+	// 	print "Cdouble >> " & Round(CDbl(emi),2)
+	Real calculateEMI = Math.Round(emi,2)
+	//To fix to 2 decimal places without rounding;
+	//calculateEMI = int(emi  * 100) / 100
+	//Error handling
+		if GetErrorCount()>0 
+			writeReportLog("Failed in initilizeBranchPlusTest","Failed", Error_Description,"")
+	
+//*****************************************************************************************************************************************
+//@methodName: setCurrentRow_InDataTable_BasedOnColumnValue(parameterName,sheetName,act_ColumnValue)
+//@Description: This function is to set CurrentRow In DataTable Based On Column Value
+//@Author: Chandra
+//@Date 11 OCT 2019
+//@Retruning the value as zero if no value is found
+//@Retruning the value empty if no value is found
+//Ex:  setCurrentRow_InDataTable_BasedOnColumnValue("coa","Daily Managers Repot","descr")
+//*****************************************************************************************************************************************
+// setCurrentRow_InDataTable_BasedOnColumnValue(String parameterName,String sheetName,String act_ColumnValue)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// setCurrentRow_InDataTable_BasedOnColumnValue = ""
+	// //Get the row count from data table
+	// rowCount = DataTable.GetSheet(sheetName).GetRowCount
+	// flag = false
+	// for itr = 1 To rowCount
+		// //Set current row as current iteration
+		// DataTable.GetSheet(sheetName).SetValue(CurrentRow(itr)
+		// //Get the Bank Name 
+		// exp_ColumnValue = DataTable.Value(parameterName,sheetName)
+		// //Comparing the Bank Account Name is match set it as current row in Data table
+		// if ToUpper(act_ColumnValue) = ToUpper(exp_ColumnValue) 
+			// flag = true
+			// //Set current row as current iteration
+			// DataTable.GetSheet(sheetName).SetValue(CurrentRow(itr)
+			// Exit for
+	// if flag = false 
+		// setCurrentRow_InDataTable_BasedOnColumnValue = 0
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: setCurrentRow_InDataTable_BasedOnColumnValue","Failed", Error_Description ,"")
+
+//***********************************************************************************************************************
+//@methodName: identifyMonthlyClosingRequired(refDate, dueDate)
+//@Author: Karthik
+//@Date 29 Nov 2018
+//@Description This will identify whether need to run monthly job or not
+//Ex:  identifyMonthlyClosingRequired("26/11/2018", "28/11/2018")
+//***********************************************************************************************************************
+String identifyMonthlyClosingRequired(String refDate,String dueDate)
+	%FuncInfo[Desc="This will identify whether need to run monthly job or not",Group="CommonFunctions"]
+	//identify monthly closing is reqired or not
+	String identifyMonthlyClosingRequired
+	Integer rerYear,dueYear,rerMonth,dueMonth
+	rerYear = Integer.Parse (refDate.GetField("/",3))
+	dueYear = Integer.Parse (dueDate.GetField("/",3))
+	rerMonth = Integer.Parse (refDate.GetField("/",2))
+	dueMonth = Integer.Parse (dueDate.GetField("/",2))
+	if rerYear< dueYear
+		identifyMonthlyClosingRequired = "01-{dueDate.GetField("/",2)}-{dueDate.GetField("/",3)}"
+	else if rerMonth <dueMonth
+		identifyMonthlyClosingRequired = "01-{dueDate.GetField("/",2)}-{dueDate.GetField("/",3)}"
+	else		
+		identifyMonthlyClosingRequired = ""		
+	return identifyMonthlyClosingRequired
+		
+		// if year(refDate) < year(dueDate) 	
+			// identifyMonthlyClosingRequired = DateSerial(Year(dueDate),Month(dueDate),1)
+		// elseif Month(refDate) < month(dueDate) 
+			// identifyMonthlyClosingRequired = DateSerial(Year(dueDate),Month(dueDate),1)
+		// else		
+			// identifyMonthlyClosingRequired = ""		
+	//Error handing
+	if GetErrorCount()>0  			
+		writeReportLog("Failed in Step/identifyMonthlyClosingRequired","Failed", Error_Description ,"")
+
+//***********************************************************************************************************************
+//@methodName: identifyDueDate_RunNightlyJob(dueDate)
+//@Author: karthik
+//@Date 12 Dec 2018
+//@Description This will identify the date and will run the nightly job 
+//Ex:  identifyDueDate_RunNightlyJob(dueDate)
+//***********************************************************************************************************************
+// // identifyDueDate_RunNightlyJob(String dueDate)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Identify if Montly Closing is Required	
+	// mntClsDt = identifyMonthlyClosingRequired(getTodaysDate(),dueDate)
+	// //Executing the Nightly Job
+	// if  mntClsDt = "" or (mntClsDt = dueDate) 
+		// //Chaning System Date 
+		// changeSystemDateTime(dueDate)
+		// //Trigger Nightly Job and Wait until CMD promt close
+		// runBatFile_WaitTillClose_InCmdPrmt(Environment.Value("NightlyJobs"))
+		// runBatFile_WaitTillClose_InCmdPrmt(Environment.Value("NightlyJobs_Shared"))
+		// //logger
+		// writeReportLog("Nightly job Ran on Date: " & dueDate,"Passed","","")		
+	// else
+		// //Chaning System Date 
+		// changeSystemDateTime(mntClsDt)
+		// runBatFile_WaitTillClose_InCmdPrmt(Environment.Value("NightlyJobs"))
+		// runBatFile_WaitTillClose_InCmdPrmt(Environment.Value("NightlyJobs_Shared"))
+		// //logger
+		// writeReportLog("Nightly job Ran on Date: " & mntClsDt,"Passed","","")
+		// //Chaning System Date 
+		// changeSystemDateTime(dueDate)
+		// runBatFile_WaitTillClose_InCmdPrmt(Environment.Value("NightlyJobs"))
+		// runBatFile_WaitTillClose_InCmdPrmt(Environment.Value("NightlyJobs_Shared"))
+		// //logger
+		// writeReportLog("Nightly job Ran on Date: " & dueDate,"Passed","","")
+	// //Error handing
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/identifyDueDate_RunNightlyJob","Failed", Error_Description ,"")
+
+//***********************************************************************************************************************************
+//@Method: open_PDF_File_InSpecified_FilePath(pdf_filePath,zoomValue)
+//@Author Chandra
+//@Date 13 Aug 2019
+//@Description This function is to Open PDF file in Adobe Reader and set the zoom level like fit to page and Validate Laser signature from PDF file for both Signature turn ON/OFF
+//Ex:  open_PDF_File_InSpecified_FilePath("\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Downloads\Check_20_8_2019_11_1_10.pdf","63.8%")
+//************************************************************************************************************************************
+// open_PDF_File_InSpecified_FilePath(String pdf_filePath,String zoomValue)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Close Adober Reader Process
+	// //SystemUtil.CloseProcessByName("AcroRD32.exe")
+	// SystemUtil.CloseProcessByName("Acrobat.exe")
+	// Sleep 2
+	// //Open PDF file
+	// //System.Run "AcroRD32.exe",pdf_filePath
+	// System.Run "Acrobat.exe",pdf_filePath
+	// Window("regexpwndtitle:=.*Adobe.*Reader.*").HoverMouse
+	// //Maximize window
+	// Window("regexpwndtitle:=.*Adobe.*Reader.*").Maximize()
+	// Sleep 3
+	// //Entering the Zoom
+	// Window("regexpwndtitle:=.*Adobe.*Reader.*").WinEdit("regexpwndclass:=Edit","index:=0").SetValue( zoomValue
+	// //click on Enter
+	// sendKeys("{ENTER}")
+	// //Scroll down so signature is visible
+	// MouseWheel(4,False)
+	// Sleep(5)   
+	// //Logger
+	// writeReportLog("PDF file : //"& pdf_filePath &"// has been displayed successfully","Passed", "","")		
+	// //Error Handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed Step/Function: open_PDF_File_InSpecified_FilePath","Failed", Error_Description,"Y")
+
+//*********************************************************************************************
+//@methodName: format_DateTimePeriod_WithSpecifiedDelimeter(dateTimeValue, dateformat, formatSymbal)
+//@Author Chandra
+//@Date 22 Aug 2019
+//@Description This is to get Specified date Time formate as User Specified
+//Retruning the Date time formate like 08-26-2019 01:02 am
+//Ex: Result = format_DateTimePeriod_WithSpecifiedDelimeter("12-19-2018 01:23:45.000","YYYYDDMM","/")
+// 	 Result = formatDateWithSpecifiedDelimeter("12-19-2018 12:23:45.000",,"YYYYMMDD","-")
+// 	 Result = formatDateWithSpecifiedDelimeter("12-19-2018 10:23:45.000",,"MMDDYYYY","-")
+//*********************************************************************************************
+// format_DateTimePeriod_WithSpecifiedDelimeter(String dateTimeValue,String dateformat,String formatSymbal)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Get Date Time with Time Period (am/pm) Based on Date formate like YYYYDDMM or YYYYMMDD etc
+	// DateTimeSplit = Split(dateTimeValue, " ")
+	// Date_Value = DateTimeSplit(0)
+	// TimeHourMin = DateTimeSplit(1)
+	// TimeHourMin = Substring(TimeHourMin,1,5)
+	// //spliting time hour & Minuts
+	// TimeSplit = Split(TimeHourMin,":")
+	// //Constructing the Required format
+	// TimeHourMin = Right("0" & TimeSplit(0),2) & ":" & Right("0" & TimeSplit(1),2)
+	// //Get Required Date formate 
+	// Date_Value = formatDateWithSpecifiedDelimeter(Date_Value, dateformat,formatSymbal)
+	// //if time period is less than 12 select am and greater than 12 select pm
+	// if hour(TimeHourMin) < 12  
+		// Time_Hour_Min_Period = Date_Value & " " & TimeHourMin & " am"
+	// else if hour(TimeHourMin) > 12  
+		// Time_Hour_Min_Period = Date_Value & " " & TimeHourMin & " pm"
+	// format_DateTimePeriod_WithSpecifiedDelimeter = Time_Hour_Min_Period
+	// //Error Handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed Step/Function: format_DateTimePeriod_WithSpecifiedDelimeter","Failed", Error_Description,"Y")
+
+//***********************************************************************
+//@Method validateFileContentCheckPointAndReport
+//@Author Karthik.Shekar
+//@DEscription THis method Log the Check point Results in the Custom HTML Report after valdiating the check point
+//@Date 19th Dec 2019
+//EX:  validateFileContentCheckPointAndReport("Checks Office Copy Write Check","Checks Office Copy Write a Check.Pdf")
+//**************************************************************************************************
+// validateFileContentCheckPointAndReport(String fileContentName,String checkPointName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// Sleep 5
+	// checkPointOutPutWriteCheck =  FileContent(fileContentName).Check(CheckPoint(checkPointName))
+	// //Logger based on Check Point Validation
+	// if checkPointOutPutWriteCheck 	
+		// writeReportLog("file Check Point Validation was Succesful for //" & checkPointName & "//","Passed", "","")
+	// else
+		// writeReportLog("PDF Check Point Validation Failed for //" & checkPointName & "//","Failed", "","")
+
+//**********************************************************************************
+//@Method isPrimoPDFDialogExist
+//@Author Karthik.Shekar
+//@Date 23 Dec 2019
+//@Description this function will return Ture if the Primo PDF Dialog exist else it will return false
+//@Return True/False 
+//EX: isPrimoPDFDialogExist()
+//************************************************************************************
+Boolean isPrimoPDFDialogExist()
+	%FuncInfo[Desc="this function will return Ture if the Primo PDF Dialog exist else it will return false",Group="CommonFunctions"]
+	Boolean isPrimoPDFDialogExist =  DialogBox["PrimoPDF"].WaitWhileExists(10)
+	if GetErrorCount()>0 
+		writeReportLog("Failed in isPrimoPDFDialogExist","Failed", Error_Description ,"")
+	return isPrimoPDFDialogExist
+
+//**********************************************************************************
+//@Method click_CancelButton_InPrimoPDFDialog
+//@Author Karthik.Shekar
+//@Date 23 Dec 2019
+//@Description this function will click on the Cancel Buttion in the Primo PDF Dialog
+//EX: click_CancelButton_InPrimoPDFDialog()
+//************************************************************************************
+click_CancelButton_InPrimoPDFDialog()
+	%FuncInfo[Desc="this function will click on the Cancel Buttion in the Primo PDF Dialog",Group="CommonFunctions"]
+	DialogBox["PrimoPDF"].HoverMouse()
+	DialogBox["PrimoPDF"].PushButton["Cancel"].Click()
+	if GetErrorCount()>0 
+		writeReportLog("Failed in click_CancelButton_InPrimoPDFDialog","Failed", Error_Description ,"")
+
+String convertSingleWordToCamelCase(String myString)
+	%FuncInfo[Desc="this function will click on the Cancel Buttion in the Primo PDF Dialog",Group="CommonFunctions"]
+	String sCamelCase = myString.Replace(myString[1],myString[1].ToUpper())
+	return sCamelCase
+	
+	// firstLetter=UCase(Left(mystring,1))
+	// otherLetters=LCase(Right(mystring,Len(mystring)-1))
+	// convertSingleWordToCamelCase = firstLetter & otherLetters	
+
+//*****************************************************************************************************************************************
+//@methodName: convert_EachWord_In_Sentence_To_CamelCase
+//@Description: This function will convert the Each Word in the Sentence to Camel Case
+//@Author: Karthik
+//@Date 25 Aug 2020
+//Ex: msgbox convert_EachWord_In_Sentence_To_CamelCase("TESTING TEH STRING to cAMEL") --> OUt put: Testing The String to Camel
+//*****************************************************************************************************************************************
+String convert_EachWord_In_Sentence_To_CamelCase(String myString)
+	%FuncInfo[Desc="This function will convert the Each Word in the Sentence to Camel Case",Group="CommonFunctions"]
+	String sSub,sCamelCase
+	List<String> lsMyString = myString.Split(" ")
+	for(Integer iLoop =1 ; iLoop<=lsMyString.Count(); iLoop++)
+		lsMyString[iLoop] = lsMyString[iLoop].Replace (lsMyString[iLoop][1], lsMyString[iLoop][1].ToUpper())
+		sSub = lsMyString[iLoop].Substring (2)
+		lsMyString[iLoop] = lsMyString[iLoop].Replace (sSub, sSub.ToLower())
+	sCamelCase = String.Join(lsMyString , " ")
+	return sCamelCase
+	
+	// eachWord =Split(myString," ")
+	// for itr = 0 To ubound(eachWord) Step 1
+		// eachWord(itr) = convertSingleWordToCamelCase(eachWord(itr))
+	// //Returning the Value
+	// convert_EachWord_In_Sentence_To_CamelCase = Join(eachWord)			
+
+//*********************************************************************************************
+//@methodName: clickOn_InsightObject(Parent_Object,Object_Name,CustomReport)
+//@Author Ambika
+//@Date 21 Jan 2020
+//@Description: This function is to clickInsight object
+//Ex  clickOn_InsightObject("forms_InsightObjects","DirectLoanContract_Header","Allied website")
+//******************************************************************************************
+clickOn_InsightObject(String Parent_Object,String Object_Name,String CustomMsg)
+	%FuncInfo[Desc="This function is to clickInsight object",Group="CommonFunctions"]
+	//Validating Insight Objsect
+	if TopWin["{Parent_Object}"].RenderImage["{Object_Name}"].WaitWhileExists(10) 
+			//msgbox "Object Not Present in Repo"
+			Print("Object Not Present in Repo")
+	else
+		//Highlight insight object
+		TopWin["{Parent_Object}"].RenderImage["{Object_Name}"].HoverMouse()
+		//click on insight object
+		TopWin["{Parent_Object}"].RenderImage["{Object_Name}"].Click()			
+	// else		
+		// writeReportLog("Failed to clickOn_InsightObject","Failed", "","Y")	
+
+//*****************************************************************************
+//@Method getLastDayOfMonth
+//@Author Karthik.Shekar
+//@Date 16 April 2020
+//@Description This function will return last day of the Month if we send the full date i.e., if we send "02/03/2020" then it will return "29/03/2020"
+//	          or if we send "03/27/2020" then it returns "03/31/2020"
+//@Return complete Date with Month end date set
+//////Ex: msgbox GetNowLast("02/03/2020") --> mm/DD/yyyy format
+//EX: msgbox getLastDayOfMonth(getTodaysDate_mmddyyyy_format())
+//EX: msgbox getLastDayOfMonth(date())
+//*****************************************************************************
+String getLastDayOfMonth(String dueDate)
+	%FuncInfo[Desc="This function will return last day of the Month if we send the full date i.e., if we send 02/03/2020 then it will return 29/03/2020 or if we send 03/27/2020 then it returns 03/31/2020",Group="CommonFunctions"]
+	
+	String sFormattedDateTime
+	DateTime dtNewDateTime = DateTime.Parse ("dd/MM/yyyy", dueDate)
+	Integer dYear = dtNewDateTime.GetYear()
+	Integer dMonth = dtNewDateTime.GetMonth ()
+	Integer dDay = dtNewDateTime.GetDay ()
+	if dMonth==1 || dMonth==3 ||dMonth==5 ||  dMonth==7 || dMonth==8 ||dMonth==10 || dMonth==12
+		dDay = 31
+	else if dMonth==2 || dMonth==4 ||dMonth==6 ||  dMonth==9 || dMonth==11
+		if dMonth==2
+			if dYear % 4 == 0
+				if dYear % 100 != 0
+					dDay = 29
+				else
+					dDay = 28
+			else
+				dDay = 28
+		else
+			dDay = 30
+	sFormattedDateTime = dDay.Format ()+"-"+dMonth.Format ()+"-"+dYear.Format ()
+	Print (sFormattedDateTime)
+	
+
+// LogWarningMessage(String LogSummary,String LogDetails )
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// Reporter.ReportEvent micWarning, LogSummary, LogDetails, screenShotFileName	
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: LogSuccessMessage","Failed", Error_Description ,"")
+
+//*************************************************************************
+//@Method getLastModifiedDate_Of_File
+//@Author Karthik.Shekar
+//@Description THis function will give the Last Modified Date and Time for the File Specified
+//@Date 13 May 2020
+//@Return Data and time in String format
+//EX: msgbox  getLastModifiedDate_Of_File("C:\SupportRoot\Database\DB\dbvalid.TXT")
+//*************************************************************************
+// getLastModifiedDate_Of_File(String filePath)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// SET objFSO = CREATEOBJECT("Scripting.FileSystemObject")
+	// SET objFile = objFSO.GetFile(filePath)
+	// getLastModifiedDate_Of_File =  objFile.DateLastModified
+
+//****************************************************************************************************
+//@method beforeTestInitialization
+//@Author Karthik.Shekar
+//@Description This creatse all the required Variables and assign the Values required for Custom Report also 
+//				it is going to initialize the Custom html Report
+//@Date 12 May 2020
+//@Return nothing
+//*****************************************************************************************************
+// beforeTestInitialization()
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //*****************************************************
+	// //Get Test Name
+	// ReportName = Environment.Value("TestName")&".html"
+	// //Environment.Value("ReportName") = ReportName
+	// Environment.Value("ReportStep") = 0
+	// Environment.Value("TestStatus") = True
+	// //*******************************************************
+	// //Fetching Current State name from DB
+	// currentState = getCurrentStateName_From_DB()
+	// Environment.Value("currentState") = currentState
+	// Environment.Value("StateName") = currentState
+	// //Custom Report FIle Creation
+	// startTime = initializeCustomReport(currentState)
+	// Environment.Value("startTime") = startTime
+	// //TO Incesase the Nightly Batch Process
+	// set_EndDate_In_Bp_Batch_Process_Tbl_AppDB("ue_dealer_statistics_summ", "2000-12-31")
+
+// **********************************************************************************
+// @Method: GetIPAddress
+// @desc : Returns the IP address of the PC
+// @params : Void
+//@Author Karthik.Shekar
+//@Date 06 July 2020
+//@returns : IP Address
+// **********************************************************************************
+String GetIPAddress()
+	%FuncInfo[Desc="Returns the IP address of the PC",Group="CommonFunctions"]
+	// get the ip addresses
+	List<String> lsDirPaths
+	String sIpAdd
+	System.Execute ("ipconfig", lsDirPaths)
+	for(Integer iLoop=1; iLoop<=lsDirPaths.Count(); iLoop++)
+		if lsDirPaths[iLoop].Contains(" IPv4 Address")
+			sIpAdd = lsDirPaths[iLoop].GetField (":", 2)
+			break
+	return sIpAdd
+	// Set IPConfigSet = GetObject("winmgmts:{impersonationLevel=impersonate}").ExecQuery _
+					// ("select IPAddress from Win32_NetworkAdapterConfiguration where IPEnabled=TRUE")
+	// // for each item in the collection
+	// for Each IPConfig in IPConfigSet
+		// // if the item isn//t empty
+		// if Not IsNull(IPConfig.IPAddress) 
+			// // loop through the addresses
+			// for i = LBound(IPConfig.IPAddress) to UBound(IPConfig.IPAddress)
+				// // set the return alue
+				// ipAddr = IPConfig.IPAddress(i)
+	// // destroy the object
+	// Set IPConfigSet = Nothing	
+	// // return the ip
+	// GetIPAddress = ipAddr 
+
+//***********************************************************************************************************
+//@methodName: runWindowsScheduledTasks(taskName)
+//@Author: Ashit
+//@Date 11 May 2020
+//@Description This will run a scheduled task in the system
+//Ex:  runWindowsScheduledTasks("changeDateBAT")
+//************************************************************************************************************
+// runWindowsScheduledTasks(String taskName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// createObject("WScript.Shell").Run "C:\Windows\System32\schtasks.exe /run /tn """ & taskName & """"
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in runWindowsScheduledTasks function","Failed", Error_Description ,"")
+
+//***********************************************************************************************************
+//@methodName: createFileWithExtenstion
+//@Author: Karthik
+//@Date 27 AUg 2020
+//@Description This create the file and put the content in it
+//Ex:  createFileWithExtenstion("C:\Users\ks3\Desktop","test","txt","Date 08-09-20")
+//EX:  createFileWithExtenstion("C:\Users\ks3\Desktop","test","cmd","Date 08-09-20")
+//************************************************************************************************************
+// createFileWithExtenstion(String filePath,String fileName,String fileExtension,String fileContent)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// String fso, MyFile
+	// Set fso = CreateObject("Scripting.FileSystemObject")
+	// Set MyFile = fso.Open(filePath & "\" & fileName & "." & fileExtension, True)
+	// MyFile.WriteLine(fileContent)
+	// MyFile.Close
+
+//***********************************************************************************************************************
+//@methodName: enterCredentials_SecurityPopUp()
+//@Author: Ritu Tripathi
+//@Date 19 November 2021
+//@Description This will enter security credentials in the security alert popup in IE
+//Ex:  enterCredentials_SecurityPopUp()
+//***********************************************************************************************************************
+													//enterCredentials_SecurityPopUp()
+//	 
+//	//Browser("Class Name:=Browser").Window("regexpwndtitle:=Windows Security")TypeKeys "q"
+//	//regexpnwndclass = //Credential Dialog Xaml Host//
+//	if Browser("Class Name:=Browser").Window("regexpwndtitle:=Windows Security").WaitWhileExists(15) 
+//		Browser("Class Name:=Browser").Window("regexpwndtitle:=Windows Security")TypeKeys
+//	else if Browser("name:="& browserTitle).Dialog("regexpwndtitle:="&dialogTitle).WinButton("text:="& buttonName).WaitWhileExists(5) 
+//		Browser("name:="& browserTitle).Dialog("regexpwndtitle:="&dialogTitle).WinButton("text:="& buttonName).Click()
+//	
+//	//Error handling
+//	if GetErrorCount()>0 
+//		 writeReportLog("Failed in enterCredentials_SecurityPopUp","Failed", Error_Description,"")
+//	
+//RemoveFunction
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Library>
+	<Files>
+		<File RelPath="App Objects.z"/>
+		<File RelPath="Steps.z"/>
+		<File RelPath="Tests.z"/>
+	</Files>
+</Library>

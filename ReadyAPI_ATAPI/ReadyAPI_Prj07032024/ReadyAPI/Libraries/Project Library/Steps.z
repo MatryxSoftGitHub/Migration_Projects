@@ -1,0 +1,10 @@
+﻿class Demo : Step
+	parameter String sVal2
+	Main()
+		Boolean bCheckIsHex
+		if 15 >= 0 && 15 <= 15
+			bCheckIsHex = true
+		else
+			bCheckIsHex = false
+		Print (bCheckIsHex)
+		

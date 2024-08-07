@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="20BD51AA">
+		<Record Name="PurchaseOrderEventRecord">
+			<Field Name="PageTitle" Label="PageTitle" Type="String"/>
+			<Field Name="userName" Label="userName" Type="String"/>
+			<Field Name="password" Label="password" Type="String"/>
+			<Field Name="startProxy" Label="startProxy" Type="String"/>
+			<Field Name="ActAs" Label="ActAs" Type="String"/>
+			<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+			<Field Name="Company" Label="Company" Type="String"/>
+			<Field Name="Supplier" Label="Supplier" Type="String"/>
+			<Field Name="Currency" Label="Currency" Type="String"/>
+			<Field Name="Supplier1" Label="Supplier1" Type="String"/>
+			<Field Name="LinesCurrency" Label="LinesCurrency" Type="String"/>
+			<Field Name="FreightAmount" Label="Freight Amount" Type="String"/>
+			<Field Name="OtherCharges" Label="Other Charges" Type="String"/>
+			<Field Name="PaymentTerms" Label="Payment Terms" Type="String"/>
+			<Field Name="OverridePaymentType" Label="Override Payment Type" Type="String"/>
+			<Field Name="ShippingTerms" Label="Shipping Terms" Type="String"/>
+			<Field Name="ShippingMethod" Label="Shipping Method" Type="String"/>
+			<Field Name="ShippingInstructions" Label="Shipping Instructions" Type="String"/>
+			<Field Name="SupplierContract" Label="Supplier Contract" Type="String"/>
+			<Field Name="DefaultTaxOption" Label="Default Tax Option" Type="String"/>
+			<Field Name="DefaultTaxCode" Label="Default Tax Code" Type="String"/>
+			<Field Name="IssueOption" Label="Issue Option" Type="String"/>
+			<Field Name="Buyer" Label="Buyer" Type="String"/>
+			<Field Name="BillToContact" Label="BillTo contact" Type="String"/>
+			<Field Name="BillToContactDetails" Label="BillTo Contact Details" Type="String"/>
+			<Field Name="BillToAddress" Label="BillTo Address" Type="String"/>
+			<Field Name="ShipToContact" Label="ShipTo Contact" Type="String"/>
+			<Field Name="ShipToContactDetail" Label="ShipTo Contact Detail" Type="String"/>
+			<Field Name="ShipToAddress" Label="ShipTo Address" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="InternalMemo" Label="Internal Memo" Type="String"/>
+		</Record>
+		<List Name="PurchaseOrderEventList" ItemType="PurchaseOrderEventRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="PurchaseOrderEvent" Label="PurchaseOrderEvent" Type="PurchaseOrderEventList">
+			<PurchaseOrderEventRecord>
+				<PageTitle>Workday transre_preview</PageTitle>
+				<userName>lkumar</userName>
+				<password>Matryx1@2020</password>
+				<startProxy>Start Proxy</startProxy>
+				<ActAs>Victor Delgado</ActAs>
+				<PaymentType>Create Purchase Order</PaymentType>
+				<Company>SDCWD Test Financials Implementation Company</Company>
+				<Supplier>SDCWD Test Supplier 1</Supplier>
+				<Currency>USD</Currency>
+				<Supplier1>Arrosoft Solutions LLC</Supplier1>
+				<LinesCurrency>USD</LinesCurrency>
+				<FreightAmount>100</FreightAmount>
+				<OtherCharges>100</OtherCharges>
+				<PaymentTerms>Checked</PaymentTerms>
+				<OverridePaymentType>ACH</OverridePaymentType>
+				<ShippingTerms>FOB Origin</ShippingTerms>
+				<ShippingMethod>Standard Shipping</ShippingMethod>
+				<ShippingInstructions>Packages must not be greater than 150 pounds.  If heavier? use 1Day Freight.</ShippingInstructions>
+				<SupplierContract>CON-1080: SDCWD Test Contract</SupplierContract>
+				<DefaultTaxOption>Calculate Tax Due to Supplier</DefaultTaxOption>
+				<DefaultTaxCode>United States - New York City?NY(8.875%)</DefaultTaxCode>
+				<IssueOption>Print</IssueOption>
+				<Buyer>Victor Delgado</Buyer>
+				<BillToContact>Victor Delgado</BillToContact>
+				<BillToContactDetails>Victor Delgado</BillToContactDetails>
+				<BillToAddress>One Liberty Plaza 165 Broadway NewYork?NY 10006 United States of America</BillToAddress>
+				<ShipToContact>Victor Delgado</ShipToContact>
+				<ShipToContactDetail>Victor Delgado</ShipToContactDetail>
+				<ShipToAddress>One Liberty Plaza 165 Broadway NewYork?NY 10006 United States of America</ShipToAddress>
+				<Memo>Test PO</Memo>
+				<InternalMemo>Test PO for Arrosoft Solutions LLC</InternalMemo>
+			</PurchaseOrderEventRecord>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="PurchaseOrderEvent"/>
+	</Layout>
+</DataStore>

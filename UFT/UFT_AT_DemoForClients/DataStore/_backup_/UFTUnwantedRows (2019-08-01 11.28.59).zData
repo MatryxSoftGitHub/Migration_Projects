@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="F189921C">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="UFTUnwantedRowsRecord">
+			<Field Name="RowId" Type="String" Unique="true"/>
+			<Field Name="lsDeleteRows" Type="ListOfString"/>
+			<Field Name="sOrgUFTFilePath" Type="String"/>
+			<Field Name="sOrgUFTFileName" Type="String"/>
+			<Field Name="sModifiedUFTFileName" Type="String"/>
+			<Field Name="sConvertedATFile" Type="String"/>
+		</Record>
+		<List Name="UFTUnwantedRowsRecordList" ItemType="UFTUnwantedRowsRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="UFTUnwantedRows" Type="UFTUnwantedRowsRecordList">
+			<UFTUnwantedRowsRecord>
+				<RowId>1</RowId>
+				<lsDeleteRows>
+					<String>supported automation patterns</String>
+					<String>localized control type</String>
+					<String>&lt;Properties</String>
+					<String>&lt;ObjectRepository</String>
+					<String>&lt;OrdinalIdentifier</String>
+					<String>&lt;BasicIdentification</String>
+					<String>&lt;PropertyRef</String>
+					<String>&lt;LastUpdateTime</String>
+					<String>&lt;ChildObjects</String>
+					<String>&lt;CustomReplay</String>
+					<String>&lt;Behavior</String>
+					<String>&lt;CheckpointsAndOutputs</String>
+					<String>&lt;Parameters</String>
+					<String>&lt;/Properties</String>
+					<String>&lt;/ObjectRepository</String>
+					<String>&lt;/OrdinalIdentifier</String>
+					<String>&lt;/BasicIdentification</String>
+					<String>&lt;/PropertyRef</String>
+					<String>&lt;/LastUpdateTime</String>
+					<String>&lt;/ChildObjects</String>
+					<String>&lt;/CustomReplay</String>
+					<String>&lt;/Behavior</String>
+					<String>&lt;/CheckpointsAndOutputs</String>
+					<String>&lt;/Parameters</String>
+					<String>&lt;Metadata</String>
+					<String>&lt;/Metadata</String>
+				</lsDeleteRows>
+				<sOrgUFTFilePath>C:\Users\Lokesh\Desktop\</sOrgUFTFilePath>
+				<sOrgUFTFileName>UFTOrginalFormat.txt</sOrgUFTFileName>
+				<sModifiedUFTFileName>UFTModifiedFormat.txt</sModifiedUFTFileName>
+				<sConvertedATFile>ConvertedToATFile.txt</sConvertedATFile>
+			</UFTUnwantedRowsRecord>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="UFTUnwantedRows">
+			<Field Name="RowId"/>
+			<Field Name="lsDeleteRows" Width="180"/>
+			<Field Name="sOrgUFTFilePath" Width="133"/>
+			<Field Name="sOrgUFTFileName" Width="186"/>
+			<Field Name="sModifiedUFTFileName"/>
+			<Field Name="sConvertedATFile" Width="140"/>
+		</Object>
+	</Layout>
+</DataStore>

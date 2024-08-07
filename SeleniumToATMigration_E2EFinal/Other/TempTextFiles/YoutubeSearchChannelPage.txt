@@ -1,0 +1,216 @@
+class ClickOnSubmit : Step
+%StepInfo[Desc="ClickOnSubmit",Group="null"]
+Main()
+{
+Thread.sleep(2000);
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", Btn_Submit);
+Btn_Submit.isDisplayed();
+Btn_Submit.click();
+}
+class Uploadfile : Step
+%StepInfo[Desc="Uploadfile",Group="null"]
+Main()
+{
+String filePath = "E:\\vidyaWorkspace482020\\EclipseWorkspace\\WorkdayBP_Selenium\\UploadFiles\\SampleUploadFile.txt";
+Thread.sleep(2000);
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", AttachmentsTab);
+Thread.sleep(3000);
+Actions actions = new Actions(driver);
+actions.moveToElement(AttachmentsTab).click().perform();
+Btn_SelectFiles.isDisplayed();
+Thread.sleep(3000);
+fileUpload.sendKeys(filePath);
+Thread.sleep(3000);
+}
+class AddDetailsToLinesTab_Step : Step
+%StepInfo[Desc="AddDetailsToLinesTab_Step",Group="null"]
+Main()
+{
+// Add details to lines tab in Create Ad Hoc Payment Page
+// ---------------------------------------------------------------------------------------------------
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Thread.sleep(2000);
+// Navigate to lines tab
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", LinesTab);
+Actions actions = new Actions(driver);
+actions.moveToElement(LinesTab).click().perform();
+int localVar = 1;
+if (localVar > 1)
+{
+AddRow.click();
+Thread.sleep(2000);
+}
+JSExecutor.executeScript("arguments[0].click();", ColumnLine);
+Header.isDisplayed();
+Thread.sleep(2000);
+TextColmnName.click();
+CommonsFunctions func = new CommonsFunctions(driver);
+Thread.sleep(2000);
+// Spend Category
+func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "Spend Category", "Advertising");
+// Quantity
+func.SendKeys_Table("Quantity", "1" + Keys.ENTER);
+Thread.sleep(2000);
+// Unit Cost
+func.SendKeys_Table("Unit Cost", "1000");
+Thread.sleep(2000);
+// Cost Center
+func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "*Cost Center", "100-000 General Overhead");
+Thread.sleep(2000);
+}
+class AddDetailsToAdHocPaymentPage_Step : Step
+%StepInfo[Desc="AddDetailsToAdHocPaymentPage_Step",Group="null"]
+Main()
+{
+// Add details to Create Ad Hoc Payment Page
+// ---------------------------------------------------------------------------------------------------
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+// Company
+Thread.sleep(5000);
+Txt_Company.sendKeys("NYT USD  - New York Home Office");
+Txt_Company.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+// Bank Account
+Txt_BankAccount.sendKeys("NYT Operating - JPMC USD-4785");
+Txt_BankAccount.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+// label payee ---------------------
+// Rdo_LabelPayee.click();
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].click();", Rdo_LabelPayee);
+Thread.sleep(5000);
+// Text payee
+Txt_LabelPayee.sendKeys("AM Best Rating Services, Inc. - 9279");
+Thread.sleep(2000);
+Txt_LabelPayee.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+//		// Currency//
+//		JSExecutor.executeScript("arguments[0].click();", SpanIconOption);//
+//		Txt_Currency.click();
+//		Txt_Currency.sendKeys("USD");
+//		Txt_Currency.sendKeys(Keys.ENTER);
+//
+//		// Payment Date
+//		Txt_PaymentDate.sendKeys("08-31-2020");
+//
+//		// Payment Type
+//		Txt_PaymentType.sendKeys("ACH");
+//		Thread.sleep(2000);
+//		Txt_PaymentType.sendKeys(Keys.ENTER);
+// ControlTotalAmount
+Txt_ControlTotalAmount.sendKeys(Keys.CONTROL, "a");
+Txt_ControlTotalAmount.sendKeys("1000");
+// Memo
+Txt_Memo.sendKeys("TestMemo1");
+}
+class ClickOnSubmit : Step
+%StepInfo[Desc="ClickOnSubmit",Group="null"]
+Main()
+{
+Thread.sleep(2000);
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", Btn_Submit);
+Btn_Submit.isDisplayed();
+Btn_Submit.click();
+}
+class Uploadfile : Step
+%StepInfo[Desc="Uploadfile",Group="null"]
+Main()
+{
+String filePath = "E:\\vidyaWorkspace482020\\EclipseWorkspace\\WorkdayBP_Selenium\\UploadFiles\\SampleUploadFile.txt";
+Thread.sleep(2000);
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", AttachmentsTab);
+Thread.sleep(3000);
+Actions actions = new Actions(driver);
+actions.moveToElement(AttachmentsTab).click().perform();
+Btn_SelectFiles.isDisplayed();
+Thread.sleep(3000);
+fileUpload.sendKeys(filePath);
+Thread.sleep(3000);
+}
+class AddDetailsToLinesTab_Step : Step
+%StepInfo[Desc="AddDetailsToLinesTab_Step",Group="null"]
+Main()
+{
+// Add details to lines tab in Create Ad Hoc Payment Page
+// ---------------------------------------------------------------------------------------------------
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Thread.sleep(2000);
+// Navigate to lines tab
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", LinesTab);
+Actions actions = new Actions(driver);
+actions.moveToElement(LinesTab).click().perform();
+int localVar = 1;
+if (localVar > 1)
+{
+AddRow.click();
+Thread.sleep(2000);
+}
+JSExecutor.executeScript("arguments[0].click();", ColumnLine);
+Header.isDisplayed();
+Thread.sleep(2000);
+TextColmnName.click();
+CommonsFunctions func = new CommonsFunctions(driver);
+Thread.sleep(2000);
+// Spend Category
+func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "Spend Category", "Advertising");
+// Quantity
+func.SendKeys_Table("Quantity", "1" + Keys.ENTER);
+Thread.sleep(2000);
+// Unit Cost
+func.SendKeys_Table("Unit Cost", "1000");
+Thread.sleep(2000);
+// Cost Center
+func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "*Cost Center", "100-000 General Overhead");
+Thread.sleep(2000);
+}
+class AddDetailsToAdHocPaymentPage_Step : Step
+%StepInfo[Desc="AddDetailsToAdHocPaymentPage_Step",Group="null"]
+Main()
+{
+// Add details to Create Ad Hoc Payment Page
+// ---------------------------------------------------------------------------------------------------
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+// Company
+Thread.sleep(5000);
+Txt_Company.sendKeys("NYT USD  - New York Home Office");
+Txt_Company.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+// Bank Account
+Txt_BankAccount.sendKeys("NYT Operating - JPMC USD-4785");
+Txt_BankAccount.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+// label payee ---------------------
+// Rdo_LabelPayee.click();
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].click();", Rdo_LabelPayee);
+Thread.sleep(5000);
+// Text payee
+Txt_LabelPayee.sendKeys("AM Best Rating Services, Inc. - 9279");
+Thread.sleep(2000);
+Txt_LabelPayee.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+//		// Currency//
+//		JSExecutor.executeScript("arguments[0].click();", SpanIconOption);//
+//		Txt_Currency.click();
+//		Txt_Currency.sendKeys("USD");
+//		Txt_Currency.sendKeys(Keys.ENTER);
+//
+//		// Payment Date
+//		Txt_PaymentDate.sendKeys("08-31-2020");
+//
+//		// Payment Type
+//		Txt_PaymentType.sendKeys("ACH");
+//		Thread.sleep(2000);
+//		Txt_PaymentType.sendKeys(Keys.ENTER);
+// ControlTotalAmount
+Txt_ControlTotalAmount.sendKeys(Keys.CONTROL, "a");
+Txt_ControlTotalAmount.sendKeys("1000");
+// Memo
+Txt_Memo.sendKeys("TestMemo1");
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="4B7EEBFA">
+		<Record Name="Record_FindElement">
+			<Field Name="SeleniumFormat" Type="String"/>
+			<Field Name="ATFormat" Type="String"/>
+		</Record>
+		<List Name="Record_FindElementList" ItemType="Record_FindElement"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_FindElement" Type="Record_FindElementList">
+			<Record_FindElement/>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_FindElement"/>
+	</Layout>
+</DataStore>

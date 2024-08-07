@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="2BD08B4C">
+		<Record Name="record_Methods">
+			<Field Name="SeleniumMethods" Type="ListOfString"/>
+			<Field Name="AscentialTestMethods" Type="ListOfString"/>
+		</Record>
+		<List Name="ReplaceMethodsList" ItemType="record_Methods"/>
+		<List Name="ListOfString" ItemType="String"/>
+	</Types>
+	<Objects>
+		<Object Name="Methods" Type="ReplaceMethodsList">
+			<record_Methods>
+				<SeleniumMethods>
+					<String>.click()</String>
+					<String>.sendKeys(</String>
+					<String>.isDisplayed()</String>
+					<String>System.out.println(</String>
+					<String>.getTitle()</String>
+					<String>.getText()</String>
+					<String>.getAttribute(&quot;aria-pressed&quot;).equals(&quot;true&quot;)</String>
+					<String>.getAttribute(&quot;aria-pressed&quot;).equals(&quot;false&quot;)</String>
+					<String>.size()</String>
+				</SeleniumMethods>
+				<AscentialTestMethods>
+					<String>.Click()</String>
+					<String>.SetText(</String>
+					<String>.IsPresent()</String>
+					<String>Print(</String>
+					<String>.Title()</String>
+					<String>.GetText()</String>
+					<String>.IsEnabled()</String>
+					<String>.IsDisabled()</String>
+					<String>.Count()</String>
+				</AscentialTestMethods>
+			</record_Methods>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Methods">
+			<Field Name="SeleniumMethods" Width="431"/>
+			<Field Name="AscentialTestMethods" Width="371"/>
+		</Object>
+	</Layout>
+</DataStore>

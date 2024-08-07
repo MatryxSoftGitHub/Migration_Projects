@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="F41EA3D7">
+		<Record Name="DTCreateNewOrderRecord"/>
+		<List Name="DTCreateNewOrderList" ItemType="DTCreateNewOrderRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="DTCreateNewOrder2" Label="DT_Create_NewOrder2" Type="DTCreateNewOrderList"/>
+	</Objects>
+	<Layout>
+		<Object Name="DTCreateNewOrder2"/>
+	</Layout>
+</DataStore>

@@ -1,0 +1,22 @@
+class ForwardVideoTC : Test
+	%TestInfo[Desc="ForwardVideoTC",Group="null",Table="null"]
+	parameter String UserId
+	parameter String UserPwd
+	parameter String ChannelName
+	Main()
+		//Navigate to Youtube User Account
+		step SignIn
+			Emailid : UserId
+			Password : UserPwd
+		YoutubeSearchChannelPage.WaitWhileExists(30)
+		//Search and Select the Channel
+		step SearchString
+			ChannelName : ChannelName
+		YoutubeForwardVideoPage.WaitWhileExists(30)
+		//Forward video play, like and subscribe the channel
+		step PlayListLooping
+		YoutubeSignOutPage.WaitWhileExists(30)
+		//SignOut from the User Account
+		step SignOut
+		AppOnStart()
+		config.GetURL()

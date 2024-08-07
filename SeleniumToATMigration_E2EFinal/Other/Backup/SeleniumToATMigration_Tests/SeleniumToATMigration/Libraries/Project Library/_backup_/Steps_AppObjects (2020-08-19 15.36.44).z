@@ -1,0 +1,348 @@
+﻿String sChannelName = "cachetraveller"
+List<String> lsATAppObject
+String ChannelName = ""
+//@Text=="cachetraveller"
+Integer   iChannelCount = 1
+class Read_TextFile : Step
+	%StepInfo[Desc="Open text file and read it",Group="TextFile"]
+	parameter String sFile
+	out parameter List<String> lsData
+	Main()
+		//Declaration variables
+		String sLine
+		TextFile textFile
+		
+		textFile.Open (sFile, FileMode.Read, FileEncoding.ANSI)
+		while textFile.Read (sLine)
+			lsData.Add(sLine)
+		// Print(lsData)
+		textFile.Close ()
+		
+		//C:\Users\pradeep.Matryxsoft\Desktop\YoutubeProject\YoutubeChannel\src\test\java\com\matryxsoft\youtube\Pages\YoutubeSignInPage.java
+		
+class SegregatingAppObjectsPathsWRTAscentialTestAppObjects : Step
+	%StepInfo[Desc="Fetching the AppObject Classes and paths W.R.T AT",Group="AppObjects"]
+	parameter List<String> lsSearchData = null
+	parameter List<String> lsSeleniumPaths
+	out parameter List<String> lsObjAndPaths
+	Main()
+		// Variables Declaration
+		Integer iPosition,iclassLength, ilsSeleniumClassCount
+		String sReadData, sLine, sDoubleCodes = """", sData
+		
+		// Fetching the AppObject Classes and paths W.R.T AT
+		for(Integer i=1;i<=lsSeleniumPaths.Count();i++)
+			for (Integer j = 1; j<=lsSearchData.Count(); j++)
+				if lsSeleniumPaths[i].Contains ("//span")==true// //Segregating the AppOObject Paths W.R.T Span
+					iPosition = lsSeleniumPaths[i].LastIndexOf ("//span")
+					sLine = lsSeleniumPaths[i].Substring (iPosition+6)
+					lsObjAndPaths.Add (sLine)
+					break
+				if (lsSeleniumPaths[i].Contains (lsSearchData[j]) && lsSeleniumPaths[i].Contains ("//"))==true// //Segregating the AppOObject Paths W.R.T slash(//) and lsSearchData
+					iPosition = lsSeleniumPaths[i].LastIndexOf ("//")
+					sLine = lsSeleniumPaths[i].Substring (iPosition+2)
+					lsObjAndPaths.Add (lsSearchData[j]+"="+sLine)
+					break
+				if lsSeleniumPaths[i].Contains (lsSearchData[j])==true ////Segregating the AppOObject Paths W.R.T  lsSearchData
+					iPosition = lsSeleniumPaths[i].LastIndexOf (lsSearchData[j])
+					iclassLength = lsSearchData[j].Length ()
+					sLine = lsSeleniumPaths[i].Substring (iPosition+iclassLength)
+					lsObjAndPaths.Add (lsSearchData[j]+"="+sLine)
+					break
+				if lsSeleniumPaths[i].Contains("driver.findElement(")==true && lsSeleniumPaths[i].Contains("[""+")==true// //Segregating the AppOObject Paths W.R.T findElement and "+""
+					iPosition = lsSeleniumPaths[i].LastIndexOf ("//")
+					sData = lsSeleniumPaths[i].Substring (iPosition+2)
+					sData = sData.GetField ("[""", 1)
+					lsObjAndPaths.Add ("[@ElemClass=={sDoubleCodes}{sData}{sDoubleCodes}]")
+					break
+				if (lsSeleniumPaths[i].Contains("driver.findElement(") && lsSeleniumPaths[i].Contains("text()"))==true////Segregating the AppOObject Paths W.R.T findElement and text()
+					iPosition = lsSeleniumPaths[i].LastIndexOf ("""+")
+					sData = lsSeleniumPaths[i].Substring (iPosition+2)
+					sData = sData.GetField ("+""", 1)
+					lsObjAndPaths.Add (" [@Text=={sDoubleCodes}"{"+"s{sData}"+"}{sDoubleCodes}]")
+					break
+				if lsSearchData.Count()==j
+					if lsSeleniumPaths[i].Contains ("//")==true
+						iPosition = lsSeleniumPaths[i].LastIndexOf ("//")
+						sLine = lsSeleniumPaths[i].Substring (iPosition+2)
+						lsObjAndPaths.Add ("[@ElemClass=={sDoubleCodes}"+sLine)
+						break
+		// Print (lsObjAndPaths)
+		
+		// Varification for selenium paths count and modified paths count
+		if lsObjAndPaths.Count() == lsSeleniumPaths.Count()
+			// do nothing
+		else
+			LogError ("Total Number of AppObjects in selenium are different to modified paths, Selenium AppObjects count :{lsSeleniumPaths.Count()} and modified paths AppObjects count : {lsObjAndPaths.Count()}")
+		
+		
+		
+class RemovingDuplicateObjectClasses : Step
+	%StepInfo[Desc="Removing Duplicate ObjectClasses",Group="AppObjects"]
+	parameter List<String> lsData
+	parameter List<String> lsSearchClasses
+	out parameter List<String> lsSelPath
+	Main()
+		// Variables Declaration 
+		Integer iPosition 
+		String sLine
+		
+		// Removing the duplicate Object classes
+		for (Integer i = 1; i<=lsData.Count(); i++)
+			for (Integer j = 1; j<=lsSearchClasses.Count(); j++)
+				if lsData[i].Contains (lsSearchClasses[j])
+					iPosition = lsData[i].LastIndexOf (lsSearchClasses[j])
+					sLine = lsData[i].Substring (iPosition)
+					lsSelPath.Add (sLine)
+					break
+				else
+					if lsSearchClasses.Count()==j
+						lsSelPath.Add (lsData[i])
+		// Print (lsSelPath)
+		
+class ConvertAppObjectsIntoATFormat : Step
+	%StepInfo[Desc="Replacing selenium object classes and unwanted characters with respective AT format",Group="AppObjects"]
+	parameter String sPathFormatFile
+	parameter List<String> lsData
+	out parameter List<String> lsATPathData
+	Main()
+		// Variable Declaration
+		String sLine, sObjectClassAndName, sObjectPath, sData
+		Integer iPosition
+		
+		// Replacing selenium object classes and unwanted characters with respective AT format
+		for (Integer i = 1; i<=lsData.Count(); i++)
+			if lsData[i].Contains("WebElement")==true// //Replacing the selenium app object which contains Webelment into Ascential test format.
+				sObjectClassAndName = lsData[i].GetField ("WebElement ", 2)
+				sObjectClassAndName = sObjectClassAndName.Replace (";", "")
+				lsATPathData.Add (String.Tabs (1)+"AppObject "+sObjectClassAndName)
+				sObjectPath = lsData[i].GetField ("WebElement ", 1)
+				sObjectPath = sObjectPath.Replace ("]"")", "]")
+				sObjectPath = sObjectPath.Replace (")", "]")
+				sObjectPath = sObjectPath.Replace ("(", "[")
+				sObjectPath = sObjectPath.Replace ("]]", "]")
+				sObjectPath = sObjectPath.Replace ("'", """")
+				lsATPathData.Add (String.Tabs (2)+"path "+sObjectPath)
+			if !(lsData[i].Contains("WebElement"))// //Replacing the selenium app object which not contains Webelment into Ascential test format.
+				if(lsData[i].Contains(""""{"))
+					sObjectClassAndName = lsData[i].GetField (""""{s", 2)
+					sObjectClassAndName = sObjectClassAndName.Replace ("}""]", "")
+					lsATPathData.Add (String.Tabs (1)+"AppObject "+sObjectClassAndName)
+					sObjectPath = lsData[i]
+					lsATPathData.Add (String.Tabs (2)+"path "+sObjectPath)
+				else
+					sObjectClassAndName = lsData[i].GetField ("[""""+", 2)
+					sObjectClassAndName = lsData[i].GetField ("+""""]", 1)
+					lsATPathData.Add (String.Tabs (1)+"class ItemsCount : AppObject")
+					sObjectPath = lsData[i]
+					lsATPathData.Add (String.Tabs (2)+"path "+sObjectPath)
+		// Print (lsATPathData)
+		
+			
+		
+class ConvertSeleniumObjectClassToAT : Step
+	%StepInfo[Desc="Convert selenium object class to AT object class by using switch cases",Group="AppObjects"]
+	parameter String sSeleniumObjClassName
+	parameter String lsATClassNames
+	out parameter String sATObjClassName
+	Main()
+		// Convert selenium object class to AT object class
+		
+		switch sSeleniumObjClassName
+			case "[@class="
+				sATObjClassName = lsATClassNames
+				break
+			case "[text[],"
+				sATObjClassName = lsATClassNames
+				break
+			case "[id="
+				sATObjClassName = lsATClassNames
+				break
+			case "[name="
+				sATObjClassName = lsATClassNames
+				break
+			case "[@id="
+				sATObjClassName = lsATClassNames
+				break
+			case "[className=="
+				sATObjClassName = lsATClassNames
+				break
+		
+		
+		
+		
+class ReplaceSeleniumObjectClassToAT : Step
+	%StepInfo[Desc="Replace selenium object class to AT object classes",Group="AppObjects"]
+	parameter List<String> lsATPathData
+	parameter List<String> lsSeleniumClass
+	parameter List<String> lsATClassNames
+	parameter String sPathFormatFile
+	out parameter List<String> lsModifiedATPath
+	Main()
+		// Variables Declaration 
+		String sATPathData
+		
+		// Replace selenium object class to AT object classes
+		for(Integer i=1;i<=lsATPathData.Count();i++)
+			for (Integer j = 1; j<=lsSeleniumClass.Count(); j++)   
+				if lsATPathData[i].Contains(lsSeleniumClass[j])==true
+					step ConvertSeleniumObjectClassToAT
+						sSeleniumObjClassName:lsSeleniumClass[j]
+						lsATClassNames:lsATClassNames[j]
+					sATPathData = lsATPathData[i].Replace (lsSeleniumClass[j], ConvertSeleniumObjectClassToAT.sATObjClassName)// Replace selenium object class to AT obj classes
+					lsModifiedATPath.Add (sATPathData)
+					break
+				else
+					if lsSeleniumClass.Count()==j
+						lsModifiedATPath.Add (lsATPathData[i])
+		// Print(lsModifiedATPath)
+		
+class CreateParentAppObject : Step
+	%StepInfo[Desc="Create parent appObject by using child object",Group="AppObjects"]
+	parameter String sPathFormatFile
+	parameter List<String> lsATPathData
+	parameter String sParentObj
+	Main()
+		//Variable Declaration
+		String sObjName_One,sObjName_Two,sObjName_Three,sLine
+		Integer iCount=0
+		
+		// Getting child objects
+		lsATAppObject.Add ("app WebPage {sParentObj}")
+		for(Integer i=1;i<=lsATPathData.Count();i++)
+			if lsATPathData.Count()>=1 ||  i<=5// Using first three child object for creating parent object
+				if i==1
+					iCount++
+					if lsATPathData[i].Contains("AppObject")==true
+						sObjName_One=lsATPathData[i].GetField ("AppObject", 2)
+				if i==3
+					iCount++
+					if lsATPathData[i].Contains("AppObject")==true
+						sObjName_Two=lsATPathData[i].GetField ("AppObject", 2)
+				if i==5
+					iCount++
+					if lsATPathData[i].Contains("AppObject")==true
+						sObjName_Three=lsATPathData[i].GetField ("AppObject", 2)
+		// Adding Appobject Parent to global variable laATAppObject
+		if(iCount==1)
+			lsATAppObject.Add (String.Tabs (1)+"path [@Title like ""*"", contains<"+sObjName_One+">]")// Creating parent object by using "@Title" class
+			lsATAppObject.Add (String.Tabs (1)+"path [@Title like ""*"", contains<"+sObjName_One+">]")// Creating parent object by using "@URL" class
+			lsATAppObject.Add (String.Tabs (1)+"path [@Title like ""*"", contains<"+sObjName_One+">]")// Creating parent object by using "@Caption" class
+		else if(iCount==2)
+			lsATAppObject.Add (String.Tabs (1)+"path [@Title like ""*"", contains<"+sObjName_One+"> || contains <"+sObjName_Two+">]")// Creating parent object by using "@Title" class
+			lsATAppObject.Add (String.Tabs (1)+"path [@Title like ""*"", contains<"+sObjName_One+"> || contains <"+sObjName_Two+">]")// Creating parent object by using "@URL" class
+			lsATAppObject.Add (String.Tabs (1)+"path [@Title like ""*"", contains<"+sObjName_One+"> || contains <"+sObjName_Two+">]")// Creating parent object by using "@Caption" class
+		else
+			lsATAppObject.Add (String.Tabs (1)+"path [@Title like ""*"", contains<"+sObjName_One+"> || contains <"+sObjName_Two+"> || contains <"+sObjName_Three+">]")// Creating parent object by using "@Title" class
+			lsATAppObject.Add (String.Tabs (1)+"path [@Title like ""*"", contains<"+sObjName_One+"> || contains <"+sObjName_Two+"> || contains <"+sObjName_Three+">]")// Creating parent object by using "@URL" class
+			lsATAppObject.Add (String.Tabs (1)+"path [@Title like ""*"", contains<"+sObjName_One+"> || contains <"+sObjName_Two+"> || contains <"+sObjName_Three+">]")// Creating parent object by using "@Caption" class
+		// Print(lsATAppObject)
+		
+class ReplaceUnwantedCharactersToNecessaryCharacters : Step
+	%StepInfo[Desc="Replace Unwanted Characters To Necessary Characters",Group="AppObjects"]
+	parameter List<String> lsATPath
+	parameter String sPathFormatFile
+	parameter List<String> lsUnwantedCharecters
+	Main()
+		// Variables declaration 
+		Integer iPosition1 ,iCount=0
+		String sReplace, sDoubleCoude = """"
+		
+		// Replace Unwanted Characters To Necessary Characters
+		for (Integer i = 1; i<=lsATPath.Count(); i++)
+			for (Integer j = 1; j<=lsUnwantedCharecters.Count(); j++)
+				if (lsATPath[i].Contains (lsUnwantedCharecters[j]) && !(lsATPath[i].Contains("{lsUnwantedCharecters[j]}{sDoubleCoude}"))) ==true////Replace unwanted characters
+					iPosition1 = lsATPath[i].LastIndexOf ("[")
+					sReplace = lsATPath[i].Insert (iPosition1, """]")
+					sReplace = sReplace.Replace (lsUnwantedCharecters[j], "{lsUnwantedCharecters[j]}{sDoubleCoude}")
+					lsATAppObject.Add (sReplace) // Adding Appobject name and path to global variable laATAppObject
+					break
+				else
+					if lsUnwantedCharecters.Count()==j
+						iCount=0
+						for(Integer k=1; k<=lsATPath[i].Length();k++)
+							if lsATPath[i][k]=="["
+								iCount++
+								if iCount>1
+									iPosition1 = lsATPath[i].LastIndexOf ("[")
+									sReplace = lsATPath[i].Insert (iPosition1, """]")
+									lsATAppObject.Add (sReplace) // Adding Appobject name and path to global variable laATAppObject
+									break
+							else
+								if lsATPath[i].Length()==k
+									lsATAppObject.Add (lsATPath[i])//  Adding Appobject name and path to global variable laATAppObject
+		
+class GettingParentObjName : Step
+	%StepInfo[Desc="Getting parent obj name from text file name",Group="AppObjects"]
+	parameter String sReadFile
+	out parameter String sParentObjName
+	Main()
+		// Variables declaration
+		Integer iPos
+		
+		//Getting parent obj name from text file name
+		iPos = sReadFile.LastIndexOf ("\")
+		sReadFile = sReadFile.Substring (iPos+1)
+		sParentObjName = sReadFile.GetField (".", 1)
+		
+		// Print (sParentObjName)
+		
+class FetchingAppObjectPathFromProjectSorceCode : Step
+	%StepInfo[Desc="Adding project source code of AppObject paths into ListOfString",Group="AppObjects"]
+	parameter String sReadFilePath
+	out parameter List<String> lsSeleniumPaths
+	Main()
+		// Adding project source code of AppObject paths into ListOfString
+		// Variables Declaration
+		String sReadData
+		TextFile textFile
+		textFile.Open (sReadFilePath, FileMode.Read, FileEncoding.ANSI)
+		while textFile.Read (sReadData)
+			if sReadData.Contains("driver.findElement(")==true || sReadData.Contains("@FindBy")==true// //if string having "@FindBy" and "driver.findElement" then add into list of string
+				lsSeleniumPaths.Add (sReadData.Trim())
+		// Print(lsSeleniumPaths)
+		
+		
+class RemovingDuplicateAppObjects : Step
+	%StepInfo[Desc="Removing Duplicate AppObjects",Group="AppObjects"]
+	parameter String sPathFormatFile
+	out parameter List<String> lsATpath
+	Main()
+		//Variable declaration
+		String sLine,sSingleLine
+		TextFile textFile
+		
+		// Opening AppObject File
+		textFile.Open (sPathFormatFile, FileMode.Read)
+		while textFile.Read(sLine)
+			lsATpath.Add(sLine)
+		// Print (lsATpath)
+		
+		for (Integer k = 1; k<=lsATpath.Count(); k++)
+			for (Integer l = k+1; l<=lsATpath.Count(); l++)
+					if lsATpath[k]==lsATpath[l]
+						lsATpath.Remove (l)
+		// Print (lsATpath)
+		
+		
+class WritingAppObjectIntoTextFile : Step
+	%StepInfo[Desc="Writing AppObject Into Text File",Group="AppObjects"]
+	parameter String sPathFormatFile
+	parameter List<String> lsATpath
+	Main()
+		// Writing AppObject into text file
+		
+		TextFile MyFile
+		MyFile.Open (sPathFormatFile, FileMode.Write)
+		for(Integer i=1;i<=lsATpath.Count();i++)
+			MyFile.Write (lsATpath[i])
+		
+class WritingAppObjectsIntoTextFile : Step
+	%StepInfo[Desc="Writing AppObjects Into Text File",Group="AppObjects"]
+	parameter String sPathFormatFile
+	Main()
+		// Writing AppObjects Into Text File
+		
+		lsATAppObject.WriteFile (sPathFormatFile)
+		
+

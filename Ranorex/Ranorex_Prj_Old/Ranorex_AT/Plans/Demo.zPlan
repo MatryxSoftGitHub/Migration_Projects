@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Types CRC="42CBD8C6"/>
+	<Declare>
+		<Attributes>
+			<Attribute Name="Author" Type="String"/>
+		</Attributes>
+		<Variables/>
+	</Declare>
+	<Plans>
+		<Plan GUID="C5A5E3C140E4A760AF458092610A4828">
+			<Name>Demo</Name>
+			<Nodes>
+				<Node GUID="0EFE8A3E49B843BBCACE7ABDC8BA06EE">
+					<Name>Converting Ranorex OR to AT OR.</Name>
+					<Attributes>
+						<Author>Nagarjuna</Author>
+					</Attributes>
+					<Test Name="RanorexOR_ATOR" Class=""/>
+				</Node>
+				<Node GUID="EEC6BC3644F4EC2E8D654CBCE5265BAD">
+					<Name>Converting Ranorex OR to AT OR.</Name>
+					<Attributes>
+						<Author>Nagarjuna</Author>
+					</Attributes>
+					<Test Name="RanorexOR_ATOR" Class=""/>
+				</Node>
+				<Node GUID="ECD08983421800A1861C40A0DFCF2528"/>
+			</Nodes>
+		</Plan>
+	</Plans>
+</Project>

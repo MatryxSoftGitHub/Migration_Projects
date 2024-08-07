@@ -1,0 +1,205 @@
+class New_CreateEmployee : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String varFirstName
+	parameter String varSecondName
+	parameter String varSocialSecurity
+	parameter String varAddress
+	parameter String varCity
+	parameter String varZipCode
+	parameter String varPhone
+	parameter String varStartDate
+	parameter String varTerminationDate
+	parameter String varBOD
+	parameter String varSalary
+	parameter String varCity_Validate
+	Main()
+		Mouse.DefaultMoveTime = 300;
+		Keyboard.DefaultKeyPressTime = 20;
+		Delay.SpeedFactor = 1.00;
+		
+		Init();
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Element20001' at 213;36.", PowerBuilderUltimateSuiteSampleAppli.Element20001Info, new RecordItemIndex(0));
+		PowerBuilderUltimateSuiteSampleAppli.Element20001.Click("213;36");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Text25' at 23;5.", PowerBuilderUltimateSuiteSampleAppli.Text25Info, new RecordItemIndex(1));
+		PowerBuilderUltimateSuiteSampleAppli.Text25.Click("23;5");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varFirstName' with focus on 'PowerBuilderUltimateSuiteSampleAppli.Text25'.", PowerBuilderUltimateSuiteSampleAppli.Text25Info, new RecordItemIndex(2));
+		PowerBuilderUltimateSuiteSampleAppli.Text25.PressKeys(varFirstName);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$varFirstName) on item 'PowerBuilderUltimateSuiteSampleAppli.Text25'.", PowerBuilderUltimateSuiteSampleAppli.Text25Info, new RecordItemIndex(3));
+		Validate.AttributeEqual(PowerBuilderUltimateSuiteSampleAppli.Text25Info, "Text", varFirstName);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.EmpLname' at 18;2.", PowerBuilderUltimateSuiteSampleAppli.EmpLnameInfo, new RecordItemIndex(4));
+		PowerBuilderUltimateSuiteSampleAppli.EmpLname.Click("18;2");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varSecondName' with focus on 'PowerBuilderUltimateSuiteSampleAppli.Text25'.", PowerBuilderUltimateSuiteSampleAppli.Text25Info, new RecordItemIndex(5));
+		PowerBuilderUltimateSuiteSampleAppli.Text25.PressKeys(varSecondName);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$varSecondName) on item 'PowerBuilderUltimateSuiteSampleAppli.Text25'.", PowerBuilderUltimateSuiteSampleAppli.Text25Info, new RecordItemIndex(6));
+		Validate.AttributeEqual(PowerBuilderUltimateSuiteSampleAppli.Text25Info, "Text", varSecondName);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.ListItem' at 138;3.", PowerBuilderUltimateSuiteSampleAppli.ListItemInfo, new RecordItemIndex(7));
+		PowerBuilderUltimateSuiteSampleAppli.ListItem.Click("138;3");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PbusSample' at 47;29.", PbusSample.SelfInfo, new RecordItemIndex(8));
+		PbusSample.Self.Click("47;29");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.RD' at 207;7.", PowerBuilderUltimateSuiteSampleAppli.RDInfo, new RecordItemIndex(9));
+		PowerBuilderUltimateSuiteSampleAppli.RD.Click("207;7");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PbusSample' at 34;30.", PbusSample.SelfInfo, new RecordItemIndex(10));
+		PbusSample.Self.Click("34;30");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.ComboBoxSex' at 209;6.", PowerBuilderUltimateSuiteSampleAppli.ComboBoxSexInfo, new RecordItemIndex(11));
+		PowerBuilderUltimateSuiteSampleAppli.ComboBoxSex.Click("209;6");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PbusSample' at 20;8.", PbusSample.SelfInfo, new RecordItemIndex(12));
+		PbusSample.Self.Click("20;8");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.SocialSecurity' at 46;4.", PowerBuilderUltimateSuiteSampleAppli.SocialSecurityInfo, new RecordItemIndex(13));
+		PowerBuilderUltimateSuiteSampleAppli.SocialSecurity.Click("46;4");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varSocialSecurity' with focus on 'PowerBuilderUltimateSuiteSampleAppli'.", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new RecordItemIndex(14));
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible();
+		Keyboard.Press(varSocialSecurity);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Street' at 149;9.", PowerBuilderUltimateSuiteSampleAppli.StreetInfo, new RecordItemIndex(15));
+		PowerBuilderUltimateSuiteSampleAppli.Street.Click("149;9");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varAddress' with focus on 'PowerBuilderUltimateSuiteSampleAppli'.", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new RecordItemIndex(16));
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible();
+		Keyboard.Press(varAddress);
+		Delay.Milliseconds(0);
+		
+		//Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$varAddress) on item 'PowerBuilderUltimateSuiteSampleAppli.Street'.", PowerBuilderUltimateSuiteSampleAppli.StreetInfo, new RecordItemIndex(17));
+		//Validate.AttributeEqual(PowerBuilderUltimateSuiteSampleAppli.StreetInfo, "Text", varAddress);
+		//Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.City' at 128;3.", PowerBuilderUltimateSuiteSampleAppli.CityInfo, new RecordItemIndex(18));
+		PowerBuilderUltimateSuiteSampleAppli.City.Click("128;3");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varCity' with focus on 'PowerBuilderUltimateSuiteSampleAppli'.", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new RecordItemIndex(19));
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible();
+		Keyboard.Press(varCity);
+		Delay.Milliseconds(0);
+		
+		//Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$varCity_Validate) on item 'PowerBuilderUltimateSuiteSampleAppli.City'.", PowerBuilderUltimateSuiteSampleAppli.CityInfo, new RecordItemIndex(20));
+		//Validate.AttributeEqual(PowerBuilderUltimateSuiteSampleAppli.CityInfo, "Text", varCity_Validate);
+		//Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'Text' from item 'PowerBuilderUltimateSuiteSampleAppli.City' and assigning its value to variable 'varCity'.", PowerBuilderUltimateSuiteSampleAppli.CityInfo, new RecordItemIndex(21));
+		varCity = PowerBuilderUltimateSuiteSampleAppli.City.Element.GetAttributeValueText("Text");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.ListItemAB' at 40;5.", PowerBuilderUltimateSuiteSampleAppli.ListItemABInfo, new RecordItemIndex(22));
+		PowerBuilderUltimateSuiteSampleAppli.ListItemAB.Click("40;5");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PbusSample' at 21;31.", PbusSample.SelfInfo, new RecordItemIndex(23));
+		PbusSample.Self.Click("21;31");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.ZipCode' at 39;5.", PowerBuilderUltimateSuiteSampleAppli.ZipCodeInfo, new RecordItemIndex(24));
+		PowerBuilderUltimateSuiteSampleAppli.ZipCode.Click("39;5");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varZipCode' with focus on 'PowerBuilderUltimateSuiteSampleAppli'.", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new RecordItemIndex(25));
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible();
+		Keyboard.Press(varZipCode);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Phone' at 61;8.", PowerBuilderUltimateSuiteSampleAppli.PhoneInfo, new RecordItemIndex(26));
+		PowerBuilderUltimateSuiteSampleAppli.Phone.Click("61;8");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varPhone' with focus on 'PowerBuilderUltimateSuiteSampleAppli'.", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new RecordItemIndex(27));
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible();
+		Keyboard.Press(varPhone);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.StartDate' at 9;6.", PowerBuilderUltimateSuiteSampleAppli.StartDateInfo, new RecordItemIndex(28));
+		PowerBuilderUltimateSuiteSampleAppli.StartDate.Click("9;6");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varStartDate' with focus on 'PowerBuilderUltimateSuiteSampleAppli'.", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new RecordItemIndex(29));
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible();
+		Keyboard.Press(varStartDate);
+		Delay.Milliseconds(0);
+		
+		//Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.TerminationDate' at 7;9.", PowerBuilderUltimateSuiteSampleAppli.TerminationDateInfo, new RecordItemIndex(30));
+		//PowerBuilderUltimateSuiteSampleAppli.TerminationDate.Click("7;9");
+		//Delay.Milliseconds(0);
+		
+		//Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varTerminationDate' with focus on 'PowerBuilderUltimateSuiteSampleAppli'.", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new RecordItemIndex(31));
+		//PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible();
+		//Keyboard.Press(varTerminationDate);
+		//Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.DateOfBirth' at 7;9.", PowerBuilderUltimateSuiteSampleAppli.DateOfBirthInfo, new RecordItemIndex(32));
+		PowerBuilderUltimateSuiteSampleAppli.DateOfBirth.Click("7;9");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varBOD' with focus on 'PowerBuilderUltimateSuiteSampleAppli'.", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new RecordItemIndex(33));
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible();
+		Keyboard.Press(varBOD);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Salary' at 53;7.", PowerBuilderUltimateSuiteSampleAppli.SalaryInfo, new RecordItemIndex(34));
+		PowerBuilderUltimateSuiteSampleAppli.Salary.Click("53;7");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$varSalary' with focus on 'PowerBuilderUltimateSuiteSampleAppli'.", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new RecordItemIndex(35));
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible();
+		Keyboard.Press(varSalary);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Element1005' at 17;7.", PowerBuilderUltimateSuiteSampleAppli.Element1005Info, new RecordItemIndex(36));
+		PowerBuilderUltimateSuiteSampleAppli.Element1005.Click("17;7");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Element1004' at 12;21.", PowerBuilderUltimateSuiteSampleAppli.Element1004Info, new RecordItemIndex(37));
+		PowerBuilderUltimateSuiteSampleAppli.Element1004.Click("12;21");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Element20001' at 41;36.", PowerBuilderUltimateSuiteSampleAppli.Element20001Info, new RecordItemIndex(38));
+		PowerBuilderUltimateSuiteSampleAppli.Element20001.Click("41;36");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Element20001' at 34;15.", PowerBuilderUltimateSuiteSampleAppli.Element20001Info, new RecordItemIndex(39));
+		PowerBuilderUltimateSuiteSampleAppli.Element20001.Click("34;15");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Validation", "Validating NotExists on item 'PowerBuilderUltimateSuiteSampleAppli.Text25'.", PowerBuilderUltimateSuiteSampleAppli.Text25Info, new RecordItemIndex(40));
+		Validate.NotExists(PowerBuilderUltimateSuiteSampleAppli.Text25Info);
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'PowerBuilderUltimateSuiteSampleAppli.Element20001' at 36;56.", PowerBuilderUltimateSuiteSampleAppli.Element20001Info, new RecordItemIndex(41));
+		PowerBuilderUltimateSuiteSampleAppli.Element20001.Click("36;56");
+		Delay.Milliseconds(0);
+		
+		Report.Log(ReportLevel.Info, "Wait", "Waiting 1s to not exist. Associated repository item: 'PowerBuilderUltimateSuiteSampleAppli'", PowerBuilderUltimateSuiteSampleAppli.SelfInfo, new ActionTimeout(1000), new RecordItemIndex(42));
+		PowerBuilderUltimateSuiteSampleAppli.SelfInfo.WaitForNotExists(1000);
+		
+		
+		
+		e Feature Data
+		

@@ -1,0 +1,344 @@
+﻿class ConvertingUFTORtoExactATOR_Window : Test
+	%TestInfo[Desc="Converts UFT AppObjects to AT Appobjects",Group="UFTConvertion_Window",Attr="Author='Lokesh,Nagarjuna,Dileep,Krutika', TestCaseName='ConvertingUFTORtoExactATOR_Window'",Table="Dt_ConvertingUFTORtoExactATOR"]
+	parameter String TestCaseID
+	Main()
+		Record_ConvertingUFTORtoExactATOR rRecord_ConvertingUFTORtoExactATOR = DataStore.QueryTableRow ("Dt_ConvertingUFTORtoExactATOR ", "TestcaseID", TestCaseID)
+		
+		// All Xml and Txt files location
+		String sPath=DataStore.Query("PathLocation")
+		//To Find the Comand Execution Directory Path
+		step ExecuteCommandPath
+		
+		//To convert Repository xml file to txt file and move the txt to Specific Dir
+		step CovertRepositoryXmlToTxt
+			sXMLRepository_Path:ExecuteCommandPath.sDefaultDirectoryPath+"\"+rRecord_ConvertingUFTORtoExactATOR.sRepositoryFile
+			sOrgUFT_FileName:sPath+rRecord_ConvertingUFTORtoExactATOR.sOrgUFTFileName
+			sChangeFormat:ExecuteCommandPath.sDefaultDirectoryPath+"\"+rRecord_ConvertingUFTORtoExactATOR.sOrgUFTFileName
+			sRepositoryFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sRepositoryFile
+			sDeleteFolderPath:sPath+rRecord_ConvertingUFTORtoExactATOR.lsOrignalFinalObjRepo[1]
+			sExistingDirPath:sPath+rRecord_ConvertingUFTORtoExactATOR.sExistingDirPath
+		
+		//Creating org UFT file and getting the Applocation type
+		step CreatingOrgUFTFile
+			sSourceFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sOrgUFTFileName
+			sDestinationFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTModifiedOrgFile
+		// 
+		// //Deletes all unwnated tags from the original UFT OR file
+		step DeleteUnwantedTags_UFTOriginalTxtFile DeleteUnwantedTags_UFTOriginalTxtFile2
+			lsUnwantedTags:rRecord_ConvertingUFTORtoExactATOR.lsDeleteTags
+			sOrgUFT_FileName:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTModifiedOrgFile
+			sModifiedUFT_FileName:sPath+rRecord_ConvertingUFTORtoExactATOR.sModifiedUFTFileName
+		// 
+		//Converts UFT Objects and property to AT Objects and Property
+		step ConvertUFTORtoATOR_new
+			sModifiedUFT_FileName:sPath+rRecord_ConvertingUFTORtoExactATOR.sModifiedUFTFileName
+			sConvertedToATFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTSourceFile
+		// 
+		//Insert Object Class To Multiple Path Statements Within Same Object
+		step AddsObjClassToitsOwnPathStatements
+			sSourceFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTSourceFile
+			sDestinationFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTtoATConvertFile
+		
+		// //a)Covert Object Name to AT. b)Repalcing the special char with null in Obj name. c)Updating Actual UFT Obj name to Expected AT Obj name.
+		step CovertingEquivalentUFTOR_ATOR_New
+			sDestinationFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTtoATConvertFile
+			sFinalDestination:sPath+rRecord_ConvertingUFTORtoExactATOR.sATDestinationFile
+		// 
+		//Deleting all Unwanted Path Stmt
+		step DeleteUnwantedPathStmt
+			sSourcePath:sPath+rRecord_ConvertingUFTORtoExactATOR.sATDestinationFile
+			sDestinationPath:sPath+rRecord_ConvertingUFTORtoExactATOR.sFinalATObjFile
+			lsDeleteunwnatedRows:rRecord_ConvertingUFTORtoExactATOR.lsUnwnatedPathStmt_Win
+		// 
+		//Changing UFT attribute to AT attribute
+		step ChangeUFTAttrToATAttr ChangeUtfAttrToAtAttr1
+			sFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sFinalATObjFile
+			sFinalDestinationFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sFinalPath
+		
+		//Create Folder and place UFT App Object Repository file and Final AT Object Repository file
+		step CreateFolderAndPlaceUFTObjRepoAndFinalATRepo
+			sFolderName:sPath+rRecord_ConvertingUFTORtoExactATOR.lsOrignalFinalObjRepo[1]
+			sRepositoryFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sRepositoryFile
+			sRepositoryDestionPath:sPath+rRecord_ConvertingUFTORtoExactATOR.lsOrignalFinalObjRepo[2]
+			sFinalATFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sFinalPath
+			sATFolderDestionPath:sPath+rRecord_ConvertingUFTORtoExactATOR.lsOrignalFinalObjRepo[3]
+		
+class ConvertingUFTORtoExactATOR_Web : Test
+	%TestInfo[Desc="Insert Object Class To Multiple PathStmt Within SameObj",Group="UFTConvertion_Web",Attr="Author='Lokesh,Nagarjuna,Dileep,Krutika', TestCaseName='ConvertingUFTORtoExactATOR_Web'",Table="Dt_ConvertingUFTORtoExactATOR"]
+	parameter String TestCaseID
+	Main()
+		Record_ConvertingUFTORtoExactATOR rRecord_ConvertingUFTORtoExactATOR = DataStore.QueryTableRow ("Dt_ConvertingUFTORtoExactATOR ", "TestcaseID", TestCaseID)
+		
+		//All Xml and Txt files location
+		String sPath=DataStore.Query("PathLocation")
+		
+		//To Find the Comand Execution Directory Path
+		step ExecuteCommandPath
+		
+		//To convert Repository xml file to txt file and move the txt to Specific Dir
+		step CovertRepositoryXmlToTxt
+			sXMLRepository_Path:ExecuteCommandPath.sDefaultDirectoryPath+"\"+rRecord_ConvertingUFTORtoExactATOR.sRepositoryFile
+			sOrgUFT_FileName:sPath+rRecord_ConvertingUFTORtoExactATOR.sOrgUFTFileName
+			sChangeFormat:ExecuteCommandPath.sDefaultDirectoryPath+"\"+rRecord_ConvertingUFTORtoExactATOR.sOrgUFTFileName
+			sRepositoryFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sRepositoryFile
+			sDeleteFolderPath:sPath+rRecord_ConvertingUFTORtoExactATOR.lsOrignalFinalObjRepo[1]
+			sExistingDirPath:sPath+rRecord_ConvertingUFTORtoExactATOR.sExistingDirPath
+		
+		//Creating org UFT file and getting the Applocation type
+		step CreatingOrgUFTFile
+			sSourceFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sOrgUFTFileName
+			sDestinationFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTModifiedOrgFile
+		
+		//Deletes all unwnated tags from the original UFT OR file
+		step DeleteUnwantedTags_UFTOriginalTxtFile DeleteUnwantedTags_UFTOriginalTxtFile2
+			lsUnwantedTags:rRecord_ConvertingUFTORtoExactATOR.lsDeleteTags
+			sOrgUFT_FileName:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTModifiedOrgFile
+			sModifiedUFT_FileName:sPath+rRecord_ConvertingUFTORtoExactATOR.sModifiedUFTFileName
+		
+		//Converts UFT Objects and property to AT Objects and Property
+		step ConvertUFTORtoATOR
+			sModifiedUFT_FileName:sPath+rRecord_ConvertingUFTORtoExactATOR.sModifiedUFTFileName
+			sConvertedToATFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTSourceFile
+		
+		//Insert Object Class To Multiple Path Statements Within Same Object
+		step AddsObjClassToitsOwnPathStatements
+			sSourceFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTSourceFile
+			sDestinationFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTtoATConvertFile
+		
+		//a)Covert Object Name to AT. b)Repalcing the special char with null in Obj name. c)Updating Actual UFT Obj name to Expected AT Obj name
+		step CovertingEquivalentUFTOR_ATOR
+			sDestinationFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sUFTtoATConvertFile
+			sFinalDestination:sPath+rRecord_ConvertingUFTORtoExactATOR.sATDestinationFile
+		
+		//Deleting all Unwanted Path Stmt
+		step DeleteUnwantedPathStmt
+			sSourcePath:sPath+rRecord_ConvertingUFTORtoExactATOR.sATDestinationFile
+			sDestinationPath:sPath+rRecord_ConvertingUFTORtoExactATOR.sFinalATObjFile
+			lsDeleteunwnatedRows:rRecord_ConvertingUFTORtoExactATOR.lsUnwnatedPathStmt_Web
+		
+		//Changing UFT attribute to AT attribute
+		step ChangeUFTAttrToATAttr ChangeUtfAttrToAtAttr1
+			sFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sFinalATObjFile
+			sFinalDestinationFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sFinalPath
+		
+		//Create Folder and place UFT App Object Repository file and Final AT Object Repository file
+		step CreateFolderAndPlaceUFTObjRepoAndFinalATRepo
+			sFolderName:sPath+rRecord_ConvertingUFTORtoExactATOR.lsOrignalFinalObjRepo[1]
+			sRepositoryFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sRepositoryFile
+			sRepositoryDestionPath:sPath+rRecord_ConvertingUFTORtoExactATOR.lsOrignalFinalObjRepo[2]
+			sFinalATFile:sPath+rRecord_ConvertingUFTORtoExactATOR.sFinalPath
+			sATFolderDestionPath:sPath+rRecord_ConvertingUFTORtoExactATOR.lsOrignalFinalObjRepo[3]
+		// 
+		
+		
+class UFTConvertions_Steps : Test
+	%TestInfo[Desc="Convert UFT Script To AT Script.",Group="UFTConvertion_Steps",Table="Dt_UFTConvertion_Steps"]
+	parameter String TestcaseID
+	Main()
+		Record_UFTConvertion_Steps record_UFTConvertion_Steps = DataStore.QueryTableRow ("Dt_UFTConvertion_Steps", "TestcaseID", TestcaseID)
+		List<String> lsUFTFiles = DataStore.Query ("Dt_UFTConvertion_Steps[1].lsStepsSourceFilePath")
+		String sPath=DataStore.Query("PathLocation")
+		Integer iLoop
+		
+		step DeleteExistingFiles
+			lsExistingFiles:record_UFTConvertion_Steps.lsDestinationFiles
+			sDeleteDir:record_UFTConvertion_Steps.sDeleteDir
+		// 
+		for(iLoop =1; iLoop<=lsUFTFiles.Count(); iLoop++)
+			// Create Step Format And Parameters, Writing Modified Data In Note Pad.
+			step CreateStepFormate_Parameters
+				sStepDestinationPath:sPath+record_UFTConvertion_Steps.lsDestinationFiles[1]
+				sStepsSourceFilePath:sPath+record_UFTConvertion_Steps.lsStepsSourceFilePath[iLoop]
+				sStepFormateSourceFile:sPath+record_UFTConvertion_Steps.lsStepFormateSourceFile[iLoop]
+			
+			// //Changing Data Type From Dim To String.
+			// step ChangeDataTypeDimToString
+				// sDataTypeSourceFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[1]
+				// sDataTypeDestinationPath:sPath+record_UFTConvertion_Steps.lsDestinationFiles[2]
+			// 
+			// // Modify UFT Original file by removing empty lines and changing UFT script to AT script.
+			// step ModifyUFTScriptToATScriptFormat
+				// sModifyDataTypes_TxtFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[2]
+				// sModifyUFTScriptToATScriptFormat_TxtFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[3]
+				// lsUFTMethods:record_UFTConvertion_Steps.lsUFTMethods
+			// 
+			// //Modify UFT Methods To AT Methods.
+			// step ModifyUFtMethodsToATMethods
+				// lsModifyUFTScriptToATScriptFormat:ModifyUFTScriptToATScriptFormat.lsFinalData
+				// lsUFTMethods:record_UFTConvertion_Steps.lsUFTMethods
+				// lsATMethods:record_UFTConvertion_Steps.lsATMethods
+				// sModifyUFtMethodsToATMethods_TxtFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[4]
+			// 
+			// // Converting Looping And Conditional Statements
+			// step ConvertingStatements
+				// sConvertingStatementsDestinationFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[5]
+				// lsUFTConditionalStatments:record_UFTConvertion_Steps.lsUFTConditionalStatments
+				// lsATConditionalStatments:record_UFTConvertion_Steps.lsATConditionalStatments
+				// lsModifyUFtMethodsToATMethodsData:ModifyUFtMethodsToATMethods.lsModifyUFtMethodsToATMethods
+		
+	
+class ConvertUFTToATTestCase : Test
+	%TestInfo[Desc="Convert TestCase from UFT to AT.",Group="TestCase",Table="Dt_UFTTestToATTest"]
+	parameter String RowId
+	Main()
+		Record_UFTTestToATTest record_UFTTestToATTest = DataStore.QueryTableRow ("Dt_UFTTestToATTest", "RowId", RowId)
+		List<String> lsUFTFiles = DataStore.Query ("Dt_UFTTestToATTest[1].lsUFTOrgTestFile")
+		String sPath=DataStore.Query("PathLocation")
+		
+		//Deleting Existing Files If Present Else Create Directories.
+		step DeleteExistingDir
+			lsDirPath:record_UFTTestToATTest.lsDirPath
+		 
+		for(Integer iLoop=1; iLoop<=lsUFTFiles.Count(); iLoop++)
+			//Fetching TestCase Name and Add Test Info.
+			step FetchTCName
+				sUFTOrgTestFile:sPath+record_UFTTestToATTest.lsUFTOrgTestFile[iLoop]
+				sTCName_TestInfo:sPath+record_UFTTestToATTest.sTCName_TestInfo
+			
+			//Fetching Step Names From Action Files And Add To Test Format.
+			step FetchStepName_AddToTestFormat
+				sActionFile:sPath+record_UFTTestToATTest.lsActionFile[iLoop]
+				sTestFormatFile:sPath+record_UFTTestToATTest.sTCName_TestInfo
+		
+class ConvertXLStoCSV_Test : Test
+	%TestInfo[Desc="Converts UFT xls Format to CSV format for AT Datatable",Group="DataTableMigration"]
+	Main()
+		step ConvertXSLtoCSV
+			sExcelFileLocation:sUFTExcelPath
+		DataEditor.AddHandler("AddHandler_DataEditorOK")
+		step ConvertCSVtoDS
+		DataEditor.RemoveHandler ()
+		
+//Functions
+class UFTConvertions_Functions : Test
+	%TestInfo[Desc="Convert UFT Script To AT Script.",Group="UFTConvertion_Functions",Table="Dt_UFTConvertion_Steps"]
+	parameter String TestcaseID
+	Main()
+		Record_UFTConvertion_Steps record_UFTConvertion_Steps = DataStore.QueryTableRow ("Dt_UFTConversion_Functions", "TestcaseID", TestcaseID)
+		List<String> lsUFTFiles = DataStore.Query ("Dt_UFTConversion_Functions[1].lsStepsSourceFilePath")
+		Print (lsUFTFiles)
+		String sPath=DataStore.Query("PathLocation")
+		Integer iLoop
+		
+		step DeleteExistingFiles
+			lsExistingFiles:record_UFTConvertion_Steps.lsDestinationFiles
+			sDeleteDir:record_UFTConvertion_Steps.sDeleteDir
+		for(iLoop =1; iLoop<=lsUFTFiles.Count(); iLoop++)
+			
+			//Changing Data Type From Dim To String.
+			step ChangeDataTypeDimToString
+				sDataTypeSourceFile:sPath+record_UFTConvertion_Steps.lsStepsSourceFilePath[iLoop]
+				sDataTypeDestinationPath:sPath+record_UFTConvertion_Steps.lsDestinationFiles[2]
+			
+			step FetchParameters_FunctionLine
+				lsData:ChangeDataTypeDimToString.lsModifiedData
+			
+			step GetFunctionInfo_ATFormat
+				lsData:FetchParameters_FunctionLine.lsModifiedData
+				lsModifiedData:_
+				sOutput:sPath+record_UFTConvertion_Steps.lsDestinationFiles[3]
+			
+			// //Modify and remove keywords like function and Call
+			step ReplaceUFT_KeywordsAndMethodsToAT
+				lsData:GetFunctionInfo_ATFormat.lsModifiedData
+				sOutput:sPath+record_UFTConvertion_Steps.lsDestinationFiles[4]
+				lsUFTKeyWords:DataStore.Query ("DTKeywordConversion[1].lsUFT_Keyword")
+				lsATKeyWords:DataStore.Query ("DTKeywordConversion[1].lsAT_Keyword")
+				lsUFTMethods:DataStore.Query ("DTKeywordConversion[1].lsUFT_Methods")
+				lsATMehods:DataStore.Query ("DTKeywordConversion[1].lsAT_Methods")
+			// 
+			step ConvertUFTFunctionToATFunctionFormat
+				lsData:ReplaceUFT_KeywordsAndMethodsToAT.lsModifiedData
+				sOutput:sPath+record_UFTConvertion_Steps.lsDestinationFiles[5]
+				sGroupName:DataStore.Query ("Dt_UFTConversion_Functions[1].lsStepsSourceFilePath[{iLoop}]")
+			
+			step WriteInZfile
+				sATORFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[5]
+				sZeeFile:sPath+sFunctionsZFiles
+				lsData:ConvertUFTFunctionToATFunctionFormat.lsModifiedData
+				// // lsUFTMethods:record_UFTConvertion_Steps.lsUFTMethods
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			// step ModifyUFTScriptToATScriptFormat
+				// // sModifyDataTypes_TxtFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[2]
+				// // sModifyUFTScriptToATScriptFormat_TxtFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[3]
+			// //Modify UFT Methods To AT Methods.
+			// step ModifyUFtMethodsToATMethods
+				// lsModifyUFTScriptToATScriptFormat:ModifyUFTScriptToATScriptFormat.lsFinalData
+				// lsUFTMethods:record_UFTConvertion_Steps.lsUFTMethods
+				// lsATMethods:record_UFTConvertion_Steps.lsATMethods
+				// sModifyUFtMethodsToATMethods_TxtFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[4]
+			// 
+			// Converting Looping And Conditional Statements
+			// step ConvertingStatements
+				// sConvertingStatementsDestinationFile:sPath+record_UFTConvertion_Steps.lsDestinationFiles[5]
+				// lsUFTConditionalStatments:record_UFTConvertion_Steps.lsUFTConditionalStatments
+				// lsATConditionalStatments:record_UFTConvertion_Steps.lsATConditionalStatments
+				// lsModifyUFtMethodsToATMethodsData:ModifyUFtMethodsToATMethods.lsModifyUFtMethodsToATMethods
+		// 
+		
+		
+class ConvertUFTFunctionToATFunctionFormat : Step
+	%StepInfo[Desc="Convert UFT Functions Format To AT Functions Format.",Group="New / Function"]
+	parameter List<String> lsData
+	out parameter List<String> lsModifiedData
+	parameter String sOutput
+	parameter String sGroupName
+	Main()
+		Integer iLoop,jLoop,kLoop
+		String sDescription
+		
+		sGroupName = sGroupName.GetField (".", 1)
+		
+		for (Integer iLoop = 1; iLoop<=lsData.Count(); iLoop++)
+			if lsData[iLoop][1] != "/" && lsData[iLoop][1].IsAlpha() == true
+				lsModifiedData.Add (lsData[iLoop])
+				for (Integer jLoop = iLoop; jLoop<=lsData.Count(); jLoop++)
+					if lsData[jLoop].Contains ("@Description")
+						sDescription = lsData[jLoop].GetField ("@Description", 2)
+						if sDescription.Contains(":")
+							sDescription = sDescription.Replace (":", "")
+				lsModifiedData.Add (String.Tabs(1)+"%FuncInfo[Desc=""{sDescription.TrimLeft()}"",Group=""{sGroupName}""]")
+			else
+				lsModifiedData.Add (lsData[iLoop])
+		
+		for (kLoop = 1; kLoop<=lsModifiedData.Count(); kLoop++)
+			if lsModifiedData[kLoop].Contains ("//*********")  && lsData[kLoop-1][1] !="/"
+				
+		lsModifiedData.WriteFile (sOutput)
+		//%FuncInfo
+		
+	
+class WriteInZfile : Step
+	%StepInfo[Desc="Write all the date in .ZFile",Group="TextFile"]
+	parameter String sATORFile
+	parameter String sZeeFile
+	parameter List<String> lsData
+	Main()
+		//Variables diclaration
+		String sReadData
+		List<String> lsParentAddedOutFile
+		TextFile MyFile
+		
+		Sleep(2)
+		//Reading  the AT object repository.
+		// step OpenAndReadTextFile
+			// sFile:sATORFile
+		
+		// lsParentAddedOutFile=OpenAndReadTextFile.lsData
+		Print (sZeeFile)
+		MyFile.Open (sZeeFile, FileMode.Append)
+		for (Integer i = 1; i<=lsData.Count(); i++)
+			MyFile.Write (lsData[i])
+		
+		
+	
+

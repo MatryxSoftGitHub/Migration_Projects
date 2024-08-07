@@ -1,0 +1,32 @@
+class StartProxyAndActAs_Step : Step
+	%StepInfo[Desc="StartProxyAndActAs_Step",Group="null"]
+	parameter String sStartProxy
+	parameter String sActAs
+	Main()
+		Txt_WorkdaySearch.WaitWhileExists(30)
+		//Search for Start proxy--------------------------------------------------------------------------------------
+		Txt_WorkdaySearch.sendKeys(Keys.CONTROL, "a")
+		Txt_WorkdaySearch.sendKeys(sStartProxy)
+		Thread.sleep(5000)
+		Txt_WorkdaySearch.sendKeys(Keys.ENTER)
+		Lnk_StartProxy.click()
+		//Act As Start proxy--------------------------------------------------------------------------------------------------
+		Txt_ActAs.click()
+		Txt_ActAs.sendKeys(sActAs)
+		Txt_ActAs.sendKeys(Keys.ENTER)
+		Thread.sleep(5000)
+		Btn_Ok.click()
+		Thread.sleep(5000)
+class StopProxy_Step : Step
+	%StepInfo[Desc="StopProxy_Step",Group="null"]
+	parameter String sStopProxy
+	Main()
+		Txt_WorkdaySearch.WaitWhileExists(30)
+		//Search for Stop proxy--------------------------------------------------------------------------------------
+		Txt_WorkdaySearch.sendKeys(Keys.CONTROL, "a")
+		Txt_WorkdaySearch.sendKeys(sStopProxy)
+		Thread.sleep(5000)
+		Txt_WorkdaySearch.sendKeys(Keys.ENTER)
+		Lnk_StopProxy.click()
+		Thread.sleep(3000)
+		Btn_Ok.click()

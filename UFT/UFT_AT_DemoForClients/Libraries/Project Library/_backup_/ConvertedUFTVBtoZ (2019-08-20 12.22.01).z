@@ -1,0 +1,76 @@
+﻿// app AppObject MicroFocusMyFlightSample
+		// path window[@regexpwndtitle=="Micro Focus MyFlight Sample Application"]
+		// path window[@devname=="Micro Focus MyFlight Sample Application"]
+		// WpfDataGrid flightsDataGrid
+			// path [@devname=="flightsDataGrid"]
+		// AppObject ToParis
+			// path [@devname=="toCity"]
+		// AppObject SELECTFLIGHT
+			// path [@devname=="SELECT FLIGHT"]
+		// AppObject Price
+			// path [@devname=="Price"]
+		// AppObject Order88completed
+			// path [@devname=="orderCompleted"]
+		// AppObject FromLondon
+			// path [@devname=="fromCity"]
+		// AppObject Flight
+			// path [@devname=="Flight"]
+		// AppObject Date
+			// path [@devname=="Date"]
+		// AppObject WpfImage_6
+			// path image[@regexpwndtitle=="Micro Focus MyFlight Sample Application"]
+			// path image[@devnamepath==";;"]
+			// path image[@devname==""]
+		// AppObject WpfImage_5
+			// path image[@regexpwndtitle=="Micro Focus MyFlight Sample Application"]
+			// path image[@devnamepath==";;"]
+			// path image[@devname==""]
+		// AppObject WpfImage_4
+			// path image[@regexpwndtitle=="Micro Focus MyFlight Sample Application"]
+			// path image[@devnamepath==";;"]
+			// path image[@devname==""]
+		// AppObject WpfImage_3
+			// path image[@regexpwndtitle=="Micro Focus MyFlight Sample Application"]
+			// path image[@devnamepath==";;"]
+			// path image[@devname==""]
+		// AppObject WpfImage_2
+			// path image[@regexpwndtitle=="Micro Focus MyFlight Sample Application"]
+			// path image[@devnamepath==";;"]
+			// path image[@devname==""]
+		// AppObject WpfImage
+			// path image[@regexpwndtitle=="Micro Focus MyFlight Sample Application"]
+			// path image[@devnamepath==";;;"]
+			// path image[@devname==""]
+		// WpfTextField password
+			// path [@devname=="password"]
+		// WpfTextField passengerName
+			// path [@devname=="passengerName"]
+		// WpfTextField agentName123
+			// path [@devname=="agentName"]
+		// AppObject TravelFromCity
+			// path [@devname=="fromCity"]
+		// AppObject toCity
+			// path [@devname=="toCity"]
+		// AppObject Mo
+			// path [@devname==""]
+		// AppObject WpfButton
+			// path button[@text==""]
+			// path button[@devname==""]
+		// AppObject SELECTFLIGHT_Btn
+			// path [@text=="SELECT FLIGHT"]
+			// path [@devname=="selectFlightBtn"]
+		// AppObject ORDER
+			// path [@text=="ORDER"]
+			// path [@devname=="orderBtn"]
+		// AppObject OK
+			// path [@text=="OK"]
+			// path [@devname=="okButton"]
+		// AppObject FINDFLIGHTS
+			// path [@text=="FIND FLIGHTS"]
+			// path [@devname=="FIND FLIGHTS"]
+		// AppObject BACK
+			// path [@text=="BACK"]
+			// path [@devname=="BACK"]
+		// AppObject Window
+			// path [@regexpwndclass=="Shell_TrayWnd"]
+

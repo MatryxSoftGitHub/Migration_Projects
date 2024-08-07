@@ -1,0 +1,72 @@
+class SendKeysAndClickEnterUsingTableName_RadioBtn : Step
+	%StepInfo[Desc="SendKeysAndClickEnterUsingTableName_RadioBtn",Group="null"]
+	parameter String TableName
+	parameter String columnName
+	parameter String TestData
+	Main()
+		if (TestData.trim().isEmpty())
+			System.out.println("Skipping the step as the user did not enter any data in the data sheet")
+		else
+			try
+				Sleep(9)
+				WebElement textColName = driver
+				.findElement(By.xpath("//span[text()='" + columnName + "']/ancestor::td"))
+				String dataAutoId = textColName.getAttribute("data-automation-id")
+				System.out.println(dataAutoId)
+				String[] colData = dataAutoId.split("-")
+				String colNum = colData[1]
+				WebElement SpanTablePromotion = driver.findElement(By.xpath("(//caption[text()='" + TableName
+				+ "']/following-sibling::tbody//td[contains(@headers,\"columnheader" + colNum
+				+ "\")]//span[@data-automation-id=\"promptIcon\"])"))
+				JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+				JSExecutor.executeScript("arguments[0].scrollIntoView(true)", SpanTablePromotion)
+				Sleep(2)
+				SpanTablePromotion.isDisplayed()
+				SpanTablePromotion.click()
+				Sleep(2)
+				WebElement TableNameWithRowHeader = driver.findElement(By.xpath("//caption[text()='" + TableName
+				step + "']/following-sibling::tbody//td[contains
+				TableNameWithRowHeader.sendKeys(TestData)
+				TableNameWithRowHeader.GenKeyEvents ("<Enter>")
+				Sleep(5)
+				WebElement Rbtn_Grid = driver
+				.findElement(By.xpath("//div[text()='" + TestData + "']/..//input[@type=\"radio\"]"))
+				if (Rbtn_Grid.isDisplayed() == true)
+					Sleep(5)
+					JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Rbtn_Grid)
+					Sleep(2)
+					JSExecutor.executeScript("arguments[0].click()", Rbtn_Grid)
+				WebElement VerifyTableSelectedData = driver.findElement(By.xpath("//td[contains(@headers,\"columnheader"
+				+ colNum + "\")]//div[contains(@data-automation-id,\"selectedItem\")]//p[text()='" + TestData
+				+ "']"))
+				if (VerifyTableSelectedData.isDisplayed())
+					System.out.println("Table Radio Data is selected " + TestData)
+				else
+					System.out.println("Table Radio Data is not selected ")
+			catch (Exception e)
+				System.out.println("Element not found")
+class SendKeys_Table : Step
+	%StepInfo[Desc="SendKeys_Table",Group="null"]
+	parameter String columnName
+	parameter String TestData
+	Main()
+		if (TestData.trim().isEmpty())
+			System.out.println("Skipping the step as the user did not enter any data in the data sheet")
+		else
+			try
+				Sleep(5)
+				WebElement textColName = driver.findElement(By.xpath("//span[text()='" + columnName + "']/ancestor::td"))
+				String dataAutoId = textColName.getAttribute("data-automation-id")
+				System.out.println(dataAutoId)
+				String[] colData = dataAutoId.split("-")
+				String colNum = colData[1]
+				WebElement inputRowHeader = driver.findElement(By.xpath("(//td[contains(@headers,\"columnheader" + colNum + "\")]//input)[1]"))
+				inputRowHeader.click()
+				inputRowHeader.GenKeyEvents ("<Ctrl-A>”)
+				System.out.println("Entering the data" + TestData)
+				inputRowHeader.sendKeys(TestData)
+				System.out.println("Data has been entered into the field")
+			catch (NoSuchElementException e)
+				System.out.println("Element not found")
+			catch (Exception e)
+				System.out.println("Fail to sendkeys and click enter for the element")

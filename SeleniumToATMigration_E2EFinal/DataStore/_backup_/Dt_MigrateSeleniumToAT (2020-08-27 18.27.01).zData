@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="73E80415">
+		<List Name="StringList" ItemType="String"/>
+		<Record Name="Record_MigrateSeleniumToAT">
+			<Field Name="TestCaseID" Type="String" Unique="true"/>
+			<Field Name="sATAppObjOutputFile" Type="String"/>
+			<Field Name="lsReadFile" Type="lsReadFile"/>
+			<Field Name="lsSearchData" Type="StringList"/>
+			<Field Name="lsSeleniumClass" Type="StringList"/>
+			<Field Name="lsUnwantedCharacters" Type="StringList"/>
+			<Field Name="lsATClassNames" Type="StringList"/>
+		</Record>
+		<List Name="Record_MigrateSeleniumToATList" ItemType="Record_MigrateSeleniumToAT"/>
+		<List Name="lsReadFile" ItemType="String"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_MigrateSeleniumToAT" Type="Record_MigrateSeleniumToATList">
+			<Record_MigrateSeleniumToAT>
+				<TestCaseID>MigrateSeleniumToAT_TC001</TestCaseID>
+				<sATAppObjOutputFile>ATAppObjects.txt</sATAppObjOutputFile>
+				<lsReadFile>
+					<String>YoutubeForwardVideoPage.java</String>
+					<String>YoutubeRandomVideoStreamingPage.java</String>
+					<String>YoutubeSearchChannelPage.java</String>
+					<String>YoutubeSignInPage.java</String>
+					<String>YoutubeSignOutPage.java</String>
+					<String>YoutubeVideoStreamingPage.java</String>
+				</lsReadFile>
+				<lsSearchData>
+					<String>[@class=</String>
+					<String>(id</String>
+					<String>(text(),</String>
+					<String>(name</String>
+					<String>[@id</String>
+					<String>(className</String>
+					<String>[@title=</String>
+					<String>[@title =</String>
+					<String>@title =</String>
+					<String>@title=</String>
+					<String>[text()=</String>
+					<String>[text() =</String>
+					<String>[@type=</String>
+					<String>[@type =</String>
+					<String>[text()=</String>
+					<String>[text() =</String>
+					<String>[text[]</String>
+					<String>(text() =</String>
+				</lsSearchData>
+				<lsSeleniumClass>
+					<String>[@class=</String>
+					<String>[id=</String>
+					<String>[text[],</String>
+					<String>[name=</String>
+					<String>[@id=</String>
+					<String>[className==</String>
+					<String>[@title=</String>
+					<String>[@title =</String>
+					<String>@title =</String>
+					<String>@title=</String>
+					<String>[text[]=</String>
+					<String>[text[] =</String>
+					<String>[@type=</String>
+					<String>[@type =</String>
+					<String>[text[]=</String>
+					<String>[text[] =</String>
+					<String>[text[]</String>
+					<String>[text[] =</String>
+				</lsSeleniumClass>
+				<lsUnwantedCharacters>
+					<String>[@ElemClass==</String>
+					<String>[@Text==</String>
+					<String>[@ElemId==</String>
+					<String>[@Name==</String>
+				</lsUnwantedCharacters>
+				<lsATClassNames>
+					<String>[@ElemClass==</String>
+					<String>[@ElemId=</String>
+					<String>[@Text==</String>
+					<String>[@Name=</String>
+					<String>[@ElemId==</String>
+					<String>[@Name==</String>
+					<String>[@Title==</String>
+					<String>[@Title ==</String>
+					<String>[@Title ==</String>
+					<String>[@Title==</String>
+					<String>[@Text==</String>
+					<String>[@Text ==</String>
+					<String>[@Text=</String>
+					<String>[@Text =</String>
+					<String>[@Text==</String>
+					<String>[@Text ==</String>
+					<String>[@Text==</String>
+					<String>[@Text ==</String>
+				</lsATClassNames>
+			</Record_MigrateSeleniumToAT>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_MigrateSeleniumToAT">
+			<Field Name="TestCaseID" Width="169"/>
+			<Field Name="lsReadFile" Width="267"/>
+			<Field Name="lsSearchData" Width="102"/>
+			<Field Name="lsSeleniumClass" Width="113"/>
+			<Field Name="TestCaseID" Width="221"/>
+			<Field Name="lsReadFile"/>
+			<Field Name="lsSearchData"/>
+			<Field Name="lsSeleniumClass"/>
+			<Field Name="TestCaseID" Width="221"/>
+			<Field Name="lsReadFile"/>
+			<Field Name="lsSearchData"/>
+			<Field Name="lsSeleniumClass"/>
+			<Field Name="lsUnwantedCharacters"/>
+			<Field Name="lsATClassNames"/>
+			<Field Name="sATAppObjOutputFile"/>
+		</Object>
+	</Layout>
+</DataStore>

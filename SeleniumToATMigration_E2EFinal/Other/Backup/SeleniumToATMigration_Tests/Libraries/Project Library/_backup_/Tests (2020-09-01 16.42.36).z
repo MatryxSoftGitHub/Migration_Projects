@@ -1,0 +1,21 @@
+﻿
+class ForwardVideoTC : Test
+	%TestInfo[Desc="ForwardVideoTC",Group="null",Table="null"]
+	parameter String UserId
+	parameter String UserPwd
+	parameter String ChannelName
+	Main()
+		//Navigate to Youtube User Account
+		step SignIn
+			Emailid : UserId
+			Password : UserPwd
+		YoutubeSearchChannelPage.WaitWhileExists (30)
+		//Search and Select the Channel
+		step SearchString
+			ChannelName : ChannelName
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS)
+		//Forward video play, like and subscribe the channel
+		step PlayListLooping
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS)
+		//SignOut from the User Account
+		step SignOut

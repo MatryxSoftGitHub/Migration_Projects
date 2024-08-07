@@ -1,0 +1,10 @@
+﻿class Demo : Step
+	Main()
+		DateTime dtCurrentDateTime = DateTime.Now()
+		Print (dtCurrentDateTime)
+		DateTime dtNewDateTime
+		
+		dtNewDateTime = DateTime.Parse ("MM/dd/yyyy HH:mm:ss", "dtCurrentDateTime")
+		Print (dtNewDateTime)
+		
+		

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="ADE99BAF">
+		<Record Name="record_FindElement">
+			<Field Name="SeleniumFormat" Type="lsSeleniumFormat"/>
+			<Field Name="ATFormat" Type="lsATFormat"/>
+		</Record>
+		<List Name="Record_FindElementList" ItemType="record_FindElement"/>
+		<List Name="lsSeleniumFormat" ItemType="String"/>
+		<List Name="lsATFormat" ItemType="String"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_FindElement" Type="Record_FindElementList">
+			<record_FindElement>
+				<SeleniumFormat>
+					<String>driver.findElement(By.xpath(&quot;//yt-formatted-string[contains(text(), '&quot;+ChannelName+&quot;')]&quot;))</String>
+					<String>driver.findElement(By.xpath(&quot;//body//ytd-grid-video-renderer[&quot;+i+&quot;]&quot;))</String>
+					<String>driver.findElement(By.xpath(&quot;//body//ytd-grid-video-renderer[&quot;+randomNumber+&quot;]&quot;))</String>
+				</SeleniumFormat>
+				<ATFormat>
+					<String>YoutubeSearchChannelPage.ChannelName</String>
+					<String>ItemsCount[i]</String>
+					<String>ItemsCount[randomNumber]</String>
+				</ATFormat>
+			</record_FindElement>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_FindElement">
+			<Field Name="SeleniumFormat" Width="514"/>
+			<Field Name="ATFormat" Width="475"/>
+		</Object>
+	</Layout>
+</DataStore>

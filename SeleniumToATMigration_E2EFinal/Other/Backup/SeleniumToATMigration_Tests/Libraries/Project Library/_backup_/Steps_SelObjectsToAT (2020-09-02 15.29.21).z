@@ -1,0 +1,138 @@
+﻿
+
+// Rajesh and Megha
+
+// Adding parent to its respective child object in AscentialTest
+class FetchingAppObjectsFromTextFile : Step
+	%StepInfo[Desc="Fetching AppObjects from text file",Group="AddParentToObjects"]
+	parameter String sATAppObjectPath
+	out parameter List<String> lsAppObjects
+	Main()
+		//Variable declaration
+		String sLine
+		
+		//Fetching AppObjects from text file.
+		TextFile textFile
+		textFile.Open (sATAppObjectPath, FileMode.Read, FileEncoding.ANSI)
+		while(textFile.Read(sLine))
+			lsAppObjects.Add(sLine)
+		// Print(lsAppObjects)
+		
+class AddingParentNameToAppObjects_MainStep : Step
+	%StepInfo[Group="AddParentToObjects/Main"]
+	parameter String ATConvertedMethodsFileName
+	Main()
+		String sAppObjectFile, sAscentialFilePath
+		Integer iAscentialMethodCount
+		
+		// List<record_Paths> lrRecord_Paths = DataStore.Query ("Dt_DataPaths")
+		// // for (Integer i = 1; i<=lrRecord_Paths.Count(); i++)
+			// // Integer ilsATAppObjectsCount = DataStore.Query ("Dt_DataPaths[{i}].lsAppObjectFile").Count ()
+			// // for (Integer j = 1; j<=ilsATAppObjectsCount; j++)
+				// // sAppObjectFile = "{lrRecord_Paths[i].lsAppObjectFile[j]}"
+			// // sAscentialFilePath = "{lrRecord_Paths[i].lsAscentialFile[j]}"
+			
+		step FetchingAppObjectsFromTextFile
+			sATAppObjectPath:"D:\Temp\AscentialTest_AppObjects_TextFile\ForwardVideo.txt"
+		step GettingParentObjectName
+			lsAppObjects:FetchingAppObjectsFromTextFile.lsAppObjects
+		step FetchingMethodsAndFuctionsFromTextFile
+			sAscentialFilePath:"D:\Temp\ATConvertedFiles\YoutubeForwardVideoPage.txt"
+		step AddParentNameToAppObjects
+			lsMethodFunctions:FetchingMethodsAndFuctionsFromTextFile.lsMethodFunctions
+			sParentObjectName:GettingParentObjectName.sParentObjectName
+		
+		
+class GettingParentObjectName : Step
+	%StepInfo[Desc="Getting parent object name",Group="AddParentToObjects"]
+	parameter List<String> lsAppObjects
+	out parameter String sParentObjectName
+	Main()
+		//Getting parent object name
+		for(Integer i=1;i<=lsAppObjects.Count();i++)
+			if(lsAppObjects[i].Contains("app WebPage"))
+				sParentObjectName = lsAppObjects[i].GetField (" ", 3)
+		// Print (sParentObjectName)
+		
+class FetchingMethodsAndFuctionsFromTextFile : Step
+	%StepInfo[Desc="Fetching methods and fuctions from text file",Group="AddParentToObjects"]
+	parameter String sAscentialFilePath
+	out parameter List<String> lsMethodFunctions
+	Main()
+		//Variable declaration
+		String sLine
+		
+		// Fetching methods and fuctions from text file.
+		TextFile textFile
+		textFile.Open (sAscentialFilePath, FileMode.Read, FileEncoding.ANSI)
+		while(textFile.Read(sLine))
+			lsMethodFunctions.Add (sLine)
+		// Print(lsMethodFunctions)
+		
+		
+class AddParentNameToAppObjects : Step
+	%StepInfo[Desc="Add Parent Name To AppObjects",Group="AddParentToObjects"]
+	parameter List<String> lsMethodFunctions
+	parameter String sParentObjectName
+	out parameter List<String> lsParentObject
+	Main()
+		String sObjectOld, sObjectNew, sSingleLine, sAscentialMethods, sObjectOld1, sObjectNew1,sTemp1, sTemp2
+		List<String>  lsAscentialTestMethod
+		Integer iCount=0, iAscentialMethodCount
+		Boolean bFound = false
+		
+		sParentObjectName = sParentObjectName.GetField(".", 1)
+		
+		record_Parent rParent = DataStore.Query ("Parent[1]")
+		iAscentialMethodCount = DataStore.Query ("Parent[1].lsAscentialTestMethod").Count ()
+		lsAscentialTestMethod = rParent.lsAscentialTestMethod
+		
+		for(Integer i=1;i<=lsMethodFunctions.Count();i++)
+			if lsMethodFunctions[i].Contains(sParentObjectName) || lsMethodFunctions[i].Trim().StartsWith ("//")
+				// do nothing
+			else
+				for(Integer j=1;j<=iAscentialMethodCount;j++)
+					 bFound = false
+					if (lsMethodFunctions[i].Contains ("if(")  || lsMethodFunctions[i].Contains ("if ("))&& lsMethodFunctions[i].Contains(lsAscentialTestMethod[j])
+						sSingleLine=lsMethodFunctions[i]
+						sObjectOld = sSingleLine.GetField ("(", 2)
+						sObjectNew = sParentObjectName+"."+sObjectOld
+						sSingleLine=sSingleLine.Replace(sObjectOld,sObjectNew)
+						if sSingleLine.Contains ("&&") || sSingleLine.Contains("||") || sSingleLine.Contains ("!") || sSingleLine.Contains("==")
+							if sSingleLine.Contains ("&&")
+								sObjectOld = sSingleLine.GetField ("&&", 2) 
+								bFound = true
+							if sSingleLine.Contains ("||")
+								sObjectOld = sSingleLine.GetField ("||", 2)
+								bFound = true
+							if sSingleLine.Contains ("!")
+								sObjectOld = sSingleLine.GetField ("!", 2)
+								bFound = true
+							if sSingleLine.Contains ("==")
+								sTemp1 = sSingleLine.GetField ("==", 2)
+								if sTemp1.Contains (".")
+									sObjectOld = sSingleLine.GetField ("==", 2)
+									bFound = true
+							if bFound == true
+								sObjectNew = sParentObjectName+"."+sObjectOld
+								sSingleLine=sSingleLine.Replace(sObjectOld,sObjectNew)
+							// Print ("sObjectNew", sObjectNew)
+							// Print (sSingleLine)
+						lsMethodFunctions[i] = sSingleLine
+					else if lsMethodFunctions[i].Contains(lsAscentialTestMethod[j]) && lsMethodFunctions[i].Contains(sParentObjectName)==false
+						step GetPositionofAlphaNumeric_String
+							sData:lsMethodFunctions[i]
+						if lsMethodFunctions[i].Contains (" = ")
+							Print (lsMethodFunctions[i])
+							sTemp1 = lsMethodFunctions[i].GetField (" = ", 1)
+							sTemp2 = lsMethodFunctions[i].GetField (" = ", 2)
+							sObjectNew = sTemp1+ " = " +sParentObjectName+"."+sTemp2
+							Print(sObjectNew)
+							lsMethodFunctions[i] = String.Tabs (GetPositionofAlphaNumeric_String.iGetAlphaPos) +sObjectNew.Trim()
+						else
+							lsMethodFunctions[i] = String.Tabs (GetPositionofAlphaNumeric_String.iGetAlphaPos) + sParentObjectName+"."+lsMethodFunctions[i].Trim()
+		
+		lsParentObject = lsMethodFunctions
+		// Print (lsParentObject)
+		// lsParentObject.WriteFile ("D:\Nagaraj_WorkSpace\Temp\ReplaceParent.txt")
+		

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Library>
+	<Files>
+		<File RelPath="App Objects.z"/>
+		<File RelPath="Steps_SelToConversionFormat.z"/>
+		<File RelPath="GlobalLocations.z"/>
+		<File RelPath="Steps_AppObjects.z"/>
+		<File RelPath="Steps_SelFunctionToAT.z"/>
+		<File RelPath="Steps_SelObjectsToAT.z"/>
+		<File RelPath="Test_GetATAppObj.z"/>
+		<File RelPath="Tests_GetATMethods.z"/>
+		<File RelPath="Workday.z"/>
+	</Files>
+</Library>

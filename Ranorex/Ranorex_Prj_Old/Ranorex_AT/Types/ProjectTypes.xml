@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Types CRC="42CBD8C6">
+	<Enum Name="WebBrowserType" IsZee="true">
+		<Value Name="InternetExplorer" Label="Internet Explorer" Value="0"/>
+		<Value Name="Firefox" Label="Firefox" Value="1"/>
+		<Value Name="Chrome" Label="Chrome" Value="2"/>
+		<Value Name="Edge" Label="Edge" Value="3"/>
+	</Enum>
+	<List Name="StringList" ItemType="String"/>
+	<Record Name="Record_RanorexSteps_ATSteps">
+		<Field Name="RowId" Type="String" Unique="true"/>
+		<Field Name="lsRanorexMethods" Type="StringList"/>
+		<Field Name="lsATMethods" Type="StringList"/>
+	</Record>
+	<List Name="Record_RanorexSteps_ATStepsList" ItemType="Record_RanorexSteps_ATSteps"/>
+	<Record Name="DtWorkdayRecord">
+		<Field Name="UserName" Label="UserName" Type="String"/>
+		<Field Name="Password" Label="Password" Type="String"/>
+		<Field Name="sStartProxy" Label="sStartProxy" Type="String"/>
+		<Field Name="ProxyAs" Label="ProxyAs" Type="String"/>
+		<Field Name="AdHocBankTransactionDate" Label="AdHocBankTransactionDate" Type="String"/>
+		<Field Name="BPNameVar" Type="String"/>
+		<Field Name="sBpName" Type="String"/>
+		<Field Name="str" Type="String"/>
+		<Field Name="Memo" Label="Memo" Type="String"/>
+		<Field Name="CompanyName" Label="CompanyName" Type="String"/>
+		<Field Name="BankAccount" Label="BankAccount" Type="String"/>
+		<Field Name="TransactionAmount" Label="TransactionAmount" Type="String"/>
+		<Field Name="ReferrenceName" Label="ReferrenceName" Type="String"/>
+		<Field Name="TransactionLines_RevenueSpendCategory" Label="TransactionLines_RevenueSpendCategory" Type="String"/>
+		<Field Name="TransactionLines_Memo" Label="TransactionLines_Memo" Type="String"/>
+		<Field Name="TransactionLines_CostCenter" Label="TransactionLines_CostCenter" Type="String"/>
+	</Record>
+	<List Name="DtWorkdayList" ItemType="DtWorkdayRecord"/>
+</Types>

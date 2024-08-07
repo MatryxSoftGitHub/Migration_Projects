@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace Name="Project">
+	<Panels>
+		<Panel Name="Explorer" Size="0" Collapsed="false" LastLocation="DockLeft"/>
+		<Panel Name="Snapshots" Size="0" Collapsed="true" LastLocation="DockLeft"/>
+		<Panel Name="Results" Size="0" Collapsed="true" LastLocation="DockLeft"/>
+	</Panels>
+	<Sections>
+		<Section Location="DockLeft" Size="240" Collapsed="false">
+			<Panels>
+				<Panel Name="Explorer"/>
+				<Panel Name="Snapshots"/>
+				<Panel Name="Results"/>
+			</Panels>
+		</Section>
+	</Sections>
+</Workspace>

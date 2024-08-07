@@ -1,0 +1,16 @@
+﻿class LikeAndSubscribe1 : Test
+	%TestInfo[Desc="LikeAndSubscribe",Group="null",Table="null"]
+	parameter String UserId
+	parameter String UserPwd
+	parameter String ChannelName
+	Main()
+		step SignIn
+			Emailid : UserId
+			Password : UserPwd
+		YoutubeSearchChannelPage.WaitWhileExists(30)
+		step SearchString
+			ChannelName : ChannelName
+		YoutubeVideoStreamingPage.WaitWhileExists(30)
+		step PlayListLooping
+		YoutubeSignOutPage.WaitWhileExists(30)
+		step SignOut

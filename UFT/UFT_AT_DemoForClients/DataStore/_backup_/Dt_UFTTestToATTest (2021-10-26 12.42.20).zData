@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="BA62611A">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="Record_UFTTestToATTest">
+			<Field Name="RowId" Type="String" Unique="true"/>
+			<Field Name="lsUFTOrgTestFile" Type="ListOfString"/>
+			<Field Name="sTCName_TestInfo" Type="String"/>
+			<Field Name="lsActionFile" Type="ListOfString"/>
+			<Field Name="lsDirPath" Type="ListOfString"/>
+		</Record>
+		<List Name="Record_UFTTestToATTestList" ItemType="Record_UFTTestToATTest"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_UFTTestToATTest" Type="Record_UFTTestToATTestList" KeyField="RowId">
+			<Record_UFTTestToATTest>
+				<RowId>1</RowId>
+				<lsUFTOrgTestFile>
+					<String>UFTTCFiles\Test.txt</String>
+					<String>UFTTCFiles\Test1.txt</String>
+				</lsUFTOrgTestFile>
+				<sTCName_TestInfo>ATTCFiles\TCName_TestInfo1.txt</sTCName_TestInfo>
+				<lsActionFile>
+					<String>UFTTCFiles\Script.txt</String>
+					<String>UFTTCFiles\Script2.txt</String>
+				</lsActionFile>
+				<lsDirPath>
+					<String>ATTCFiles</String>
+				</lsDirPath>
+			</Record_UFTTestToATTest>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_UFTTestToATTest">
+			<Field Name="RowId" Width="62"/>
+			<Field Name="lsUFTOrgTestFile"/>
+			<Field Name="sTCName_TestInfo" Width="141"/>
+			<Field Name="lsActionFile" Width="183"/>
+			<Field Name="lsDirPath" Width="127"/>
+		</Object>
+	</Layout>
+</DataStore>

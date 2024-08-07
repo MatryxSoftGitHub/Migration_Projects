@@ -1,0 +1,235 @@
+﻿<repository
+id="724c17cb-4c73-4eb2-8ef8-154154782df9"
+name="AdHocBankTransaction">
+	<codegen
+	classname="AdHocBankTransaction"
+	namespace="Workday_Ranorex">
+	</codegen>
+	<rootfolder
+	capname="unknown"
+	id="e6eb7e9a-d32c-42c0-856a-9e0ab45ea5b7"
+	isrooted="True"
+	name="Root"
+	searchtimeout="0ms"
+	usecache="True">
+		<appfolder
+		addcaps="container,webdocument"
+		capname="webdocument"
+		id="9145fc77-bb52-4b23-8f3c-42d8c991df21"
+		isrooted="True"
+		name="CreateAdHocBankTransactionWorkday"
+		refpath="/dom[@domain='impl.workday.com']"
+		searchtimeout="30000ms"
+		usecache="False">
+			<item
+			addcaps="unknown,webelement,spantag"
+			capname="spantag"
+			id="14fc3e1e-1201-4afd-93a5-134ed78b77d4"
+			name="Txt_Date"
+			refimgid="79436ddf-f5d8-44a3-9268-294a74d7851e"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/?/?/ul/li[1]/div[2]/div/div/div/div[1]/span[@innertext~'..']
+			</item>
+			<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="ac4d5e65-a736-42d4-96d7-fed36f1841d9"
+			name="Txt_Memo"
+			refimgid="7f88c76d-7827-4e7a-b317-c1302c3d9822"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/div/ul/li[2]/div[2]/div/div/input[@type='text']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/div/ul/li[2]/div[2]//input[@type='text']
+			</item>
+			<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="f1c6bebe-761c-43b3-ae16-63bad87a7d02"
+			name="Txt_Company"
+			refimgid="2cab9daa-6a9b-4f3e-883e-059fdb88c3d2"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/div/ul/li[3]/div[2]/div/div/div/div/div/div[1]/input[@type='text']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/?/?/ul/li[3]/div[2]/div/div/div/div/div/div[1]/input[@type='text']
+			</item>
+			<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="b6dba1a7-5811-48eb-b039-72d9473d48e5"
+			name="Txt_BankAccount"
+			refimgid="39e05d0c-fea6-424a-80cc-3a596e94b1b9"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/div/ul/li[5]/div[2]/div/div/div/div/div/div[1]/input[@type='text']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/?/?/ul/li[5]/div[2]/div/div/div/div/div/div[1]/input[@type='text']
+			</item>
+			<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="cc7652ec-75ad-4863-8fc1-a9baccf9fa16"
+			name="Rbtn_Withdrawal"
+			refimgid="00705390-1e67-4dbb-965e-761c70584148"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/?/?/ul/li[9]/div[2]/div/div/div/div[2]/div/div/span/input[@name~'ViewModel_..']
+			</item>
+			<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="eb2a9bb2-ad18-42b9-a08c-f94d04181a4a"
+			name="Txt_TransactionAmount"
+			refimgid="6cde514c-cc64-487e-9ca8-843eca68e5ab"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/ul/li[1]/div[2]/div/div/input[@type='text']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div/div[2]/?/?/ul/li[1]/div[2]//input[@type='text']
+			</item>
+			<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="26fd74a4-2b07-451c-af17-1788b90a1f10"
+			name="Txt_Reference"
+			refimgid="96fb01a5-2c08-4ea5-bb9e-78af055c7ede"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/ul/li[6]/div[2]/div/div/input[@type='text']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div/div[2]/?/?/ul/li[6]/div[2]//input[@type='text']
+			</item>
+			<item
+			addcaps="unknown,webelement,divtag"
+			capname="divtag"
+			id="1c7fc078-39f9-432c-b24e-ca811474c50b"
+			name="Tab_AdHocBankTransactionLines"
+			refimgid="ee224406-3aef-4612-b21a-9024f57864d2"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[1]/ul/li[1]/div[2]/div[@innertext='Ad Hoc Bank Transaction Lines']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[1]/ul//div[@innertext&gt;'Ad Hoc Bank Transaction L']
+			</item>
+			<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="c6e98d0b-32cd-46f6-a7b8-6d19e391c67d"
+			name="Txt_Company_LinesTab"
+			refimgid="c16f3e1b-820e-478c-91d3-88d6848d77b5"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[2]/div[1]/div/div/div[4]/div[1]/div/div[1]/div[2]/div/div[2]/div/div/table/tbody/tr/td[3]/div/div/div/div/div/div[1]/input[@type='text']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[2]/div[1]/div/div/div[4]/div[1]/div/div[1]/div[2]/div/div[2]//table/tbody/tr/td[3]/div/div/div/div/div/div[1]/input[@type='text']
+			</item>
+			<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="ac97f032-3047-46c5-a795-d87d0f30d23f"
+			name="Txt_RevenueSpendCategory"
+			refimgid="3ac56215-0c57-44dd-b235-e1e7019b7113"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[2]/div[1]/div/div/div[4]/div[1]/div/div[1]/div[2]/div/div[2]/div/div/table/tbody/tr/td[4]/div/div/div/div/div/div[1]/input[@type='text']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[2]/div[1]/div/div/div[4]/div[1]/div/div[1]/div[2]/div/div[2]//table/tbody/tr/td[4]/div/div/div/div/div/div[1]/input[@type='text']
+			</item>
+						<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="ff66a3e8-ea59-4191-a515-a6e905b4c837"
+			name="Txt_CostCenter"
+			refimgid="d2d91268-97eb-4846-b9f8-99bfef466808"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[2]/div[1]/div/div/div[4]/div[1]/div/div[1]/div[2]/div/div[2]/div/div/table/tbody/tr/td[11]/div/div/div/div/div/div[1]/input[@type='text']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[2]/div[1]/div/div/div[4]/div[1]/div/div[1]/div[2]/div/div[2]//table/tbody/tr/td[11]/div/div/div/div/div/div[1]/input[@type='text']
+			</item>
+			<item
+			addcaps="unknown,webelement,divtag"
+			capname="divtag"
+			id="d71faddd-3a5f-4239-a62a-ec066a440c1b"
+			name="Tab_Attachments"
+			refimgid="ac000467-6cef-427e-bc1a-9d1e93ec3e38"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[1]/ul/li[3]/div[2]/div[@innertext='Attachments']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[1]/ul//div[@innertext='Attachments']
+			</item>
+			<item
+			addcaps="unknown,webelement,buttontag"
+			capname="buttontag"
+			id="db4c1ba1-54e5-43cd-80ec-a697ffc99da7"
+			name="Lnk_SelectFiles"
+			refimgid="766728f6-c6fa-4e85-8f39-5620e610081a"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[2]/div[3]/div/div[2]/div[3]/div/button[@title='Select files']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[2]/div/div[2]/div/div[2]/div[3]/div/div[2]//button[@title='Select files']
+			</item>
+			
+			<basepath>
+				/dom[@domain='impl.workday.com']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAGHRFWHRTb2Z0d2FyZQBQYWlu
+dC5ORVQgdjMuMzE3g3eGAAACKklEQVQ4T43R20vTcRjHcS/6G4Kgyy6KKKjwJogIDBJjIBUt2YVD
+yoGVmWUWzozMC92YaWqeSE1s0dThOtjBWUlKkMxDudXU1lCU6XSepzu82+/nvNrX6APP1e95Xt/f
+9/vEbaWh7TO1xi4qmjspfWKhuLqN++VGtLqn5BTVk1lQRbRVHGn4X8nTNclYtD020smBYDjaHhsJ
+cIxPbY8YIr+9viEGgqGwDBxLvixXfGJaLCLdedUfCwRDyPDKWoiF5SAuT0AMSA+2BXhXZqmydFBu
+bkfbmkFpayPOyQW8CwHs7jUxIN1NOkEa1llLGA7bsYX7KbTd4GiuiUuVbxhyzTMwuiwGpFX5lkLU
+dFjJ+55Mw5yGGpsRtX6Kk2Ue9jWewtBRx9eRJTEg7XnWF+TBo25SzUmo3inINLjIKoPD1QXsbNvN
+6fxr9Az5xIDm9kOm5gLce+xEW/aF1BYlCmshSr2PMxm32HV3B8ez0/jQPycG1NklTMxsUGUaQaMD
+lc7EIcse4vXJJF18xX7FVUpq6njd5xUDKVeKcE2v4xib52bxIAdza9mbf4CE9OscUZo5q3nO295p
+zD0zYuBcegHOCb+8KpvDi6G5hRMX8klIKaei6b083PdjCdNHjxhQqO/gcPsj77CB27PO2OQa9j+r
+8tq+/VyODC/yaXBxeyBRlUPv8Dzt3eO86PrNs85Rml7+ot7soLrVTqVpsypMTjGQcD5L/vC/tTkV
+F/cXNG0rDkAnVtkAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,nativewindow"
+		capname="form"
+		id="5978b057-f858-4522-bfad-4c429ba9742c"
+		isrooted="True"
+		name="Open"
+		refpath="/form[@title='Open']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="combobox,nativewindow"
+			capname="combobox"
+			id="856ce7e5-a422-4c6e-a923-2d2e0a9813dc"
+			name="Cbo_File"
+			refimgid="dd159b8a-2a88-4a8b-a65f-e3c61a4754c6"
+			refpath="/form[@title='Open']/combobox[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Open']/combobox[@controlid='1148']
+			</item>
+			<item
+			addcaps="text,nativewindow"
+			capname="text"
+			id="d1bc2654-fb19-4bad-ba12-f6b6259f47db"
+			name="Txt_File"
+			refimgid="349f0126-9c2c-4967-9944-472723a976b1"
+			refpath="/form[@title='Open']/combobox[@controlid='1148']/text[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Open']/?/?/text[@controlid='1148']
+			</item>
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="6628a575-a8f2-4e01-909e-9cc67ee9c04e"
+			name="Btn_Open"
+			refimgid="84cbf358-62bb-46ac-8dee-9844294dd1b2"
+			refpath="/form[@title='Open']/button[@text='&amp;Open']"
+			searchtimeout="30000ms">
+				/form[@title='Open']/button[@text='&amp;Open']
+			</item>
+			<basepath>
+				/form[@title='Open']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAJMSURBVDhPrZJLTxNhFIbnD8CmgqDiJbKQlUsT
+pbTTaaWt9EYVlaGUFht0ISsT117QqGw06o5eMYArSNSNxHgtKIylBMXYmWkxxii40WkkKp3X+YYZ
+sVFX+ibP7nvec07yUf89H1l7pdjmOC+22WdFv0MSfM2S6LNmea+tb8m9u0J79ufkD7ns+bZ9bwR/
+M4TWvRB8NggeBrybBt9iBu+iFwSXxaY9Lw/nsTLCAYcs7rdDLSCy16oUWFYLXKTEBN5hlHl7I6Np
+q6m/c7yyr9f7dk4R1AJteo71loQT/rzQY+KFSBMvRsw5MWIkpMvOqR86em7XtcDKXece5DxKSfgg
+hAcTuPlEwvBjCfmXaSze8uDz7UYsj5vw/X4TSpPMWU2nqK03ume3DUZw5KQHzxxGiA8n0Hm9CFd/
+ES2XimCvFvEuPwk8t2kwkDk6o+lKwWC3tCXVjR0DIQwHWjCiTNVl58VVhh5JKGVaFdkKcKTAImk6
+RdUlQ9LmVBgEtj+oFvwqOy7oBX5VBmchG6wVbEp2ZTcmukCoS4Tk9PzrJbK2Lh++UsSr/PwHfbpW
+sHZCbSp4ZkMiCEKtws7hXoy9yKhTCaNZDu+n2K+6DI5GiaNPaTpFGUbDFTWx4EJNvBOE9fGASsPQ
+MTQke3B5zPtzsipPWwryvLv8V1YnAtbqeEBWAKEq1oF1MRbbB9qxPGWTdVnmzLI8Q1s0rTyGGMtU
+RQMFQ5SFzvg957e1yebCX2U95BxDvOO0Ido+Q4+0L355ynxamTZnyM2/rf3voagf2nKwO/rr1QsA
+AAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<basepath>
+		</basepath>
+	</rootfolder>
+	<variables>
+	</variables>
+</repository>

@@ -1,0 +1,59 @@
+﻿class Demo : Step
+	parameter String timeXpath = null
+	out parameter String finalDateTime = null
+	Main()
+		DateTime dt = "2022-01-01  12:34:56"
+		DateTime dtNewDateTime
+		
+		dtNewDateTime = dt.Add (0, null, -150)
+		
+		Print (dtNewDateTime)
+		
+class Sample : Step
+	parameter String Numbers = null
+	parameter String iNum = null
+	Main()
+		// // String sValue = "mcbqeudgyucbdsncWUYWYFWHU"
+		// // String sNam = sValue.Replace ("W", "")
+		// // Print(sNam)
+		// 
+		// 
+		// String sItemValue = " <EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>",sModifiedItemValue
+		// if (sItemValue.Contains("<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>")) 
+			// sModifiedItemValue = sItemValue.Replace ("<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>", "<ModifiedDisableTag>1</ModifiedDisableTag>")
+			// // // Print modifiedItemValue for debugging purposes
+			// Print("modifiedItemValue " + sModifiedItemValue)
+		// 
+		String ss = "dddddd"
+		// 0110110
+		
+		
+		
+		
+		convertToHexaDecimal ("0110110", ss)
+		Print(ss) 
+		// 
+		
+class Samp : Step
+	Main()
+		// String        sTargetString = "red,blue,green"
+		// String        sDelimiter = " "
+		// List<String>  lsStringResult
+		// 
+		// lsStringResult= sTargetString.Split (sDelimiter)
+		// 
+		// DateTime dt = ""
+		String sFormattedDateTime
+		DateTime dtCurrentDateTime = DateTime.Now()
+		sFormattedDateTime = dtCurrentDateTime.Format ("MM/dd/yyyy HH:mm:ss:nnn")
+		
+		Print (sFormattedDateTime)
+		
+		//Prints
+		
+		
+		
+		
+		
+		
+		

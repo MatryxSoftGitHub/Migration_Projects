@@ -1,0 +1,3506 @@
+﻿List<String> FormatTime(String sResponseTime, String sDBTime, out List<String> lsResult)
+	%FuncInfo[Desc="To replace ""T"" from the response to "" "" and removing millisecond from the DB date and Response Date"]
+	String sUpdateModifiedTime
+	List<String> lsFinalModifiedTime, lsLastModifiedTime
+	
+	// Step 1: Replace 'T' with whitespace in the ResponseTime
+	 sUpdateModifiedTime = sResponseTime.Replace ("T", " ")
+	// Step 2: Split ResponseTime and DBTime by dot (.)
+	lsFinalModifiedTime = sUpdateModifiedTime.Split (".")
+	lsLastModifiedTime = sDBTime.Split (".")
+	// Step 3: Create an array containing the first parts of the split strings
+	lsResult = {lsFinalModifiedTime[1], lsLastModifiedTime[1]}
+	
+	
+	// public String[] formatTime(String ResponseTime, String DBTime) {
+		// // Step 1: Replace 'T' with whitespace in the ResponseTime
+		// String UpdateModifiedTime = ResponseTime.replace("T", " ");
+		// 
+		// // Step 2: Split ResponseTime and DBTime by dot (.)
+		// String[] FinalModifiedTime = UpdateModifiedTime.split("\\.");
+		// String[] lastModifiedTime = DBTime.split("\\.");
+		// 
+		// // Step 3: Create an array containing the first parts of the split strings
+		// String[] result = [FinalModifiedTime[0], lastModifiedTime[0]];
+		// 
+		// // Step 4: Return the result array
+		// return result;
+	//}
+	
+String changeTime(String sTimeStamp, out String sIncrementTime)
+	%FuncInfo[Desc="This method will decrement the time by 8hr 00mins"]
+	DateTime dtDateTime,dtIncrementTime
+	String sChangedTime,sDate6
+	List<String> lsUpdatedTime
+	// Step 1: Replace 'T' with whitespace in the timeStamp
+	sChangedTime = sTimeStamp.Replace ("T", " ")
+	// Step 2: Split timeStamp by dot (.)
+	lsUpdatedTime = sChangedTime.Split (".")
+	sDate6 = lsUpdatedTime[1]
+	// Step 3: Parse the split time string into a Date object using SimpleDateFormat
+	dtDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", "{sDate6}")
+	// Step 4: Increment the parsed date object by 5 hours and 30 minutes using TimeCategory
+	dtIncrementTime = null
+	dtIncrementTime = dtDateTime.Add (0, 5, 30)
+	// Step 5: Format the incremented time to the desired format
+	sIncrementTime = dtIncrementTime.Format ("yyyy-MM-dd HH:mm:ss")
+	
+	
+	
+	// public def changeTime(String timeStamp) {
+		// // Step 1: Replace 'T' with whitespace in the timeStamp
+		// def changedTime = timeStamp.replace("T", " ")
+		// 
+		// // Step 2: Split timeStamp by dot (.)
+		// def updatedTime = changedTime.split("\\.")
+		// String sDate6 = updatedTime[0]
+	// 
+		// // Step 3: Parse the split time string into a Date object using SimpleDateFormat
+		// SimpleDateFormat formatter6 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// Date date6 = formatter6.parse(sDate6);
+	// 
+		// // Step 4: Increment the parsed date object by 5 hours and 30 minutes using TimeCategory
+		// def incrementTime = null;
+		// use(TimeCategory) {
+			// incrementTime = date6 + 5.hours + 30.minutes
+		// }
+	// 
+		// // Step 5: Format the incremented time to the desired format
+		// return incrementTime.format("yyyy-MM-dd HH:mm:ss")
+	// }
+	
+String incrementMinute(String sDateTime, out String sIncrementTime)
+	%FuncInfo[Desc="This method will be used to increment by a Minute for given date time."]
+	DateTime dtdecrementedDateTime,dtDateTime,dtIncrementTime
+	List<String> lsDateTimeSplit
+	
+	// Step 1: Split the input datetime string by dot (.)
+	lsDateTimeSplit = sDateTime.Split (".")
+	
+	// Step 2: Parse the datetime string into a Date object using SimpleDateFormat
+	dtDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", sDateTime)
+	
+	// Step 3: Increment the parsed datetime by 1 minute using TimeCategory
+	dtdecrementedDateTime = null
+	dtIncrementTime = dtDateTime.Add (0, 0, 1)
+	// Step 4: Format the incremented datetime to the desired format
+	sIncrementTime = dtIncrementTime.Format ("YYYY-MM-dd'T'HH:mm")
+	
+	
+	// 
+	// public def incrementMinute(String datetime) {
+		// // Step 1: Split the input datetime string by dot (.)
+		// def dateTimesplit = datetime.split("\\.")
+		// 
+		// // Step 2: Parse the datetime string into a Date object using SimpleDateFormat
+		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		// Date dateTimeStamp = formatter.parse(datetime);
+		// 
+		// // Step 3: Increment the parsed datetime by 1 minute using TimeCategory
+		// def decrementedDateTime = null;
+		// use(TimeCategory) {
+			// decrementedDateTime = dateTimeStamp + 1.minutes
+		// }
+		// 
+		// // Step 4: Format the incremented datetime to the desired format
+		// def finalDateTime = decrementedDateTime.format("YYYY-MM-dd'T'HH:mm")
+		// 
+		// // Step 5: Return the final formatted datetime string
+		// return finalDateTime;
+	// }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//  public def incrementMinute(String datetime) {
+	//    def dateTimesplit = datetime.split("\\.")
+	//    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+	//    Date dateTimeStamp = formatter.parse(datetime);
+	//    def decrementedDateTime = null;
+	//    use(TimeCategory) {
+		// decrementedDateTime = dateTimeStamp + 1. minutes
+	//    }
+	//    def finalDateTime = decrementedDateTime.format("YYYY-MM-dd'T'HH:mm")
+	//    return finalDateTime;
+	//   }
+	// 
+	
+String getFormattedDateTime(String sTimeXpath, out String sFinalDateTime)
+	%FuncInfo[Desc="Adding 'T' between Date and Time"]
+	List<String> lsDateTimeSplit, lsSplitTimeNanoSec
+	
+	// // Step 1: Split the input string by whitespace
+	lsDateTimeSplit = sTimeXpath.Split (" ")
+	// // Step 2: Split the time portion (hours:minutes:seconds.nanoseconds) by the dot (.)
+	lsSplitTimeNanoSec = lsDateTimeSplit[2].Split (".")
+	// // Step 3: Concatenate the date and time parts with 'T' in between
+	sFinalDateTime = lsDateTimeSplit[1] + "T" + lsSplitTimeNanoSec[1]
+	
+	// 2024-02-28 15:30:45.123456789+05:00 
+	// public def getFormattedDateTime(String timeXpath) {
+		// // Step 1: Split the input string by whitespace
+		// def DateTimeXpath = timeXpath
+		// def DateTimeSplit = DateTimeXpath.split()
+	// 
+		// // Step 2: Split the time portion (hours:minutes:seconds.nanoseconds) by the dot (.)
+		// def splitTimeNanoSec = DateTimeSplit[1].split("\\.")
+	// 
+		// // Step 3: Concatenate the date and time parts with 'T' in between
+		// def finalDateTime = DateTimeSplit[0] + "T" + splitTimeNanoSec[0]
+	// 
+		// // Step 4: Return the final formatted date and time string
+		// return finalDateTime
+	// }
+	// 
+	
+getTimeZoneOffset()
+	
+	
+	
+	
+	DateTime dt = DateTime.Now()
+	//   private String getTimeZoneOffset() {
+	String timeStamp = dt.Format ("yyyy-MM-dd HH:mm:ss:nnn")
+	Print (timeStamp)
+	//    return timeStamp.substring(27, 33);
+	//  }
+	
+getProjectDirectory(String sDirectory)
+	%FuncInfo[Desc="This method will be used to Get Project Directory"]
+	//  Split the directory path by the string "Projects"
+	List<String> lsFinalPath = sDirectory.Split ("Projects")
+	// Set a global property named "projectDirectory" with the first part of the split path
+	projectDirectory = lsFinalPath[1]
+	
+	
+	
+	
+	// public def getProjectDirectory(String directory) {
+		// // Step 1: Assign the input directory string to a local variable
+		// def ProjectDir = directory
+		// 
+		// // Step 2: Split the directory path by the string "Projects"
+		// def finalPath = ProjectDir.split("Projects")
+		// 
+		// // Step 3: Set a global property named "projectDirectory" with the first part of the split path
+		// com.eviware.soapui.SoapUI.globalProperties.setPropertyValue("projectDirectory", finalPath[0])
+	// }
+	
+KillProcess(String sProcessName)
+	%FuncInfo[Desc="This function will kill system process.Do not add extension with the process name.",Group="Process"]
+	String sProcess = "Taskkill " + "/IM " + sProcessName +"*" + " /" + "F"
+	System.Execute (sProcess)
+IsProcessRunning(String sProcessName, out Boolean bIsProcessRunning)
+	%FuncInfo[Desc="This method returns a boolean value if the given process is running",Group="Process"]
+	//Setting the boolena value to false
+	bIsProcessRunning=false
+	
+	//Get the list of processes running
+	List<String> sProcesses
+	System.Execute ("tasklist /FI ""IMAGENAME eq " + sProcessName, sProcesses)
+	Print(sProcesses)
+	if sProcesses.Count()>1
+		bIsProcessRunning = true
+	// for (String sitem in sProcesses)
+		// if sitem.ToLower ().Contains (sProcessName.ToLower())
+			// bIsProcessRunning = true
+			// break
+	Print("The Process:",sProcessName+" is running:",bIsProcessRunning)
+Integer ListFind_PartialText(List<String> lsTargetList, String sSearchItem, Boolean bPartialString = null)
+	%FuncInfo[Group="ListFind"]
+	String sPartialText
+	if (bPartialString == null)
+			bPartialString = true
+	if bPartialString == false
+			return lsTargetList.Find(sSearchItem)
+	else                                                                                                                                                                                      
+		for (sPartialText in lsTargetList)                                                                                /* Compare list items with regular expression */
+			if (sPartialText.IsNull() == false && sPartialText like sSearchItem)
+					return lsTargetList.Find(sPartialText)
+	return 0
+	
+
+String decrementMinute(String sDateTime, out String sDecrementedDateTime)
+	%FuncInfo[Desc="This method will be used to decrement by a Minute for given date time"]
+	DateTime dtdecrementedDateTime,dtDateTime,dtIncrementTime
+	List<String> lsDateTimeSplit
+	
+	// Step 1: Split the input datetime string by dot (.)
+	lsDateTimeSplit = sDateTime.Split (".")
+	
+	// Step 2: Parse the datetime string into a Date object using SimpleDateFormat
+	dtDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", sDateTime)
+	
+	// Step 3: Decrement the parsed datetime by 1 minute using TimeCategory
+	dtdecrementedDateTime = null
+	dtIncrementTime = dtDateTime.Add (0, 0, -1)
+	// Step 4: Format the decremented datetime to the desired format
+	sDecrementedDateTime = dtIncrementTime.Format ("YYYY-MM-dd'T'HH:mm")
+	
+	
+	
+	
+	// public def decrementMinute(String datetime) {
+		// // Step 1: Split the input datetime string by dot (.)
+		// def dateTimesplit = datetime.split("\\.")
+	// 
+		// // Step 2: Parse the datetime string into a Date object using SimpleDateFormat
+		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		// Date dateTimeStamp = formatter.parse(datetime);
+	// 
+		// // Step 3: Decrement the parsed datetime by 1 minute using TimeCategory
+		// def decrementedDateTime = null;
+		// use(TimeCategory) {
+			// decrementedDateTime = dateTimeStamp - 1.minutes
+		// }
+	// 
+		// // Step 4: Format the decremented datetime to the desired format
+		// def finalDateTime = decrementedDateTime.format("YYYY-MM-dd'T'HH:mm")
+	// 
+		// // Step 5: Return the final formatted datetime string
+		// return finalDateTime;
+	// }
+	// 
+	
+String changeDateFormat(String sTime, out String sChangeDateFormat)
+	%FuncInfo[Desc="This method will be used to FormattedDateTime"]
+	List<String> lsUpdatedChangeDateFormat 
+	DateTime FinalChangeDateFormat
+	
+	// Step 1: Split the input time string by dot (.)
+	 lsUpdatedChangeDateFormat = sTime.Split (".")
+	// Step 2: Parse the first part of the split time string into a Date object and format it
+	 FinalChangeDateFormat = Date.Parse ("yyyy-MM-dd hh:mm:ss", lsUpdatedChangeDateFormat[1])
+	// // Step 3: Return the final formatted date string
+	sChangeDateFormat = FinalChangeDateFormat.Format ("MM/dd/yyyy HH:mm:ss")
+	
+	
+	
+	// public def changeDateFormat(String time) {
+		// // Step 1: Split the input time string by dot (.)
+		// def UpdatedChangeDateFormat = ChangeDateFormat.toString().split("\\.")
+		// 
+		// // Step 2: Parse the first part of the split time string into a Date object and format it
+		// def FinalChangeDateFormat = Date.parse("yyyy-MM-dd hh:mm:ss", UpdatedChangeDateFormat[0]).format("MM/dd/yyyy HH:mm:ss")
+	// 
+		// // Step 3: Return the final formatted date string
+		// return FinalChangeDateFormat;
+	// }
+	// 
+	
+List<String> encoderDecoder(String sPath, String sAction, String sTestString, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to endocde and decode the data"]
+	Integer i
+	String  sCommand
+	List<String> lsOutput
+	
+	// Construct the command to execute
+	 sCommand = "{sPath} {sAction} {sTestString}"
+	// Execute the command
+	System.Execute (sCommand, lsOutput)
+	// Read the output from the process
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	// public def encoderDecoder(String Path, String Action, String TestString) {
+		// // Step 1: Assign values to local variables
+		// def testString = TestString
+		// def action = Action
+		// def path = Path
+		// 
+		// // Step 2: Construct the command to execute
+		// def command = "{path} {action} {testString}";
+		// 
+		// // Step 3: Initialize an empty string to store output
+		// String myList = "";
+		// 
+		// // Step 4: Execute the command
+		// def process = Runtime.getRuntime().exec(command);
+		// 
+		// // Step 5: Close the output stream
+		// process.getOutputStream().close();
+		// 
+		// // Step 6: Read the output from the process
+		// BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		// def line;
+		// while ((line = stdout.readLine()) != null) {
+			// // Step 7: Concatenate each line of output to myList
+			// myList = myList.concat(line + "\n")
+		// }
+		// 
+		// // Step 8: Close the reader
+		// stdout.close();
+		// 
+		// // Step 9: Return the concatenated output
+		// return myList;
+	// }
+	// 
+	
+Integer waitForResponse_Confermation()
+	%FuncInfo[Desc="This method will be Polling of test step until For Response displayed"]
+	Integer NumberOfIterations = 0
+	//Call testStep
+	//   def testStep = testRunner.testCase.testSuite.testCases[testCaseName].testSteps[testStepName]
+	//   testStep.run(testRunner, context)
+	
+	
+	
+	
+	
+	
+	//  public def waitForResponse(testRunner, context, testCaseName, testStepName, ResponseXpath) {
+	//   int NumberOfIterations = 0
+	// 
+	//   def testStep = testRunner.testCase.testSuite.testCases[testCaseName].testSteps[testStepName]
+	//   testStep.run(testRunner, context)
+	//   def ResponseContent = context.expand(ResponseXpath)
+	//   while ((ResponseContent == "" || ResponseContent.contains("HTTP Error 503. The service is unavailable.")) && NumberOfIterations < 75) {
+	//    sleep(2000);
+	//    testStep.run(testRunner, context)
+	//    ResponseContent = context.expand(ResponseXpath)
+	//    NumberOfIterations++
+	//   }
+	//   return NumberOfIterations
+	//  }
+	
+List<String> getProcessId(String sPath, String sServerIp, String sUserName, String sPassword, String sServiceName, out List<String> lsMyList)
+	%FuncInfo[Desc="This method is used to get the process ID from the server task manager."]
+	Integer i
+	String sCommand, sServerName = sServerIp, sProcessName = sServiceName
+	List<String> lsOutput
+	
+	sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sProcessName}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	
+	
+	
+	//  public def getProcessId(String path, String serverIp, String userName, String password, String serviceName) {
+	// 
+	//    def ServerName = serverIp
+	//    def UserName = userName
+	//    def Password = password
+	//    def ProcessName = serviceName
+	//    def Path = path
+	//    def command = "Powershell.exe -file {Path} {ServerName} {UserName} {Password} {ProcessName}";
+	//    def myList = []
+	//    def line;
+	//    def process = Runtime.getRuntime().exec(command);
+	//    process.getOutputStream().close();
+	//    BufferedReader stdout = new BufferedReader(new InputStreamReader(
+		// process.getInputStream()));
+	//    while ((line = stdout.readLine()) != null) {                      (Confermation)
+		// myList.add(line)
+	//    }
+	// 
+	//    stdout.close();
+	//    return myList;
+	//   }
+	// 
+	
+List<String> runPowerShellScript(String sPath, String sServerName, String sUserName, String sPassword, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript"]
+	List<String> lsOutput
+	String sCommand
+	Integer i
+	
+	sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword}"
+	System.Execute (sCommand, lsOutput)
+	
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	//  public def runPowerShellScript(String Path, String ServerName, String UserName, String Password) {
+	//   def serverName = ServerName
+	//   def userName = UserName
+	//   def password = Password
+	//   def path = Path
+	//   def command = "Powershell.exe -file {path} {serverName} {userName} {password}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	//   stdout.close();
+	//   return myList;
+	//  }
+	
+List<String> run_PowerShellScript(String sServerName, String sUserName, String sPassword, String sPath, String sAction, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript"]
+	Integer i
+	String sCommand 
+	List<String> lsOutput
+	 sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sAction}"
+	System.Execute (sCommand, lsOutput)
+	
+	for (Integer i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	//  public def runPowerShellScript(String Path, String ServerName, String UserName, String Password, String Action) {
+	//   def serverName = ServerName
+	//   def userName = UserName
+	//   def password = Password
+	//   def path = Path
+	//   def action = Action
+	//   def command = "Powershell.exe -file {path} {serverName} {userName} {password} {action}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	// 
+	//   stdout.close();
+	//   return myList;
+	//  }
+	// 
+	
+IWattConsoleExecution(String sCommandLineExePath, String sConfiguredXMLFile, String sResultLogFolderPath, String sDcmFilesPath, String sImportFromSubDirectories, String sImportMultipleFiles, String sStorageCommit)
+	%FuncInfo[Desc="This method is to execute the IWatt commandline exe to send DCMImages to server."]
+	Integer i
+	String sCommand
+	List<String> lsOutput ,lsMyList
+	 sCommand = sCommandLineExePath + " " + sConfiguredXMLFile + " " + "results" + " " + sResultLogFolderPath + " " + "store" + " " + sDcmFilesPath + " " + sImportFromSubDirectories + " " + sImportMultipleFiles + " " + sStorageCommit
+	System.Execute (sCommand, lsOutput)
+	
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		Print(lsOutput[i])
+	
+	
+	//  public void IWattConsoleExecution(log, String commandLineExePath, String configuredXMLFile, String resultLogFolderPath, String dcmFilesPath, String importFromSubDirectories, String importMultipleFiles, String storageCommit) {
+	// 
+	//   def command = commandLineExePath + " " + configuredXMLFile + " " + "results" + " " + resultLogFolderPath + " " + "store" + " " + dcmFilesPath + " " + importFromSubDirectories + " " + importMultipleFiles + " " + storageCommit;
+	// 
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    log.info line
+	//   }
+	// 
+	//   stdout.close();
+	//  }
+	// 
+	
+Boolean intToBoolean(Integer iIntvalue, Boolean bBooleanValue)
+	%FuncInfo[Desc="This method will be used to convert binary to boolean"]
+	
+	if iIntvalue==1
+		bBooleanValue=true
+	else
+		bBooleanValue = false
+	
+	//  * This function converts an integer value represented as a string to a boolean value.
+	//  * It takes an integer value as input and returns a boolean value.
+	//  */
+	// public def intToBoolean(def Intvalue) {
+		// // Ternary operator is used here to determine the boolean value based on the input integer value.
+		// // If the input integer value is '1', then the boolean value is set to "true"; otherwise, it is set to "false".
+		// def BooleanValue = (Intvalue.equals('1')) ? "true" : "false";
+		// 
+		// // Return the calculated boolean value.
+		// return BooleanValue;
+	// }
+	// 
+	
+List<String> getFileLength(String sServerName, String sUserName, String sPassword, String sFilePath, String sPath, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will get file length of the file specified"]
+	//  * This function retrieves the length of a file located on a remote server using PowerShell.
+	//  * It takes the following parameters:
+	//  * - path: The path to the PowerShell script file.
+	//  * - serverIp: The IP address of the remote server.
+	//  * - userName: The username for accessing the remote server.
+	//  * - password: The password for accessing the remote server.
+	//  * - filePath: The path to the file whose length needs to be retrieved.
+	//  * It returns a list containing the output lines from the PowerShell command.
+	Integer i
+	String sCommand 
+	List<String>  lsOutput
+	// // Constructing the PowerShell command to be executed.
+	// // This command executes the PowerShell script located at 'Path' with provided arguments.
+	 sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sFilePath}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	// public def getFileLength(String path, String serverIp, String userName, String password, String filePath) {
+		// // Assigning input parameters to variables for better readability.
+		// def ServerName = serverIp
+		// def UserName = userName
+		// def Password = password
+		// def FilePath = filePath
+		// def Path = path
+		// 
+		// // Constructing the PowerShell command to be executed.
+		// // This command executes the PowerShell script located at 'Path' with provided arguments.
+		// def command = "Powershell.exe -file {Path} {ServerName} {UserName} {Password} {FilePath}";
+		// 
+		// // Creating an empty list to store output lines from the PowerShell command.
+		// def myList = []
+		// 
+		// // Variable to hold each line of output from the PowerShell command.
+		// def line;
+		// 
+		// // Executing the PowerShell command using Runtime.getRuntime().exec() method.
+		// def process = Runtime.getRuntime().exec(command);
+		// 
+		// // Closing the output stream of the process.
+		// process.getOutputStream().close();
+		// 
+		// // Creating a BufferedReader to read the output of the PowerShell command.
+		// BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		// 
+		// // Reading each line of output from the PowerShell command and adding it to the list.
+		// while ((line = stdout.readLine()) != null) {
+			// myList.add(line)
+			// // Uncomment the next line to log each line (if needed).
+			// // log.info line
+		// }
+		// 
+		// // Closing the BufferedReader.
+		// stdout.close();
+		// 
+		// // Returning the list containing the output lines from the PowerShell command.
+		// return myList;
+	// }
+	// 
+	
+List<String> listFiles(String sPath, String sServerIp, String sUserName, String sPassword, String sFolderName, List<String> lsMyList)
+	%FuncInfo[Desc="This method will return the list of files present in the path"]
+	Integer i 
+	String sLine,  sCommand 
+	List<String>  lsOutput
+	 sCommand = "Powershell.exe -file {sPath} {sServerIp} {sUserName} {sPassword} {sFolderName}"
+	System.Execute (sCommand, lsOutput)
+	for (Integer i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (sLine[i])
+	
+	
+	
+	
+	
+	//  public def listFiles(String path, String serverIp, String userName, String password, String folderName) {
+	// 
+	//   def ServerName = serverIp
+	//   def UserName = userName
+	//   def Password = password
+	//   def FolderName = folderName
+	//   def Path = path
+	//   def command = "Powershell.exe -file {Path} {ServerName} {UserName} {Password} {FolderName}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+		// //log.info line
+	//   }
+	// 
+	//   stdout.close();
+	//   return myList;
+	// 
+	
+sendHl7Data(String sHL7FilingExePath, String sNumberOfRecords, String sServerIp, String sOrganization, String sPortNumber)
+	%FuncInfo[Desc="This method is to send the HL7 data to the server using HL7Filing.exe"]
+	String sCommand
+	List<String>  lsOutput
+	
+	sCommand = sHL7FilingExePath+" -c "+sNumberOfRecords+" -h "+sServerIp+" -i "+sOrganization+" -p "+sPortNumber
+	System.Execute (sCommand, lsOutput)
+	for (Integer i = 1; i<= lsOutput.Count(); i++)
+		Print (lsOutput[i])
+	
+	
+	//  public void sendHl7Data(log,def HL7FilingExePath, def numberOfRecords, def serverIp, def organization, def portNumber)
+	//  {
+	//  def command = HL7FilingExePath+" -c "+numberOfRecords+" -h "+serverIp+" -i "+organization+" -p "+portNumber;
+	//   
+	//  def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    log.info line
+	//   }
+	// 
+	//   stdout.close();
+	//    }
+	// 
+	
+setInputProperty_Confermation(String sValueSource, String? sPropertyName, String sPropertyValueDbPath)
+	%FuncInfo[Desc="This method will be used to set input properties."]
+	switch sValueSource
+		case "DB"
+			propertyName = sPropertyValueDbPath
+			Print (sPropertyValueDbPath + " : " + sPropertyValueDbPath)
+			break
+		case "DataGen"
+			propertyName = sPropertyValueDbPath
+			Print (sPropertyValueDbPath + " : " + sPropertyValueDbPath)
+			break
+		case "Valid"
+			propertyName = sPropertyValueDbPath
+			Print (sPropertyValueDbPath + " : " + sPropertyValueDbPath)
+			break
+		case "serverValue"
+			propertyName = sPropertyValueDbPath
+			Print (sPropertyValueDbPath + " : " + sPropertyValueDbPath)
+			break
+		default
+			propertyName = sValueSource
+			Print (sPropertyName + " : " + sValueSource)
+	
+	
+	//   */
+	//  public def setInputProperty(testRunner, log, def valueSource, def propertyName, def propertyValueDbPath) {
+		// if (valueSource == "DB") {
+		//   testRunner.testCase.setPropertyValue(propertyName, propertyValueDbPath)
+		//   log.info(propertyValueDbPath + " : " + propertyValueDbPath)
+		//  }else if (valueSource == "DataGen") {
+		//   testRunner.testCase.setPropertyValue(propertyName, propertyValueDbPath)
+		//   log.info(propertyValueDbPath + " : " + propertyValueDbPath)
+		//  }else if (valueSource == "Valid") {
+		//   testRunner.testCase.setPropertyValue(propertyName, propertyValueDbPath)
+		//   log.info(propertyValueDbPath + " : " + propertyValueDbPath)
+		//  }else if (valueSource == "serverValue") {
+		//   testRunner.testCase.setPropertyValue(propertyName, propertyValueDbPath)
+		//   log.info(propertyValueDbPath + " : " + propertyValueDbPath)
+		//  }else  {
+	//    testRunner.testCase.setPropertyValue(propertyName, valueSource)
+	//    log.info(propertyName + " : " + valueSource)
+	//   }
+	//  }
+	// 
+	
+set_PropertyValue(String sValueSource, String? sPropertyName, String sPropertyValueDbPath, String sValidResourceKey)
+	%FuncInfo[Desc="This method will be used to set input properties."]
+	switch sValueSource
+		case "DB"
+			propertyName = sPropertyValueDbPath
+			Print (sPropertyValueDbPath + " : " + sPropertyValueDbPath)
+			break
+		case "InvalidInput"
+			propertyName = sValidResourceKey
+			Print (propertyName + " : " + sValidResourceKey)
+			break
+		case "Valid"
+			propertyName = sValidResourceKey
+			Print (propertyName + " : " + sValidResourceKey)
+			break
+		case "InvalidValue"
+			propertyName = sValidResourceKey
+			Print (propertyName + " : " + sValidResourceKey)
+			break
+		case "DataGen"
+			propertyName = sValidResourceKey
+			Print (propertyName + " : " + sValidResourceKey)
+			break
+		case "/Valid"
+			propertyName = sValidResourceKey
+			Print (propertyName + " : " + sValidResourceKey)
+			break
+		default
+			propertyName = sValueSource
+			Print (propertyName + " : " + sValueSource)
+	
+	
+	
+		
+		// public def setInputProperty(testRunner, log, def valueSource, def propertyName, def propertyValueDbPath, def validResourceKey) {
+		//  if (valueSource == "DB") {
+		//   testRunner.testCase.setPropertyValue(propertyName, propertyValueDbPath)
+		//   log.info(propertyName + " : " + propertyValueDbPath)
+		//  } else if (valueSource == "Valid") {
+		//   testRunner.testCase.setPropertyValue(propertyName, validResourceKey)
+		//   log.info(propertyName + " : " + validResourceKey)
+		//  } else if (valueSource == "InvalidInput") {
+		//   testRunner.testCase.setPropertyValue(propertyName, validResourceKey)
+		//   log.info(propertyName + " : " + validResourceKey)
+		//  } else if (valueSource == "InvalidValue") {
+		//   testRunner.testCase.setPropertyValue(propertyName, validResourceKey)
+		//   log.info(propertyName + " : " + validResourceKey)
+		//  } else if (valueSource == "Value") {
+		//   testRunner.testCase.setPropertyValue(propertyName, validResourceKey)
+		//   log.info(propertyName + " : " + validResourceKey)
+		//  } else if (valueSource == "DataGen") {
+		//   testRunner.testCase.setPropertyValue(propertyName, validResourceKey)
+		//   log.info(propertyName + " : " + validResourceKey)
+		//  } else if (valueSource == "/Valid") {
+		//   testRunner.testCase.setPropertyValue(propertyName, validResourceKey)
+		//   log.info(propertyName + " : " + validResourceKey)
+		//  }else {
+		//   testRunner.testCase.setPropertyValue(propertyName, valueSource)
+		//   log.info(propertyName + " : " + valueSource)
+		//  }
+		// }
+	// 
+	
+setInputProperty(String sValueSource, String? sPropertyName, String sPropertyValueDbPath, String sValidValuePath, String sDifferentValuePath)
+	%FuncInfo[Desc="This method will be used to set input properties."]
+	switch sValueSource
+		case "DB"
+			propertyName = sPropertyValueDbPath
+			Print (sPropertyValueDbPath + " : " + sPropertyValueDbPath)
+			break
+		case "Valid"
+			propertyName = sValidValuePath
+			Print (propertyName + " : " + sValidValuePath)
+			break
+		case "InvalidValue"
+			propertyName = sValidValuePath
+			Print (propertyName + " : " + sValidValuePath)
+			break
+		case "Value"
+			propertyName = sValidValuePath
+			Print (propertyName + " : " + sValidValuePath)
+			break
+		case "DataGen"
+			propertyName = sValidValuePath
+			Print (propertyName + " : " + sValidValuePath)
+			break
+		case "differentkey"
+			propertyName = sDifferentValuePath
+			Print (propertyName + " : " + sDifferentValuePath)
+			break
+		default
+			propertyName = sValueSource
+			Print (sPropertyName + " : " + sValueSource)
+	
+	//  public def setInputProperty(testRunner, log, def valueSource, def propertyName, def propertyValueDbPath, def validValuePath, def differentValuePath) {
+	//   if (valueSource == "DB") {
+	//    testRunner.testCase.setPropertyValue(propertyName, propertyValueDbPath)
+	//    log.info(propertyName + " : " + propertyValueDbPath)
+	//   } else if (valueSource == "Valid") {
+	//    testRunner.testCase.setPropertyValue(propertyName, validValuePath)
+	//    log.info(propertyName + " : " + validValuePath)
+	//   } else if (valueSource == "InvalidValue") {
+	//    testRunner.testCase.setPropertyValue(propertyName, validValuePath)
+	//    log.info(propertyName + " : " + validValuePath)
+	//   } else if (valueSource == "Value") {
+	//    testRunner.testCase.setPropertyValue(propertyName, validValuePath)
+	//    log.info(propertyName + " : " + validValuePath)
+	//   } else if (valueSource == "DataGen") {
+	//    testRunner.testCase.setPropertyValue(propertyName, validValuePath)
+	//    log.info(propertyName + " : " + validValuePath)
+	//   } else if (valueSource == "differentkey") {
+	//    testRunner.testCase.setPropertyValue(propertyName, differentValuePath)
+	//    log.info(propertyName + " : " + differentValuePath)
+	//   } else {
+	//    testRunner.testCase.setPropertyValue(propertyName, valueSource)
+	//    log.info(propertyName + " : " + valueSource)
+	//   }
+	//  }
+	// 
+	
+returnErrorLog(String sExpectedStatus, String sFirstStatusMessage, String sSecondStatusMessage, String sThirdStatusMessage, String sFirstStatusMessageXpath, String sSecondStatusMessageXpath, String sThirdStatusMessageXpath)
+	%FuncInfo[Desc="This method will be used to set actual Status."]
+	switch sExpectedStatus
+		case sFirstStatusMessage
+			sActualResult = sFirstStatusMessageXpath
+			Print ("ActualResult " + " : " + sFirstStatusMessageXpath)
+			break
+		case sSecondStatusMessage
+			sActualResult = sFirstStatusMessageXpath
+			Print ("ActualResult " + " : " + sSecondStatusMessageXpath)
+			break
+		case sThirdStatusMessage
+			sActualResult = sFirstStatusMessageXpath
+			Print ("ActualResult " + " : " + sThirdStatusMessageXpath)
+			break
+	// public void returnErrorLog(testRunner, log, def expectedStatus, def firstStatusMessage, def secondStatusMessage, def thirdStatusMessage, def firstStatusMessageXpath, def secondStatusMessageXpath, def thirdStatusMessageXpath) {
+	// 
+	//   switch (expectedStatus) {
+	//    case firstStatusMessage:
+		// testRunner.testCase.setPropertyValue("ActualResult", firstStatusMessageXpath)
+		// log.info("ActualResult " + " : " + firstStatusMessageXpath)
+		// break;
+	//    case secondStatusMessage:
+		// testRunner.testCase.setPropertyValue("ActualResult", secondStatusMessageXpath)
+		// log.info("ActualResult " + " : " + secondStatusMessageXpath)
+		// break;
+	//    case thirdStatusMessage:
+		// testRunner.testCase.setPropertyValue("ActualResult", thirdStatusMessageXpath)
+		// log.info("ActualResult " + " : " + thirdStatusMessageXpath)
+	//   }
+	//  }
+	// 
+	
+return_ErrorLog(String sExpectedStatus, String sFirstStatusMessage, String sSecondStatusMessage, String sFirstStatusMessageXpath, String sSecondStatusMessageXpath)
+	%FuncInfo[Desc="This method will set error log in test cases property based on expected status."]
+	switch sExpectedStatus
+		case sFirstStatusMessage
+			sActualResult = sFirstStatusMessageXpath
+			Print ("ActualResult " + " : " + sFirstStatusMessageXpath)
+			break
+		case sSecondStatusMessage
+			sActualResult = sFirstStatusMessageXpath
+			Print ("ActualResult " + " : " + sSecondStatusMessageXpath)
+			break
+	
+	
+	
+	//  public void returnErrorLog(testRunner, log, def expectedStatus, def firstStatusMessage, def secondStatusMessage, def firstStatusMessageXpath, def secondStatusMessageXpath) {
+	// 
+	//   switch (expectedStatus) {
+	//    case firstStatusMessage:
+		// testRunner.testCase.setPropertyValue("ActualResult", firstStatusMessageXpath)
+		// log.info("ActualResult " + " : " + firstStatusMessageXpath)
+		// break;
+	//    case secondStatusMessage:
+		// testRunner.testCase.setPropertyValue("ActualResult", secondStatusMessageXpath)
+		// log.info("ActualResult " + " : " + secondStatusMessageXpath)
+	//   }
+	// 
+	//  }
+	// 
+intToBoolean_SetProperty(Integer iIntvalue, Boolean bBooleanValue)
+	%FuncInfo[Desc="This method will be used to convert binary to boolean"]
+	if iIntvalue==1
+		bBooleanValue=true
+	else
+		bBooleanValue = false
+	nameOfProperty = bBooleanValue
+	
+	
+	
+	
+	//  public def intToBoolean(log, testRunner,def Intvalue, def nameOfProperty) 
+	// {
+	// def BooleanValue = (Intvalue.equals("1"))?"true":"false"
+	// log.info ("BooleanValue "+BooleanValue)
+	// testRunner.testCase.setPropertyValue(nameOfProperty, BooleanValue)
+	// }
+	// 
+	
+userCreation(String sDsdepath, String sServerip, String sUerCreationXMLFile, String sDBLoginUserName, String sDBLoginPassword, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to create a user specified in the user's configuration XML file"]
+	Integer i
+	String  sCommand
+	List<String> lsOutput
+	sCommand = "Powershell.exe " + sDsdepath + " /mode import /encrypt /server " + sServerip + " /port 3890 /input " + sUerCreationXMLFile + " /replace 8101BA62-D96C-403B-8886-1E8034C02CD7 \(\([guid]::NewGuid()).ToString().ToUpper()) /cred " + sDBLoginUserName + " " + sDBLoginPassword
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	// public def userCreation(def dsdepath, def serverip, def userCreationXMLFile, def DBLoginUserName, def DBLoginPassword) {
+	//  def command = "Powershell.exe " + dsdepath + " /mode import /encrypt /server " + serverip + " /port 3890 /input " + userCreationXMLFile + " /replace 8101BA62-D96C-403B-8886-1E8034C02CD7 \(\([guid]::NewGuid()).ToString().ToUpper()) /cred " + DBLoginUserName + " " + DBLoginPassword;
+	//  def myList = []
+	//  def line;
+	//  def process = Runtime.getRuntime().exec(command);
+	//  process.getOutputStream().close();
+	//  BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//   process.getInputStream()));
+	//  while ((line = stdout.readLine()) != null) {
+	//   myList.add(line)
+	//  }
+	// 
+	//  stdout.close();
+	//  return myList;
+	//}
+	
+returnError_Log(String sExpectedStatus, String sFirstStatusMessageXpath, String sSecondStatusMessageXpath)
+	%FuncInfo[Desc="This method will be used to set actual Status."]
+	switch sExpectedStatus
+		case sFirstStatusMessageXpath
+			sActualResult = sFirstStatusMessageXpath
+			Print ("ActualResult " + " : " + sFirstStatusMessageXpath)
+			break
+		case sSecondStatusMessageXpath
+			sActualResult = sFirstStatusMessageXpath
+			Print ("ActualResult " + " : " + sSecondStatusMessageXpath)
+			break
+	
+	
+	
+	
+	//  public void returnErrorLog(testRunner, log, def expectedStatus, def firstStatusMessageXpath, def secondStatusMessageXpath) {
+	//   switch (expectedStatus) {
+	//    case firstStatusMessageXpath:
+		// testRunner.testCase.setPropertyValue("ActualResult", firstStatusMessageXpath)
+		// log.info("ActualResult " + " : " + firstStatusMessageXpath)
+		// break;
+	//    case secondStatusMessageXpath:
+		// testRunner.testCase.setPropertyValue("ActualResult", secondStatusMessageXpath)
+		// log.info("ActualResult " + " : " + secondStatusMessageXpath)
+	//   
+	
+	 
+	
+String change_Time_UnComplete(String sTimeStamp, String sOffsetValue, String sIsDaylightSavings)
+	%FuncInfo[Desc="This method will convert timestamp to UTC format"]
+	String sDateTime,sOffSet
+	List<String>lsOffSet
+	DateTime dtDateTime //dtTimeDifferenceInHour, dtTimeDifferenceInMinute
+	
+	dtDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", sDateTime)
+	lsOffSet = sOffsetValue.Split (":")
+	Integer dtTimeDifferenceInHour = Integer.Parse(lsOffSet[1])
+	Integer dtTimeDifferenceInMinute = Integer.Parse(lsOffSet[2])
+	if sIsDaylightSavings=="True"
+		dtTimeDifferenceInMinute =-dtTimeDifferenceInMinute
+	else
+		dtTimeDifferenceInMinute = dtTimeDifferenceInMinute
+	
+	
+	//  public def changeTime(String timeStamp,String offsetValue,String isDaylightSavings) {
+	//   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	//   Date date = formatter.parse(timeStamp);
+	//   String[] offSet=offsetValue.split(":")
+	//   def incrementTime = null;
+	//   int timeDifferenceInHour=offSet[0] as Integer
+	//   int timeDifferenceInMinute=offSet[1] as Integer
+	//   timeDifferenceInMinute=(offSet[0].contains("-"))? -timeDifferenceInMinute:timeDifferenceInMinute
+	//   //if(isDaylightSavings.equals("True")){
+		// //	timeDifferenceInHour=(timeDifferenceInHour)+1
+	//   //}
+	//   use(TimeCategory) {
+	//    incrementTime = date + timeDifferenceInHour.hour +timeDifferenceInMinute.minutes
+	//   }
+	//   return incrementTime.format("yyyy-MM-dd HH:mm:ss") 
+	//  
+	// 
+	
+runPower_ShellScript(String sPath, String sServerName, String sUserName, String sPassword, String sServiceDisplayName, String sAction, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript"]
+	Integer i
+	String sCommand 
+	List<String>  lsOutput
+	
+	 sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sServiceDisplayName} {sAction}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//  public def runPowerShellScript(def Path, def ServerName, def UserName, def Password, def ServiceDisplayName,def Action) {
+	//   def serverName = ServerName
+	//   def userName = UserName
+	//   def password = Password
+	//   def path = Path
+	//   def serviceDisplayName = ServiceDisplayName
+	//   def action = Action
+	//   def command = "Powershell.exe -file {path} {serverName} {userName} {password} {serviceDisplayName} {action}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	// 
+	//   stdout.close();
+	//   return myList;
+	//  }
+	// runPowerShellScript
+	// 
+	
+Boolean booleanToBinary(Boolean bIntvalue, out Integer Out_iValue)
+	%FuncInfo[Desc="This method will be used to convert boolean to binary"]
+	if bIntvalue == true
+		Out_iValue == 1
+	else
+		Out_iValue ==0
+	
+	
+	
+	//  public def booleanToBinary(def Intvalue) 
+	//   {
+		// def BooleanValue = (Intvalue == "true")?"1":"0"
+		// return BooleanValue
+	//   }
+	// 
+	
+List<String> runExecutable(String sCommand, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used execute a command in command prompt"]
+	Integer i
+	List<String> lsOutput
+	System.Execute (sCommand, lsOutput)
+	
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	// public def runExecutable(String command) {
+		// def myList = [];
+		// def line;
+		// def process = Runtime.getRuntime().exec(command);
+		// process.getOutputStream().close();
+		// BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		// while ((line = stdout.readLine()) != null) {
+			// myList.add(line)
+			// }
+		// stdout.close();
+		// return myList;
+	//  } 
+	// 
+	
+settingExpectedXPath(String sConfiguration, String sPropertyName, String sEnabledXPath, String sDisabledXPath)
+	%FuncInfo[Desc="This method will be used to set expected XPath"]
+	Print ("Configuration "+sConfiguration)
+	Print ("PropertyName "+sPropertyName)
+	Print ("EnabledXPath "+sEnabledXPath)
+	Print ("DisabledXPath "+sDisabledXPath)
+	// 
+	switch sConfiguration
+		case "Enable"
+			propertyName = sEnabledXPath
+			break
+		case "Disable"
+			propertyName = sDisabledXPath
+			break
+	
+	
+	
+	
+	// def void settingExpectedXPath(testRunner, log, def configuration,def propertyName, def enabledXPath,def disabledXPath)]
+	//  log.info ("configuration "+configuration)
+	//  log.info ("propertyName "+propertyName)
+	//  log.info ("enabledXPath "+enabledXPath)
+	
+	//  log.info ("disabledXPath "+disabledXPath)
+	//  
+	//  switch(configuration)
+	//  {
+	//   case 'Enable':
+	//    testRunner.testCase.setPropertyValue(propertyName, enabledXPath)
+	//    break;
+	//    
+	//   case 'Disable':
+	//    testRunner.testCase.setPropertyValue(propertyName, disabledXPath)
+	//    break;
+	//  }
+	//  }
+	// 
+	
+setting_ExpectedXPath(String sExpectedStatus, String sPropertyName, String sExpectedCondition, String sSchemaXpath, String sFaultcodeXpath)
+	%FuncInfo[Desc="This method will be used to set expected XPath"]
+	Print ("ExpectedStatus "+sExpectedStatus)
+	Print ("PropertyName "+sPropertyName)
+	Print ("ExpectedCondition "+sExpectedCondition)
+	Print ("SchemaXpath "+sSchemaXpath)
+	Print ("FaultcodeXpath "+sFaultcodeXpath)
+	if sExpectedStatus==sExpectedCondition
+		propertyName = sSchemaXpath
+	else
+		propertyName = sFaultcodeXpath
+		
+	
+	
+	
+	
+	
+	
+	
+	// def void settingExpectedXPath(testRunner, log, def expectedStatus,def propertyName, def expectedCondition, def schemaXpath,def faultcodeXpath)
+	// {
+	// 
+	// log.info ("expectedStatus "+expectedStatus)
+	// log.info ("propertyName "+propertyName)
+	// log.info ("expectedCondition "+expectedCondition)
+	// log.info ("schemaXpath "+schemaXpath)
+	// log.info ("faultcodeXpath "+faultcodeXpath)
+	// 
+	// if(expectedStatus.equals(expectedCondition))
+	// {
+		// testRunner.testCase.setPropertyValue(propertyName,schemaXpath)
+	// }
+	// else
+	// {
+		// testRunner.testCase.setPropertyValue(propertyName,faultcodeXpath)
+	// }
+	// }
+	// 
+	// 
+	
+List<String> getFilePath(String sPowershellPath, String sServerIP, String sAdminUser, String sAdminPassword, String sFilePath, List<String> lsMyList)
+	%FuncInfo[Desc="This method is used to get the process ID from the server task manager."]
+	Integer i 
+	List<String> lsOutput
+	String ServerName = sServerIP, UserName = sAdminUser, Password = sAdminPassword, sCommand
+	sCommand = "Powershell.exe -file {sPowershellPath} {sServerIP} {sAdminUser} {Password} {sFilePath}"
+	System.Execute (sCommand, lsOutput)
+	
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	
+	// //getFilePath(String powershellPath, String serverIP, String adminUser, String adminPassword, String filePath)
+	// 
+	//   def ServerName = serverIP
+	//   def UserName = adminUser
+	//   def Password = adminPassword
+	//   def FilePath = filePath
+	//   def command = "Powershell.exe -file {powershellPath} {ServerName} {UserName} {Password} {FilePath}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+		//   }
+	// 
+	//   stdout.close();
+	//   return myList;
+	//  }
+	// 
+	
+settingFilePathAndName(String sTestRunner, String sFilePath, String sFileName)
+	%FuncInfo[Desc="this method will set the file path and fileName to testCase"]
+	String sFinalFilePath
+	Print (("fileName "+sFileName))
+	Print (("filePath "+sFilePath))
+	 sFinalFilePath = sFilePath +"\\"+ sFileName.Trim()
+	Print ("finalFilePath " +sFinalFilePath)
+	finalFilePath = sFinalFilePath
+	filename = sFileName.Trim ()
+	
+	// public void settingFilePathAndName(log,testRunner,def filePath, def fileName )
+	// {
+		// log.info("fileName "+fileName)
+		// log.info("filePath "+filePath)
+		// 
+		// def finalFilePath = filePath +"\\"+ fileName.trim()
+		// log.info ("finalFilePath " +finalFilePath)
+		// 
+		// testRunner.testCase.setPropertyValue("finalFilePath", finalFilePath)
+		// testRunner.testCase.setPropertyValue("filename", fileName.trim())
+	// }
+	// 
+	
+List<String> runPowerShell_Script(String sPath, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript"]
+	Integer i
+	String sCommand
+	List<String> lsOutput
+	
+	sCommand = "Powershell.exe -file {sPath}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	//   public def runPowerShellScript(String Path) {
+		// def path = Path
+	//   
+	//   def command = "Powershell.exe -file {path}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	// 
+	//   stdout.close();
+	//   return myList;
+	//  }
+	// 
+	
+List<String> GetFileData(String sServerName, String sUserName, String sPassword, String sPath, String sGetDataFilePath, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to get the data from server"]
+	Integer i 
+	String sCommand 
+	List<String> lsOutput
+	
+	 sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sGetDataFilePath}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	// public def GetFileData(String Path,String ServerName,String UserName,String Password,String GetDataFilePath){
+	// def serverName=ServerName
+	// def userName =UserName
+	// def password = Password
+	// def path =Path
+	// def getDataFilePath=GetDataFilePath
+	// def command = "Powershell.exe -file ${path} ${serverName} ${userName} ${password} ${getDataFilePath}";
+	// def myList = ""
+	// def line
+	// def process = Runtime.getRuntime().exec(command);
+	// process.getOutputStream().close();
+	// BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
+	// while ((line = stdout.readLine()) != null) 
+	// {
+	//  myList = myList.concat(line )
+	//  }
+	//  stdout.close();
+	// return myList
+	// }
+	// 
+	
+List<String> plusMinute(String sDatetime, out DateTime dtFinalDateTime)
+	%FuncInfo[Desc="This method used to modify date time by minute"]
+	DateTime  dtDateTime ,dtDecrementedDateTime,dtDateTimeStamp
+	List<String> lsDateTimesplit
+	lsDateTimesplit = sDatetime.Split (".")
+	dtDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", sDatetime)
+	dtDecrementedDateTime = null
+	dtDecrementedDateTime = dtDateTime.Add (0, 0, 1)
+	dtFinalDateTime = dtDecrementedDateTime.Format ("YYYY-MM-dd'T'HH:mm")
+	
+	
+	
+	// public def plusMinute(String datetime) {
+	//   def dateTimesplit = datetime.split("\\.")
+	//   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+	//   Date dateTimeStamp = formatter.parse(datetime);
+	//   def decrementedDateTime = null;
+	//   use(TimeCategory) {
+	//    decrementedDateTime = dateTimeStamp + 1. minutes
+	//   }
+	//   def finalDateTime = decrementedDateTime.format("YYYY-MM-dd'T'HH:mm")
+	//   return finalDateTime;
+	// } 
+	
+List<String> calliSiteMonitor(String sPath, String sServerName, String sUserName, String sPassword, List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to calliSiteMonitor"]
+	Integer i 
+	String sCommand
+	List<String> lsOutput
+	sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	//  public def calliSiteMonitor(String Path, String ServerName, String UserName, String Password) {
+	//    def serverName = ServerName
+	//    def userName = UserName
+	//    def password = Password
+	//    def path = Path
+	//    def command = "Powershell.exe -file ${path} ${serverName} ${userName} ${password}";
+	//    def myList = []
+	//    def line;
+	//    def process = Runtime.getRuntime().exec(command);
+	//    process.getOutputStream().close();
+	//    BufferedReader stdout = new BufferedReader(new InputStreamReader(
+		// process.getInputStream()));
+	//    while ((line = stdout.readLine()) != null) {
+		// myList.add(line)
+	//    }
+	// }
+	// 
+	
+List<String> UpdateConfigFile(String sUpdateConfigFile, String sPath, String sConfigPath, String sStackpath, String sPassword, String sServerName, List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript"]
+	Integer i 
+	List<String> lsOutput
+	String sCommand = "Powershell.exe -file {sPath} {sServerName} {sServerName} {sPassword} {sConfigPath} {sStackpath}"
+	System.Execute(sCommand)
+	lsMyList.Add (sCommand)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//   def serverName = ServerName
+	//   def userName = UserName
+	//   def password = Password
+	//   def path = Path
+	//   def configPath = ConfigPath
+	//   def stackpath = Stackpath
+	//   def command = "Powershell.exe -file ${path} ${serverName} ${userName} ${password} ${configPath} ${stackpath}";
+	//   def myList = []
+	//   def line;
+	//   
+	//   
+	//   def process = Runtime.getRuntime().exec(command);
+	//   myList.add(command)
+	//   
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	//   stdout.close();
+	//   return myList;
+	//  }
+	// 
+	
+String splitDatetimeMilliseconds(String sResponseTime, String sResult)
+	%FuncInfo[Desc="Removing millisecond from the Server dateTime and Response dateTime"]
+	List<String> lsFinalModifiedTime
+	 lsFinalModifiedTime = sResponseTime.Split (":")
+	sResult = lsFinalModifiedTime[1]+":"+lsFinalModifiedTime[2]
+	
+	
+	//  public String[] splitDatetimeMilliseconds(String ResponseTime) {
+	//  String[] FinalModifiedTime = ResponseTime.split(":")
+	//  
+	//  String[] result = [FinalModifiedTime[0]+":"+FinalModifiedTime[1]]
+	//   return result;
+	//  }
+	// 
+	
+String addOneMinuteToDateTime(DateTime sDateDate, out String sUpdatedDateTime)
+	%FuncInfo[Desc="This method used to add one minute to the given datetime"]
+	DateTime dtNewDateTime
+	dtNewDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", sDateDate)
+	dtNewDateTime.Add (0, 0, 1)
+	sUpdatedDateTime = dtNewDateTime.Format ("yyyy-MM-dd HH:mm:ss")
+	Print ("UpdatedDateTime " + sUpdatedDateTime)
+	
+	
+	
+	
+	// public def addOneMinuteToDateTime(log, def dateDate) {
+		// // Parse the date string into a Date object using the provided format
+		// def dateTimeStamp = new Date().parse("yyyy-MM-dd HH:mm:ss", dateDate)
+		// 
+		// // Use Groovy's TimeCategory to add one minute to the parsed date
+		// use(TimeCategory) {
+			// def updatedDateTime = dateTimeStamp + 1.minutes 
+			// 
+			// // Format the updated date time as a string in the specified format
+			// updatedDateTime = updatedDateTime.format("yyyy-MM-dd HH:mm:ss")
+			// 
+			// // Log the updated date time
+			// log.info("updatedDateTime " + updatedDateTime)
+			// 
+			// // Return the updated date time string
+			// return updatedDateTime
+		// }
+	// }
+	// 
+	
+formatPatientName(String sDbPatientName)
+	%FuncInfo[Desc="This method is to format Paitient name, eg : dbPatientname: Doe John, FormattedPatientName = Doe^John."]
+	List<String> lsUpdatedPatientname = sDbPatientName.Split (" ")
+	Print ("formattedPatientName " + lsUpdatedPatientname[1] + "^" + lsUpdatedPatientname[2])
+	propertyName = lsUpdatedPatientname[1] + "^" + lsUpdatedPatientname[2]
+	
+	
+	
+	// public void formatPatientName(testRunner, context, log, def dbPatientName, def propertyName)
+	// {
+		// def updatedPatientname = dbPatientName.split(" ")
+		// log.info("formattedPatientName " + updatedPatientname[0].toString() + "^" + updatedPatientname[1].toString() )
+		// testRunner.testCase.setPropertyValue(propertyName, updatedPatientname[0] + "^" + updatedPatientname[1])
+	// }
+	// 
+	// 
+	
+formatPatientBirthDate(String sDbPatientBirthDate, String sPropertyName)
+	%FuncInfo[Desc="This method is to format Paitient Birthdate, eg : dbBirthdate: 2017-12-20, FormattedPatientBirthDate = 20171220."]
+	String sUpdatedPatientBirthDate 
+	List<String> lsUpdatedPatientBirthDate
+	
+	 lsUpdatedPatientBirthDate = sDbPatientBirthDate.Split (" ")
+	 sUpdatedPatientBirthDate = lsUpdatedPatientBirthDate[1].Replace ("-", "")
+	Print ("formattedPatientBirthDate " +  sUpdatedPatientBirthDate)
+	propertyName = sUpdatedPatientBirthDate
+	
+	
+	// public void formatPatientBirthDate(testRunner, context, log, def dbPatientBirthDate, def propertyName)
+	// {
+		// 
+		// def updatedPatientBirthDate = dbPatientBirthDate.split(" ")
+		// updatedPatientBirthDate =updatedPatientBirthDate[0].replace("-","")
+		// log.info("formattedPatientBirthDate " + updatedPatientBirthDate)
+		// testRunner.testCase.setPropertyValue(propertyName,updatedPatientBirthDate)
+	// }
+	// 
+	
+String getClientMachineTime(out String sFormattedDateTime)
+	%FuncInfo[Desc="This method will return the client machine time"]
+	DateTime dtCurrentDateTime 
+	dtCurrentDateTime = DateTime.Now()
+	sFormattedDateTime = dtCurrentDateTime.Format ("MM/dd/yyyy HH:mm:ss")
+	Print("Authentication satrt time is " +sFormattedDateTime)
+	
+	
+	
+	
+	// public def getClientMachineTime(log)
+	//  {
+		// Date dateTime = new Date()
+		// def sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss")
+		// def startTime =  sdf.format(dateTime)
+		// log.info ("Authentication satrt time is "+startTime)
+		// return startTime
+		// 
+	//  
+	
+retunDiffrenceBetweenStartAndCurrentTime_Uncompleted(String sContext = null)
+	%FuncInfo[Desc="This method will be used to increment by a given seconds for given date time"]
+	DateTime dtCurrentDateTime,dtNewDateTime
+	String sAuthStartTime,sFormat,sDiffernceInSecs
+	
+	dtCurrentDateTime = DateTime.Now()
+	// AuthStartTime = context.expand( '${#Project#AuthenticationStartTime}' )
+	dtNewDateTime = DateTime.Parse ("yyyy-MM-dd", "AuthStartTime")
+	Print(dtNewDateTime)
+	sFormat = "ss"
+	sDiffernceInSecs = DateTime.DiffFormat (dtCurrentDateTime, dtNewDateTime, sFormat)
+	
+	
+	
+	
+	// public def retunDiffrenceBetweenStartAndCurrentTime(log,context)
+	//  {
+		// Date dateTime = new Date()
+		// log.info ("Current time is"+dateTime)
+		// def AuthStartTime = context.expand( '${#Project#AuthenticationStartTime}' )
+		// def startedTime = Date.parse("MM/dd/yyyy HH:mm:ss",AuthStartTime)
+		// 
+		// log.info ("Authentication start time is "+startedTime)
+		// 
+		// def differnceInSecs = ((dateTime.getTime() - startedTime.getTime())/1000)
+		// return differnceInSecs
+		// 
+	// }
+	// 
+	
+List<String> runPowerShellScript_1(String sPath, String sServerName, String sPassword, String sQueue, String sExchange, String sRoutingKey, String sTimeOut, String sUserName, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript to fetch the message from RabitMQ"]
+	Integer i 
+	String sCommand
+	List<String> lsOutput
+	
+	 sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sQueue} {sExchange} {sRoutingKey} {sTimeOut}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	// public def runPowerShellScript(def Path, def ServerName, def UserName, def Password, def queue, def Exchange, def RoutingKey, def TimeOut) {
+	// 
+	//   def command = "Powershell.exe -file ${Path} ${ServerName} ${UserName} ${Password} ${queue} ${Exchange} ${RoutingKey} ${TimeOut}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	//   stdout.close();
+	//   return myList;  
+	//  }
+	// 
+	
+List<String> runPowerShellScript_2(String sPath, String sServerName, String sUserName, String sPassword, String sQueue, String sExchange, String sRoutingKey, String sExchangeType, String sPriorityQueue, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript to create a queue in RabbitMQ"]
+	Integer i
+	String sCommand 
+	List<String> lsOutput
+	
+	 sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sQueue} {sExchange} {sRoutingKey} {sExchangeType} {sPriorityQueue}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	
+	
+	//   def command = "Powershell.exe -file ${Path} ${ServerName} ${UserName} ${Password} ${queue} ${Exchange} ${RoutingKey} ${ExchangeType} ${PriorityQueue}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	//   stdout.close();
+	//   return myList;
+	//  }
+	 
+	
+List<String> runPowerShellScript_3(String sPath, String sServerName, String sUserName, String sPassword, String sQueue, String sExchange, String sRoutingKey, String sTimeOut, String sExchangetype, String sPriorityqueue, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript to fetch the message from RabitMQ"]
+	Integer i
+	String sCommand 
+	List<String> lsOutput
+	
+	sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sQueue} {sExchange} {sRoutingKey} {sTimeOut} {sExchangetype} {sPriorityqueue}"
+	System.Execute (sCommand, lsOutput)
+	for (Integer i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	 //public def runPowerShellScript(def Path, def ServerName, def UserName, def Password, def queue, def Exchange, def RoutingKey, def TimeOut , def exchangetype, def priorityqueue) {
+	//   def command = "Powershell.exe -file ${Path} ${ServerName} ${UserName} ${Password} ${queue} ${Exchange} ${RoutingKey} ${TimeOut} ${exchangetype} ${priorityqueue}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	//   stdout.close();
+	//   return myList;
+	//  }
+	//  
+	// 
+	
+List<String> UpdateConfig_File(String sPath, String sServerName, String sUserName, String sPassword, String sConfigPath, String sConfigFileName, String sStackpath, String sOperation, String sDestination, List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript"]
+	Integer i
+	String sCommand 
+	List<String> lsOutput
+	 sCommand = "Powershell.exe -file ${sPath} ${sServerName} ${sUserName} ${sPassword} ${sConfigPath} ${sConfigFileName} ${sStackpath} ${sOperation} ${sDestination}"
+	System.Execute(sCommand)
+	for( i=1;i<lsOutput.Count();i++)
+		 lsMyList.Add(lsOutput)
+	
+	//  public def UpdateConfigFile(String Path, String ServerName, String UserName, String Password, String ConfigPath,String configFileName ,String Stackpath,String operation,String Destination) {
+	//   
+	//   def serverName = ServerName
+	//   def userName = UserName
+	//   def password = Password
+	//   def path = Path
+	//   def configPath = ConfigPath
+	//   def stackpath = Stackpath
+	//   def command = "Powershell.exe -file ${path} ${serverName} ${userName} ${password} ${configPath} ${configFileName} ${stackpath} ${operation} ${Destination}";
+	//   def myList = []
+	//   def line;
+	//   
+	//   
+	//   def process = Runtime.getRuntime().exec(command);
+	//   myList.add(command)
+	//   
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	//   stdout.close();
+	//   return myList;
+	// 
+	
+List<String> runPowerShellScriptToGetStatus(String sPath, String sServerName, String sUserName, String sPassword, String sProcessName, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript to kill a process from the server"]
+	Integer i
+	String sCommand 
+	List<String> lsOutput
+	
+	 sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sProcessName}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	//  public def runPowerShellScriptToGetStatus(log, def Path, def ServerName, def UserName, def Password, def ProcessName) {
+	//   def serverName = ServerName
+	//   def userName = UserName
+	//   def password = Password
+	//   def path = Path
+	//   def processName = ProcessName
+	//   def command = "Powershell.exe -file ${path} ${serverName} ${userName} ${password} ${processName}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	// 
+	//   stdout.close();
+	//   return myList;
+	
+	
+	
+	//  }
+	 
+	
+String getClientIP(out String sIP)
+	%FuncInfo[Desc="This method will return the client IP address."]
+	List<String> lsOutput,lsIp
+	
+	System.Execute ("ipconfig", lsOutput)
+	Print (lsOutput)
+	for (Integer i = 1; i<= lsOutput.Count(); i++)
+		if lsOutput[i].Contains("IPv4 Address")
+			lsIp = lsOutput[i].Split (":")
+	sIP = lsIp[2].Trim ()
+	
+	
+	//  public String getClientIP(){
+		// String[]  clientIp= InetAddress.getLocalHost().toString().split("/")
+		// return clientIp[1]
+	//  }
+	// 
+	
+sendStudyToExistingPatient_NotCompleted(String sPatientName = null, String sPatientId = null, String sBirthDate = null, String sSexCode = null)
+	%FuncInfo[Desc="This method is to update log file content"]
+	Integer j ,i
+	String sLine,sList,sLogFile 
+	List<String> lsSplitDate, lsLogData
+	TextFile textFile
+	//sLogFile = context.expand('${#Project#DCMSuiteLogPath}')
+	
+	// // Creating a File object from the log file path
+	textFile.Open (sLogFile, FileMode.Write)
+	// // Reading the content of the log file
+	textFile.Open (sLogFile, FileMode.Read)
+	textFile.Read(sLine)
+	textFile.Close()
+	// // Splitting the log file content based on the delimiter "(0018.0015)\t"
+	lsSplitDate = sLine.Split ("0018.0015    ")
+	// Splitting the data obtained from the log file based on the tab character "\t"
+	lsLogData = lsSplitDate[2].Split ("     ")
+	// // Initializing a counter variable j
+	 j = 1
+	// // Initializing an empty string to store modified log data
+	 sList = ""
+	// // Looping through each element in the log data
+	for (i = 0; i < lsLogData.Count()- 1; i++)
+		// Modifying the log data based on the index
+		if (i == 0 || (i % 25) == 0) 
+			lsLogData[i] = sPatientName
+		else if (i == 1 || (i % ((25 * j) + 1)) == 0) 
+			lsLogData[i] = sPatientId
+		 else if (i == 2 || (i % ((25 * j) + 2)) == 0) 
+			lsLogData[i] = sBirthDate
+		else if (i == 3 || (i % ((25 * j) + 3)) == 0) 
+			lsLogData[i] = sSexCode
+		// Constructing the modified log data string
+		if (i > 0 && lsLogData[i]==sPatientName)
+			sList = sList + lsLogData[i] + "    "
+		 else 
+			sList = sList + lsLogData[i] + "    "
+	// // Writing the modified log data back to the file
+	textFile.Write (lsSplitDate[1] + "(0018.0015)    " + sList)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// public void sendStudyToExistingPatient(context, def patientName, def patientId, def birthDate, def sexCode) {
+		// // Retrieving the path to the log file
+		// def logFile = context.expand('${#Project#DCMSuiteLogPath}')
+		// 
+		// // Creating a File object from the log file path
+		// File file = new File(logFile)
+		// 
+		// // Reading the content of the log file
+		// def logFileContent = file.getText()
+		// 
+		// // Splitting the log file content based on the delimiter "(0018.0015)\t"
+		// def splitDate = logFileContent.split("\\(0018.0015\\)\t")
+		// 
+		// // Splitting the data obtained from the log file based on the tab character "\t"
+		// def logData = splitDate[1].split("\t")
+		// 
+		// // Initializing a counter variable j
+		// def j = 1
+		// 
+		// // Initializing an empty string to store modified log data
+		// String list = ""
+		// 
+		// // Looping through each element in the log data
+		// for (int i = 0; i < logData.size() - 1; i++) {
+			// // Modifying the log data based on the index
+			// if (i == 0 || (i % 25) == 0) {
+				// logData[i] = patientName
+			// } else if (i == 1 || (i % ((25 * j) + 1)) == 0) {
+				// logData[i] = patientId
+			// } else if (i == 2 || (i % ((25 * j) + 2)) == 0) {
+				// logData[i] = birthDate
+			// } else if (i == 3 || (i % ((25 * j) + 3)) == 0) {
+				// logData[i] = sexCode
+			// }
+			// 
+			// // Constructing the modified log data string
+			// if (i > 0 && logData[i].equals(patientName)) {
+				// list = list + "\n" + logData[i] + "\t"
+			// } else {
+				// list = list + logData[i] + "\t"
+			// }
+			// 
+			// // Incrementing counter j when conditions are met
+			// if (i >= 50 && (i % 25) == 0) {
+				// j++
+			// }
+		// }
+		// 
+		// // Writing the modified log data back to the file
+		// file.write(splitDate[0] + "(0018.0015)\t\n" + list)
+	// }
+	// 
+	
+List<String> runPowerShellScriptToGetdtsFiles(String sPath, String sServerName, String sUserName, String sPassword, String sStackFolderPath, String sStudyUid, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript to get the .dts files from the server"]
+	Integer i
+	String sCommand
+	List<String> lsOutput
+	
+	 sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sStackFolderPath} {sStudyUid} "
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//  public def runPowerShellScriptToGetdtsFiles(log, def Path, def ServerName, def UserName, def Password, def StackFolderPath, def StudyUid) {
+	//   def serverName = ServerName
+	//   def userName = UserName
+	//   def password = Password
+	//   def path = Path
+	//   def stackFolderPath = StackFolderPath
+	//   def studyUid = StudyUid
+	//   def command = "Powershell.exe -file ${path} ${serverName} ${userName} ${password} ${stackFolderPath} ${studyUid} ";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	// 
+	//   stdout.close();
+	//   return myList;
+	//  }
+	
+createPatientException_NotCompleted(String sPatientName, String sPatientId)
+	%FuncInfo[Desc="This method is to update log file content to create the exception"]
+	Integer j ,i
+	String sLine,sList,sLogFile
+	List<String> lsSplitDate, lsLogData
+	TextFile textFile
+	// sLogFile =  context.expand( '${#Project#DCMSuiteLogPath}' )
+	
+	// // Creating a File object from the log file path
+	textFile.Open (sLogFile, FileMode.Write)
+	// // Reading the content of the log file
+	textFile.Open (sLogFile, FileMode.Read)
+	textFile.Read(sLine)
+	textFile.Close()
+	// // Splitting the log file content based on the delimiter "(0018.0015)\t"
+	lsSplitDate = sLine.Split ("0018.0015    ")
+	// Splitting the data obtained from the log file based on the tab character "\t"
+	lsLogData = lsSplitDate[2].Split ("     ")
+	// // Initializing a counter variable j
+	 j = 1
+	// // Initializing an empty string to store modified log data
+	 sList = ""
+	for (i = 0; i < lsLogData.Count()- 1; i++)
+		// Modifying the log data based on the index
+		if (i == 0 || (i % 25) == 0) && sPatientName != "NULL"// if ((i == 0 || (i % 25) == 0) && patientName != "NULL")
+			lsLogData[i] = sPatientName
+		else if (i==1 || (i % 25+1) == 0) && sPatientId != "NULL"// else if ((i==1 || (i % ((25*j)+1)) == 0) && patientId != "NULL") 
+			lsLogData[i] = sPatientId
+		// Constructing the modified log data string
+		if i > 0 && lsLogData[i]==(sPatientName)
+			sList = sList + lsLogData[i] + "    "
+		 else 
+			sList = sList + lsLogData[i] + "    "
+		if(i >= 50 && (i % 25) == 0)
+			j++
+	
+	// // Writing the modified log data back to the file
+	textFile.Write (lsSplitDate[1] + "(0018.0015)    " + sList)
+	
+	
+	
+	
+	
+	
+	//  public void createPatientException(context, def patientName, def patientId) {
+		// def logFile = context.expand( '${#Project#DCMSuiteLogPath}' )
+		// File file = new File(logFile)
+		// def logFileContent = file.getText()
+		// def splitDate = logFileContent.split("\\(0018.0015\\)\t")
+		// def logData = splitDate[1].split("\t")
+		// def j = 1
+		// String list = ""
+		// for (int i = 0; i<logData.size()-1; i++)
+	// {
+		// if ((i == 0 || (i % 25) == 0) && patientName != "NULL")      /*if ((i == 0 || (i % 25) == 0) && patientName != "NULL")*/
+		// {
+			// logData[i] = patientName
+		// }else if ((i==1 || (i % 25+1) == 0) && patientId != "NULL")      /*else if ((i==1 || (i % ((25*j)+1)) == 0) && patientId != "NULL") */  
+		// {
+			// logData[i] = patientId
+		// }
+		// 
+		// if(i > 0 && logData[i].equals(patientName) )
+		// {
+			// list = list + "\n"+logData[i] + "\t"
+		// }else {
+			// list = list + logData[i] + "\t"
+		// }
+		// if(i >= 50 && (i % 25) == 0)
+		// {
+			// j++		
+		// }
+		// 
+	// }
+		// file.write(splitDate[0] + "(0018.0015)\t\n" + list)
+		// 
+	//  }
+	// 
+	
+List<String> runPowerShellScriptForDelete(String sPath, String sFolderPath, String sFileName, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript for deleting the file"]
+	Integer i
+	String sCommand
+	List<String> lsOutput
+	
+	 sCommand = "Powershell.exe -file {sPath} {sFolderPath} {sFileName}"
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	
+	
+	
+	//  public def runPowerShellScriptForDelete(def Path, def FolderPath, def FileName) {
+	  
+	//   def path = Path
+	//   def folderPath = FolderPath
+	//   def fileName = FileName
+	//   def command = "Powershell.exe -file ${path} ${folderPath} ${fileName}";
+	//   def myList = []
+	//   def line
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	// 
+	//   stdout.close();
+	//   return myList;
+	//  }
+	// 
+	
+List<String> runPSToReplaceXMLContent(String sPath, String sSoupUIResultPath, String sTestSuiteName, String sFailureCount, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript for replacing the result.xml file content"]
+	Integer i
+	String sCommand 
+	List<String> lsOutput
+	
+	sCommand = "Powershell.exe -file {sPath} {sSoupUIResultPath} {sTestSuiteName} {sFailureCount} "
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	//  public def runPSToReplaceXMLContent(def Path, def SoupUIResultPath , def TestSuiteName, def FailureCount) {
+	//   
+	//   def path = Path
+	//   def soupUIResultPath = SoupUIResultPath
+	//   def testSuiteName = TestSuiteName
+	//   def failureCount = FailureCount
+	//   def command = "Powershell.exe -file ${path} ${soupUIResultPath} ${testSuiteName} ${failureCount}";
+	//   def myList = []
+	//   def line
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	// 
+	//   stdout.close();
+	//   return myList;
+	//  }
+	
+duplicateStudyException_NotCompleted(String sPatientName, String sPatientId, String sStudyUID)
+	%FuncInfo[Desc="This method is to update log file content and studyUID"]
+	Integer j ,i
+	String sLine,sList,sLogFile 
+	List<String> lsSplitDate, lsLogData
+	TextFile textFile
+	
+	// // Get the path to the log file from the project properties
+	// def logFile = context.expand( '${#Project#DCMSuiteLogPath}' )
+	// // Creating a File object from the log file path
+	textFile.Open (sLogFile, FileMode.Write)
+	// // Reading the content of the log file
+	textFile.Open (sLogFile, FileMode.Read)
+	textFile.Read(sLine)
+	textFile.Close()
+	// // Splitting the log file content based on the delimiter "(0018.0015)\t"
+	lsSplitDate = sLine.Split ("0018.0015    ")
+	// Splitting the data obtained from the log file based on the tab character "\t"
+	lsLogData = lsSplitDate[2].Split ("     ")
+	// // Initializing a counter variable j
+	 j = 1
+	// // Initializing an empty string to store modified log data
+	 sList = ""
+	// // Looping through each element in the log data
+	for (i = 0; i < lsLogData.Count()- 1; i++)
+			// Check if the index is a multiple of 25 and patientName is not NULL
+			if (i == 0 || (i % 25) == 0) && sPatientName != "NULL"
+				// Log the patientName
+				Print(sPatientName)
+				// Replace the current logData element with patientName
+				lsLogData[i] = sPatientName
+			 else if ((i == 1 || (i % 25 + 1) == 0) && sPatientId != "NULL") 
+				// Replace the current logData element with patientId
+				lsLogData[i] = sPatientId
+			else if (i == 7 || (i % 25 + 1) == 0) && sStudyUID != "NULL"
+				// Log the studyUID
+				Print(sStudyUID)
+				// Replace the current logData element with studyUID
+				lsLogData[i] = sStudyUID
+			// Check if the current logData element matches patientName and is not the first element
+			if ((i > 0 && lsLogData[i]==sPatientName))
+				// Append the current logData element to the list with a new line
+				sList = sList + lsLogData[i] + "  "
+			 else 
+				// Append the current logData element to the list with a tab
+				sList = sList + lsLogData[i] + "   "
+			// Check if the index is greater than or equal to 50 and a multiple of 25
+			if (i >= 50 && (i % 25) == 0) 
+				// Increment the counter j
+				j++
+		// // Write the modified log data to the file
+	textFile.Write (lsSplitDate[1] + "(0018.0015)    " + sList)
+			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// public void duplicateStudyException(context, log, def patientName, def patientId, def studyUID) {
+		// // Get the path to the log file from the project properties
+		// def logFile = context.expand( '${#Project#DCMSuiteLogPath}' )
+		// // Create a File object representing the log file
+		// File file = new File(logFile)
+		// // Read the content of the log file into a string
+		// def logFileContent = file.getText()
+		// // Split the log file content based on "(0018.0015)" delimiter
+		// def splitDate = logFileContent.split("\\(0018.0015\\)\t")
+		// // Split the obtained data based on "\t" (tab) delimiter
+		// def logData = splitDate[1].split("\t")
+		// // Initialize a counter for processing logData elements
+		// def j = 1
+		// // Initialize an empty string to store processed log data
+		// String list = ""
+		// // Iterate through the logData array
+		// for (int i = 0; i < logData.size() - 1; i++) {
+			// // Check if the index is a multiple of 25 and patientName is not NULL
+			// if ((i == 0 || (i % 25) == 0) && patientName.toString() != "NULL") {
+				// // Log the patientName
+				// log.info patientName
+				// // Replace the current logData element with patientName
+				// logData[i] = patientName
+			// } else if ((i == 1 || (i % 25 + 1) == 0) && patientId != "NULL") {
+				// // Replace the current logData element with patientId
+				// logData[i] = patientId
+			// } else if ((i == 7 || (i % 25 + 1) == 0) && studyUID != "NULL") {
+				// // Log the studyUID
+				// log.info studyUID
+				// // Replace the current logData element with studyUID
+				// logData[i] = studyUID.toString()
+			// }
+			// // Check if the current logData element matches patientName and is not the first element
+			// if ((i > 0 && logData[i].equals(patientName))) {
+				// // Append the current logData element to the list with a new line
+				// list = list + "\n" + logData[i] + "\t"
+			// } else {
+				// // Append the current logData element to the list with a tab
+				// list = list + logData[i] + "\t"
+			// }
+			// // Check if the index is greater than or equal to 50 and a multiple of 25
+			// if (i >= 50 && (i % 25) == 0) {
+				// // Increment the counter j
+				// j++
+			// }
+		// }
+		// // Write the modified log data to the file
+		// file.write(splitDate[0] + "(0018.0015)\t\n" + list)
+	// }
+	
+	
+	// 
+	
+List<String> userCreationDSDE(String sDsdepath, String sServerip, String sUserCreationXMLFile, String sDBLoginUserName, String sDBLoginPassword, out List<String> lsMyList)
+	%FuncInfo[Desc="This method will be used to create a user specified in the user's configuration XML file"]
+	Integer i
+	String sCommand
+	List<String> lsOutput
+	
+	// // Construct the command string for executing PowerShell script with provided parameters
+	sCommand = "Powershell.exe " + sDsdepath + " /mode import  /encrypt /server " + sServerip + " /port 3890 /input " + sUserCreationXMLFile + " /cred " + sDBLoginUserName + " " + sDBLoginPassword + " " + " /resume"
+	// // Log the constructed command for debugging purposes
+	Print ("Command:" + sCommand)
+	// // Execute the command using Runtime.getRuntime().exec()
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	
+	// public def userCreationDSDE(log, def dsdepath, def serverip, def userCreationXMLFile, def DBLoginUserName, def DBLoginPassword) {
+		// // Construct the command string for executing PowerShell script with provided parameters
+		// def command = "Powershell.exe " + dsdepath + " /mode import  /encrypt /server " + serverip + " /port 3890 /input " + userCreationXMLFile + " /cred " + DBLoginUserName + " " + DBLoginPassword + " " + " /resume";
+		// 
+		// // Log the constructed command for debugging purposes
+		// log.info "command:" + command;
+	// 
+		// // Initialize an empty list to store the output lines
+		// def myList = []
+		// // Variables for reading the output of the command
+		// def line;
+		// // Execute the command using Runtime.getRuntime().exec()
+		// def process = Runtime.getRuntime().exec(command);
+		// // Close the process's output stream
+		// process.getOutputStream().close();
+		// // Read the output of the process line by line and add each line to myList
+		// BufferedReader stdout = new BufferedReader(new InputStreamReader(
+			// process.getInputStream()));
+		// while ((line = stdout.readLine()) != null) {
+			// myList.add(line)
+		// }
+		// // Close the BufferedReader
+		// stdout.close();
+		// // Return the list containing the output lines
+		// return myList;
+	// }
+	// 
+	
+List<String> runGenericPowerShellScript(String sPath, List<String> sArgs, out List<String> lsMyList)
+	%FuncInfo[Desc="This method is used to start and stop the services from IIS"]
+	Integer i
+	String sCommand, sArg
+	List<String> lsOutput
+	
+	// // Construct the command to execute the PowerShell script
+	sCommand = "Powershell.exe -file {sPath}"
+	// // Loop through each argument and append it to the command
+	for( i = 0; i < sArgs.Count(); i++) 
+		sArg = sArgs[i]
+		sCommand = sCommand + " " + sArg
+	// // Execute the command using Runtime.getRuntime().exec()
+	System.Execute (sCommand, lsOutput)
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	
+	
+	
+	// public def runGenericPowerShellScript(def path, def args) {
+		// // Construct the command to execute the PowerShell script
+		// def command = "Powershell.exe -file ${path}"
+		// 
+		// // Loop through each argument and append it to the command
+		// for(int i = 0; i < args.size(); i++) {
+			// def arg = args[i]
+			// command = command + " " + arg
+		// }
+		// 
+		// // Initialize an empty list to store the output lines
+		// def myList = []
+		// // Variables for reading the output of the command
+		// def line;
+		// // Execute the command using Runtime.getRuntime().exec()
+		// def process = Runtime.getRuntime().exec(command);
+		// // Close the process's output stream
+		// process.getOutputStream().close();
+		// // Read the output of the process line by line and add each line to myList
+		// BufferedReader stdout = new BufferedReader(new InputStreamReader(
+			// process.getInputStream()));
+		// while ((line = stdout.readLine()) != null) {
+			// myList.add(line)
+		// }
+		// // Close the BufferedReader
+		// stdout.close();
+		// // Return the list containing the output lines
+		// return myList;
+	// }
+	// 
+	
+List<String> runPowerShellScriptForMultipleFileOperation(String sPath, String sServerName, String sUserName, String sPassword, String sFolderPath, out List<String> lsMylist)
+	%FuncInfo[Desc="This method will be used to runPowerShellScript to get the files count from the folder and to delete the files from the folder"]
+	Integer i
+	String sCommand 
+	List<String> lsOutput
+	
+	sCommand = "Powershell.exe -file {sPath} {sServerName} {sUserName} {sPassword} {sFolderPath}"
+	System.Execute (sCommand, lsOutput)
+	for(i=0;i<lsOutput.Count();i++)
+		lsMylist.Add(lsOutput)
+	
+	
+	
+	//  public def runPowerShellScriptForMultipleFileOperation(def Path, def ServerName, def UserName, def Password, def FolderPath) 
+	//  {
+	// 
+	//   def command = "Powershell.exe -file ${Path} ${ServerName} ${UserName} ${Password} ${FolderPath}";
+	//   def myList = []
+	//   def line;
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+	//    myList.add(line)
+	//   }
+	//   stdout.close();
+	//   return myList;  
+	//  
+	
+	
+	// 
+	
+String sendHl7_Data(String sHL7FilingExePath, String sHl7ServerIp, String sPortNumber, String sHl7MessageFilePath, out String sHl7MessageOutput)
+	%FuncInfo[Desc="This method is to send different types of HL7 data to the server using HL7Filing.exe"]
+	Integer i
+	Object ohl7MessageOutput
+	String sCommand
+	List<Object> loOutput
+	
+	 sCommand = sHL7FilingExePath+" "+sHl7ServerIp+" "+sPortNumber+" "+sHl7MessageFilePath
+	System.Execute (sCommand, loOutput)
+	for (i = 1; i<= loOutput.Count(); i++)
+		Print (loOutput[i])
+		ohl7MessageOutput=loOutput[i]
+	sHl7MessageOutput = [String]ohl7MessageOutput
+	
+	
+	//  
+	//  public def sendHl7Data(log,def HL7FilingExePath, def hl7ServerIp, def portNumber, def hl7MessageFilePath)
+	//  {
+	//  def command = HL7FilingExePath+" "+hl7ServerIp+" "+portNumber+" "+hl7MessageFilePath
+	//   
+	//  def line, hl7MessageOutput;
+	//  
+	//   def process = Runtime.getRuntime().exec(command);
+	//   process.getOutputStream().close();
+	//   BufferedReader stdout = new BufferedReader(new InputStreamReader(
+	//    process.getInputStream()));
+	//   while ((line = stdout.readLine()) != null) {
+		//    log.info line
+		//    hl7MessageOutput = line
+	//    
+	//   }
+	//   stdout.close();
+	//  
+	//    return hl7MessageOutput.toString()
+	//  }
+	// 
+	
+String runCommand(String sCommand, out String sOutPut)
+	%FuncInfo[Desc="This method is used to run batch command via cmd."]
+	Integer i
+	List<String> lsOutput
+	// // Initialize an empty string to store the output lines
+	List<String> lsMyList = { }
+	
+	// // Execute the command using Runtime.getRuntime().exec()
+	System.Execute (sCommand, lsOutput)
+	
+	for ( i = 1; i<= lsOutput.Count(); i++)
+		lsMyList.Add (lsOutput[i])
+	sOutPut = String.Join (lsMyList, " ")
+	
+	
+	
+	// public String runCommand(String command) {
+		// // Initialize an empty string to store the output lines
+		// def myList = ""
+		// // Variable to store each line of output
+		// def line
+		// // Execute the command using Runtime.getRuntime().exec()
+		// def process = Runtime.getRuntime().exec(command)
+		// // Close the process's output stream
+		// process.getOutputStream().close()
+		// // Read the output of the process line by line and concatenate it to myList
+		// BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()))
+		// while ((line = stdout.readLine()) != null) {
+			// // Concatenate the current line to myList
+			// myList = myList.concat(line)
+		// }
+		// // Close the BufferedReader
+		// stdout.close()
+		// // Convert myList to a string and return it
+		// return myList.toString();
+	// }
+	// // 
+	
+sendImagesToExisitingSeries_Notcompleted(String sPatientName, String sPatientId, String sStudyUID, String sSeriesUID)
+	%FuncInfo[Desc="This method is to update log file content of patient , study and series"]
+	Integer j ,i
+	String sLine,sList,sLogFile
+	List<String> lsSplitDate, lsLogData
+	TextFile textFile
+	// // Get the path to the log file from the project properties
+	// def logFile = context.expand('${#Project#DCMSuiteLogPath}')
+	// // Create a File object representing the log file
+	textFile.Open (sLogFile, FileMode.Write)
+	// // Reading the content of the log file
+	textFile.Open (sLogFile, FileMode.Read)
+	textFile.Read(sLine)
+	textFile.Close()
+	// // Splitting the log file content based on the delimiter "(0018.0015)\t"
+	lsSplitDate = sLine.Split ("0018.0015    ")
+	// Splitting the data obtained from the log file based on the tab character "\t"
+	lsLogData = lsSplitDate[2].Split ("     ")
+	// // Initialize a counter for processing logData elements
+	j = 1
+	// // Initialize an empty string to store processed log data
+	sList = ""
+	// Iterate through the logData array
+	for (i = 0; i < lsLogData.Count()- 1; i++)
+			// Check if the index is a multiple of 25 and update patientName
+			if (i == 0 || (i % 25) == 0) 
+				lsLogData[i] = sPatientName
+			 else if (i == 1 || (i % ((25 * j) + 1)) == 0)      // Check if the index is a multiple of (25*j)+1 and update patientId
+				lsLogData[i] = sPatientId
+			 else if (i == 7 || (i % ((25 * j) + 7)) == 0)    // Check if the index is a multiple of (25*j)+7 and update studyUID
+				lsLogData[i] = sStudyUID
+			 else if (i == 11 || (i % ((25 * j) + 11)) == 0) // Check if the index is a multiple of (25*j)+11 and update seriesUID
+				lsLogData[i] = sSeriesUID
+				
+				// Check if the current logData element matches patientName and is not the first element
+			if (i > 0 && lsLogData[i]==sPatientName)
+				// Append the current logData element to the list with a new line
+				sList = sList + lsLogData[i] + "    "
+			else 
+				// Append the current logData element to the list with a tab
+				sList = sList + lsLogData[i] + "  "
+				// // Check if the index is greater than or equal to 50 and a multiple of 25
+			if (i >= 50 && (i % 25) == 0) 
+				// Increment the counter j
+				j++
+		// // Write the modified log data to the file
+	textFile.Write (lsSplitDate[1] + "(0018.0015)    " + sList)
+			
+	
+	
+	
+	
+	
+	
+	// public void sendImagesToExistingSeries(context, def patientName, def patientId, def studyUID, def seriesUID) {
+		// // Get the path to the log file from the project properties
+		// def logFile = context.expand('${#Project#DCMSuiteLogPath}')
+		// // Create a File object representing the log file
+		// File file = new File(logFile)
+		// // Read the content of the log file into a string
+		// def logFileContent = file.getText()
+		// // Split the log file content based on "(0018.0015)" delimiter
+		// def splitDate = logFileContent.split("\\(0018.0015\\)\t")
+		// // Split the obtained data based on "\t" (tab) delimiter
+		// def logData = splitDate[1].split("\t")
+		// // Initialize a counter for processing logData elements
+		// def j = 1
+		// // Initialize an empty string to store processed log data
+		// String list = ""
+		// // Iterate through the logData array
+		// for (int i = 0; i < logData.size() - 1; i++) {
+			// // Check if the index is a multiple of 25 and update patientName
+			// if (i == 0 || (i % 25) == 0) {
+				// logData[i] = patientName
+			// } else if (i == 1 || (i % ((25 * j) + 1)) == 0) { // Check if the index is a multiple of (25*j)+1 and update patientId
+				// logData[i] = patientId
+			// } else if (i == 7 || (i % ((25 * j) + 7)) == 0) { // Check if the index is a multiple of (25*j)+7 and update studyUID
+				// logData[i] = studyUID
+			// } else if (i == 11 || (i % ((25 * j) + 11)) == 0) { // Check if the index is a multiple of (25*j)+11 and update seriesUID
+				// logData[i] = seriesUID
+			// }
+			// // Check if the current logData element matches patientName and is not the first element
+			// if (i > 0 && logData[i].equals(patientName)) {
+				// // Append the current logData element to the list with a new line
+				// list = list + "\n" + logData[i] + "\t"
+			// } else {
+				// // Append the current logData element to the list with a tab
+				// list = list + logData[i] + "\t"
+			// }
+			// // Check if the index is greater than or equal to 50 and a multiple of 25
+			// if (i >= 50 && (i % 25) == 0) {
+				// // Increment the counter j
+				// j++
+			// }
+		// }
+		// // Write the modified log data to the file
+		// file.write(splitDate[0] + "(0018.0015)\t\n" + list)
+	// }
+	// 
+	
+	
+sendSeriesToExisitingStudy(String sPatientName, String sPatientId, String sStudyUID)
+	%FuncInfo[Desc="This method is to update log file content and studyUID"]
+	Integer j ,i
+	String sLine,sList,sLogFile
+	List<String> lsSplitDate, lsLogData
+	TextFile textFile
+	// // Get the path to the log file from the project properties
+	// def logFile = context.expand('${#Project#DCMSuiteLogPath}')
+	// // Create a File object representing the log file
+	textFile.Open (sLogFile, FileMode.Write)
+	// // Reading the content of the log file
+	textFile.Open (sLogFile, FileMode.Read)
+	textFile.Read(sLine)
+	textFile.Close()
+	// // Splitting the log file content based on the delimiter "(0018.0015)\t"
+	lsSplitDate = sLine.Split ("0018.0015    ")
+	// Splitting the data obtained from the log file based on the tab character "\t"
+	lsLogData = lsSplitDate[2].Split ("     ")
+	// // Initialize a counter for processing logData elements
+	j = 1
+	// // Initialize an empty string to store processed log data
+	sList = ""
+	// Iterate through the logData array
+	for (i = 0; i < lsLogData.Count()- 1; i++)
+			// Check if the index is a multiple of 25 and update patientName
+			if (i == 0 || (i % 25) == 0) 
+				lsLogData[i] = sPatientName
+			 else if (i == 1 || (i % ((25 * j) + 1)) == 0)  // Check if the index is a multiple of (25*j)+1 and update patientId
+				lsLogData[i] = sPatientId
+			 else if (i == 7 || (i % ((25 * j) + 7)) == 0)  // Check if the index is a multiple of (25*j)+7 and update studyUID
+				lsLogData[i] = sStudyUID
+			
+			// Check if the current logData element matches patientName and is not the first element
+			if (i > 0 && lsLogData[i]==sPatientName)
+				// Append the current logData element to the list with a new line
+				sList = sList +  lsLogData[i] + "  "
+			 else 
+				// Append the current logData element to the list with a tab
+				sList = sList + lsLogData[i] + "   "
+			
+			// Check if the index is greater than or equal to 50 and a multiple of 25
+			if (i >= 50 && (i % 25) == 0) 
+				// Increment the counter j
+				j++
+			
+		// Write the modified log data to the file
+	textFile.Write (lsSplitDate[1] + "(0018.0015)    " + sList)
+		
+	
+	// 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// public void sendSeriesToExistingStudy(context, def patientName, def patientId, def studyUID) {
+		// // Get the path to the log file from the project properties
+		// def logFile = context.expand('${#Project#DCMSuiteLogPath}')
+		// // Create a File object representing the log file
+		// File file = new File(logFile)
+		// // Read the content of the log file into a string
+		// def logFileContent = file.getText()
+		// // Split the log file content based on "(0018.0015)" delimiter
+		// def splitDate = logFileContent.split("\\(0018.0015\\)\t")
+		// // Split the obtained data based on "\t" (tab) delimiter
+		// def logData = splitDate[1].split("\t")
+		// // Initialize a counter for processing logData elements
+		// def j = 1
+		// // Initialize an empty string to store processed log data
+		// String list = ""
+		// // Iterate through the logData array
+		// for (int i = 0; i < logData.size() - 1; i++) {
+			// // Check if the index is a multiple of 25 and update patientName
+			// if (i == 0 || (i % 25) == 0) {
+				// logData[i] = patientName
+			// } else if (i == 1 || (i % ((25 * j) + 1)) == 0) { // Check if the index is a multiple of (25*j)+1 and update patientId
+				// logData[i] = patientId
+			// } else if (i == 7 || (i % ((25 * j) + 7)) == 0) { // Check if the index is a multiple of (25*j)+7 and update studyUID
+				// logData[i] = studyUID
+			// }
+			// // Check if the current logData element matches patientName and is not the first element
+			// if (i > 0 && logData[i].equals(patientName)) {
+				// // Append the current logData element to the list with a new line
+				// list = list + "\n" + logData[i] + "\t"
+			// } else {
+				// // Append the current logData element to the list with a tab
+				// list = list + logData[i] + "\t"
+			// }
+			// // Check if the index is greater than or equal to 50 and a multiple of 25
+			// if (i >= 50 && (i % 25) == 0) {
+				// // Increment the counter j
+				// j++
+			// }
+		// }
+		// // Write the modified log data to the file
+		// file.write(splitDate[0] + "(0018.0015)\t\n" + list)
+	// 
+	// 
+	// 
+	
+	
+sendStudyToExistingPatient(String sPatientName, String sPatientId)
+	%FuncInfo[Desc="This method is to update log file content and studyUID"]
+	Integer j ,i
+	String sLine,sList,sLogFile
+	List<String> lsSplitDate, lsLogData
+	TextFile textFile
+	// // Get the path to the log file from the project properties
+	// def logFile = context.expand('${#Project#DCMSuiteLogPath}')
+	// // Create a File object representing the log file
+	textFile.Open (sLogFile, FileMode.Write)
+	// // Reading the content of the log file
+	textFile.Open (sLogFile, FileMode.Read)
+	textFile.Read(sLine)
+	textFile.Close()
+	// // Splitting the log file content based on the delimiter "(0018.0015)\t"
+	lsSplitDate = sLine.Split ("0018.0015    ")
+	// Splitting the data obtained from the log file based on the tab character "\t"
+	lsLogData = lsSplitDate[2].Split ("     ")
+	// // Initialize a counter for processing logData elements
+	j = 1
+	// // Initialize an empty string to store processed log data
+	sList = ""
+	// Iterate through the logData array
+	for (i = 0; i < lsLogData.Count()- 1; i++)
+			// Check if it's the first entry or every 25th entry to update patient name.
+			if (i == 0 || (i % 25) == 0) 
+				lsLogData[i] = sPatientName
+			 else if (i == 1 || (i % ((25 * j) + 1)) == 0) 
+				// Check if it's the second entry or every 25th entry plus 1 to update patient ID.
+				lsLogData[i] = sPatientId
+			
+			// Check if the current entry is equal to the patient name.
+			if (i > 0 && lsLogData[i]==sPatientName)
+				// Append the current entry to the list with a new line.
+				sList = sList + lsLogData[i] + "  "
+			else 
+				// Append the current entry to the list.
+				sList = sList + lsLogData[i] +"  "
+			
+			// Check if it's time to increment 'j' (every 50 entries).
+			if (i >= 50 && (i % 25) == 0) 
+				j++
+		// // Write the modified log data back to the log file.
+	textFile.Write (lsSplitDate[1] + "(0018.0015)    " + sList)
+			
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	// // This method sends study data to an existing patient and updates a log file.
+	// public void sendStudyToExistingPatient(context, def patientName, def patientId) {
+		// // Get the path of the log file from the project properties.
+		// def logFile = context.expand( '${#Project#DCMSuiteLogPath}' )
+		// 
+		// // Create a file object using the log file path.
+		// File file = new File(logFile)
+		// 
+		// // Read the content of the log file.
+		// def logFileContent = file.getText()
+		// 
+		// // Split the log file content based on a specific pattern.
+		// def splitDate = logFileContent.split("\\(0018.0015\\)\t")
+		// 
+		// // Split the data further based on tab (\t) character.
+		// def logData = splitDate[1].split("\t")
+		// 
+		// // Initialize a variable 'j' to 1.
+		// def j = 1
+		// 
+		// // Initialize an empty string 'list' to store modified log data.
+		// String list = ""
+		// 
+		// // Iterate through the log data.
+		// for (int i = 0; i < logData.size() - 1; i++) {
+			// // Check if it's the first entry or every 25th entry to update patient name.
+			// if (i == 0 || (i % 25) == 0) {
+				// logData[i] = patientName
+			// } else if (i == 1 || (i % ((25 * j) + 1)) == 0) {
+				// // Check if it's the second entry or every 25th entry plus 1 to update patient ID.
+				// logData[i] = patientId
+			// }
+			// 
+			// // Check if the current entry is equal to the patient name.
+			// if (i > 0 && logData[i].equals(patientName)) {
+				// // Append the current entry to the list with a new line.
+				// list = list + "\n" + logData[i] + "\t"
+			// } else {
+				// // Append the current entry to the list.
+				// list = list + logData[i] + "\t"
+			// }
+			// 
+			// // Check if it's time to increment 'j' (every 50 entries).
+			// if (i >= 50 && (i % 25) == 0) {
+				// j++
+			// }
+		// }
+		// 
+		// // Write the modified log data back to the log file.
+		// file.write(splitDate[0] + "(0018.0015)\t\n" + list)
+	// }
+	
+String formatXml(String sXmlValue)
+	%FuncInfo[Desc="This method will be used to format XMl string."]
+	String sTotalValue,sFinalValue 
+	
+	// // Remove newline characters from the XML string.
+	sTotalValue = sXmlValue.Replace ("\n", "")
+	// // Remove whitespace characters from the XML string.
+	sFinalValue = sTotalValue.Replace (" ", "")
+	
+	
+	
+	// // This method formats an XML string by removing newline and whitespace characters.
+	// public String formatXml(String xmlValue) {
+		// // Remove newline characters from the XML string.
+		// String totalValue = sXmlValue.replace ("\n")
+		// // Remove whitespace characters from the XML string.
+		// String finalValue = totalValue.replace(" ", "")
+		// // Return the final formatted XML string.
+		// return finalValue
+	// }
+	// 
+	
+storeVerfication(String sConfiguration, String sItemValue, String sExpectedConfigurationItemDisabled, String sExpectedConfigurationItemEnabled)
+	%FuncInfo[Desc="This method will be used to set the verification for store"]
+	// Log the values of the parameters for debugging purposes.
+	Print ("Configuration " + sConfiguration)
+	Print ("ItemValue " + sItemValue)
+	Print ("ExpectedConfigurationItemDisabled " + sExpectedConfigurationItemDisabled)
+	Print ("ExpectedConfigurationItemEnabled " + sExpectedConfigurationItemEnabled)
+	// 
+	// // Check if the configuration is set to "Disable".
+	if (sConfiguration=="Disable")
+		// Check if the itemValue contains the expected configuration item for disabling.
+		if (sItemValue.Contains(sExpectedConfigurationItemDisabled)) 
+			// If the expected configuration item is found, set a test case property to indicate verification success.
+			bEnableMessageIntegrityCheckValueValidation =true
+		else  // If the configuration is not set to "Disable".
+			// Check if the itemValue contains the expected configuration item for enabling.
+			if sItemValue.Contains (sExpectedConfigurationItemEnabled)
+				// If the expected configuration item is found, set a test case property to indicate verification success.
+				bEnableMessageIntegrityCheckValueValidation = true
+	
+	
+	
+	// 
+	// // This method stores verification information based on provided parameters.
+	// public void storeVerification(testRunner, log, def configuration, def itemValue, def expectedConfigurationItemDisabled, def expectedConfigurationItemEnabled) {
+		// // Log the values of the parameters for debugging purposes.
+		// log.info("configuration " + configuration)
+		// log.info("itemValue " + itemValue)
+		// log.info("expectedConfigurationItemDisabled " + expectedConfigurationItemDisabled)
+		// log.info("expectedConfigurationItemEnabled " + expectedConfigurationItemEnabled)
+	//   
+		// // Check if the configuration is set to "Disable".
+		// if (configuration.equals("Disable")) {
+			// // Check if the itemValue contains the expected configuration item for disabling.
+			// if (itemValue.contains(expectedConfigurationItemDisabled)) {
+				// // If the expected configuration item is found, set a test case property to indicate verification success.
+				// testRunner.testCase.setPropertyValue("enableMessageIntegrityCheckValueValidation", "true")
+			// }
+		// } else { // If the configuration is not set to "Disable".
+			// // Check if the itemValue contains the expected configuration item for enabling.
+			// if (itemValue.contains(expectedConfigurationItemEnabled)) {
+				// // If the expected configuration item is found, set a test case property to indicate verification success.
+				// testRunner.testCase.setPropertyValue("enableMessageIntegrityCheckValueValidation", "true")
+			// }
+		// }
+	// }
+	// 
+	// 
+	
+changeDatabaseConnection(String sServerIP, String sResource)
+	%FuncInfo[Desc="This method is used to set EndPoint."]
+	String sEndpoint
+	
+	// // Construct the endpoint using the provided server IP and resource path.
+	sEndpoint = "https://" + sServerIP + sResource
+	
+	// // Set the project property identified by the provided key to the newly constructed endpoint.
+	sKey = sEndpoint
+	
+	// // Log the action of setting the project property to the new endpoint.
+	Print ("Setting project property [" + sKey + "] to [" + sEndpoint + "]")
+	
+	
+	
+	// // This method changes the database connection by updating a project property with a new endpoint.
+	// public void changeDatabaseConnection(runner, log, String key, String serverIP, String resource) {
+		// // Construct the endpoint using the provided server IP and resource path.
+		// String endpoint = "https://" + serverIP + resource
+		// 
+		// // Set the project property identified by the provided key to the newly constructed endpoint.
+		// runner.testSuite.setPropertyValue(key, endpoint);
+		// 
+		// // Log the action of setting the project property to the new endpoint.
+		// log.info("Setting project property [" + key + "] to [" + endpoint + "]");
+	// }
+	
+setEndpoint(String sServerIP, String sResource, String sLocation)
+	%FuncInfo[Desc="This method is used to set EndPoint"]
+	String sEndpoint
+	// // Construct the endpoint using the provided server IP and resource path.
+	sEndpoint = "https://" + sServerIP + sResource
+	// 
+	// // Check the location parameter to determine where to set the endpoint.
+	if sLocation==("Project")
+		// Set the endpoint as a property of the project.
+		 sKey== sEndpoint
+		// Log the action of setting the project property to the new endpoint.
+		Print ("Setting project property [" + sKey + "] to [" + sEndpoint + "]")
+	else if sLocation==("TestSuite")
+		// // Set the endpoint as a property of the test suite.
+		sKey = sEndpoint
+		// Log the action of setting the test suite property to the new endpoint.
+		Print ("Setting testsuite property [" + sKey + "] to [" + sEndpoint + "]")
+	else if (sLocation==("CommonTestSuite"))
+		// Set the endpoint as a property of the common test suite.
+		sKey = sEndpoint
+		// Log the action of setting the common test suite property to the new endpoint.
+		Print ("Setting common testsuite property [" + sKey + "] to [" + sEndpoint + "]")
+	// 
+	// 
+	// 
+	// // This method sets the endpoint based on the provided parameters and location.
+	// public void setEndpoint(runner, context, log, def key, def serverIP, def resource, def location) {
+		// // Construct the endpoint using the provided server IP and resource path.
+		// def endpoint = "https://" + serverIP + resource
+		// 
+		// // Check the location parameter to determine where to set the endpoint.
+		// if (location.equals("Project")) {
+			// // Set the endpoint as a property of the project.
+			// runner.testSuite.project.setPropertyValue(key, endpoint);
+			// // Log the action of setting the project property to the new endpoint.
+			// log.info("Setting project property [" + key + "] to [" + endpoint + "]");
+		// } else if (location.equals("TestSuite")) {
+			// // Set the endpoint as a property of the test suite.
+			// runner.testSuite.setPropertyValue(key, endpoint);
+			// // Log the action of setting the test suite property to the new endpoint.
+			// log.info("Setting testsuite property [" + key + "] to [" + endpoint + "]");
+		// } else if (location.equals("CommonTestSuite")) {
+			// // Set the endpoint as a property of the common test suite.
+			// runner.testSuite.project.getTestSuiteByName(location).setPropertyValue(key, endpoint);
+			// // Log the action of setting the common test suite property to the new endpoint.
+			// log.info("Setting common testsuite property [" + key + "] to [" + endpoint + "]");
+		// }
+	// }
+	// 
+	// 
+	
+String setSoapEndpoint(String sClientIP, String sResource, String sSecureIp, out String sEndpoint)
+	%FuncInfo[Desc="This method will be used to Set The EndPoint."]
+	
+	// Construct the SOAP endpoint using the provided client IP, resource path, and secure IP.
+	sEndpoint = sClientIP + "://" + sSecureIp + sResource
+	
+	 
+	
+	// // This method sets the SOAP endpoint based on the provided parameters.
+	// public def setSoapEndpoint(String clientIP, String resource, String secureIp) {
+		// // Construct the SOAP endpoint using the provided client IP, resource path, and secure IP.
+		// String endpoint = secureIp + "://" + clientIP + resource
+		// 
+		// // Return the constructed SOAP endpoint.
+		// return endpoint
+	// }
+	
+	
+String setXmlEndpoint(String sClientIP, String sSecureIp, out String sEndpoint)
+	%FuncInfo[Desc="This method will be used to Set The EndPoint."]
+	
+	// // Construct the XML endpoint using the provided client IP and secure IP.
+	sEndpoint = sSecureIp + "://" + sClientIP
+	
+	
+	
+	
+	// // This method sets the XML endpoint based on the provided parameters.
+	// public def setXmlEndpoint(String clientIP, String secureIp) {
+		// // Construct the XML endpoint using the provided client IP and secure IP.
+		// String endpoint = secureIp + "://" + clientIP
+		// 
+		// // Return the constructed XML endpoint.
+		// return endpoint
+	// }
+	
+fetchStringValues_NotComplete()
+	%FuncInfo[Desc="This method will be used to fetch the String tag Values from the response"]
+	// Parse the XML response using XmlSlurper and store it in stringTags variable
+	List<String> lsStringTags
+	//String stringTags = new XmlSlurper().parseText(responseXpath)                                     Doubt
+	
+	// Log the total number of items in the XML response
+	Print ("Total Items { lsStringTags.Count()}")
+	// Iterate through each item in the XML response
+	for (String sNumberOfTags in lsStringTags)
+		// Log the name of the current item
+		Print ("Response Item Name " + sNumberOfTags)
+		// Set the value of the specified parameter in the test case to the current item
+		sParameterName=sNumberOfTags
+		// Retrieve the test step by name and run it using the testRunner and context objects                                       Doubt
+		// testRunner.testCase.getTestStepByName(testStepName).run(testRunner, context)
+	
+	
+	
+	
+	
+	
+	
+	// public void fetchStringValues(testRunner, context, log, def responseXpath, def testStepName, def parameterName) {
+	//   
+	//   // Parse the XML response using XmlSlurper and store it in stringTags variable
+	//   def stringTags = new XmlSlurper().parseText(responseXpath)
+	//   
+	//   // Log the total number of items in the XML response
+	//   log.info("Total Items " + stringTags.size())
+	//   
+	//   // Iterate through each item in the XML response
+	//   for (numberOfTags in stringTags.string) {
+		// 
+		// // Log the name of the current item
+		// log.info("Response Item Name " + numberOfTags.toString())
+		// 
+		// // Set the value of the specified parameter in the test case to the current item
+		// testRunner.testCase.setPropertyValue(parameterName, numberOfTags.toString())
+		// 
+		// // Retrieve the test step by name and run it using the testRunner and context objects
+		// testRunner.testCase.getTestStepByName(testStepName).run(testRunner, context)
+	//   }
+	// }
+	// 
+	
+CheckIsHex(String sHexadecimalVal)
+	%FuncInfo[Desc="This method will be used to check if the input value is Hexadeciaml or not"]
+	Integer iHexDigit
+	Boolean bCheckIsHex = false
+	
+	///Iterate through the string starting from the second character 
+	for (Integer i = 1; i <= sHexadecimalVal.Length(); i++)
+		iHexDigit = null
+		HexDigit (sHexadecimalVal[i], iHexDigit)
+		//Check if the character at position 'i' is not a valid hexadecimal digit 
+		if iHexDigit >= 0 && iHexDigit <= 15
+			bCheckIsHex = true
+		else
+			bCheckIsHex = false
+			break
+	
+	if bCheckIsHex==true
+		Print ("{sHexadecimalVal} is a valid hexadecimal number.")
+	else
+		LogError ("{sHexadecimalVal} is not a valid hexadecimal number.")
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Check if the string is empty 
+	// if !(sHexadecimalVal.Length() ==0)
+		// bCheckIsHex = true
+		// 
+	// // Check if the string has only one character and if that character is '-' 
+	// if !(sHexadecimalVal.Length() == 1 &&  sHexadecimalVal[1] == '-')
+		// bCheckIsHex = true
+	// 
+	// // Check if the first character is not '-' and not a valid hexadecimal digit 
+	// HexDigit (sHexadecimalVal[1], iHexDigit)
+	// if !(sHexadecimalVal[1] != '-' &&  iHexDigit<15)
+		// bCheckIsHex = true
+	 
+HexDigit(String sValue, out Integer iHexNumber)
+	switch sValue
+		case "0"
+			iHexNumber = 0
+			break
+		case "1"
+			iHexNumber = 1
+			break
+		case "2"
+			iHexNumber = 2
+			break
+		case "3"
+			iHexNumber = 3
+			break
+		case "4"
+			iHexNumber = 4
+			break
+		case "5"
+			iHexNumber =5
+			break
+		case "6"
+			iHexNumber = 6
+			break
+		case "7"
+			iHexNumber = 7
+			break
+		case "8"
+			iHexNumber = 8
+			break
+		case "9"
+			iHexNumber = 9
+			break
+		case "A"
+			iHexNumber = 10
+			break
+		case "B"
+			iHexNumber = 11
+			break
+		case "C"
+			iHexNumber = 12
+			break
+		case "D"
+			iHexNumber = 13
+			break
+		case "E"
+			iHexNumber = 14
+			break
+		case "F"
+			iHexNumber = 15
+			break
+		default
+			iHexNumber = 17
+	
+String convertToHexaDecimal(String sAccept, out String sHexaDecimalNunmber)
+	%FuncInfo[Desc="This method used to convert binarybytes to hex"]
+	Integer iAdd = 0,iTemp,iNozeroToAdd = 0,iCounter = 0
+	String sHexaDecimalNo = "", sBinaryNo = sAccept, sTemp
+	List<String> lsBinaryNo = {}
+	
+	 // Validate if the input string contains only binary digits (0s and 1s)
+	for(Integer i =1 ; i<=sAccept.Length();i++)
+		if Integer.Parse(sAccept[i]) != 1 && Integer.Parse(sAccept[i]) != 0
+			throw Exception ("The given input  is not a Binary Instance {sAccept}")
+	// Calculate the number of zeros needed to make the length of the binary string divisible by 4
+	if sAccept.Length() % 4 != 0
+		iNozeroToAdd = 4 - sAccept.Length()  % 4
+	//Add necessary zeros at the beginning of the binary string to make its length divisible by 4
+	for (Integer i = 1;i<=iNozeroToAdd;i++)
+		sBinaryNo = sBinaryNo.Insert (1, "0")
+	 // Split the binary string into groups of four digits and store them in a list
+	for (Integer i = 1; i < sBinaryNo.Length(); i += 4)
+		lsBinaryNo.Add (sBinaryNo.Substring(i,4))
+	// Initialize counter for the position of the binary digit
+	for (Integer j = 1; j<=lsBinaryNo.Count(); j++)
+		 sTemp = lsBinaryNo[j]
+		iCounter = sTemp.Length()
+		 // Convert binary digits to decimal using powers of 2
+		for (Integer i = 1; i<=sTemp.Length(); i++)
+			iTemp = Integer.Parse (sTemp[i])
+			if(iTemp!=0)
+				iAdd = iAdd+Math.Pow(2,iCounter-1)
+			iCounter--
+			
+		if(iAdd>9)
+			switch iAdd
+				case 10
+					sHexaDecimalNo = sHexaDecimalNo + "A"
+					break
+				case 11
+					sHexaDecimalNo = sHexaDecimalNo + "B"
+					break
+				case 12
+					sHexaDecimalNo = sHexaDecimalNo + "C"
+					break
+				case 13
+					sHexaDecimalNo = sHexaDecimalNo + "D"
+					break
+				case 14
+					sHexaDecimalNo = sHexaDecimalNo + "E"
+					break
+				case 15
+					sHexaDecimalNo = sHexaDecimalNo + "F"
+					break
+		else
+			sHexaDecimalNo = sHexaDecimalNo + iAdd.Format()
+		iAdd = 0
+	sHexaDecimalNunmber = sHexaDecimalNo
+	// Print (sHexaDecimalNunmber)
+	
+	
+	
+// Hexadecimal(Integer iAdd)
+	// %FuncInfo[Desc="Using switch case"]
+	// String sHexaDecimalNo = "" 
+			// switch iAdd
+				// case 10
+					// sHexaDecimalNo = sHexaDecimalNo + "A"
+					// break
+				// case 11
+					// sHexaDecimalNo = sHexaDecimalNo + "B"
+					// break
+				// case 12
+					// sHexaDecimalNo = sHexaDecimalNo + "C"
+					// break
+				// case 13
+					// sHexaDecimalNo = sHexaDecimalNo + "D"
+					// break
+				// case 14
+					// sHexaDecimalNo = sHexaDecimalNo + "E"
+					// break
+				// case 15
+					// sHexaDecimalNo = sHexaDecimalNo + "F"
+					// break
+ConvertGUIDToInteger(String sValue)
+	%FuncInfo[Desc="This method is used to convert GUID to integer."]
+	Integer iHexNumber=0,iHexNum,i
+	String sNum
+	
+	//Replace the - 
+	 sNum= sValue.Replace("-","")
+	// converting code into hexadecimal (Ex:-1FF--11515)
+	for( i=1;i<=sNum.Length();i++)
+		 iHexNum
+		if sNum[i].IsAlpha()
+			HexDigit (sNum[i], iHexNum)
+		else
+			iHexNum = Integer.Parse(sNum[i])
+		// Print (Math.Pow(16,sNum.Length()-i))
+		// Print (iHexNumber+iHexNum*Math.Pow(16,sNum.Length()-i))
+		// Calculating the Hexdecimal number[Ex:-FF--11515--1*16^2+15*16^1+15*16^0=511)
+		iHexNumber = iHexNumber+iHexNum*Math.Pow(16,sNum.Length()-i)
+		iHexNumber = Math.Abs(iHexNumber)
+	Print (iHexNumber)
+	
+String modifyMessageIntegrityCheckTag(String sItemValue, String sConfiguration, String sDisableMessageIntegrityCheckTag, String sEnableMessageIntegrityCheckTag, out String sModifiedItemValueSingleLine, out String Out_sItemValue)
+	%FuncInfo[Desc="This method is to modify the item value"]
+	String sModifiedItemValue
+	
+	// Print itemValue for debugging purposes
+	Print ("itemValue " + sItemValue)
+	// Print configuration for debugging purposes
+	Print ("configuration " + sConfiguration)
+	// Print disableMessageIntegrityCheckTag for debugging purposes
+	Print("disableMessageIntegrityCheckTag " + sDisableMessageIntegrityCheckTag)
+	// Print enableMessageIntegrityCheckTag for debugging purposes
+	Print ("enableMessageIntegrityCheckTag " + sEnableMessageIntegrityCheckTag)
+	
+	// Check if configuration is set to "Disable"
+	if sConfiguration=="Disable"
+		// If "Disable" configuration, check if itemValue contains "<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>"
+		if (sItemValue.Contains("<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>")) 
+			// Replace "<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>" with disableMessageIntegrityCheckTag
+			sModifiedItemValue = sItemValue.Replace ("<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>", sDisableMessageIntegrityCheckTag)
+			// Print modifiedItemValue for debugging purposes
+			Print("modifiedItemValue " + sModifiedItemValue)
+			// Remove newline characters from modifiedItemValue
+			sModifiedItemValueSingleLine = sModifiedItemValue.Replace ("n", "")
+			
+			// Remove whitespace characters from modifiedItemValue and return it
+			sModifiedItemValueSingleLine = sModifiedItemValueSingleLine.Replace("s","")
+		else 
+			// If tag is not found, return itemValue without modification
+			Out_sItemValue = sItemValue.Replace ("s", "")
+			
+	else  // If configuration is not "Disable"
+		// Check if itemValue contains "<EnableMessageIntegrityCheck>0</EnableMessageIntegrityCheck>"
+		if (sItemValue.Contains("<EnableMessageIntegrityCheck>0</EnableMessageIntegrityCheck>")) 
+			// Replace "<EnableMessageIntegrityCheck>0</EnableMessageIntegrityCheck>" with enableMessageIntegrityCheckTag
+			sModifiedItemValue = sItemValue.Replace ("<EnableMessageIntegrityCheck>0</EnableMessageIntegrityCheck>", sEnableMessageIntegrityCheckTag)
+			
+			// Print modifiedItemValue for debugging purposes
+			Print("modifiedItemValue " + sModifiedItemValue)
+			
+			// Remove newline characters from modifiedItemValue
+			sModifiedItemValueSingleLine = sModifiedItemValue.Replace ("n", "")
+			
+			// Remove whitespace characters from modifiedItemValue and return it
+			sModifiedItemValueSingleLine = sModifiedItemValueSingleLine.Replace("s","")
+		else 
+			// If tag is not found, return itemValue without modification
+			Out_sItemValue = sItemValue.Replace ("s", "")
+	
+	// 
+	
+	
+	
+	
+	// // This method modifies the message integrity check tag in a given itemValue based on the provided configuration
+	// // It takes four string parameters: itemValue, configuration, disableMessageIntegrityCheckTag, and enableMessageIntegrityCheckTag
+	// public static String modifyMessageIntegrityCheckTag(String itemValue, String configuration, String disableMessageIntegrityCheckTag, String enableMessageIntegrityCheckTag) {
+	// 
+	// // Print itemValue for debugging purposes
+	// System.out.println("itemValue " + itemValue);
+	// 
+	// // Print configuration for debugging purposes
+	// System.out.println("configuration " + configuration);
+	// 
+	// // Print disableMessageIntegrityCheckTag for debugging purposes
+	// System.out.println("disableMessageIntegrityCheckTag " + disableMessageIntegrityCheckTag);
+	// 
+	// // Print enableMessageIntegrityCheckTag for debugging purposes
+	// System.out.println("enableMessageIntegrityCheckTag " + enableMessageIntegrityCheckTag);
+	// 
+	// // Check if configuration is set to "Disable"
+	// if (configuration.equals("Disable")) {
+		// // If "Disable" configuration, check if itemValue contains "<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>"
+		// if (itemValue.contains("<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>")) {
+			// // Replace "<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>" with disableMessageIntegrityCheckTag
+			// String modifiedItemValue = itemValue.replace("<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>", disableMessageIntegrityCheckTag);
+			// 
+			// // Print modifiedItemValue for debugging purposes
+			// System.out.println("modifiedItemValue " + modifiedItemValue);
+			// 
+			// // Remove newline characters from modifiedItemValue
+			// String modifiedItemValueSingleLine = modifiedItemValue.replaceAll("\\n", "");
+			// 
+			// // Remove whitespace characters from modifiedItemValue and return it
+			// return modifiedItemValueSingleLine.replaceAll("\\\\s", "");
+		// } else {
+			// // If tag is not found, return itemValue without modification
+			// return itemValue.replaceAll("\\\\s", "");
+		// }
+	// } else { // If configuration is not "Disable"
+		// // Check if itemValue contains "<EnableMessageIntegrityCheck>0</EnableMessageIntegrityCheck>"
+		// if (itemValue.contains("<EnableMessageIntegrityCheck>0</EnableMessageIntegrityCheck>")) {
+			// // Replace "<EnableMessageIntegrityCheck>0</EnableMessageIntegrityCheck>" with enableMessageIntegrityCheckTag
+			// String modifiedItemValue = itemValue.replace("<EnableMessageIntegrityCheck>0</EnableMessageIntegrityCheck>", enableMessageIntegrityCheckTag);
+			// 
+			// // Print modifiedItemValue for debugging purposes
+			// System.out.println("modifiedItemValue " + modifiedItemValue);
+			// 
+			// // Remove newline characters from modifiedItemValue
+			// String modifiedItemValueSingleLine = modifiedItemValue.replaceAll("\\n", "");
+			// 
+			// // Remove whitespace characters from modifiedItemValue and return it
+			// return modifiedItemValueSingleLine.replaceAll("\\\\s", "");
+		// } else {
+			// // If tag is not found, return itemValue without modification
+			// return itemValue.replaceAll("\\\\s", "");
+		// }
+		// }
+	// }
+	// 
+	
+IntToGuid(String sPath, Integer iData)
+	%FuncInfo[Desc="This method will be used to return the GUID value for the passed Integer value"]
+	// // Assign the input integer value to the variable Value
+	Integer iValue = iData
+	String sCommand // 
+	
+	// // Construct the command string by combining the path and the integer value
+	 sCommand = "{sPath} {iValue}"
+	// 
+	// // Create StringBuilder objects to capture the standard output and standard error streams
+	// def sout = new StringBuilder(), serr = new StringBuilder()
+	
+	// // Execute the command as a process and obtain a Process object
+	Integer sProc = System.Execute(sCommand)
+	
+	// // Consume the process output and error streams and store them in the StringBuilder objects
+	// proc.consumeProcessOutput(sout, serr)
+	
+	// // Wait for the process to finish or kill it after 1000 milliseconds
+	// proc.waitForOrKill(1000)
+	Sleep(1000)
+	KillProcess ("sProc")
+	
+	
+	
+	
+	// // This method converts an integer to a GUID by executing a command with the provided path and integer value
+	// // It takes two parameters: Path (representing the path to the executable) and data (an integer value)
+	// public def IntToGuid(String Path, int data) {
+		// // Assign the input integer value to the variable Value
+		// def Value = data;
+		// 
+		// // Assign the input path to the variable path
+		// def path = Path
+		// 
+		// // Construct the command string by combining the path and the integer value
+		// def command = "${path} ${Value}";
+		// 
+		// // Create StringBuilder objects to capture the standard output and standard error streams
+		// def sout = new StringBuilder(), serr = new StringBuilder()
+		// 
+		// // Execute the command as a process and obtain a Process object
+		// def proc = command.execute()
+		// 
+		// // Consume the process output and error streams and store them in the StringBuilder objects
+		// proc.consumeProcessOutput(sout, serr)
+		// 
+		// // Wait for the process to finish or kill it after 1000 milliseconds
+		// proc.waitForOrKill(1000)
+		// 
+		// // Return the standard output captured in the StringBuilder object sout as a string
+		// return "$sout"
+	// }
+	// 
+	
+setBeginAndEndDateTime(String sNumberOfDaysForBeginDateTime, String sNumberOfDaysForEndDateTime)
+	%FuncInfo[Desc="This method used to format and set the BeginDateTime, EndDateTime, FutureBeginDateTime and FutureEndDateTimehis method used to format and set the BeginDateTime, EndDateTime, FutureBeginDateTime and FutureEndDateTim00e"]
+	Integer iNumberOfDaysForBeginDateTime,iNumberOfDaysForEndDateTime
+	DateTime dtCurrentDateTime, dtNewDateTime, dtUpdatedBeginDateTimeRequest,dtUpdatedEndDateTimeReques
+	String sFormattedDateTime, sFormatBeginDateTimeRequest, sFormatBeginDateTimeDB, sEndDate_TimeRequest, sEndDateTime_DB
+	
+	 dtCurrentDateTime = DateTime.Now() 
+	Print ("dateTime " , dtCurrentDateTime)
+	
+	sFormattedDateTime = dtCurrentDateTime.Format ("yyyy-MM-dd HH:mm:ss")
+	dtNewDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", sFormattedDateTime)
+	Print(dtNewDateTime)
+	iNumberOfDaysForBeginDateTime=Integer.Parse(sNumberOfDaysForBeginDateTime)
+	iNumberOfDaysForEndDateTime = Integer.Parse (sNumberOfDaysForEndDateTime)
+	
+	Print ("NumberOfDaysForBeginDateTime {iNumberOfDaysForBeginDateTime}")
+	Print ("NumberOfDaysForEndDateTime {iNumberOfDaysForEndDateTime}")
+	
+	//Set BeginDateTime
+	dtUpdatedBeginDateTimeRequest = dtNewDateTime.Add (iNumberOfDaysForBeginDateTime)
+	Print (dtUpdatedBeginDateTimeRequest)
+	
+	sFormatBeginDateTimeRequest = dtUpdatedBeginDateTimeRequest.Format ("yyyyMMdd  HHmmss")
+	Print (sFormatBeginDateTimeRequest)
+	sBeginDateTimeRequest = sFormatBeginDateTimeRequest
+	
+	sFormatBeginDateTimeDB = dtUpdatedBeginDateTimeRequest.Format ("yyyy-MM-dd HH:mm:ss")
+	Print(sFormatBeginDateTimeDB)
+	sBeginDateTimeDB = sFormatBeginDateTimeDB
+	
+	//Set EndDateTime
+	dtUpdatedEndDateTimeReques = dtNewDateTime.Add (iNumberOfDaysForEndDateTime)
+	Print(dtUpdatedEndDateTimeReques)
+	
+	sEndDate_TimeRequest = dtUpdatedEndDateTimeReques.Format ("yyyyMMdd  HHmmss")
+	Print ("sEndDate_TimeRequest "+sEndDate_TimeRequest)
+	sEndDateTimeRequest = sEndDate_TimeRequest
+	
+	sEndDateTime_DB = dtUpdatedEndDateTimeReques.Format ("yyyy-MM-dd HH:mm:ss")
+	Print (sEndDateTime_DB)
+	sEndDateTimeDB = sEndDateTime_DB
+	
+	
+	
+	
+	//  public def setBeginAndEndDateTime(testRunner,log,def NumberOfDaysForBeginDateTime,def NumberOfDaysForEndDateTime) {
+	//  
+	// 
+	// Date dateTime = new Date()
+	// log.info("dateTime " + dateTime)
+	// 
+	// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	// Date dateTimeStamp = formatter.parse(dateTime.format("yyyy-MM-dd HH:mm:ss"));
+	// def numberOfDaysForBeginDateTime = NumberOfDaysForBeginDateTime
+	// def numberOfDaysForEndDateTime = NumberOfDaysForEndDateTime
+	// log.info("numberOfDaysForBeginDateTime "+numberOfDaysForBeginDateTime)
+	// log.info("numberOfDaysForEndDateTime "+numberOfDaysForEndDateTime)
+	// 
+	// 
+	// use(TimeCategory) {
+		// //Set BeginDateTime
+		// def updatedBeginDateTimeRequest = dateTimeStamp + numberOfDaysForBeginDateTime.toInteger()
+		// log.info ("updatedBeginDateTimeRequest " + updatedBeginDateTimeRequest)
+		// def beginDateTimeRequest = updatedBeginDateTimeRequest.format("yyyyMMdd HHmmss")
+		// log.info ("beginDateTimeRequest " + beginDateTimeRequest)
+		// testRunner.testCase.setPropertyValue("beginDateTimeRequest ", beginDateTimeRequest)
+		// def beginDateTimeDB = updatedBeginDateTimeRequest.format("yyyy-MM-dd HH:mm:ss")
+		// log.info ("beginDateTimeDB " + beginDateTimeDB)
+		// testRunner.testCase.setPropertyValue("beginDateTimeDB ", beginDateTimeDB)
+		// //Set EndDateTime
+		// def updatedEndDateTimeRequest = dateTimeStamp + numberOfDaysForEndDateTime.toInteger()
+		// log.info ("updatedEndDateTimeRequest " + updatedEndDateTimeRequest)
+		// def endDateTimeRequest = updatedEndDateTimeRequest.format("yyyyMMdd HHmmss")
+		// log.info ("endDateTimeRequest " + endDateTimeRequest)
+		// testRunner.testCase.setPropertyValue("endDateTimeRequest ", endDateTimeRequest)
+		// def endDateTimeDB = updatedEndDateTimeRequest.format("yyyy-MM-dd HH:mm:ss")
+		// log.info ("endDateTimeDB " + endDateTimeDB)
+		// testRunner.testCase.setPropertyValue("endDateTimeDB ", endDateTimeDB)
+		// }
+	//  }
+	//  /*
+	// 
+	
+setBeginAndEndDateTime_Future(String sNumberOfDaysForBeginDateTime, String sNumberOfDaysForEndDateTime, String sNumberOfDaysForFutureBeginDateTime, String sNumberOfDaysForFutureEndDateTime)
+	%FuncInfo[Desc="This method used to format and set the BeginDateTime, EndDateTime, FutureBeginDateTime and FutureEndDateTime"]
+	Integer iNumberOfDaysForBeginDateTime,iNumberOfDaysForEndDateTime,iNumberOfDaysForFutureBeginDateTime,iNumberOfDaysForFutureEndDateTime
+	DateTime dtCurrentDateTime, dtNewDateTime, dtUpdatedBeginDateTimeRequest, dtUpdatedEndDateTimeRequest,dtUpdatedFutureBeginDateTimeRequest,dtUpdatedFutureEndDateTimeRequest
+	String sFormattedDateTime, sFormatBeginDateTimeRequest, sEndDate_TimeRequest, sUpdatedFutureBeginDateTimeRequest, sFutureBeginDateTime_Request, sUpdatedFutureEndDateTimeRequest,sFutureEndDateTime_Request
+	
+	
+	
+	 dtCurrentDateTime = DateTime.Now() 
+	Print ("dateTime " , dtCurrentDateTime)
+	
+	sFormattedDateTime = dtCurrentDateTime.Format ("yyyy-MM-dd HH:mm:ss")
+	dtNewDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", sFormattedDateTime)
+	Print(dtNewDateTime)
+	
+	
+	iNumberOfDaysForBeginDateTime=Integer.Parse(sNumberOfDaysForBeginDateTime)
+	iNumberOfDaysForEndDateTime = Integer.Parse (sNumberOfDaysForEndDateTime)
+	iNumberOfDaysForFutureBeginDateTime = Integer.Parse (sNumberOfDaysForFutureBeginDateTime)
+	iNumberOfDaysForFutureEndDateTime = Integer.Parse (sNumberOfDaysForFutureEndDateTime)
+	
+	Print ("NumberOfDaysForBeginDateTime {iNumberOfDaysForBeginDateTime}")
+	Print ("sNumberOfDaysForEndDateTime {sNumberOfDaysForEndDateTime}")
+	Print ("NumberOfDaysForFutureBeginDateTime {iNumberOfDaysForFutureBeginDateTime}")
+	Print ("NumberOfDaysForFutureEndDateTime {iNumberOfDaysForFutureEndDateTime}")
+	
+	//Set BeginDateTime
+	dtUpdatedBeginDateTimeRequest = dtNewDateTime.Add (iNumberOfDaysForBeginDateTime)
+	Print (dtUpdatedBeginDateTimeRequest)
+	
+	sFormatBeginDateTimeRequest = dtUpdatedBeginDateTimeRequest.Format ("yyyyMMdd  HHmmss")
+	Print (sFormatBeginDateTimeRequest)
+	sBeginDateTimeRequest = sFormatBeginDateTimeRequest
+	
+	//Set EndDateTime
+	dtUpdatedEndDateTimeRequest = dtNewDateTime.Add (iNumberOfDaysForEndDateTime)
+	Print (dtUpdatedEndDateTimeRequest)
+	
+	sEndDate_TimeRequest = dtUpdatedEndDateTimeRequest.Format ("yyyyMMdd  HHmmss")
+	Print ("sEndDate_TimeRequest   "    +  sEndDate_TimeRequest)
+	sEndDateTimeRequest = sEndDate_TimeRequest
+	
+	 // Set FutureBeginDateTime
+	dtUpdatedFutureBeginDateTimeRequest = dtNewDateTime.Add (iNumberOfDaysForFutureBeginDateTime)
+	Print (dtUpdatedFutureBeginDateTimeRequest)
+	
+	sFutureBeginDateTime_Request = dtUpdatedFutureBeginDateTimeRequest.Format ("yyyyMMdd  HHmmss")
+	Print ("FutureBeginDateTime_Request  "  +  sFutureBeginDateTime_Request)
+	sFutureBeginDateTimeRequest = sFutureBeginDateTime_Request
+	
+	// Set FutureEndDateTime
+	dtUpdatedFutureEndDateTimeRequest = dtNewDateTime.Add (iNumberOfDaysForFutureEndDateTime)
+	Print (dtUpdatedFutureEndDateTimeRequest)
+	
+	sFutureEndDateTime_Request = dtUpdatedFutureEndDateTimeRequest.Format ("yyyyMMdd  HHmmss")
+	Print ("FutureBeginDateTime_Request  "  +  sFutureEndDateTime_Request)
+	sFutureEndDateTimeRequest = sFutureEndDateTime_Request
+	
+	//  
+	// 
+	//  public def setBeginAndEndDateTime(testRunner,log,def NumberOfDaysForBeginDateTime,def NumberOfDaysForEndDateTime,def NumberOfDaysForFutureBeginDateTime,def NumberOfDaysForFutureEndDateTime) {
+	// Date dateTime = new Date()
+	// log.info("dateTime " + dateTime)
+	// 
+	// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	// Date dateTimeStamp = formatter.parse(dateTime.format("yyyy-MM-dd HH:mm:ss"));
+	// def numberOfDaysForBeginDateTime = NumberOfDaysForBeginDateTime
+	// def numberOfDaysForEndDateTime = NumberOfDaysForEndDateTime
+	// def numberOfDaysForFutureBeginDateTime = NumberOfDaysForFutureBeginDateTime
+	// def numberOfDaysForFutureEndDateTime = NumberOfDaysForFutureEndDateTime
+	// log.info("numberOfDaysForBeginDateTime "+numberOfDaysForBeginDateTime)
+	// log.info("numberOfDaysForEndDateTime "+numberOfDaysForEndDateTime)
+	// log.info("numberOfDaysForFutureBeginDateTime "+numberOfDaysForFutureBeginDateTime)
+	// log.info("numberOfDaysForFutureEndDateTime "+numberOfDaysForFutureEndDateTime)
+	// 
+	// 
+	// use(TimeCategory) {
+		// //Set BeginDateTime
+		// def updatedBeginDateTimeRequest = dateTimeStamp + numberOfDaysForBeginDateTime.toInteger()
+		// log.info ("updatedBeginDateTimeRequest " + updatedBeginDateTimeRequest)
+		// def beginDateTimeRequest = updatedBeginDateTimeRequest.format("yyyyMMdd HHmmss")
+		// log.info ("beginDateTimeRequest " + beginDateTimeRequest)
+		// testRunner.testCase.setPropertyValue("beginDateTimeRequest ", beginDateTimeRequest)
+		// //Set EndDateTime
+		// def updatedEndDateTimeRequest = dateTimeStamp + numberOfDaysForEndDateTime.toInteger()
+		// log.info ("updatedEndDateTimeRequest " + updatedEndDateTimeRequest)
+		// def endDateTimeRequest = updatedEndDateTimeRequest.format("yyyyMMdd HHmmss")
+		// log.info ("endDateTimeRequest " + endDateTimeRequest)
+		// testRunner.testCase.setPropertyValue("endDateTimeRequest ", endDateTimeRequest)
+		// // Set FutureBeginDateTime
+		// def updatedFutureBeginDateTimeRequest = dateTimeStamp + numberOfDaysForFutureBeginDateTime.toInteger()
+		// log.info ("updatedFutureBeginDateTimeRequest " + updatedFutureBeginDateTimeRequest)
+		// def futureBeginDateTimeRequest = updatedFutureBeginDateTimeRequest.format("yyyyMMdd HHmmss")
+		// log.info ("futureBeginDateTimeRequest " + futureBeginDateTimeRequest)
+		// testRunner.testCase.setPropertyValue("futureBeginDateTimeRequest ", futureBeginDateTimeRequest)
+		// // Set FutureEndDateTime
+		// def updatedFutureEndDateTimeRequest = dateTimeStamp + numberOfDaysForFutureEndDateTime.toInteger()
+		// log.info ("updatedFutureEndDateTimeRequest " + updatedFutureEndDateTimeRequest)
+		// def futureEndDateTimeRequest = updatedFutureEndDateTimeRequest.format("yyyyMMdd HHmmss")
+		// log.info ("futureEndDateTimeRequest " + futureEndDateTimeRequest)
+		// testRunner.testCase.setPropertyValue("futureEndDateTimeRequest ", futureEndDateTimeRequest)
+		// 
+		// }
+	//  }
+	 
+	
+modifyServerDateTime(String sNumberOfDays, String sServerDateTime)
+	%FuncInfo[Desc="This method used to modify Server DateTime and set it to test case property"]
+	Integer iNumberOfDays
+	String sFormattedDateTime,sCurrentDate,sServerCurrent_DateTime
+	DateTime dtNewDateTime,dtCurrentDateTime, dtUpdatedPresentDate
+	List<String> lsDateTimesplit ,lsDateFormatted
+	// // Split the serverDateTime string to extract the time components
+	lsDateTimesplit = sServerDateTime[2].Split (":")
+	
+	// Extract the hours and minutes from the serverDateTime
+	 sServerCurrent_DateTime = lsDateTimesplit[0] + ":" + lsDateTimesplit[1]
+	Print ("ServerCurrentDateTime " + sServerCurrent_DateTime)
+	
+	// Set the serverCurrentDateTime property in the test case
+	sServerCurrentTime = sServerCurrent_DateTime
+	
+	// // Parse the serverCurrentDateTime string to obtain a Date object
+	// SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+	// Date dateTimeStamp = date.parse(serverCurrentDateTime);
+	// String sFormattedDateTime
+	DateTime dateTimeStamp = DateTime.Parse ("yyyy-MM-dd'T'HH:mm", sServerCurrentTime)
+	
+	// // Extract the month from the parsed date
+	 lsDateFormatted = dateTimeStamp.Format ("").Split (" ")
+	Print ("dateFormatted " + lsDateFormatted[1])
+	// ServerMonth==dateFormatted[1]
+	
+	
+	// Get the present date and time
+	 dtCurrentDateTime = DateTime.Now()
+	sFormattedDateTime = dtCurrentDateTime.Format ("yyyy-MM-dd HH:mm:ss")
+	Print (sFormattedDateTime)
+	dtNewDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", sFormattedDateTime)
+	
+	// // Calculate the modified present date by adding numberOfDays to the presentDateTimeStamp
+	iNumberOfDays = Integer.Parse (sNumberOfDays)
+	
+	dtUpdatedPresentDate = dtNewDateTime.Add(iNumberOfDays)
+	sCurrentDate = dtUpdatedPresentDate.Format ("yyyy-MM-dd")
+	Print ("CurrentDate " + sCurrentDate)
+	
+	
+	
+	
+	// // This method modifies server date time and extracts specific components for further processing
+	// // It takes four parameters: testRunner (to access test case properties), log (for logging), numberOfDays (offset for server date time), and serverDateTime (initial server date time)
+	// public def modifyServerDateTime(testRunner, log, def numberOfDays, def serverDateTime) {
+		// // Split the serverDateTime string to extract the time components
+		// def dateTimesplit = serverDateTime[2].split("\\:")
+		// 
+		// // Extract the hours and minutes from the serverDateTime
+		// def serverCurrentDateTime = dateTimesplit[0] + ":" + dateTimesplit[1]
+		// log.info("serverCurrentDateTime " + serverCurrentDateTime)
+		// 
+		// // Set the serverCurrentDateTime property in the test case
+		// testRunner.testCase.setPropertyValue("ServerCurrentTime", serverCurrentDateTime)
+	// 
+		// // Parse the serverCurrentDateTime string to obtain a Date object
+		// SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		// Date dateTimeStamp = date.parse(serverCurrentDateTime);
+		// 
+		// // Extract the month from the parsed date
+		// def dateFormatted = dateTimeStamp.toString().split(" ")
+		// log.info ("dateFormatted " + dateFormatted[1])
+		// testRunner.testCase.setPropertyValue("ServerMonth", dateFormatted[1])
+	// 
+		// // Get the present date and time
+		// Date presentDate = new Date()
+		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// Date presentDateTimeStamp = formatter.parse(presentDate.format("yyyy-MM-dd HH:mm:ss"));
+	// 
+		// // Using TimeCategory to perform date arithmetic
+		// use(TimeCategory) {
+			// // Calculate the modified present date by adding numberOfDays to the presentDateTimeStamp
+			// def UpdatedPresentDate = presentDateTimeStamp + numberOfDays.toInteger()
+			// def currentDate = UpdatedPresentDate.format("yyyy-MM-dd")
+			// log.info ("CurrentDate " + currentDate)
+			// 
+			// // Set the currentDate property in the test case
+			// testRunner.testCase.setPropertyValue("CurrentDate ", currentDate)
+		// }
+	// }
+	// 
+	

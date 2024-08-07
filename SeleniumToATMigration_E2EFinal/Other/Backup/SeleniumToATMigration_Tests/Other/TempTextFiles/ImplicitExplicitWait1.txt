@@ -1,0 +1,32 @@
+class initWebDriver : Step
+	%StepInfo[Desc="initWebDriver",Group="null"]
+	parameter String URL
+	Main()
+		// Setting up Chrome driver path.
+		System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe")
+		// Launching Chrome browser.
+		driver = new ChromeDriver()
+		driver.get(URL)
+		driver.manage().window().maximize()
+class main : Step
+	%StepInfo[Desc="main",Group="null"]
+	parameter String[] args
+	Main()
+		driver.findElement(By.id(sSearchBox)).sendKeys(sBookKey)
+		WebElement searchResult = getElement(By.xpath(sSearchResult))
+		searchResult.click()
+		By.xpath.WaitUntilExists(30,NotExistAction.None)
+		By.xpath.WaitUntilExists(30,NotExistAction.None)
+		getElement(By.xpath(sViewCartXPath)).click()
+		getElement(By.cssSelector("form[id='view-cart-form'] button")).click()
+		getElement(By.xpath("//input[@id='email' and @name='email']")).sendKeys("test@testmail.com")
+		// pause for a second and close the browser.
+		Thread.sleep(1000)
+		step endSession
+	public static WebElement getElement(final By locator)
+		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(30, TimeUnit.SECONDS)
+		.pollingEvery(5, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
+		.WaitUntilExists(30,NotExistAction.None)
+			@Override
+			public WebElement apply(WebDriver arg0)
+				return arg0.findElement(locator)

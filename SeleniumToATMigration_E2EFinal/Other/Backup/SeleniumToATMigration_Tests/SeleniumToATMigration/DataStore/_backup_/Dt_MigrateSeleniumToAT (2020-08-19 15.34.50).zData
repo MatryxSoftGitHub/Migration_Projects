@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="E87411D5">
+		<List Name="StringList" ItemType="String"/>
+		<Record Name="Record_MigrateSeleniumToAT">
+			<Field Name="TestCaseID" Type="String" Unique="true"/>
+			<Field Name="lsReadFile" Type="lsReadFile"/>
+			<Field Name="lsSearchData" Type="StringList"/>
+			<Field Name="sPathFormatFile" Type="String"/>
+			<Field Name="lsSeleniumClass" Type="StringList"/>
+			<Field Name="lsUnwantedCharecters" Type="StringList"/>
+			<Field Name="lsATClassNames" Type="StringList"/>
+		</Record>
+		<List Name="Record_MigrateSeleniumToATList" ItemType="Record_MigrateSeleniumToAT"/>
+		<List Name="lsReadFile" ItemType="String"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_MigrateSeleniumToAT" Type="Record_MigrateSeleniumToATList">
+			<Record_MigrateSeleniumToAT>
+				<TestCaseID>MigrateSeleniumToAT_TC001</TestCaseID>
+				<lsReadFile>
+					<String>YoutubeSignInPage.java</String>
+					<String>YoutubeSearchChannelPage.java</String>
+					<String>YoutubeVideoStreamingPage.java</String>
+					<String>YoutubeRandomVideoStreamingPage.java</String>
+					<String>YoutubeForwardVideoPage.java</String>
+					<String>YoutubeSignOutPage.java</String>
+				</lsReadFile>
+				<lsSearchData>
+					<String>[@class=</String>
+					<String>(id</String>
+					<String>(text(),</String>
+					<String>(name</String>
+					<String>[@id</String>
+					<String>(className</String>
+				</lsSearchData>
+				<sPathFormatFile>AscentialTest_AppObjects.txt</sPathFormatFile>
+				<lsSeleniumClass>
+					<String>[@class=</String>
+					<String>[id=</String>
+					<String>[text[],</String>
+					<String>[name=</String>
+					<String>[@id=</String>
+					<String>[className==</String>
+				</lsSeleniumClass>
+				<lsUnwantedCharecters>
+					<String>[@ElemClass==</String>
+					<String>[@Text==</String>
+					<String>[@ElemId==</String>
+					<String>[@Name==</String>
+				</lsUnwantedCharecters>
+				<lsATClassNames>
+					<String>[@ElemClass==</String>
+					<String>[@ElemId=</String>
+					<String>[@Text==</String>
+					<String>[@Name=</String>
+					<String>[@ElemId==</String>
+					<String>[@Name==</String>
+				</lsATClassNames>
+			</Record_MigrateSeleniumToAT>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_MigrateSeleniumToAT">
+			<Field Name="TestCaseID" Width="121"/>
+			<Field Name="lsReadFile" Width="267"/>
+			<Field Name="lsSearchData" Width="102"/>
+			<Field Name="sPathFormatFile" Width="181"/>
+			<Field Name="lsSeleniumClass" Width="113"/>
+			<Field Name="TestCaseID" Width="221"/>
+			<Field Name="lsReadFile"/>
+			<Field Name="lsSearchData"/>
+			<Field Name="sPathFormatFile"/>
+			<Field Name="lsSeleniumClass"/>
+			<Field Name="TestCaseID" Width="221"/>
+			<Field Name="lsReadFile"/>
+			<Field Name="lsSearchData"/>
+			<Field Name="sPathFormatFile"/>
+			<Field Name="lsSeleniumClass"/>
+			<Field Name="lsUnwantedCharecters"/>
+			<Field Name="lsATClassNames"/>
+		</Object>
+	</Layout>
+</DataStore>

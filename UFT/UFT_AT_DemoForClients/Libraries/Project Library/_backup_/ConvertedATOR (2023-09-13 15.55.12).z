@@ -1,0 +1,2218 @@
+﻿// app MainWin Report_RenderImages2
+	// path [@ObjectClass=="Branch PLUS  Logon"]
+	// path [@WinClass=="FNWNS3125"]
+	// RenderImage StatsReportHeader
+		// path [@Text=="StatsReportHeader"]
+	// RenderImage EmpDelinqTrackerHeader
+		// path [@Text=="EmpDelinqTrackerHeader"]
+// app MainWin PDF_Form_InsighObjects
+	// path [@ObjectClass==""]
+	// path [@WinClass=="AcrobatSDIWindow"]
+	// RenderImage Laser_Signature
+		// path [@Text=="Laser_Signature"]
+	// RenderImage btn_FitPage
+		// path [@Text=="btn_FitPage"]
+// app MainWin BranchPLUSLogon
+	// path [@ObjectClass=="Branch PLUS  Logon"]
+	// path [@WinClass=="FNWNS3125"]
+	// TextField txtUserName
+		// path [@WinId=="1004"]
+		// path [@WinClass=="Edit"]
+	// TextField txtPassword
+		// path [@WinId=="1005"]
+		// path [@WinClass=="Edit"]
+	// MainWin NetworkLoginAuthentication
+		// path [@ObjectClass=="Network Login Authentication"]
+		// path [@WinClass=="FNWNS3125"]
+		// TextField txtNetworkUser
+			// path [@WinId=="1008"]
+			// path [@WinClass=="Edit"]
+		// TextField txtNetworkPassword
+			// path [@WinId=="1008"]
+			// path [@WinClass=="Edit"]
+		// PushButton btnOk
+			// path [@Text=="Ok"]
+			// path [@WinClass=="Button"]
+	// PushButton btnOK
+		// path [@Text=="OK"]
+		// path [@WinClass=="Button"]
+// app MainWin BranchPLUS
+	// path [@ObjectClass=="Branch PLUS"]
+	// path [@WinClass=="FNWND3125"]
+	// RenderImage SyncCoapplicantTabF2
+		// path [@Text=="SyncCoapplicantTabF2"]
+	// RenderImage SyncBudgetTabF2
+		// path [@Text=="SyncBudgetTabF2"]
+	// RenderImage SyncAddressTabF2
+		// path [@Text=="SyncAddressTabF2"]
+	// RenderImage SyncAccountTabF2
+		// path [@Text=="SyncAccountTabF2"]
+// app MainWin UIO_BranchPLUS_Frame
+	// path [@Text=="Window;Transform;LegacyIAccessible"]
+	// path [@Text=="*:*"]
+	// path [@Text=="Branch PLUS"]
+	// path [@Text=="UIAWindow"]
+	// path [@Text=="Win32"]
+	// path [@Text=="Window"]
+	// path [@Text=="UIAWindow"]
+	// MainWin UIO_CustomerForms
+		// path [@Text=="Window;Transform;LegacyIAccessible"]
+		// path [@Text=="*:*:2000:*"]
+		// path [@Text=="Customer Forms"]
+		// path [@Text=="UIAWindow"]
+		// path [@Text=="Win32"]
+		// path [@Text=="Window"]
+		// path [@Text=="UIAWindow"]
+		// MainWin WorkAutho_Form_Subject
+			// path [@Text=="Voluntary Authorization for Calling Workplace"]
+			// path [@Text=="Value;LegacyIAccessible"]
+			// path [@Text=="*:*:2000:*:1001:t_18"]
+			// path [@WinClass==""]
+			// path [@Text=="t_18"]
+			// path [@Text=="UIAObject"]
+			// path [@Text==""]
+			// path [@Text=="Text"]
+			// path [@Text=="UIAObject"]
+		// MainWin WelcomeLetter_AccNum
+			// path [@Text=="Account Number"]
+			// path [@Text=="Value;LegacyIAccessible"]
+			// path [@Text=="*:*:2000:*:1001:t_2"]
+			// path [@WinClass==""]
+			// path [@Text=="t_2"]
+			// path [@Text=="UIAObject"]
+			// path [@Text==""]
+			// path [@Text=="Text"]
+			// path [@Text=="UIAObject"]
+		// MainWin WelcomeCall_Form_Subject
+			// path [@Text=="Welcome Call"]
+			// path [@Text=="Value;LegacyIAccessible"]
+			// path [@Text=="*:*:2000:*:1001:st_header"]
+			// path [@WinClass==""]
+			// path [@Text=="st_header"]
+			// path [@Text=="UIAObject"]
+			// path [@Text==""]
+			// path [@Text=="Text"]
+			// path [@Text=="UIAObject"]
+		// MainWin TextMsg_Form_Subject
+			// path [@Text=="VOLUNTARY TEXT MESSAGES NOTICE AND CONSENT"]
+			// path [@Text=="Value;LegacyIAccessible"]
+			// path [@Text=="*:*:2000:*:1001:t_1"]
+			// path [@WinClass==""]
+			// path [@Text=="t_1"]
+			// path [@Text=="UIAObject"]
+			// path [@Text==""]
+			// path [@Text=="Text"]
+			// path [@Text=="UIAObject"]
+		// MainWin PriVacyNotice_Form_Subject
+			// path [@Text=="Text Messages"]
+			// path [@Text=="Value;LegacyIAccessible"]
+			// path [@Text=="*:*:2000:*:1001:t_89"]
+			// path [@WinClass==""]
+			// path [@Text=="t_89"]
+			// path [@Text=="UIAObject"]
+			// path [@Text==""]
+			// path [@Text=="Text"]
+			// path [@Text=="UIAObject"]
+		// MainWin Notice_to_Cosign
+			// path [@Text=="NOTICE TO COSIGNER"]
+			// path [@Text=="Value;LegacyIAccessible"]
+			// path [@Text=="*:*:2000:*:1001:t_notice_to_cosign"]
+			// path [@WinClass==""]
+			// path [@Text=="t_notice_to_cosign"]
+			// path [@Text=="UIAObject"]
+			// path [@Text==""]
+			// path [@Text=="Text"]
+			// path [@Text=="UIAObject"]
+		// MainWin InsReq_Form_Subject
+			// path [@Text=="RE: IMPORTANT NOTICE OF REQUIREMENT TO PROVIDE INSURANCE"]
+			// path [@Text=="Value;LegacyIAccessible"]
+			// path [@Text=="*:*:2000:*:1001:t_2"]
+			// path [@WinClass==""]
+			// path [@Text=="t_2"]
+			// path [@Text=="UIAObject"]
+			// path [@Text==""]
+			// path [@Text=="Text"]
+			// path [@Text=="UIAObject"]
+		// MainWin Direct_Loan_Contract
+			// path [@Text=="CONSUMER LOAN AGREEMENT"]
+			// path [@Text=="Value;LegacyIAccessible"]
+			// path [@Text=="*:*:2000:*:1001:t_11"]
+			// path [@WinClass==""]
+			// path [@Text=="t_11"]
+			// path [@Text=="UIAObject"]
+			// path [@Text==""]
+			// path [@Text=="Text"]
+			// path [@Text=="UIAObject"]
+		// MainWin Arbitration_Agreement
+			// path [@Text==""]
+			// path [@Text=="Value;LegacyIAccessible"]
+			// path [@Text=="*:*:2000:*:1001:t_1"]
+			// path [@WinClass==""]
+			// path [@Text=="t_1"]
+			// path [@Text=="UIAObject"]
+			// path [@Text==""]
+			// path [@Text=="Text"]
+			// path [@Text=="UIAObject"]
+// app MainWin Desktop
+	// path [@Text=="LegacyIAccessible"]
+	// path [@Text=="*"]
+	// path [@WinClass=="#32769"]
+	// path [@Text=="Desktop"]
+	// path [@Text=="UIAObject"]
+	// path [@Text=="Win32"]
+	// path [@Text=="Pane"]
+	// path [@Text=="UIAObject"]
+	// RenderImage WorkAuth
+		// path [@Text=="WorkAuth"]
+// app MainWin w_message
+	// path [@ObjectClass=="Redeeming Repossession?"]
+	// path [@Text==""]
+	// path [@WinClass=="FNWNS3"]
+	// AppObject Yes
+		// path [@Text=="cb_1"]
+		// path [@WinClass=="Button"]
+	// AppObject No
+		// path [@Text=="cb_2"]
+		// path [@WinClass=="Button"]
+	// RenderImage wmessage_Yes
+		// path [@Text=="wmessage_Yes"]
+	// RenderImage RedeemingRepossession
+		// path [@Text=="RedeemingRepossession"]
+// app MainWin w_bp_frame
+	// path [@ObjectClass=="Branch PLUS"]
+	// path [@Text=="w_bp_frame"]
+	// path [@WinClass=="FNWND3125"]
+	// MainWin w_dealer_setup
+		// path [@ObjectClass=="Bernard Motorcar Company"]
+		// path [@Text=="w_dealer_setup"]
+		// path [@WinClass=="FNWND3"]
+		// AppObject email
+			// path [@WinClass=="Edit"]
+			// path [@Text==""]
+		// AppObject dw_list
+			// path [@Text=="dw_list"]
+			// path [@WinClass=="pbdw"]
+	// MainWin ReportsFrame
+		// path [@ObjectClass=="Reports"]
+		// path [@Text=="w_reports"]
+		// path [@WinClass=="FNWND3125"]
+		// AppObject tv_report
+			// path [@Text=="tv_report"]
+			// path [@WinClass==""]
+		// AppObject dw_report
+			// path [@Text=="dw_report"]
+			// path [@WinClass=="pbdw125"]
+	// MainWin CreditDecisionSearchWindow
+		// path [@ObjectClass=="Credit Decision Statistics"]
+		// path [@Text=="w_search"]
+		// path [@WinClass=="FNWNS3125"]
+		// AppObject dw_search
+			// path [@Text=="dw_search"]
+			// path [@WinClass=="pbdw125"]
+		// AppObject btnOk
+			// path [@Text=="cb_ok"]
+			// path [@WinClass=="Button"]
+	// AppObject AppObject
+		// path [@WinClass=="FNFIXEDBAR125"]
+	// RenderImage wmessage_No
+		// path [@Text=="wmessage_No"]
+	// RenderImage ChargedOffRepoText
+		// path [@Text=="ChargedOffRepoText"]
+	// RenderImage ChargedOffRepoHeader
+		// path [@Text=="ChargedOffRepoHeader"]
+// app MainWin ResaleOfRepo_Header_Signature
+	// path [@ObjectClass=="Branch PLUS"]
+	// path [@Text=="w_bp_frame"]
+	// path [@WinClass=="FNWND3170"]
+	// RenderImage StateSpecific_ResaleOfRepo_Signature
+		// path [@Text=="StateSpecific_ResaleOfRepo_Signature"]
+	// RenderImage StateSpecific_ResaleOfRepo_Header
+		// path [@Text=="StateSpecific_ResaleOfRepo_Header"]
+	// RenderImage ResaleOfRepo_Signature
+		// path [@Text=="ResaleOfRepo_Signature"]
+	// RenderImage ResaleOfRepo_Header
+		// path [@Text=="ResaleOfRepo_Header"]
+	// RenderImage ReferenceNumber
+		// path [@Text=="ReferenceNumber"]
+	// RenderImage NC_ResaleOfRepo_Signature
+		// path [@Text=="NC_ResaleOfRepo_Signature"]
+	// RenderImage EndingMiageValidation
+		// path [@Text=="EndingMiageValidation"]
+	// RenderImage btn_VerifyMLAStatus
+		// path [@Text=="btn_VerifyMLAStatus"]
+	// DialogBox VersionMismatch
+		// path [@Text=="Version Mismatch"]
+		// path [@WinClass=="#32770"]
+		// PushButton Yes
+			// path [@Text=="&Yes"]
+			// path [@WinClass=="Button"]
+String sPageName
+app MainWin Report_RenderImages
+	path [@ObjectClass=="Branch PLUS"]
+	path [@Text=="w_bp_frame"]
+	path [@WinClass=="FNWND3170"]
+	RenderImage Sync_ColletralTab
+		path [@Text=="Sync_ColletralTab"]
+	RenderImage StatsReportHeader
+		path [@Text=="StatsReportHeader"]
+	RenderImage OnBase_VSCContracts_ContentValidation
+		path [@Text=="OnBase_VSCContracts_ContentValidation"]
+	RenderImage DailyManagersReportHeader
+		path [@Text=="DailyManagersReportHeader"]
+// app MainWin Forms_Spanish
+	// path [@ObjectClass=="Branch PLUS"]
+	// path [@Text=="w_bp_frame"]
+	// path [@WinClass=="FNWND3170"]
+	// RenderImage WelcomePackage
+		// path [@Text=="WelcomePackage"]
+	// RenderImage Warranty
+		// path [@Text=="Warranty"]
+	// RenderImage Solicitation
+		// path [@Text=="Solicitation"]
+	// RenderImage SecuirtyAgreementDirectLoanContract
+		// path [@Text=="SecuirtyAgreementDirectLoanContract"]
+	// RenderImage Repossession
+		// path [@Text=="Repossession"]
+	// RenderImage RecoveryCenter
+		// path [@Text=="RecoveryCenter"]
+	// RenderImage QuestionnaireOfBankruptCustomer
+		// path [@Text=="QuestionnaireOfBankruptCustomer"]
+	// RenderImage Payment
+		// path [@Text=="Payment"]
+	// RenderImage LetterOfGuarantee
+		// path [@Text=="LetterOfGuarantee"]
+	// RenderImage Insurance
+		// path [@Text=="Insurance"]
+	// RenderImage Gap
+		// path [@Text=="Gap"]
+	// RenderImage DueDateChangeRequest
+		// path [@Text=="DueDateChangeRequest"]
+	// RenderImage DeferralAgreement
+		// path [@Text=="DeferralAgreement"]
+	// RenderImage CreditInsurance_StateSpecific
+		// path [@Text=="CreditInsurance_StateSpecific"]
+	// RenderImage CreditInsurance_State_GA_NC
+		// path [@Text=="CreditInsurance_State_GA_NC"]
+	// RenderImage CreditInsurance
+		// path [@Text=="CreditInsurance"]
+	// RenderImage Credit
+		// path [@Text=="Credit"]
+	// RenderImage Contract_StateSpecific
+		// path [@Text=="Contract_StateSpecific"]
+	// RenderImage Contract
+		// path [@Text=="Contract"]
+	// RenderImage Collection
+		// path [@Text=="Collection"]
+	// RenderImage ArbitrationAgreement_StateSpecific
+		// path [@Text=="ArbitrationAgreement_StateSpecific"]
+	// RenderImage Application
+		// path [@Text=="Application"]
+	// RenderImage Administrative_922
+		// path [@Text=="Administrative_9.2.2"]
+	// RenderImage Administrative
+		// path [@Text=="Administrative"]
+app MainWin Forms_RenderImages
+	path [@ObjectClass=="Branch PLUS"]
+	path [@Text=="w_bp_frame"]
+	path [@WinClass=="FNWND3170"]
+	RenderImage ResaleOfRepoLetter_Signature
+		path [@Text=="ResaleOfRepoLetter_Signature"]
+	RenderImage ResaleOfRepoLetter_Header
+		path [@Text=="ResaleOfRepoLetter_Header"]
+	RenderImage RepossessionWarning_Notice_Form_Signature
+		path [@Text=="RepossessionWarning_Notice_Form_Signature"]
+	RenderImage RepossessionWarning_Notice_Form_Header
+		path [@Text=="RepossessionWarning_Notice_Form_Header"]
+	RenderImage PromiseReminder_Signature
+		path [@Text=="PromiseReminder_Signature"]
+	RenderImage PromiseReminder_Header
+		path [@Text=="PromiseReminder_Header"]
+	RenderImage PromiseReminder_FormContent
+		path [@Text=="PromiseReminder_FormContent"]
+	RenderImage OHIO_Right_To_Cure_Form_Bottom
+		path [@Text=="OHIO_Right_To_Cure_Form_Bottom"]
+	RenderImage Notice_Of_Insurance_Deficiency_Form_Signature_Old
+		path [@Text=="Notice_Of_Insurance_Deficiency_Form_Signature_Old"]
+	RenderImage Notice_Of_Insurance_Deficiency_Form_Signature
+		path [@Text=="Notice_Of_Insurance_Deficiency_Form_Signature"]
+	RenderImage Notice_Of_Insurance_Deficiency_Form_Header
+		path [@Text=="Notice_Of_Insurance_Deficiency_Form_Header"]
+	RenderImage Notice_Of_Insurance_Deficiency_Form_CertifiedMail_ReturnReceiptRequested
+		path [@Text=="Notice_Of_Insurance_Deficiency_Form_CertifiedMail_ReturnReceiptRequested"]
+	RenderImage Notice_Of_ExpireAccount_Signature
+		path [@Text=="Notice_Of_ExpireAccount_Signature"]
+	RenderImage Notice_Of_ExpireAccount_Header
+		path [@Text=="Notice_Of_ExpireAccount_Header"]
+	RenderImage Notice_Of_Deficiency_Form_Signature
+		path [@Text=="Notice_Of_Deficiency_Form_Signature"]
+	RenderImage Notice_Of_Deficiency_Form_Header_State_OH
+		path [@Text=="Notice_Of_Deficiency_Form_Header_State_OH"]
+	RenderImage Notice_Of_Deficiency_Form_Header
+		path [@Text=="Notice_Of_Deficiency_Form_Header"]
+	RenderImage Notice_Of_Deficiency_Form_Content_State_OH
+		path [@Text=="Notice_Of_Deficiency_Form_Content_State_OH"]
+	RenderImage Notice_Of_Default_Form_Signature
+		path [@Text=="Notice_Of_Default_Form_Signature"]
+	RenderImage Notice_Of_Default_Form_Header
+		path [@Text=="Notice_Of_Default_Form_Header"]
+	RenderImage Notice_Of_Default_And_RightToCure_Signature
+		path [@Text=="Notice_Of_Default_And_RightToCure_Signature"]
+	RenderImage Notice_Of_Default_And_RightToCure_Header_OH
+		path [@Text=="Notice_Of_Default_And_RightToCure_Header_OH"]
+	RenderImage Notice_Of_Default_And_RightToCure_Header
+		path [@Text=="Notice_Of_Default_And_RightToCure_Header"]
+	RenderImage Notice_Of_Default_And_RightToCure_FormContent
+		path [@Text=="Notice_Of_Default_And_RightToCure_FormContent"]
+	RenderImage Notice_Of_Charged_Off_Account_Form_Header
+		path [@Text=="Notice_Of_Charged_Off_Account_Form_Header"]
+	RenderImage Manager_Signature
+		path [@Text=="Manager_Signature"]
+	RenderImage LoanPayment_Deferral_Request_And_Agreement_Header
+		path [@Text=="LoanPayment_Deferral_Request_And_Agreement_Header"]
+	RenderImage LetterOfGuarantee_Form_Signature
+		path [@Text=="LetterOfGuarantee_Form_Signature"]
+	RenderImage LetterOfGuarantee_Form_Header
+		path [@Text=="LetterOfGuarantee_Form_Header"]
+	RenderImage LateFee_Notice_Signature
+		path [@Text=="LateFee_Notice_Signature"]
+	RenderImage LateFee_Notice_Header
+		path [@Text=="LateFee_Notice_Header"]
+	RenderImage LateFee_Notice_Content
+		path [@Text=="LateFee_Notice_Content"]
+	RenderImage Friendly_Reminder_Signature
+		path [@Text=="Friendly_Reminder_Signature"]
+	RenderImage Friendly_Reminder_Header
+		path [@Text=="Friendly_Reminder_Header"]
+	RenderImage Friendly_Reminder_Content
+		path [@Text=="Friendly_Reminder_Content"]
+	RenderImage FinalNotice_Signature
+		path [@Text=="FinalNotice_Signature"]
+	RenderImage FinalNotice_Header
+		path [@Text=="FinalNotice_Header"]
+	RenderImage ExplainCalcOfSurplesOrDeficiencyForm_Signature
+		path [@Text=="ExplainCalcOfSurplesOrDeficiencyForm_Signature"]
+	RenderImage ExplainCalcOfSurplesOrDeficiencyForm_Header
+		path [@Text=="ExplainCalcOfSurplesOrDeficiencyForm_Header"]
+	RenderImage ExplainCalcOfSurplesOrDeficiencyForm_Content
+		path [@Text=="ExplainCalcOfSurplesOrDeficiencyForm_Content"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy_SC
+		path [@Text=="DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy_SC"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy_Old
+		path [@Text=="DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy_Old"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy
+		path [@Text=="DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_FileCopy_SC
+		path [@Text=="DirectLoanPage1AndPage2_OverLapValidation_FileCopy_SC"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_FileCopy
+		path [@Text=="DirectLoanPage1AndPage2_OverLapValidation_FileCopy"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_CustomerCopy_SC
+		path [@Text=="DirectLoanPage1AndPage2_OverLapValidation_CustomerCopy_SC"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_CustomerCopy
+		path [@Text=="DirectLoanPage1AndPage2_OverLapValidation_CustomerCopy"]
+	RenderImage DirectLoanContract_Header
+		path [@Text=="DirectLoanContract_Header"]
+	RenderImage DirectLoanContract_AdditionalInfo
+		path [@Text=="DirectLoanContract_AdditionalInfo"]
+	RenderImage DirectLoan_SecurityAgreementText
+		path [@Text=="DirectLoan_SecurityAgreementText"]
+	RenderImage DirectLoan_Acknowledgment_1stSentence_SC
+		path [@Text=="DirectLoan_Acknowledgment_1stSentence_SC"]
+	RenderImage DirectLoan_Acknowledgement_1stSentence_SC_1
+		path [@Text=="DirectLoan_Acknowledgement_1stSentence_SC_1"]
+	RenderImage Del_Letter_20_Signature
+		path [@Text=="Del_Letter_20_Signature"]
+	RenderImage CPI_NoticeToCustomer_ManagerSignature
+		path [@Text=="CPI_NoticeToCustomer_ManagerSignature"]
+	RenderImage CPI_NoticeToCustomer_Fotter
+		path [@Text=="CPI_NoticeToCustomer_Fotter"]
+	RenderImage CPI_NoticeToCustomer_FormContent
+		path [@Text=="CPI_NoticeToCustomer_FormContent"]
+	RenderImage CPI_CancellationNotice_Header
+		path [@Text=="CPI_CancellationNotice_Header"]
+	RenderImage CPI_CancellationNotice_FormContent_960_PartialText
+		path [@Text=="CPI_CancellationNotice_FormContent_9.6.0_PartialText"]
+	RenderImage CPI_CancellationNotice_FormContent_960
+		path [@Text=="CPI_CancellationNotice_FormContent_9.6.0"]
+	RenderImage CPI_CancellationNotice_FormContent
+		path [@Text=="CPI_CancellationNotice_FormContent"]
+	RenderImage ConsiderForLoss_Header_971
+		path [@Text=="ConsiderForLoss_Header_971"]
+	RenderImage ConsiderForLoss_Header
+		path [@Text=="ConsiderForLoss_Header"]
+	RenderImage ChargedOffRepoText
+		path [@Text=="ChargedOffRepoText"]
+	RenderImage ChargedOffRepoHeader
+		path [@Text=="ChargedOffRepoHeader"]
+	RenderImage CertifiedMail_ReturnReceiptRequested
+		path [@Text=="CertifiedMail_ReturnReceiptRequested"]
+	RenderImage BrokerPromise_Letter_Signature
+		path [@Text=="BrokerPromise_Letter_Signature"]
+	RenderImage BrokerPromise_Letter_Header
+		path [@Text=="BrokerPromise_Letter_Header"]
+	RenderImage ND_Notice_Of_Deficiency_Form_Signature
+		path [@Text=="2ND_Notice_Of_Deficiency_Form_Signature"]
+	RenderImage ND_Notice_Of_Deficiency_Form_Header
+		path [@Text=="2ND_Notice_Of_Deficiency_Form_Header"]
+// app MainWin Forms_English
+	// path [@ObjectClass=="Branch PLUS"]
+	// path [@Text=="w_bp_frame"]
+	// path [@WinClass=="FNWND3170"]
+	// RenderImage WelcomePackage
+		// path [@Text=="WelcomePackage"]
+	// RenderImage Warranty
+		// path [@Text=="Warranty"]
+	// RenderImage Solicitation
+		// path [@Text=="Solicitation"]
+	// RenderImage SecuirtyAgreementDirectLoanContract
+		// path [@Text=="SecuirtyAgreementDirectLoanContract"]
+	// RenderImage Repossession
+		// path [@Text=="Repossession"]
+	// RenderImage RecoveryCenter
+		// path [@Text=="RecoveryCenter"]
+	// RenderImage QuestionnaireOfBankruptCustomer
+		// path [@Text=="QuestionnaireOfBankruptCustomer"]
+	// RenderImage Payment
+		// path [@Text=="Payment"]
+	// RenderImage OnBase
+		// path [@Text=="OnBase"]
+	// RenderImage LetterOfGuarantee
+		// path [@Text=="LetterOfGuarantee"]
+	// RenderImage Insurance
+		// path [@Text=="Insurance"]
+	// RenderImage Gap_960
+		// path [@Text=="Gap_9.6.0"]
+	// RenderImage Gap_950
+		// path [@Text=="Gap_9.5.0"]
+	// RenderImage Gap
+		// path [@Text=="Gap"]
+	// RenderImage DueDateChangeRequest
+		// path [@Text=="DueDateChangeRequest"]
+	// RenderImage DeferralAgreement
+		// path [@Text=="DeferralAgreement"]
+	// RenderImage CreditInsurance_StateSpecific
+		// path [@Text=="CreditInsurance_StateSpecific"]
+	// RenderImage CreditInsurance_State_GA_NC
+		// path [@Text=="CreditInsurance_State_GA_NC"]
+	// RenderImage CreditInsurance
+		// path [@Text=="CreditInsurance"]
+	// RenderImage Credit
+		// path [@Text=="Credit"]
+	// RenderImage Contract_StateSpecific
+		// path [@Text=="Contract_StateSpecific"]
+	// RenderImage Contract
+		// path [@Text=="Contract"]
+	// RenderImage Collection
+		// path [@Text=="Collection"]
+	// RenderImage Checks
+		// path [@Text=="Checks"]
+	// RenderImage Authorization
+		// path [@Text=="Authorization"]
+	// RenderImage ArbitrationAgreement_StateSpecific
+		// path [@Text=="ArbitrationAgreement_StateSpecific"]
+	// RenderImage Application
+		// path [@Text=="Application"]
+	// RenderImage Administrative_922
+		// path [@Text=="Administrative_9.2.2"]
+	// RenderImage Administrative
+		// path [@Text=="Administrative"]
+// app MainWin CMS_Validation
+	// path [@ObjectClass=="Branch PLUS"]
+	// path [@Text=="w_bp_frame"]
+	// path [@WinClass=="FNWND3170"]
+	// RenderImage PaymentProcessDialog_CMS_Enabled
+		// path [@Text=="PaymentProcessDialog_CMS_Enabled"]
+	// RenderImage PaymentProcessDialog_CMS_Disabled
+		// path [@Text=="PaymentProcessDialog_CMS_Disabled"]
+	// RenderImage Mail_Icon_FormsWindow
+		// path [@Text=="Mail_Icon_FormsWindow"]
+	// RenderImage HOMailing_CheckBox_PaymentProcessDialog_Windows10
+		// path [@Text=="HOMailing_CheckBox_PaymentProcessDialog_Windows10"]
+	// RenderImage HOMailing_CheckBox_PaymentProcessDialog
+		// path [@Text=="HOMailing_CheckBox_PaymentProcessDialog"]
+	// RenderImage FormsPrintOption_CMS_Enabled_Windows10
+		// path [@Text=="FormsPrintOption_CMS_Enabled_Windows10"]
+	// RenderImage FormsPrintOption_CMS_Enabled
+		// path [@Text=="FormsPrintOption_CMS_Enabled"]
+	// RenderImage CPI_CancellationNotice_Header
+		// path [@Text=="CPI_CancellationNotice_Header"]
+	// RenderImage CMS_Audit_ActivityType
+		// path [@Text=="CMS_Audit_ActivityType"]
+// app MainWin BranchPlus
+	// path [@ObjectClass=="Branch PLUS"]
+	// path [@Text=="w_bp_frame"]
+	// path [@WinClass=="FNWND3125"]
+	// MainWin w_garnishment_payment
+		// path [@ObjectClass=="Garnishment Payments"]
+		// path [@Text=="w_garnishment_payment"]
+		// path [@WinClass=="FNWND3"]
+		// AppObject dw_detail
+			// path [@Text=="dw_detail"]
+			// path [@WinClass=="pbdw"]
+	// MainWin w_checkbook_pmt_split
+		// path [@ObjectClass=="Check Book Payment Loan Proceeds"]
+		// path [@Text=="w_checkbook_pmt_split"]
+		// path [@WinClass=="FNWNS3125"]
+		// AppObject dw_list
+			// path [@Text=="dw_list"]
+			// path [@WinClass=="pbdw125"]
+		// AppObject btnProcess
+			// path [@Text=="cb_process"]
+			// path [@WinClass=="Button"]
+	// MainWin w_acct_loan_disclosure
+		// path [@ObjectClass=="Truth In Lending Disclosure"]
+		// path [@Text=="w_acct_loan_disclosure"]
+		// path [@WinClass=="FNWNS3125"]
+		// MainWin w_message
+			// path [@ObjectClass=="Process Loan"]
+			// path [@Text=="w_message"]
+			// path [@WinClass=="FNWNS3125"]
+			// AppObject btnYes
+				// path [@Text=="cb_1"]
+				// path [@WinClass=="Button"]
+		// AppObject btnOK
+			// path [@Text=="cb_ok"]
+			// path [@WinClass=="Button"]
+	// MainWin NextCheckNumberPopUp
+		// path [@ObjectClass=="Next Check Number"]
+		// path [@Text=="w_message"]
+		// path [@WinClass=="FNWNS3125"]
+		// AppObject btnYes
+			// path [@Text=="cb_1"]
+			// path [@WinClass=="Button"]
+	// MainWin MessageWindow
+		// path [@ObjectClass=="Credit Decision"]
+		// path [@Text=="w_message"]
+		// path [@WinClass=="FNWNS3125"]
+		// AppObject No
+			// path [@Text=="cb_2"]
+			// path [@WinClass=="Button"]
+	// MainWin CustomerSearchWindow
+		// path [@ObjectClass=="Customer Search"]
+		// path [@Text=="w_search"]
+		// path [@WinClass=="FNWNS3125"]
+		// AppObject dw_search
+			// path [@Text=="dw_search"]
+			// path [@WinClass=="pbdw125"]
+		// AppObject btnOK
+			// path [@Text=="cb_ok"]
+			// path [@WinClass=="Button"]
+	// MainWin CustomerF2Window
+		// path [@ObjectClass=="APPROVED   //   member to ask for title number! ***             *** Re"]
+		// path [@Text=="w_cust"]
+		// path [@WinClass=="FNWND3125"]
+		// AppObject TabStripe
+			// path [@Text=="tab_cust"]
+			// path [@WinClass=="PBTabControl32_100"]
+		// AppObject dw_payments // Naa
+			// path [@Text=="dw_payments"]
+		// AppObject dw_cust
+			// path [@Text=="dw_cust"]
+			// path [@WinClass=="pbdw125"]
+		// AppObject dw_list_reference
+			// path [@Text=="dw_list"]
+			// path [@WinClass=="pbdw125"]
+		// AppObject dw_insurance
+			// path [@Text=="dw_insurance"]
+			// path [@WinClass=="pbdw125"]
+		// AppObject dw_budget
+			// path [@Text=="dw_budget"]
+			// path [@WinClass=="pbdw125"]
+		// AppObject dw_acct
+			// path [@Text=="dw_acct"]
+			// path [@WinClass=="pbdw125"]
+	// MainWin CreditDecision
+		// path [@ObjectClass==""]
+		// path [@Text=="w_wiz_new_cust"]
+		// path [@WinClass=="FNWNS3125"]
+		// PushButton btnNext
+			// path [@Text=="&Next >"]
+			// path [@WinClass=="Button"]
+		// MainWin verifyMLAPopUp
+			// path [@ObjectClass=="Branch PLUS"]
+			// path [@Text=="w_mla_verify"]
+			// path [@WinClass=="FNWNS3170"]
+			// AppObject GetReport
+				// path [@ObjectClass=="&Get Report"]
+				// path [@Text=="cb_transmit"]
+				// path [@WinClass=="Button"]
+		// MainWin USPS_Window
+			// path [@ObjectClass=="Applicant Address"]
+			// path [@Text=="w_usps_addressverification"]
+			// path [@WinClass=="FNWNS3125"]
+			// AppObject btnUseAddressAbove
+				// path [@Text=="cb_use_your_address"]
+				// path [@WinClass=="Button"]
+		// MainWin Creditcheck
+			// path [@ObjectClass=="Branch PLUS"]
+			// path [@Text=="w_creditcheck"]
+			// path [@WinClass=="FNWNS3125"]
+			// MainWin CreditReport
+				// path [@Text=="w_view_report"]
+				// path [@WinClass=="FNWNS3125"]
+				// AppObject Reportdetails
+					// path [@Text=="dw_list"]
+					// path [@WinClass=="pbdw125"]
+				// AppObject Close
+					// path [@Text=="cb_close"]
+					// path [@WinClass=="Button"]
+			// AppObject GetReport
+				// path [@Text=="cb_transmit"]
+				// path [@WinClass=="Button"]
+		// AppObject tbldwStep
+			// path [@Text=="dw_step"]
+			// path [@WinClass=="pbdw125"]
+		// AppObject tbldwcomponent
+			// path [@Text=="dw_component"]
+			// path [@WinClass=="pbdw125"]
+		// AppObject Finish
+			// path [@Text=="cb_next"]
+			// path [@WinClass=="Button"]
+	// MainWin CashDrawerLoginWindow
+		// path [@ObjectClass=="Branch PLUS  Logon"]
+		// path [@Text=="w_bp_logon"]
+		// path [@WinClass=="FNWNS3125"]
+		// AppObject txtuserid
+			// path [@Text=="sle_userid"]
+			// path [@WinClass=="Edit"]
+		// AppObject w_bp_logon_network
+			// path [@Text=="w_bp_logon_network"]
+			// AppObject tx_tuserid
+				// path [@Text=="sle_userid"]
+				// path [@WinClass=="Edit"]
+			// AppObject txt_password
+				// path [@Text=="sle_password"]
+				// path [@WinClass=="Edit"]
+			// AppObject btn_OK
+				// path [@Text=="cb_ok"]
+				// path [@WinClass=="Button"]
+				// 
+		// AppObject txtpassword
+			// path [@Text=="sle_password"]
+			// path [@WinClass=="Edit"]
+		// AppObject btnOK
+			// path [@Text=="cb_ok"]
+			// path [@WinClass=="Button"]
+		// DialogBox Question
+			// path [@Text==""]
+			// path [@WinClass=="#32770"]
+			// PushButton btnNo
+				// path [@Text=="&No"]
+				// path [@WinClass=="Button"]
+			// PushButton btnYes
+				// path [@Text=="&Yes"]
+				// path [@WinClass=="Button"]
+	// RenderImage Yes_MarketingInfoRadio_win10
+		// path [@Text=="Yes_MarketingInfoRadio_win10"]
+	// RenderImage Yes_MarketingInfoRadio
+		// path [@Text=="Yes_MarketingInfoRadio"]
+	// RenderImage Yes_AccountInfoRadio_win10
+		// path [@Text=="Yes_AccountInfoRadio_win10"]
+	// RenderImage Yes_AccountInfoRadio
+		// path [@Text=="Yes_AccountInfoRadio"]
+	// RenderImage ToFieldDropDown_CashDrawerPaymentWindow
+		// path [@Text=="ToFieldDropDown_CashDrawerPaymentWindow"]
+	// RenderImage textInTextConsentForm
+		// path [@Text=="textInTextConsentForm"]
+	// RenderImage Statistics_Report
+		// path [@Text=="Statistics_Report"]
+	// RenderImage showAdobeToolBarIcon
+		// path [@Text=="showAdobeToolBarIcon"]
+	// RenderImage ReferenceTab_TableHeader_950_Win10
+		// path [@Text=="ReferenceTab_TableHeader_9.5.0_Win10"]
+	// RenderImage ReferenceTab_TableHeader_950
+		// path [@Text=="ReferenceTab_TableHeader_9.5.0"]
+	// RenderImage ReferenceTab_TableHeader_94X_Win10
+		// path [@Text=="ReferenceTab_TableHeader_9.4.X_Win10"]
+	// RenderImage ReferenceTab_TableHeader_94X
+		// path [@Text=="ReferenceTab_TableHeader_9.4.X"]
+	// RenderImage PlusImageInPbTree
+		// path [@Text=="PlusImageInPbTree"]
+	// RenderImage PaymentToRollColumnsOldLoans_obsolete
+		// path [@Text=="PaymentToRollColumnsOldLoans_obsolete"]
+	// RenderImage PaymentToRollColumnsOldLoans
+		// path [@Text=="PaymentToRollColumnsOldLoans"]
+	// RenderImage PaymentToRollColumnsNewLoans_window10_obsolete
+		// path [@Text=="PaymentToRollColumnsNewLoans_window10_obsolete"]
+	// RenderImage PaymentToRollColumnsNewLoans_window10
+		// path [@Text=="PaymentToRollColumnsNewLoans_window10"]
+	// RenderImage PaymentToRollColumnsNewLoans
+		// path [@Text=="PaymentToRollColumnsNewLoans"]
+	// RenderImage PaymentToDropDown_PrintCheckForChange_win10
+		// path [@Text=="PaymentToDropDown_PrintCheckForChange_win10"]
+	// RenderImage PaymentToDropDown_PrintCheckForChange
+		// path [@Text=="PaymentToDropDown_PrintCheckForChange"]
+	// RenderImage PaymentToDropdown
+		// path [@Text=="PaymentToDropdown"]
+	// RenderImage OnBase_VSC_Contractpdf
+		// path [@Text=="OnBase_VSC_Contract.pdf"]
+	// RenderImage Onbase_VSC_Cancellation_P2pdf
+		// path [@Text=="Onbase_VSC_Cancellation_P2.pdf"]
+		// path [@Text==""]
+	// RenderImage Onbase_VSC_Cancellation_P1pdf
+		// path [@Text=="Onbase_VSC_Cancellation_P1.pdf"]
+		// path [@Text==""]
+		// path [@Text==""]
+	// RenderImage OnBase_NoForms_Validation
+		// path [@Text=="OnBase_NoForms_Validation"]
+	// RenderImage OnBase_FolderStructure
+		// path [@Text=="OnBase_FolderStructure"]
+	// RenderImage Onbase_F6_MultipleFiles_BeforeUpload
+		// path [@Text=="Onbase_F6_MultipleFiles_BeforeUpload"]
+	// RenderImage OnBase_F6_MultipleFiles_AfterUpload
+		// path [@Text=="OnBase_F6_MultipleFiles_AfterUpload"]
+	// RenderImage NsfCharge_StrickedOut
+		// path [@Text=="NsfCharge_StrickedOut"]
+		// path [@Text==""]
+		// path [@Text==""]
+	// RenderImage Notes_Button
+		// path [@Text=="Notes_Button"]
+	// RenderImage No_Radio_Acc_Mar
+		// path [@Text=="No_Radio_Acc_Mar"]
+	// RenderImage link_CreditScore
+		// path [@Text=="link_CreditScore"]
+	// RenderImage LienHolderLink
+		// path [@Text=="LienHolderLink"]
+	// RenderImage Forms_OnBase_VSCContract_WithoutIcon
+		// path [@Text=="Forms_OnBase_VSCContract_WithoutIcon"]
+	// RenderImage Forms_OnBase_VSCContract_WithICON
+		// path [@Text=="Forms_OnBase_VSCContract_WithICON"]
+	// RenderImage DueTodayBreakdownColumns_Windows10
+		// path [@Text=="DueTodayBreakdownColumns_Windows10"]
+	// RenderImage DueTodayBreakdownColumns
+		// path [@Text=="DueTodayBreakdownColumns"]
+	// RenderImage CollateralProtection_StrikedOff
+		// path [@Text=="CollateralProtection_StrikedOff"]
+	// RenderImage CollateralProtection
+		// path [@Text=="CollateralProtection"]
+		// path [@Text==""]
+		// path [@Text==""]
+	// RenderImage btnWaive
+		// path [@Text=="btnWaive"]
+	// RenderImage btnShowAll
+		// path [@Text=="btnShowAll"]
+	// RenderImage btnSendNow
+		// path [@Text=="btnSendNow"]
+	// RenderImage btnScanDocs
+		// path [@Text=="btnScanDocs"]
+	// RenderImage btnScan
+		// path [@Text=="btnScan"]
+	// RenderImage btnSave
+		// path [@Text=="btnSave"]
+	// RenderImage btnReverse
+		// path [@Text=="btnReverse"]
+	// RenderImage btnRefresh
+		// path [@Text=="btnRefresh"]
+	// RenderImage btnProcess
+		// path [@Text=="btnProcess"]
+	// RenderImage btnPrint
+		// path [@Text=="btnPrint"]
+	// RenderImage btnNext
+		// path [@Text=="btnNext"]
+	// RenderImage btnNew
+		// path [@Text=="btnNew"]
+	// RenderImage btnInsertRow
+		// path [@Text=="btnInsertRow"]
+	// RenderImage btnGetReport
+		// path [@Text=="btnGetReport"]
+	// RenderImage btnFirst
+		// path [@Text=="btnFirst"]
+	// RenderImage btnFind
+		// path [@Text=="btnFind"]
+	// RenderImage btnF2Icon
+		// path [@Text=="btnF2Icon"]
+	// RenderImage btnDelete
+		// path [@Text=="btnDelete"]
+	// RenderImage btnCreditChk_CoApplication
+		// path [@Text=="btnCreditChk_CoApplication"]
+		// path [@Text==""]
+		// path [@Text==""]
+	// RenderImage btnCreditChk
+		// path [@Text=="btnCreditChk"]
+		// path [@Text==""]
+		// path [@Text==""]
+	// RenderImage btnCredit
+		// path [@Text=="btnCredit"]
+	// RenderImage btnClose
+		// path [@Text=="btnClose"]
+	// RenderImage btnCease
+		// path [@Text=="btnCease"]
+	// RenderImage btnCancel
+		// path [@Text=="btnCancel"]
+	// RenderImage btnAddRow
+		// path [@Text=="btnAddRow"]
+	// RenderImage btn_VerifyMLAStatus_CreditDecision_Win10
+		// path [@Text=="btn_VerifyMLAStatus_CreditDecision_Win10"]
+		// path [@Text==""]
+		// path [@Text==""]
+	// RenderImage btn_VerifyMLAStatus_CreditDecision_CoApplication_Win10
+		// path [@Text=="btn_VerifyMLAStatus_CreditDecision_CoApplication_Win10"]
+	// RenderImage btn_VerifyMLAStatus_CreditDecision_CoApplication
+		// path [@Text=="btn_VerifyMLAStatus_CreditDecision_CoApplication"]
+	// RenderImage btn_VerifyMLAStatus_CreditDecision
+		// path [@Text=="btn_VerifyMLAStatus_CreditDecision"]
+		// path [@Text==""]
+		// path [@Text==""]
+	// RenderImage btn_NADA
+		// path [@Text=="btn_NADA"]
+	// RenderImage btn_Folder
+		// path [@Text=="btn_Folder"]
+	// RenderImage btn_Files
+		// path [@Text=="btn_Files"]
+	// RenderImage btn_EditLoanIcon
+		// path [@Text=="btn_EditLoanIcon"]
+	// RenderImage btn_BlackBook_win10
+		// path [@Text=="btn_BlackBook_win10"]
+	// RenderImage btn_BlackBook
+		// path [@Text=="btn_BlackBook"]
+	// RenderImage btn_Account_And_Markrting_Info_window10_old
+		// path [@Text=="btn_Account_And_Markrting_Info_window10_old"]
+	// RenderImage btn_Account_And_Markrting_Info_window10
+		// path [@Text=="btn_Account_And_Markrting_Info_window10"]
+	// RenderImage btn_Account_And_Markrting_Info
+		// path [@Text=="btn_Account_And_Markrting_Info"]
+	// RenderImage BranchPlusFrame
+		// path [@Text=="BranchPlusFrame"]
+		// path [@Text==""]
+	// RenderImage Allied_Website_Link_Win10
+		// path [@Text=="Allied_Website_Link_Win10"]
+	// RenderImage Allied_Website_Link
+		// path [@Text=="Allied_Website_Link"]
+app AppObject ResaleOfRepoLetter_State_OHPdf
+	path [@Text=="\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Downloads\ResaleOfRepoLetter_State_OH.Pdf"]
+app AppObject ResaleOfRepoLetter_State_GAPdf
+	path [@Text=="\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Downloads\ResaleOfRepoLetter_State_GA.Pdf"]
+app AppObject ResaleOfRepoLetterPdf
+	path [@Text=="\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Downloads\ResaleOfRepoLetter.Pdf"]
+app AppObject NSFLetterpdf
+	path [@Text=="\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Downloads\NSF Letter.pdf"]
+app AppObject DeferralAgreement_TX
+	path [@Text=="\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Downloads\Deferral Agreement_TX.pdf"]
+app AppObject DeferralAgreement_OtherStates
+	path [@Text=="\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Downloads\Deferral Agreement_GA.pdf"]
+app AppObject DeferralAgreementIndirect
+	path [@Text=="\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Downloads\Deferral Agreement - Indirect Loan.pdf"]
+app AppObject ChecksWriteCheck
+	path [@Text=="\\sfcnas-cl-201\Shared\Aravinda\Chandra\Branch Plus\Laser Print scripts\Checks Write Check.pdf"]
+app AppObject ChecksPayment
+	path [@Text=="\\sfcnas-cl-201\Shared\Aravinda\Chandra\Branch Plus\Laser Print scripts\Checks Payment.pdf"]
+app AppObject ChecksOfficeCopyWriteCheck
+	path [@Text=="\\sfcnas-cl-201\Shared\Aravinda\Chandra\Branch Plus\Laser Print scripts\Checks Office Copy Write a Check.pdf"]
+app AppObject ChecksOfficeCopyPayment
+	path [@Text=="\\sfcnas-cl-201\Shared\Aravinda\Chandra\Branch Plus\Laser Print scripts\Checks Office Copy Payment.pdf"]
+app AppObject ChecksOfficeCopyCollectionExpense_State_Specific_OH
+	path [@Text=="\\sfcnas-cl-201\Shared\Aravinda\Chandra\Branch Plus\Laser Print scripts\Checks Office Copy Coll Exp.pdf"]
+app AppObject ChecksOfficeCopyCollectionExpense_Motor
+	path [@Text=="\\sfcnas-cl-201\Shared\Aravinda\Chandra\Branch Plus\Laser Print scripts\Checks Office Copy Coll Exp.pdf"]
+app AppObject ChecksOfficeCopyCollectionExpense
+	path [@Text=="\\sfcnas-cl-201\Shared\Aravinda\Chandra\Branch Plus\Laser Print scripts\Checks Office Copy Coll Exp.pdf"]
+app AppObject ChecksCollectionExpense
+	path [@Text=="\\sfcnas-cl-201\Shared\Aravinda\Chandra\Branch Plus\Laser Print scripts\Checks Coll Exp.pdf"]
+// From Real Time Project AO
+app Window Report_InsightObjects2
+	path [@Text like "*Branch PLUS  Logon*"]
+	RenderImage EmpDelinqTrackerHeader
+		path [@Name == "EmpDelinqTrackerHeader"]
+	RenderImage StatsReportHeader
+		path [@Name == "StatsReportHeader"]
+app Window PDF_Form_InsighObjects
+	path [@WinClass=="AcrobatSDIWindow"]
+	RenderImage btn_FitPage
+		path [@Name == "btn_FitPage"]
+	RenderImage Laser_Signature
+		path [@Name == "Laser_Signature"]
+app Window BranchPLUSLogon
+	path [@Caption=="Branch PLUS  Logon"]
+	path [@Text=="w_bp_logon"]
+	PushButton btnOK
+		path [@Text=="OK"]
+	Window NetworkLoginAuthentication
+		path [@Name=="Network Login Authentication"]
+		TextField txtNetworkUser
+			path [@WinClass=="Edit"][2]
+		TextField txtNetworkPassword
+			path [@WinClass=="Edit"][1]
+		PushButton btnOK
+			path [@Text=="Ok"]
+	TextField txtUserName
+		path [@WinId==1004]
+	TextField txtPassword
+		path [@WinId==1005]
+app Window BranchPLUS
+	path [@Caption=="Branch PLUS"]
+	Window w_cancel_Component
+		path [@Text=="w_cancel_Component"]
+		Window w_late_charge_adjustment
+			path [@Text=="w_late_charge_adjustment"]
+			PushButton cb_cancel
+				path [@Text=="Cancel"]
+	Menu MenuItemBar
+		path [@menuobjtype==2]
+		MenuItem file
+			path [@Text=="File"]
+			MenuItem Exit
+				path [@Text=="Exit"]
+		MenuItem Tools
+			path [@Text=="Tools"]
+			MenuItem Internet
+				path [@Text=="Internet"]
+				MenuItem webpage
+					path [@Text=="webpage"]
+			MenuItem TCICredit
+				path [@Text=="TCICredit"]
+			MenuItem Support
+				path [@Text=="Support"]
+				MenuItem loanactivity
+					path [@Text=="&loanactivity"]
+			
+	RenderImage SyncAccountTabF2
+		path [@Name == "SyncAccountTabF2"]
+	RenderImage SyncAddressTabF2
+		path [@Name == "SyncAddressTabF2"]
+	RenderImage SyncBudgetTabF2
+		path [@Name == "SyncBudgetTabF2"]
+	RenderImage SyncCoapplicantTabF2
+		path [@Name == "SyncCoapplicantTabF2"]
+	RenderImage link_judgment
+		path [@Name == "link_judgment"]
+	
+app Window UIO_BranchPLUS_Frame
+	path [@Text=="*:*"]
+	path [@Name=="Branch PLUS"]
+	Window UIO_CustomerForms
+		path [@Text=="*:*:2000:*"]
+		path [@Name=="Customer Forms"]
+		AppObject WorkAutho_Form_Subject
+			path [@Text=="Voluntary Authorization for Calling Workplace"]
+			path [@Name=="t_18"]
+		AppObject WelcomeLetter_AccNum
+			path [@Text=="Account Number"]
+			path [@Name=="t_2"]
+		AppObject WelcomeCall_Form_Subject
+			path [@Text=="Welcome Call"]
+			path [@Name=="st_header"]
+		AppObject TextMsg_Form_Subject
+			path [@Text=="VOLUNTARY TEXT MESSAGES NOTICE AND CONSENT"]
+			path [@Name=="t_1"]
+		AppObject PriVacyNotice_Form_Subject
+			path [@Text=="Text Messages"]
+			path [@Name=="t_89"]
+		AppObject Notice_to_Cosign
+			path [@Text=="NOTICE TO COSIGNER"]
+			path [@Name=="t_notice_to_cosign"]
+		AppObject InsReq_Form_Subject
+			path [@Text=="RE: IMPORTANT NOTICE OF REQUIREMENT TO PROVIDE INSURANCE"]
+			path [@Name=="t_2"]
+		AppObject Direct_Loan_Contract
+			path [@Text=="CONSUMER LOAN AGREEMENT"]
+			path [@Name=="t_11"]
+		AppObject Arbitration_Agreement
+			path [@Name=="t_1"]
+app AppObject Desktop
+	path [@WinClass=="#32769"]
+	path [@Name=="Desktop"]
+	RenderImage WorkAuth
+		path [@Name == "WorkAuth"]
+app Window w_message
+	path [@Text=="Redeeming Repossession?"]
+	PushButton Yes
+		path [@Text=="cb_1"]
+	PushButton No
+		path [@Text=="cb_2"]
+	RenderImage RedeemingRepossession
+		path [@Name == "RedeemingRepossession"]
+	RenderImage wmessage_Yes
+		path [@Name == "wmessage_Yes"]
+	
+app Window w_bp_frame
+	path [@Text=="Branch PLUS"]
+	path [@Name=="w_bp_frame"]
+	Window w_centralized_mailing
+		path [@Text=="w_centralized_mailing"]
+		
+	Window w_dealer_setup
+		path [@Text=="Bernard Motorcar Company"]
+		path [@Name=="w_dealer_setup"]
+		TextField email
+			path [@WinClass=="Edit"]
+		Window dw_list
+			path [@Text=="dw_list"]
+	Window ReportsFrame
+		path [@Text=="Reports"]
+		path [@Text=="w_reports"]
+		TreeView tv_report
+			path [@Name=="tv_report"]
+		Window dw_report
+			path [@Name=="dw_report"]
+	Window CreditDecisionSearchWindow
+		path [@Text=="Credit Decision Statistics"]
+		path [@Name=="w_search"]
+		Window dw_search
+			path [@Name=="dw_search"]
+			PbTable DualLoanSearchTB
+				 path [@VisibleObjects like "reason*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText Reason
+							path [@Text=="reason"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  PbTextField Reason
+							path [overlapx <Header.Reason>] 
+					
+		PushButton btnOk
+			path [@Text=="cb_ok"]
+	AppObject PbObject
+		path [@WinClass=="FNFIXEDBAR125"]
+	RenderImage wmessage_No
+		path [@Name == "wmessage_No"]
+	RenderImage ChargedOffRepoText
+		path [@Name == "ChargedOffRepoText"]
+	RenderImage ChargedOffRepoHeader
+		path [@Name == "ChargedOffRepoHeader"]
+	
+app Window ResaleOfRepo_Header_Signature
+	path [@Text=="Branch PLUS"]
+	path [@Name=="w_bp_frame"]
+	DialogBox VersionMismatch
+		path [@Text=="Version Mismatch"]
+		PushButton Yes
+			path [@Text=="&Yes"]
+	RenderImage Button_VerifyMLAStatus
+		path [@Name == "Button_VerifyMLAStatus"]
+	RenderImage EndingMiageValidation
+		path [@Name == "EndingMiageValidation"]
+	RenderImage NC_ResaleOfRepo_Signature
+		path [@Name == "NC_ResaleOfRepo_Signature"]
+	RenderImage ReferenceNumber
+		path [@Name == "ReferenceNumber"]
+	RenderImage ResaleOfRepo_Header
+		path [@Name == "ResaleOfRepo_Header"]
+	RenderImage ResaleOfRepo_Signature
+		path [@Name == "ResaleOfRepo_Signature"]
+	RenderImage StateSpecific_ResaleOfRepo_Header
+		path [@Name == "StateSpecific_ResaleOfRepo_Header"]
+	RenderImage StateSpecific_ResaleOfRepo_Signature
+		path [@Name == "StateSpecific_ResaleOfRepo_Signature"]
+app Window Report_InsightObjects
+	path [@Text=="Branch PLUS"]
+	path [@Name=="w_bp_frame"]
+	RenderImage DailyManagersReportHeader
+		path [@Name == "DailyManagersReportHeader"]
+	RenderImage OnBase_VSCContracts_ContentValidation
+		path [@Name == "OnBase_VSCContracts_ContentValidation"]
+	RenderImage StatsReportHeader
+		path [@Name == "StatsReportHeader"]
+	RenderImage Sync_ColletralTab
+		path [@Name == "Sync_ColletralTab"]
+		
+app Window Forms_Spanish
+	path [@Text=="Branch PLUS"]
+	path [@Name=="w_bp_frame"]
+	RenderImage Administrative
+		path [@Name == "Administrative"]
+	RenderImage Administrative_9_2_2
+		path [@Name == "Administrative_9_2_2"]
+	RenderImage Application
+		path [@Name == "Application"]
+	RenderImage ArbitrationAgreement_StateSpecific
+		path [@Name == "ArbitrationAgreement_StateSpecific"]
+	RenderImage Collection
+		path [@Name == "Collection"]
+	RenderImage Contract
+		path [@Name == "Contract"]
+	RenderImage Contract_StateSpecific
+		path [@Name == "Contract_StateSpecific"]
+	RenderImage Credit
+		path [@Name == "Credit"]
+	RenderImage CreditInsurance
+		path [@Name == "CreditInsurance"]
+	RenderImage CreditInsurance_State_GA_NC
+		path [@Name == "CreditInsurance_State_GA_NC"]
+	RenderImage CreditInsurance_StateSpecific
+		path [@Name == "CreditInsurance_StateSpecific"]
+	RenderImage DeferralAgreement
+		path [@Name == "DeferralAgreement"]
+	RenderImage DueDateChangeRequest
+		path [@Name == "DueDateChangeRequest"]
+	RenderImage Gap
+		path [@Name == "Gap"]
+	RenderImage Insurance
+		path [@Name == "Insurance"]
+	RenderImage LetterOfGuarantee
+		path [@Name == "LetterOfGuarantee"]
+	RenderImage Payment
+		path [@Name == "Payment"]
+	RenderImage QuestionnaireOfBankruptCustomer
+		path [@Name == "QuestionnaireOfBankruptCustomer"]
+	RenderImage RecoveryCenter
+		path [@Name == "RecoveryCenter"]
+	RenderImage Repossession
+		path [@Name == "Repossession"]
+	RenderImage SecuirtyAgreementDirectLoanContract
+		path [@Name == "SecuirtyAgreementDirectLoanContract"]
+	RenderImage Solicitation
+		path [@Name == "Solicitation"]
+	RenderImage Warranty
+		path [@Name == "Warranty"]
+	RenderImage WelcomePackage
+		path [@Name == "WelcomePackage"]
+app Window Forms_InsightObjects
+	path [@Text=="Branch PLUS"]
+	path [@Name=="w_bp_frame"]
+	RenderImage Second_Notice_Of_Deficiency_Form_Header
+		path [@Name == "2ND_Notice_Of_Deficiency_Form_Header"]
+	RenderImage Second_Notice_Of_Deficiency_Form_Signature
+		path [@Name == "2ND_Notice_Of_Deficiency_Form_Signature"]
+	RenderImage BrokerPromise_Letter_Header
+		path [@Name == "BrokerPromise_Letter_Header"]
+	RenderImage BrokerPromise_Letter_Signature
+		path [@Name == "BrokerPromise_Letter_Signature"]
+	RenderImage CertifiedMail_ReturnReceiptRequested
+		path [@Name == "CertifiedMail_ReturnReceiptRequested"]
+	RenderImage ChargedOffRepoHeader
+		path [@Name == "ChargedOffRepoHeader"]
+	RenderImage ChargedOffRepoText
+		path [@Name == "ChargedOffRepoText"]
+	RenderImage ConsiderForLoss_Header
+		path [@Name == "ConsiderForLoss_Header"]
+	RenderImage ConsiderForLoss_Header_971
+		path [@Name == "ConsiderForLoss_Header_971"]
+	RenderImage CPI_CancellationNotice_FormContent
+		path [@Name == "CPI_CancellationNotice_FormContent"]
+	RenderImage CPI_CancellationNotice_FormContent_9
+		path [@Name == "CPI_CancellationNotice_FormContent_9"]
+	RenderImage CPI_CancellationNotice_FormContent_9_PartialText
+		path [@Name == "CPI_CancellationNotice_FormContent_9_PartialText"]
+	RenderImage CPI_CancellationNotice_Header
+		path [@Name == "CPI_CancellationNotice_Header"]
+	RenderImage CPI_NoticeToCustomer_FormContent
+		path [@Name == "CPI_NoticeToCustomer_FormContent"]
+	RenderImage CPI_NoticeToCustomer_Fotter
+		path [@Name == "CPI_NoticeToCustomer_Fotter"]
+	RenderImage CPI_NoticeToCustomer_ManagerSignature
+		path [@Name == "CPI_NoticeToCustomer_ManagerSignature"]
+	RenderImage Del_Letter_20_Signature
+		path [@Name == "Del_Letter_20_Signature"]
+	RenderImage DirectLoan_Acknowledgement_1stSentence_SC_1
+		path [@Name == "DirectLoan_Acknowledgement_1stSentence_SC_1"]
+	RenderImage DirectLoan_Acknowledgment_1stSentence_SC
+		path [@Name == "DirectLoan_Acknowledgment_1stSentence_SC"]
+	RenderImage DirectLoan_SecurityAgreementText
+		path [@Name == "DirectLoan_SecurityAgreementText"]
+	RenderImage DirectLoanContract_AdditionalInfo
+		path [@Name == "DirectLoanContract_AdditionalInfo"]
+	RenderImage DirectLoanContract_Header
+		path [@Name == "DirectLoanContract_Header"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_CustomerCopy
+		path [@Name == "DirectLoanPage1AndPage2_OverLapValidation_CustomerCopy"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_CustomerCopy_SC
+		path [@Name == "DirectLoanPage1AndPage2_OverLapValidation_CustomerCopy_SC"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_FileCopy
+		path [@Name == "DirectLoanPage1AndPage2_OverLapValidation_FileCopy"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_FileCopy_SC
+		path [@Name == "DirectLoanPage1AndPage2_OverLapValidation_FileCopy_SC"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy
+		path [@Name == "DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy_Old
+		path [@Name == "DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy_Old"]
+	RenderImage DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy_SC
+		path [@Name == "DirectLoanPage1AndPage2_OverLapValidation_OriginalCopy_SC"]
+	RenderImage ExplainCalcOfSurplesOrDeficiencyForm_Content
+		path [@Name == "ExplainCalcOfSurplesOrDeficiencyForm_Content"]
+	RenderImage ExplainCalcOfSurplesOrDeficiencyForm_Header
+		path [@Name == "ExplainCalcOfSurplesOrDeficiencyForm_Header"]
+	RenderImage ExplainCalcOfSurplesOrDeficiencyForm_Signature
+		path [@Name == "ExplainCalcOfSurplesOrDeficiencyForm_Signature"]
+	RenderImage FinalNotice_Header
+		path [@Name == "FinalNotice_Header"]
+	RenderImage FinalNotice_Signature
+		path [@Name == "FinalNotice_Signature"]
+	RenderImage Friendly_Reminder_Content
+		path [@Name == "Friendly_Reminder_Content"]
+	RenderImage Friendly_Reminder_Header
+		path [@Name == "Friendly_Reminder_Header"]
+	RenderImage Friendly_Reminder_Signature
+		path [@Name == "Friendly_Reminder_Signature"]
+	RenderImage LateFee_Notice_Content
+		path [@Name == "LateFee_Notice_Content"]
+	RenderImage LateFee_Notice_Header
+		path [@Name == "LateFee_Notice_Header"]
+	RenderImage LateFee_Notice_Signature
+		path [@Name == "LateFee_Notice_Signature"]
+	RenderImage LetterOfGuarantee_Form_Header
+		path [@Name == "LetterOfGuarantee_Form_Header"]
+	RenderImage LetterOfGuarantee_Form_Signature
+		path [@Name == "LetterOfGuarantee_Form_Signature"]
+	RenderImage LoanPayment_Deferral_Request_And_Agreement_Header
+		path [@Name == "LoanPayment_Deferral_Request_And_Agreement_Header"]
+	RenderImage Manager_Signature
+		path [@Name == "Manager_Signature"]
+	RenderImage Notice_Of_Charged_Off_Account_Form_Header
+		path [@Name == "Notice_Of_Charged_Off_Account_Form_Header"]
+	RenderImage Notice_Of_Default_And_RightToCure_FormContent
+		path [@Name == "Notice_Of_Default_And_RightToCure_FormContent"]
+	RenderImage Notice_Of_Default_And_RightToCure_Header
+		path [@Name == "Notice_Of_Default_And_RightToCure_Header"]
+	RenderImage Notice_Of_Default_And_RightToCure_Header_OH
+		path [@Name == "Notice_Of_Default_And_RightToCure_Header_OH"]
+	RenderImage Notice_Of_Default_And_RightToCure_Signature
+		path [@Name == "Notice_Of_Default_And_RightToCure_Signature"]
+	RenderImage Notice_Of_Default_Form_Header
+		path [@Name == "Notice_Of_Default_Form_Header"]
+	RenderImage Notice_Of_Default_Form_Signature
+		path [@Name == "Notice_Of_Default_Form_Signature"]
+	RenderImage Notice_Of_ExpireAccount_Header
+		path [@Name == "Notice_Of_ExpireAccount_Header"]
+	RenderImage Notice_Of_ExpireAccount_Signature
+		path [@Name == "Notice_Of_ExpireAccount_Signature"]
+	RenderImage Notice_Of_Insurance_Deficiency_Form_CertifiedMail_ReturnReceiptRequested
+		path [@Name == "Notice_Of_Insurance_Deficiency_Form_CertifiedMail_ReturnReceiptRequested"]
+	RenderImage Notice_Of_Insurance_Deficiency_Form_Header
+		path [@Name == "Notice_Of_Insurance_Deficiency_Form_Header"]
+	RenderImage Notice_Of_Insurance_Deficiency_Form_Signature
+		path [@Name == "Notice_Of_Insurance_Deficiency_Form_Signature"]
+	RenderImage Notice_Of_Insurance_Deficiency_Form_Signature_Old
+		path [@Name == "Notice_Of_Insurance_Deficiency_Form_Signature_Old"]
+	RenderImage OHIO_Right_To_Cure_Form_Bottom
+		path [@Name == "OHIO_Right_To_Cure_Form_Bottom"]
+	RenderImage PromiseReminder_FormContent
+		path [@Name == "PromiseReminder_FormContent"]
+	RenderImage PromiseReminder_Header
+		path [@Name == "PromiseReminder_Header"]
+	RenderImage PromiseReminder_Signature
+		path [@Name == "PromiseReminder_Signature"]
+	RenderImage RepossessionWarning_Notice_Form_Header
+		path [@Name == "RepossessionWarning_Notice_Form_Header"]
+	RenderImage RepossessionWarning_Notice_Form_Signature
+		path [@Name == "RepossessionWarning_Notice_Form_Signature"]
+	RenderImage ResaleOfRepoLetter_Header
+		path [@Name == "ResaleOfRepoLetter_Header"]
+	RenderImage ResaleOfRepoLetter_Signature
+		path [@Name == "ResaleOfRepoLetter_Signature"]
+app Window Forms_English
+	path [@ObjectClass=="Branch PLUS"]
+	path [@Text=="w_bp_frame"]
+	RenderImage Administrative
+		path [@Name == "Administrative"]
+	RenderImage Administrative_9_2_2
+		path [@Name == "Administrative_9_2_2"]
+	RenderImage Application
+		path [@Name == "Application"]
+	RenderImage ArbitrationAgreement_StateSpecific
+		path [@Name == "ArbitrationAgreement_StateSpecific"]
+	RenderImage Authorization
+		path [@Name == "Authorization"]
+	RenderImage Checks
+		path [@Name == "Checks"]
+	RenderImage Collection
+		path [@Name == "Collection"]
+	RenderImage Contract
+		path [@Name == "Contract"]
+	RenderImage Contract_StateSpecific
+		path [@Name == "Contract_StateSpecific"]
+	RenderImage Credit
+		path [@Name == "Credit"]
+	RenderImage CreditInsurance
+		path [@Name == "CreditInsurance"]
+	RenderImage CreditInsurance_State_GA_NC
+		path [@Name == "CreditInsurance_State_GA_NC"]
+	RenderImage CreditInsurance_StateSpecific
+		path [@Name == "CreditInsurance_StateSpecific"]
+	RenderImage DeferralAgreement
+		path [@Name == "DeferralAgreement"]
+	RenderImage DueDateChangeRequest
+		path [@Name == "DueDateChangeRequest"]
+	RenderImage Gap
+		path [@Name == "Gap"]
+	RenderImage Gap_9_5_0
+		path [@Name == "Gap_9_5_0"]
+	RenderImage Gap_9_6_0
+		path [@Name == "Gap_9_6_0"]
+	RenderImage Insurance
+		path [@Name == "Insurance"]
+	RenderImage LetterOfGuarantee
+		path [@Name == "LetterOfGuarantee"]
+	RenderImage OnBase
+		path [@Name == "OnBase"]
+	RenderImage Payment
+		path [@Name == "Payment"]
+	RenderImage QuestionnaireOfBankruptCustomer
+		path [@Name == "QuestionnaireOfBankruptCustomer"]
+	RenderImage RecoveryCenter
+		path [@Name == "RecoveryCenter"]
+	RenderImage Repossession
+		path [@Name == "Repossession"]
+	RenderImage SecuirtyAgreementDirectLoanContract
+		path [@Name == "SecuirtyAgreementDirectLoanContract"]
+	RenderImage Solicitation
+		path [@Name == "Solicitation"]
+	RenderImage Warranty
+		path [@Name == "Warranty"]
+	RenderImage WelcomePackage
+		path [@Name == "WelcomePackage"]
+app Window CMS_Validation
+	path [@ObjectClass=="Branch PLUS"]
+	path [@Text=="w_bp_frame"]
+	RenderImage CMS_Audit_ActivityType
+		path [@Name == "CMS_Audit_ActivityType"]
+	RenderImage CPI_CancellationNotice_Header
+		path [@Name == "CPI_CancellationNotice_Header"]
+	RenderImage FormsPrintOption_CMS_Enabled
+		path [@Name == "FormsPrintOption_CMS_Enabled"]
+	RenderImage FormsPrintOption_CMS_Enabled_Windows10
+		path [@Name == "FormsPrintOption_CMS_Enabled_Windows10"]
+	RenderImage HOMailing_CheckBox_PaymentProcessDialog
+		path [@Name == "HOMailing_CheckBox_PaymentProcessDialog"]
+	RenderImage HOMailing_CheckBox_PaymentProcessDialog_Windows10
+		path [@Name == "HOMailing_CheckBox_PaymentProcessDialog_Windows10"]
+	RenderImage Mail_Icon_FormsWindow
+		path [@Name == "Mail_Icon_FormsWindow"]
+	RenderImage PaymentProcessDialog_CMS_Disabled
+		path [@Name == "PaymentProcessDialog_CMS_Disabled"]
+	RenderImage PaymentProcessDialog_CMS_Enabled
+		path [@Name == "PaymentProcessDialog_CMS_Enabled"]
+		
+app Window TbwCompnent
+	path [@Name=="dw_component"]
+	PbTable ChargeAmttitleFeeTB 
+		 path [@VisibleObjects like "purch_amt, nbr_of_months, cust_rate*"] 
+		 PbHeader Header 
+			  path PbHeader 
+			  PbText ChargeAmount 
+					path [@Text=="chrgAmt"] 
+		 class Row 
+			  path [@RowIndex>=1] 
+			  TextField ChargeAmount 
+					path [overlapx <Header.ChargeAmount>] 
+		
+		
+app MainWin BranchPlus
+	path [@ObjectClass=="Branch PLUS"]
+	path [@Text=="w_bp_frame"]
+	Window w_garnishment_payment
+		path [@Text=="Garnishment Payments"]
+		path [@Name=="w_garnishment_payment"]
+		Window dw_detail
+			path [@Text=="dw_detail"]
+	Window w_account_judgment_tracking
+		path [@Text=="w_account_judgment_tracking"]
+		Window dw_detail
+			path [@Text=="dw_detail"]
+		Window dw_list
+			path [@Text=="dw_list"]
+	Window w_checkbook_pmt_split
+		path [@Text=="Check Book Payment Loan Proceeds"]
+		path [@Name=="w_checkbook_pmt_split"]
+		Window dw_list
+			path [@Text=="dw_list"]
+			PbTable CheckBookPayTB
+				 path [@VisibleObjects like "reason, pay_to*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText Reason
+							path [@Text=="reason"] 
+					  PbText PayTo
+							path [@Text=="pay_to"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  PbTextField Reason
+							path [overlapx <Header.Reason>] 
+					  PbTextField PayTo
+							path [overlapx <Header.PayTo>] 
+				
+		PushButton btnProcess
+			path [@Text=="cb_process"]
+	Window w_acct_loan_disclosure
+		path [@Text=="Truth In Lending Disclosure"]
+		path [@Name=="w_acct_loan_disclosure"]
+		PushButton btnOK
+			path [@Text=="cb_ok"]
+		Window w_message
+			path [@Text=="Process Loan"]
+			path [@Name=="w_message"]
+			PushButton btnYes
+				path [@Text=="cb_1"]
+			PushButton btnOk
+				path [@Text=="OK"]
+			
+	Window NextCheckNumberPopUp
+		path [@Text=="Next Check Number"]
+		path [@Name=="w_message"]
+		PushButton btnYes
+			path [@Text=="cb_1"]
+	Window MessageWindow
+		path [@Text=="Credit Decision"]
+		path [@Name=="w_message"]
+		PushButton No
+			path [@Text=="cb_2"]
+	Window CustomerSearchWindow
+		path [@Text=="Customer Search"]
+		path [@Name=="w_search"]
+		Window dw_search
+			path [@Name=="dw_search"]
+			PbTable SearchTB
+				 path [@VisibleObjects like "ssn*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText SSN 
+							path [@Text=="ssn"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  TextField SSN 
+							path [overlapx <Header.SSN>] 
+		PushButton btnOK
+			path [@Text=="cb_ok"]
+	Window CustomerF2Window
+		path [@Name=="w_cust"]
+		Tab TabStripe
+			path [@Name=="tab_cust"]
+		Window dw_list_reference
+			path [@Name like "dw_list"]
+			PbTable ReferenceDetailsTB
+				 path [@VisibleObjects like "cust_ref_type, first_name*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText CustRefType
+							path [@Text=="cust_ref_type"] 
+					  PbText FirstName
+							path [@Text=="first_name"] 
+					  PbText LastName
+							path [@Text=="last_name"] 
+					  PbText Phone1
+							path [@Text=="phone1"] 
+					  PbText Phone2
+							path [@Text=="phone2"] 
+					  PbText Phone3
+							path [@Text=="phone3"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  PbTextField CustRefType
+							path [overlapx <Header.CustRefType>] 
+					  PbTextField FirstName
+							path [overlapx <Header.FirstName>] 
+					  PbTextField LastName
+							path [overlapx <Header.LastName>] 
+					  PbTextField Phone1
+							path [overlapx <Header.Phone1>] 
+					  PbTextField Phone2
+							path [overlapx <Header.Phone2>] 
+					  PbTextField Phone3
+							path [overlapx <Header.Phone3>] 
+					
+				
+		Window dw_insurance
+			path [@Text=="dw_insurance"]
+			PbTable InsuranceDetailsTB
+				 path [@VisibleObjects like "company_name, policy_nbr,start_dt,end_dt*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText CompanyName
+							path [@Text=="company_name"] 
+					  PbText PolicyNo
+							path [@Text=="policy_nbr"] 
+					  PbText StartDate
+							path [@Text=="start_dt"] 
+					  PbText EndDate
+							path [@Text=="end_dt"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  PbTextField CompanyName
+							path [overlapx <Header.CompanyName>] 
+					  PbTextField PolicyNo
+							path [overlapx <Header.PolicyNo>] 
+					  PbTextField StartDate
+							path [overlapx <Header.StartDate>] 
+					  PbTextField EndDate
+							path [overlapx <Header.EndDate>] 
+		Window dw_cust
+			path [@Text=="dw_cust"]
+			PbTable CustomerUSResidentTB
+				 path [@VisibleObjects like "other_stipulation*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText USResident
+							path [@Text=="us_resident_yn"] 
+					  PbText CreditScore
+							path [@Text=="credit_score"] 
+					  PbText Email
+							path [@Text=="email"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  TextField USResident
+							path [overlapx <Header.USResident>]
+					  TextField CreditScore
+							path [overlapx <Header.CreditScore>]
+					  TextField Email
+							path [overlapx <Header.Email>] 
+					
+			PbTable CustomerTB
+				 path [@VisibleObjects like "purch_amt*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText PurchaseAmt
+							path [@Text=="purch_amt"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  PbTextField PurchaseAmt
+							path [overlapx <Header.PurchaseAmt>]
+					
+			Window dw_note
+				 path [@Text=="dw_note"] 
+		Window dw_budget
+			path [@Text=="dw_budget"]
+			PbTable BudgetDetailsTB
+				 path [@VisibleObjects like "monthlyInc1,monthlyInc2*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText MonthlyInc
+							path [@Text=="monthly_income"] 
+					  PbText MonthlyPay
+							path [@Text=="monthly_payment"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  PbTextField MonthlyInc
+							path [overlapx <Header.MonthlyInc>] 
+					  PbTextField MonthlyPay
+							path [overlapx <Header.MonthlyPay>] 
+					
+				
+		Window dw_acct
+			path [@Text=="dw_acct"]
+			PbTable AccountStatusTB
+				 path [@VisibleObjects like "acct_status, acct_type, amt_fincd, cust_rate, nbr_of_months, acct_id*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText AccountStatus
+							path [@Text=="acct_status"] 
+					  PbText AccountType
+							path [@Text=="acct_type"] 
+					  PbText AmountFinance
+							path [@Text=="amt_fincd"] 
+					  PbText AccountID
+							path [@Text=="acct_id"] 
+					  PbText CustomerRate
+							path [@Text=="cust_rate"] 
+					  PbText NoOfMonths
+							path [@Text=="nbr_of_months"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  PbTextField AccountStatus
+							path [overlapx <Header.AccountStatus>] 
+					  PbTextField AccountType
+							path [overlapx <Header.AccountType>]
+					  PbTextField AmountFinance
+							path [overlapx <Header.AmountFinance>]
+					  PbTextField CustomerRate
+							path [overlapx <Header.CustomerRate>]
+					  PbTextField AccountID
+							path [overlapx <Header.AccountID>]
+					  PbTextField NoOfMonths
+							path [overlapx <Header.NoOfMonths>]
+					
+		Window Edit
+			path [@Text like "*"]
+		Window dw_loc
+			path [@Name=="dw_loc"]
+		Window dw_cust_phone
+			path [@Name=="dw_cust_phone"]
+		Window dw_account_status_display
+			path [@Name=="dw_account_status_display"]
+		TreeView tv_cust
+			path [@Name=="tv_cust"]
+		Window dw_payments
+			path [@Text=="dw_payments"]
+		Window dw_charges
+			path [@Text=="dw_charges"]
+	Window CreditReport
+		path [@Name=="w_view_report"]
+		Window Reportdetails
+			path [@Text=="dw_list"]
+		PushButton Close
+			path [@Text=="cb_close"]
+		Window verifyMLAPopUp
+			path [@Name=="w_mla_verify"]
+			Window CreditReport
+				path [@Name=="w_view_report"]
+				Window Reportdetails
+					path [@Text=="dw_list"]
+				PushButton Close
+					path [@Text=="cb_close"]
+			PushButton GetReport
+				path [@Name=="cb_transmit"]
+		
+	Window w_payment
+		path [@Name=="w_payment"]
+		Window dw_payment
+			path [@Text=="dw_payment"]
+		Window w_message
+			path [@Name=="w_message"]
+			PushButton OK
+				path [@Text=="OK"]
+			PushButton buttonName
+				path [@Text=="button Name"]
+			WinText Edit
+				path [@Text=="Edit"]
+		Window w_search
+			path [@Name=="w_search"]
+			TextField Txt_Search
+				path [@WinClass =="Edit"][1]
+			PushButton btnOk
+				path [@Text=="Ok"]
+			Window w_choosemany
+				path [@Name=="w_choosemany"]
+				
+			Window Edit
+				path [@Name=="Edit"]
+				
+			
+	Window CreditDecision
+		path [@Name=="w_wiz_new_cust"]
+		path [@Name=="w_wiz_new_acct"]
+		Window tbldwStep
+			path [@Name=="dw_step"]
+			PbTable PrimaryEmpDetailsTB
+				 path [@VisibleObjects like "empname,empPos,Dept*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText EmpName 
+							path [@Text=="empname"] 
+					  PbText EmpPos 
+							path [@Text=="empPos"] 
+					  PbText Dept 
+							path [@Text=="Dept"] 
+					  PbText Shift 
+							path [@Text=="Shift"] 
+					  PbText Supervisor 
+							path [@Text=="Supervisor"] 
+					  PbText WorkYear 
+							path [@Text=="Year"] 
+					  PbText WorkMons 
+							path [@Text=="Months"] 
+					  PbText SalarySource 
+							path [@Text=="source"] 
+					  PbText PayDay 
+							path [@Text=="PayDay"] 
+					  PbText SalaryPeriodType
+							path [@Text=="PeriodType"] 
+					  PbText GrossSalary
+							path [@Text=="GrossSalary"] 
+					
+				 class Row 
+					  path [@RowIndex>=1] 
+					  TextField EmpName 
+							path [overlapx <Header.EmpName>] 
+					  TextField EmpPos
+							path [overlapx <Header.EmpPos>] 
+					  TextField Dept 
+							path [overlapx <Header.Dept>] 
+					  TextField Shift 
+							path [overlapx <Header.Shift>] 
+					  TextField Supervisor 
+							path [overlapx <Header.Supervisor>] 
+					  TextField WorkYear 
+							path [overlapx <Header.WorkYear>] 
+					  TextField WorkMons 
+							path [overlapx <Header.WorkMons>] 
+					  TextField SalarySource 
+							path [overlapx <Header.SalarySource>]  
+					  TextField PayDay 
+							path [overlapx <Header.PayDay>]  
+					  TextField SalaryPeriodType 
+							path [overlapx <Header.SalaryPeriodType>]  
+					  TextField GrossSalary 
+							path [overlapx <Header.GrossSalary>]  
+					
+			PbTable CollateralDetailsTB
+				 path [@VisibleObjects like "new_yn,vin, descr, make, year*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText New_yn 
+							path [@Text=="new_yn"] 
+					  PbText Vin 
+							path [@Text=="vin"] 
+					  PbText Descr 
+							path [@Text=="descr"] 
+					  PbText Make 
+							path [@Text=="make"] 
+					  PbText Model 
+							path [@Text=="model"] 
+					  PbText Style 
+							path [@Text=="style"] 
+					  PbText Year 
+							path [@Text=="year"] 
+					  PbText Color 
+							path [@Text=="color"] 
+					  PbText Mileage 
+							path [@Text=="mileage"] 
+					  PbText Cylinder
+							path [@Text=="cylinder"] 
+					  PbText Other
+							path [@Text=="other"] 
+					  PbText TradeDescr
+							path [@Text=="trade_in_desc"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  TextField New_yn 
+							path [overlapx <Header.New_yn>] 
+					  TextField Vin
+							path [overlapx <Header.Vin>] 
+					  TextField Descr 
+							path [overlapx <Header.Descr>] 
+					  TextField Make 
+							path [overlapx <Header.Make>] 
+					  TextField Model 
+							path [overlapx <Header.Model>] 
+					  TextField Style 
+							path [overlapx <Header.Style>] 
+					  TextField Year 
+							path [overlapx <Header.Year>] 
+					  TextField Color 
+							path [overlapx <Header.Color>]  
+					  TextField Mileage 
+							path [overlapx <Header.Mileage>]  
+					  TextField Cylinder 
+							path [overlapx <Header.Cylinder>]  
+					  TextField Other 
+							path [overlapx <Header.Other>]  
+					  TextField TradeDescr 
+							path [overlapx <Header.TradeDescr>]  
+			PbTable StipulatedDetailsTB
+				 path [@VisibleObjects like "other_stipulation*"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText OtherStipulation 
+							path [@Text=="other_stipulation"] 
+				 class Row 
+					  path [@RowIndex>=1] 
+					  TextField OtherStipulation 
+							path [overlapx <Header.OtherStipulation>] 
+			PbTable ApplicationstatusTB
+				 path [@VisibleObjects like "app_status,acct_type *"] 
+				 PbHeader Header 
+					  path PbHeader 
+					  PbText ApplicationStatus
+							path [@Text=="app_status"] 
+					  PbText AccountType 
+							path [@Text=="acct_type"] 
+					
+				 class Row 
+					  path [@RowIndex>=1] 
+					  PopupList ApplicationStatus
+							path [overlapx <Header.ApplicationStatus>] 
+					  PbTextField AccountType 
+							path [overlapx <Header.AccountType>] 
+					
+		Window Creditcheck
+			path [@Name=="w_creditcheck"]
+			PushButton GetReport
+				path [@Text=="cb_transmit"]
+			Window tblCreditcheck
+				path [@Text=="dw_creditcheck"]
+			RadioButton rb_Test
+				path [@Text == "rb_test"]
+		PushButton Finish
+			path [@Name=="cb_next"]
+		Window USPS_Window
+			path [@Text=="Applicant Address"]
+			path [@Name=="w_usps_addressverification"]
+			PushButton btnUseAddressAbove
+				path [@Name=="cb_use_your_address"]
+		Window USPS_WindowCo
+			path [@Text=="Applicant Address"]
+			path [@Name=="w_usps_addressverification"]
+			PushButton btnUseAddressAbove
+				path [@Name=="cb_use_your_address"]
+		PushButton btnNext
+			path [@Name=="&Next >"]
+		Window verifyMLAPopUp
+			path [@Name=="w_mla_verify"]
+			Window CreditReport
+				path [@Name=="w_view_report"]
+				Window Reportdetails
+					path [@Text=="dw_list"]
+				PushButton Close
+					path [@Text=="cb_close"]
+			PushButton GetReport
+				path [@Name=="cb_transmit"]
+		Window tbldwcomponent
+			path [@Text=="dw_component"]
+			path [@WinClass=="pbdw125"]
+	Window CashDrawerLoginWindow
+		path [@Text=="Branch PLUS  Logon"]
+		path [@Name=="w_bp_logon"]
+		DialogBox Question
+			path [@Text=="Question.*"]
+			PushButton btnNo
+				path [@Name=="&No"]
+		TextField txtuserid
+			path [@Name=="sle_userid"]
+		TextField txtpassword
+			path [@Name=="sle_password"]
+		PushButton btnOK
+			path [@Name=="cb_ok"]
+	Window w_chooseone
+		path [@Name=="w_chooseone"]
+		PopupList lb_list
+			path [@Name=="lb_list"]
+			
+		PushButton btnOk
+			path [@Text like "*Ok"]
+		
+	PushButton btnProcess
+		path [@Text=="cb_process"]
+	PushButton btnClose
+		path [@Text=="cb_close"]
+	PushButton btnNext
+		path [@Text=="cb_next"]
+	PushButton btnSave
+		path [@Text=="cb_save"]
+	RenderImage Allied_Website_Link
+		path [@Name == "Allied_Website_Link"]
+	RenderImage Allied_Website_Link_Win10
+		path [@Name == "Allied_Website_Link_Win10"]
+	RenderImage BranchPlusFrame
+		path [@Name == "BranchPlusFrame"]
+	RenderImage btn_Account_And_Markrting_Info
+		path [@Name == "btn_Account_And_Markrting_Info"]
+	RenderImage btn_Account_And_Markrting_Info_window10_old
+		path [@Name == "btn_Account_And_Markrting_Info_window10_old"]
+	RenderImage btn_BlackBook
+		path [@Name == "btn_BlackBook"]
+	RenderImage btn_BlackBook_win10
+		path [@Name == "btn_BlackBook_win10"]
+	RenderImage btn_EditLoanIcon
+		path [@Name == "btn_EditLoanIcon"]
+	RenderImage btn_Files
+		path [@Name == "btn_Files"]
+	RenderImage btn_Folder
+		path [@Name == "btn_Folder"]
+	RenderImage btn_NADA
+		path [@Name == "btn_NADA"]
+	RenderImage btn_VerifyMLAStatus_CreditDecision
+		path [@Name == "btn_VerifyMLAStatus_CreditDecision"]
+	RenderImage btn_VerifyMLAStatus_CreditDecision_CoApplication
+		path [@Name == "btn_VerifyMLAStatus_CreditDecision_CoApplication"]
+	RenderImage btn_VerifyMLAStatus_CreditDecision_CoApplication_Win10   
+		path [@Name == "btn_VerifyMLAStatus_CreditDecision_CoApplication_Win10   "]
+	RenderImage btn_VerifyMLAStatus_CreditDecision_Win10
+		path [@Name == "btn_VerifyMLAStatus_CreditDecision_Win10"]
+	RenderImage btnAddRow
+		path [@Name == "btnAddRow"]
+	RenderImage btnCancel
+		path [@Name == "btnCancel"]
+	RenderImage btnCease
+		path [@Name == "btnCease"]
+	RenderImage btnClose1
+		path [@Name == "btnClose"]
+	RenderImage btnCredit
+		path [@Name == "btnCredit"]
+	RenderImage btnCreditChk
+		path [@Name == "btnCreditChk"]
+	RenderImage btnCreditChk_CoApplication
+		path [@Name == "btnCreditChk_CoApplication"]
+	RenderImage btnDelete
+		path [@Name == "btnDelete"]
+	RenderImage btnF2Icon
+		path [@Name == "btnF2Icon"]
+	RenderImage btnFind
+		path [@Name == "btnFind"]
+	RenderImage btnFirst
+		path [@Name == "btnFirst"]
+	RenderImage btnGetReport
+		path [@Name == "btnGetReport"]
+	RenderImage btnInsertRow
+		path [@Name == "btnInsertRow"]
+	RenderImage btnNew
+		path [@Name == "btnNew"]
+	RenderImage btnNext1
+		path [@Name == "btnNext"]
+	RenderImage btnPrint
+		path [@Name == "btnPrint"]
+	RenderImage btnProcess1
+		path [@Name == "btnProcess"]
+	RenderImage btnRefresh
+		path [@Name == "btnRefresh"]
+	RenderImage btnReverse
+		path [@Name == "btnReverse"]
+	RenderImage btnSave1
+		path [@Name == "btnSave"]
+	RenderImage btnScan
+		path [@Name == "btnScan"]
+	RenderImage btnScanDocs
+		path [@Name == "btnScanDocs"]
+	RenderImage btnSendNow
+		path [@Name == "btnSendNow"]
+	RenderImage btnShowAll
+		path [@Name == "btnShowAll"]
+	RenderImage btnWaive
+		path [@Name == "btnWaive"]
+	RenderImage CollateralProtection
+		path [@Name == "CollateralProtection"]
+	RenderImage CollateralProtection_StrikedOff
+		path [@Name == "CollateralProtection_StrikedOff"]
+	RenderImage DueTodayBreakdownColumns
+		path [@Name == "DueTodayBreakdownColumns"]
+	RenderImage DueTodayBreakdownColumns_Windows10
+		path [@Name == "DueTodayBreakdownColumns_Windows10"]
+	RenderImage Forms_OnBase_VSCContract_WithICON
+		path [@Name == "Forms_OnBase_VSCContract_WithICON"]
+	RenderImage Forms_OnBase_VSCContract_WithoutIcon
+		path [@Name == "Forms_OnBase_VSCContract_WithoutIcon"]
+	RenderImage LienHolderLink
+		path [@Name == "LienHolderLink"]
+	RenderImage link_CreditScore
+		path [@Name == "link_CreditScore"]
+	RenderImage No_Radio_Acc_Mar
+		path [@Name == "No_Radio_Acc_Mar"]
+	RenderImage Notes_Button
+		path [@Name == "Notes_Button"]
+	RenderImage NsfCharge_StrickedOut
+		path [@Name == "NsfCharge_StrickedOut"]
+	RenderImage OnBase_F6_MultipleFiles_AfterUpload
+		path [@Name == "OnBase_F6_MultipleFiles_AfterUpload"]
+	RenderImage Onbase_F6_MultipleFiles_BeforeUpload
+		path [@Name == "Onbase_F6_MultipleFiles_BeforeUpload"]
+	RenderImage OnBase_FolderStructure
+		path [@Name == "OnBase_FolderStructure"]
+	RenderImage OnBase_NoForms_Validation
+		path [@Name == "OnBase_NoForms_Validation"]
+	RenderImage Onbase_VSC_Cancellation_P1_pdf
+		path [@Name == "Onbase_VSC_Cancellation_P1_pdf"]
+	RenderImage Onbase_VSC_Cancellation_P2_pdf
+		path [@Name == "Onbase_VSC_Cancellation_P2_pdf"]
+	RenderImage OnBase_VSC_Contract_pdf
+		path [@Name == "OnBase_VSC_Contract_pdf"]
+	RenderImage PaymentToDropdown
+		path [@Name == "PaymentToDropdown"]
+	RenderImage PaymentToDropDown_PrintCheckForChange
+		path [@Name == "PaymentToDropDown_PrintCheckForChange"]
+	RenderImage PaymentToDropDown_PrintCheckForChange_win10
+		path [@Name == "PaymentToDropDown_PrintCheckForChange_win10"]
+	RenderImage PaymentToRollColumnsNewLoans
+		path [@Name == "PaymentToRollColumnsNewLoans"]
+	RenderImage PaymentToRollColumnsNewLoans_window10
+		path [@Name == "PaymentToRollColumnsNewLoans_window10"]
+	RenderImage PaymentToRollColumnsNewLoans_window10_obsolete
+		path [@Name == "PaymentToRollColumnsNewLoans_window10_obsolete"]
+	RenderImage PaymentToRollColumnsOldLoans
+		path [@Name == "PaymentToRollColumnsOldLoans"]
+	RenderImage PaymentToRollColumnsOldLoans_obsolete
+		path [@Name == "PaymentToRollColumnsOldLoans_obsolete"]
+	RenderImage PlusImageInPbTree
+		path [@Name == "PlusImageInPbTree"]
+	RenderImage ReferenceTab_TableHeader_9_4_X
+		path [@Name == "ReferenceTab_TableHeader_9_4_X"]
+	RenderImage ReferenceTab_TableHeader_9_4_X_Win10
+		path [@Name == "ReferenceTab_TableHeader_9_4_X_Win10"]
+	RenderImage ReferenceTab_TableHeader_9_5_0
+		path [@Name == "ReferenceTab_TableHeader_9_5_0"]
+	RenderImage ReferenceTab_TableHeader_9_5_0_Win10
+		path [@Name == "ReferenceTab_TableHeader_9_5_0_Win10"]
+	RenderImage showAdobeToolBarIcon
+		path [@Name == "showAdobeToolBarIcon"]
+	RenderImage Statistics_Report
+		path [@Name == "Statistics_Report"]
+	RenderImage textInTextConsentForm
+		path [@Name == "textInTextConsentForm"]
+	RenderImage ToFieldDropDown_CashDrawerPaymentWindow
+		path [@Name == "ToFieldDropDown_CashDrawerPaymentWindow"]
+	RenderImage Yes_AccountInfoRadio
+		path [@Name == "Yes_AccountInfoRadio"]
+	RenderImage Yes_AccountInfoRadio_win10
+		path [@Name == "Yes_AccountInfoRadio_win10"]
+	RenderImage Yes_MarketingInfoRadio
+		path [@Name == "Yes_MarketingInfoRadio"]
+	RenderImage Yes_MarketingInfoRadio_win10
+		path [@Name == "Yes_MarketingInfoRadio_win10"]
+	
+	
+app DialogBox CreditDecisionSTEP
+	path [@Caption=="Credit Decision [STEP ? OF 8] Reference Nbr: 088100029789"] 
+	path [@Text=="w_wiz_new_cust"] 
+	PbTextField LastName 
+		 path [@ObjectName=="last_name"] 
+	PbTextField FirstName 
+		 path [@ObjectName=="first_name"] 
+	PbTextField SSN 
+		 path [@ObjectName=="ssn"] 
+	PbTextField DobDt 
+		 path [@ObjectName=="dob_dt"] 
+	PbTable CoApplicantTable 
+		path [below PbText[@Text=="Suffix:"]] 
+		path [@Text == "dw_coapp"]
+		 PbHeader Header 
+				path PbHeader 
+			PbText DOB 
+				path [@Text=="DOB"] 
+			PbText SSN 
+				path [@Text=="SSN"] 
+			PbText Suffix 
+				path [@Text=="Suffix"] 
+			PbText MiddleName 
+				path [@Text=="Middle Name"] 
+			PbText FirstName 
+				path [@Text=="First Name"] 
+			PbText LastName 
+				path [@Text=="Last Name"] 
+			PbText Type 
+				path [@Text=="Type"] 
+		 class Row 
+			  path [@RowIndex>=1] 
+			TextField ApplicantType 
+				path [overlapx <Header.Type>] 
+			TextField LastName 
+				path [overlapx <Header.LastName>] 
+			TextField FirstName 
+				path [overlapx <Header.FirstName>] 
+			TextField DOB 
+				path [overlapx <Header.DOB>] 
+			TextField SSN 
+				path [overlapx <Header.SSN>]  
+	PushButton AddRow 
+		path [@Text=="Add Row"] 
+	PushButton DeleteRow 
+		path [@Text=="Delete Row"] 
+	PushButton Search 
+		path [@Text=="Search"] 
+	PushButton Next 
+		path [@Text=="Next >"] 
+	PushButton Back 
+		path [@Text=="< Back"] 
+	PushButton Cancel 
+		path [@Text=="Cancel"]  
+	PbTextField txt_Address
+		path PbTextField[right of <Address>]
+	PbText Address
+		path [@Text=="Address:"]
+	PbText Address2
+		path [@Text=="Address2:"]
+	PbColumn Addr2
+		path [@ObjectName=="addr2"]
+	PbColumn Zipcode
+		path [@ObjectName=="zipcode"]
+	PbColumn City
+		path [@ObjectName=="city"]
+	PbColumn State
+		path [@ObjectName=="state"]
+	PbColumn Phone1
+		path [@ObjectName=="phone1"]
+	PbColumn Phone2
+		path [@ObjectName=="phone2"]
+	PushButton CreditCk
+		path PbPushButton[@Text=="Credit Ck"]
+	PushButton Reset
+		path PbPushButton[@Text=="Reset"]
+	PbColumn MlaValue
+		path [@ObjectName=="mla_value"]
+	PushButton ManualMLAVerification
+		path PbPushButton[@Text=="Manual MLA Verification"]
+	PushButton VerifyMLAStatus
+		path PbPushButton[@Text=="Verify MLA Status"]
+	PbTable CoApplicantAddrTB 
+		 path [@VisibleObjects like "t_1,gb_mla,addr1_t,compute_1,addr1,addr2,addr2_t,zipcode,city,state,phone1,phone2,phone3,zipcode_t,city_t,state_t,phone1_t,phone*"] 
+		 PbHeader Header 
+			  path PbHeader 
+			  PbText Addr1 
+					path [@Text=="Addr1"] 
+			  PbText Addr2 
+					path [@Text=="Addr2"] 
+			  PbText Zipcode 
+					path [@Text=="Zipcode"] 
+			  PbText City 
+					path [@Text=="City"] 
+			  PbText State 
+					path [@Text=="State"] 
+			  PbText Phone1 
+					path [@Text=="Phone1"] 
+			  PbText Phone2 
+					path [@Text=="Phone2"] 
+			  PbText Phone3 
+					path [@Text=="Phone3"] 
+		 class Row 
+			  path [@RowIndex>=1] 
+			  TextField Addr1 
+					path [overlapx <Header.Addr1>] 
+			  TextField Addr2 
+					path [overlapx <Header.Addr2>] 
+			  TextField Zipcode 
+					path [overlapx <Header.Zipcode>] 
+			  TextField City 
+					path [overlapx <Header.City>] 
+			  TextField State 
+					path [overlapx <Header.State>] 
+			  TextField Phone1 
+					path [overlapx <Header.Phone1>] 
+			  TextField Phone2 
+					path [overlapx <Header.Phone2>] 
+			  TextField Phone3 
+					path [overlapx <Header.Phone3>]  
+app Window DirectLoan_FinanceDetails
+	 path [@Title=="dw_step"] 
+	PbTable DirectLoanTB 
+		 path [@VisibleObjects like "purch_amt, nbr_of_months, cust_rate*"] 
+		 PbHeader Header 
+			  path PbHeader 
+			  PbText PurchaseAmt 
+					path [@Text=="purch_amt"] 
+			  PbText Terms 
+					path [@Text=="nbr_of_months"] 
+			  PbText IntRate 
+					path [@Text=="cust_rate"] 
+		 class Row 
+			  path [@RowIndex>=1] 
+			  TextField PurchaseAmt 
+					path [overlapx <Header.PurchaseAmt>] 
+			  TextField Terms 
+					path [overlapx <Header.Terms>] 
+			  TextField IntRate 
+					path [overlapx <Header.IntRate>] 
+		
+app Window DirectLoan_FinanceDetails_Refinance
+	 path [@Title=="dw_step"] 
+	PbTable DirectLoan_RefinanceTB 
+		 path [@VisibleObjects like "purch_amt, nbr_of_months, cust_rate*"] 
+		 PbHeader Header 
+			  path PbHeader 
+			  PbText FundingDate 
+					path [@Text=="funding_dt"] 
+			  PbText FundingDueDate
+					path [@Text=="first_pmt_due_dt"] 
+			  PbText PurchaseAmt 
+					path [@Text=="purch_amt"] 
+			  PbText Terms 
+					path [@Text=="nbr_of_months"] 
+			  PbText IntRate 
+					path [@Text=="cust_rate"] 
+			
+		 class Row 
+			  path [@RowIndex>=1] 
+			  TextField FundingDate 
+					path [overlapx <Header.FundingDate>] 
+			  TextField FundingDueDate
+					path [overlapx <Header.FundingDueDate>] 
+			  TextField PurchaseAmt 
+					path [overlapx <Header.PurchaseAmt>] 
+			  TextField Terms 
+					path [overlapx <Header.Terms>] 
+			  TextField IntRate 
+					path [overlapx <Header.IntRate>] 
+			
+		
+app WebPage IEMainPage
+	path[@Caption=="internet explorer 11"]
+	path[@Title==sPageName]
+app WebPage ChromeMainPage
+	path[@Caption=="Chrome"]
+	path[@Title==sPageName]
+	WebElem ChromeLegacyWindow
+		path[@Text=="Chrome Legacy Window"]
+app DialogBox Cash_Drawer
+	path [@Caption like "Cash Drawer."] 
+	PushButton Ok 
+		path [@Text=="Ok"] 
+
+app DialogBox DualLoanValidation
+	path [@Caption like "Dual Loan Validation"] 
+	PushButton Close 
+		path [@Text=="Close"] 
+

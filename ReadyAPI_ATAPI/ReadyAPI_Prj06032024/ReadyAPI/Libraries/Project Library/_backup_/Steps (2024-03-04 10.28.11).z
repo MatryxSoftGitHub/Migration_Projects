@@ -1,0 +1,6 @@
+﻿class Demo : Step
+	Main()
+		DateTime dtCurrentDateTime = DateTime.Now()
+		DateTime dtNewDateTime
+		
+		

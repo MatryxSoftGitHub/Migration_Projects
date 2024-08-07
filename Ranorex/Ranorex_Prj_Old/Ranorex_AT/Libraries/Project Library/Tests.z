@@ -1,0 +1,107 @@
+﻿class RanorexOR_ATOR : Test
+	%TestInfo[Desc="Converting Ranorex OR to AT OR.",Group="OR",Attr="Author='Nagarjuna'"]
+	Main()
+		List<String> lsORData
+		
+		//Getting all file names from specific dir.
+		step GettingAllFileNames
+			sDir_InputOR:sInputORDir
+			sExtensions:sORExtention
+		
+		for (Integer i = 1; i<=GettingAllFileNames.Out_sFileList.Count(); i++)
+			//Delete unwanted data and get the AT format.
+			step DeleteUnwantedData_GetATFormat
+				sReadFile:sInputORDir+GettingAllFileNames.Out_sFileList[i]
+				sDeleteUnmantedTagsFile:sDir+sFileName1
+				sATFormatFle:sDir+sFileName2
+			
+			//Chainging ranorax Attr, object class to AT Attr, object class.
+			step UpDateParantObj
+				sReadFile:sDir+sFileName2
+				sParantObj_PathFile:sDir+sFileName3
+			for (Integer jLoop = 1; jLoop<=UpDateParantObj.list2.Count(); jLoop++)
+				lsORData.Add (UpDateParantObj.list2[jLoop])
+		lsORData.WriteFile (sDir+sFileName4)// Writing steps data into a text file.
+		
+class RanorexSteps_ATSteps_Recording_Vdo : Test
+	%TestInfo[Desc="Converting Ranorex Steps to AT Steps.",Group="Steps",Table="Dt_RanorexSteps_ATSteps"]
+	parameter String RowId
+	Main()
+		Record_RanorexSteps_ATSteps record_RanorexSteps_ATSteps = DataStore.QueryTableRow ("Dt_RanorexSteps_ATSteps", "RowId", RowId)
+		List<String> lsStepsData,lsParameters,lsInputData
+		String sParameters, sInputData
+		TextFile textFile
+		
+		//Getting all file names from specific dir.
+		step GettingAllFileNames
+			sDir_InputOR:sInputFilesDir
+			sExtensions:sExtension
+		
+		for(Integer iLoop = 1; iLoop<=GettingAllFileNames.Out_sFileList.Count(); iLoop++)
+			sParameters=""
+			sInputData=""
+			//Converting ranores steps format to AT format.
+			step GetATFormat
+				sWriteFile:sWriteFileDir+sWriteFile1
+				sReadFile:sInputFilesDir+GettingAllFileNames.Out_sFileList[iLoop]
+				sStep_Name:GettingAllFileNames.Out_sFileList[iLoop]
+			
+			//Replace ranorex mathods To At mathods.
+			step ReplaceRanorexMathodsToAt
+				sReadFile:sWriteFileDir+sWriteFile1
+				lsRanorexMethods:record_RanorexSteps_ATSteps.lsRanorexMethods
+				lsATMethods:record_RanorexSteps_ATSteps.lsATMethods
+				sWriteFile:sWriteFileDir+sWriteFile2
+			for (Integer jLoop = 1; jLoop<=ReplaceRanorexMathodsToAt.list2.Count(); jLoop++)
+				lsStepsData.Add (ReplaceRanorexMathodsToAt.list2[jLoop])
+			// for (Integer kLoop = 1; kLoop<=GetATFormat.lsParameters.Count(); kLoop++)//Adding all the parameters in a list
+				// lsParameters.Add (GetATFormat.lsParameters[kLoop])
+			// for (Integer lLoop = 1; lLoop<=GetATFormat.lsInputData.Count(); lLoop++)//Adding all the input data in a list
+				// lsInputData.Add (GetATFormat.lsInputData[lLoop])
+		// 
+		// sParameters = String.Join(lsParameters,",")
+		// sInputData = String.Join (lsInputData, ",")
+		// textFile.Open (sWriteFileDir+sDataFile, FileMode.Write)// Writing into json file.
+		// textFile.Write (sParameters)
+		// textFile.Write (sInputData)
+		// textFile.Close ()
+		// Sleep (5)
+		// System.CopyFile (sWriteFileDir+sDataFile, sWriteFileDir+sCSVDataFile, CopyFlags.{Force,Replace})
+		// Sleep(2)
+		// step ConvertCSVtoDS
+			// sFileName:sWriteFileDir+sCSVDataFile
+		
+		lsStepsData.WriteFile (sWriteFileDir+sWriteFinalFile)//Writing steps data into a text file.
+		
+class RanorexTests_ATTests_Recording_Vdo : Test
+	%TestInfo[Desc="Convrt ranorex testcases to AT format.",Group="TC"]
+	Main()
+		List<String> lsTestData
+		
+		//Getting all the file names.
+		step GettingAllFileNames
+			sDir_InputOR:sInputFilesTestDir
+			sExtensions:sTestExtension
+		
+		for (Integer i = 1; i<=GettingAllFileNames.Out_sFileList.Count(); i++)
+			//Reading ranorex files.
+			step OpenAndReadTextFile
+				sFile:sInputFilesTestDir+GettingAllFileNames.Out_sFileList[i]
+			
+			//Converting Ranorex Testcases to AT Testcases format.
+			step ConvertingRanorexTC_ATTC
+				lsData:OpenAndReadTextFile.lsData
+			for (Integer jLoop = 1; jLoop<=ConvertingRanorexTC_ATTC.Out_lsUpdatedData.Count(); jLoop++)
+				lsTestData.Add (ConvertingRanorexTC_ATTC.Out_lsUpdatedData[jLoop])
+		lsTestData.WriteFile (sWriteTestFileDir+sTestWriteFinalFile)//Wrintin the data in a text file.
+		
+class ConvertXLStoCSV_Test : Test
+	%TestInfo[Desc="Converts UFT xls Format to CSV format for AT Datatable",Group="DataFile"]
+	Main()
+		step ConvertXlsToCSV
+			sXlsFile:sDataTableDir+sDataTableFile
+			sCsvFile:sDataTableDir+sCsvFile
+		step ConvertCSVtoDS
+			sFileName:sDataTableDir+sCsvFile
+		
+

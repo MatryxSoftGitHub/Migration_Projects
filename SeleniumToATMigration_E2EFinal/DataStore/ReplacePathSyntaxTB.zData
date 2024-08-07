@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="73E80415">
+		<List Name="StringList" ItemType="String"/>
+		<Record Name="ReplacePathSyntaxTBRecord">
+			<Field Name="SelPathSyntax" Type="StringList"/>
+			<Field Name="ATPathSyntax" Type="StringList"/>
+		</Record>
+		<List Name="ReplacePathSyntaxTBRecordList" ItemType="ReplacePathSyntaxTBRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="ReplacePathSyntaxTB" Type="ReplacePathSyntaxTBRecordList">
+			<ReplacePathSyntaxTBRecord>
+				<SelPathSyntax>
+					<String>&quot;&quot; +</String>
+					<String>+&quot;</String>
+					<String>&quot;\&quot;+</String>
+					<String>or .</String>
+					<String>and</String>
+					<String>@data-automation-id</String>
+					<String>\&quot;</String>
+					<String>&quot;&quot;{</String>
+					<String>label =</String>
+					<String>label=</String>
+					<String>+</String>
+					<String>&quot;&quot;]</String>
+					<String>@placeholder =</String>
+					<String>&quot;&quot;</String>
+					<String>][</String>
+					<String>= =</String>
+				</SelPathSyntax>
+				<ATPathSyntax>
+					<String>&quot;{</String>
+					<String>}&quot;</String>
+					<String>&quot;</String>
+					<String>|| @ElemId =</String>
+					<String>&amp;&amp;</String>
+					<String>@ElemId=</String>
+					<String>&quot;</String>
+					<String>&quot;{</String>
+					<String>[@Label==</String>
+					<String>[@Label==</String>
+					<String>}&quot;</String>
+					<String></String>
+					<String>@Placeholder==</String>
+					<String>&quot;</String>
+					<String>[</String>
+					<String>==</String>
+				</ATPathSyntax>
+			</ReplacePathSyntaxTBRecord>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="ReplacePathSyntaxTB">
+			<Field Name="SelPathSyntax" Width="249"/>
+			<Field Name="ATPathSyntax" Width="273"/>
+		</Object>
+	</Layout>
+</DataStore>

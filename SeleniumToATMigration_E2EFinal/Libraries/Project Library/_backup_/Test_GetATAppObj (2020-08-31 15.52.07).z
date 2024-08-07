@@ -1,0 +1,143 @@
+﻿class MigrateSeleniumToAT_TC001 : Test
+	%TestInfo[Desc="Migrating Selenium AppObject Path To Ascential Test AppObject Path",Group="AppObject",Table="Dt_MigrateSeleniumToAT"]
+	parameter String TestCaseID
+	Main()
+		String sSearchData,sFormatFilePath,sSeleniumClass,sUnwantedCharacters,sATClassNames,sJavaFilePath
+		List<String> lsOnlySeleniumAppObjPath = {}, lsSearchAttrNames, lsSelAttrNames, lsUnwantedClassName, lsATAttrNames
+		
+		// PreRequisites Clear all Previous Run textfiles and creates a new folder for the new run
+		step CreateFolderPathsForATConversion
+		
+		// Creating parent object with AppObject names and path.
+		List<Record_MigrateSeleniumToAT> rAppObjectTB = DataStore.Query ("Dt_MigrateSeleniumToAT")
+		for (Integer i = 1; i<=rAppObjectTB.Count(); i++)
+			Integer iReadFilePathCount = DataStore.Query ("Dt_MigrateSeleniumToAT[{i}].lsReadFile").Count ()// //Fetching Source code file path from Data Tables.
+			lsSearchAttrNames = rAppObjectTB[i].lsSearchData
+			lsSelAttrNames = rAppObjectTB[i].lsSeleniumClass
+			lsUnwantedClassName = rAppObjectTB[i].lsUnwantedCharacters
+			lsATAttrNames = rAppObjectTB[i].lsATClassNames
+			
+			for (Integer j = 1; j<=iReadFilePathCount; j++)
+				sJavaFilePath = "{rAppObjectTB[i].lsReadFile[j]}"
+				// Step1 :Adding project source code of AppObject paths into ListOfString.
+				step FetchingAppObjectPathFromProjectSourceCode
+					sReadFilePath:sSeleniumJavaFolderPath+sJavaFilePath
+				lsOnlySeleniumAppObjPath = FetchingAppObjectPathFromProjectSourceCode.lsSeleniumPaths
+				
+				// Step2: Adding paths and webelement in single line
+				step AddingPathsAndWebElementInSingleLine
+					lsReadData:FetchingAppObjectPathFromProjectSourceCode.lsSeleniumPaths
+				
+				// Step3 : Fetching the AppObject Classes and paths with respect to Ascential test.
+				step SegregatingAppObjectsPathsWRTAscentialTestAppObjects
+					lsSeleniumPaths:AddingPathsAndWebElementInSingleLine.lsFinalData
+					lsSearchData:lsSearchAttrNames
+				
+				// Step4 : Removing Duplicate ObjectClasses.
+				step RemovingDuplicateObjectClasses
+					lsData:SegregatingAppObjectsPathsWRTAscentialTestAppObjects.lsObjAndPaths
+					lsSearchData:lsSearchAttrNames
+				
+				// Step5 : Replacing selenium object classes and unwanted characters with respective Ascential test format.
+				step ConvertAppObjectsIntoATFormat
+					lsData:RemovingDuplicateObjectClasses.lsSelPath
+				
+				// Step6 : Getting parent object name from text file name.
+				step GettingParentObjName
+					sReadFile:sSeleniumJavaFolderPath+sJavaFilePath
+				
+				// Step7 : Create parent appObject by using child object.
+				step CreateParentAppObject
+					lsATPathData:ConvertAppObjectsIntoATFormat.lsATPathData
+					sParentObj:GettingParentObjName.sParentObjName
+				// 
+				// Step8 : Replace selenium object class to Ascential test object classes.
+				step ReplaceSeleniumObjectClassToAT
+					lsATPathData:ConvertAppObjectsIntoATFormat.lsATPathData
+					lsSeleniumClass:lsSelAttrNames
+					lsATClassNames:lsATAttrNames
+				// 
+				// Step9 : Replace unwanted characters to necessary Ascential test characters.
+				step ReplaceUnwantedCharactersToNecessaryCharacters
+					lsATPath:ReplaceSeleniumObjectClassToAT.lsModifiedATPath
+					lsUnwantedCharecters:lsUnwantedClassName
+					
+				
+				// Step10:  Replaces selenium Path Statement Syntax to AT Syntax
+				step ReplaceSelPathSyntaxToAT
+					lsInputData:lsATAppObject
+		
+		// Step11 : Writing Appobjects into text file.
+		Print(sAppObjectFolderPath+FinalAppObjectOutPutFile)
+		step WritingAppObjectsIntoTextFile
+			sPathFormatFile:sAppObjectFolderPath+FinalAppObjectOutPutFile
+		
+
+
+// class MigrateSeleniumToAT_TC001 : Test
+	// %TestInfo[Desc="Migrating Selenium AppObject Path To Ascential Test AppObject Path",Group="AppObject",Table="Dt_MigrateSeleniumToAT"]
+	// parameter String TestCaseID
+	// Main()
+		// Record_MigrateSeleniumToAT record_MigrateSeleniumToAT = DataStore.QueryTableRow ("Dt_MigrateSeleniumToAT", "TestCaseID", TestCaseID)
+		// 
+		// Creating parent object with AppObject names and path.
+		// List<Record_MigrateSeleniumToAT> rReadFiles=DataStore.Query("Dt_MigrateSeleniumToAT") 
+		// for(Integer i=1;i<=rReadFiles.Count();i++)
+			// Integer iReadFilePathCount = DataStore.Query ("Dt_MigrateSeleniumToAT[{i}].lsReadFile").Count ()// //Fetching Source code file path from Data Tables.
+			// for (Integer j = 1; j<=iReadFilePathCount; j++)
+				// 
+				// Step1 :Adding project source code of AppObject paths into ListOfString.
+				// step FetchingAppObjectPathFromProjectSorceCode
+					// sReadFilePath:rReadFiles[i].lsReadFile[j]
+				// 
+				// Step2: Adding paths and webelement in single line
+				// step AddingPathsAndWebElementInSingleLine
+					// lsReadData:FetchingAppObjectPathFromProjectSorceCode.lsSeleniumPaths
+				// 
+				// Step3 : Fetching the AppObject Classes and paths with respect to Ascential test.
+				// step SegregatingAppObjectsPathsWRTAscentialTestAppObjects
+					// lsSearchData:record_MigrateSeleniumToAT.lsSearchData
+					// lsSeleniumPaths:AddingPathsAndWebElementInSingleLine.lsFinalData
+				// 
+				// Step4 : Removing Duplicate ObjectClasses.
+				// step RemovingDuplicateObjectClasses
+					// lsData:SegregatingAppObjectsPathsWRTAscentialTestAppObjects.lsObjAndPaths
+					// lsSearchData:record_MigrateSeleniumToAT.lsSearchData
+				// 
+				// Step5 : Replacing selenium object classes and unwanted characters with respective Ascential test format.
+				// step ConvertAppObjectsIntoATFormat
+					// sPathFormatFile:record_MigrateSeleniumToAT.sATAppObjOutputFile
+					// lsData:RemovingDuplicateObjectClasses.lsSelPath
+				// 
+				// Step6 : Getting parent object name from text file name.
+				// step GettingParentObjName
+					// sReadFile:rReadFiles[i].lsReadFile[j]
+				// 
+				// Step7 : Create parent appObject by using child object.
+				// step CreateParentAppObject
+					// sPathFormatFile:record_MigrateSeleniumToAT.sATAppObjOutputFile
+					// lsATPathData:ConvertAppObjectsIntoATFormat.lsATPathData
+					// sParentObj:GettingParentObjName.sParentObjName
+				// 
+				// Step8 : Replace selenium object class to Ascential test object classes.
+				// step ReplaceSeleniumObjectClassToAT
+					// lsATPathData:ConvertAppObjectsIntoATFormat.lsATPathData
+					// sPathFormatFile:record_MigrateSeleniumToAT.sATAppObjOutputFile
+					// lsATClassNames:record_MigrateSeleniumToAT.lsATClassNames
+					// lsSeleniumClass:record_MigrateSeleniumToAT.lsSeleniumClass
+				// 
+				// Step9 : Replace unwanted characters to necessary Ascential test characters.
+				// step ReplaceUnwantedCharactersToNecessaryCharacters
+					// lsATPath:ReplaceSeleniumObjectClassToAT.lsModifiedATPath
+					// lsUnwantedCharecters:record_MigrateSeleniumToAT.lsUnwantedCharacters
+				// 
+				// Replaces selenium Path Statement Syntax to AT Syntax
+				// step ReplaceSelPathSyntaxToAT
+					// lsInputData:lsATAppObject
+		// 
+		// Step10 : Writing Appobjects into text file.
+		// step WritingAppObjectsIntoTextFile
+			// sPathFormatFile:record_MigrateSeleniumToAT.sATAppObjOutputFile
+		// 
+		// 
+

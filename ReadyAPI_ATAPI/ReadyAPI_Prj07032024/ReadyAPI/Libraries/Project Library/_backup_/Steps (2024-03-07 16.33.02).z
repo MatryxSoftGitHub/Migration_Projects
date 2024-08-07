@@ -1,0 +1,7 @@
+﻿class Demo : Step
+	parameter String sChar
+	Main()
+		String sVal = "A"
+		String sVal1 = "F"
+		if sVal2>"A"
+			

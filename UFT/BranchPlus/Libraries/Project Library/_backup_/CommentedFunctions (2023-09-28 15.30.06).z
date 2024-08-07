@@ -1,0 +1,1910 @@
+﻿
+
+// //EX: call isDirectLoanApplicableF||CurrentState() 
+// //********************************************************************************************* 
+// Boolean isDirectLoanApplicableForCurrentState() 
+	// Boolean bDirectLoanApplicableForCurrentState 
+	// //handling f|| direct loan states 
+	// if (sCurrentState == "NC" || sCurrentState == "SC" || sCurrentState == "FL" || sCurrentState == "GA" ||  sCurrentState == "AL"||  sCurrentState == "OH") 
+		// bDirectLoanApplicableForCurrentState = true 
+	// else 
+		// bDirectLoanApplicableForCurrentState = false  
+	// //Err|| Handling 
+	// if (GetErrorCount() > 0) 
+		// LogError("Failed Step/Function: isDirectLoanApplicableForCurrentState") 
+	// return bDirectLoanApplicableForCurrentState
+
+// killBranchPlusProcess()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //SystemUtil.CloseProcessByName "sfc_branch_plus.exe"
+	// String sProcess = "Taskkill " + "/IM " + "sfc_branch_plus.exe" +"*" + " /" + "F"
+	// System.Execute (sProcess)
+	// Sleep (2)
+
+
+
+
+// initilizeBranchPlusTest(String BranchPlusApp)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //Kill oprn processesgetTotalPrinicpleBalance_From_PaymentTab
+	// //SystemUtil.CloseProcessByName "iexplore.exe"
+	// //SystemUtil.CloseProcessByName "chrome.exe"
+	// String sProcess1 = "Taskkill " + "/IM " + "chrome.exe" +"*" + " /" + "F"
+	// System.Execute (sProcess1)
+	// 
+	// //SystemUtil.CloseProcessByName "excel.exe"
+	// String sProcess2 = "Taskkill " + "/IM " + "excel.exe" +"*" + " /" + "F"
+	// System.Execute (sProcess2)
+	// 
+	// //SystemUtil.CloseProcessByName "sfc_branch_plus.exe"
+	// String sProcess3 = "Taskkill " + "/IM " + "sfc_branch_plus.exe" +"*" + " /" + "F"
+	// System.Execute (sProcess3)
+	// 
+	// System.Run (sBranchPlusApp)
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in initilizeBranchPlusTest","Failed", Error_Description,"")
+	// 
+	// //	Sleep (5)
+		// //individual report configuration
+	// //	Set oShell = CreateObject("Shell.Application")
+	// //	oShell.ShellExecute BranchPlusApp,,,"runas",1
+	// //	Set oShell = Nothing
+	// //	DataTable.ImportSheet System.GetEnvVar("BranchPlusSharedPath") + System.GetEnvVar("currentState")&"\TestData\Config.xlsx","Config","Global"
+	// //	LogFolder = DataStore.Query("Result_Path","Global")
+	// //	LogFolder = configureCustomReport()
+	// //Error handling
+//
+//
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+//	 
+//	appVersion = getAppVersionNumber_From_DB()
+//	buildNumber = getBuildNumber_From_DB()
+//	
+//	//TestDir = "\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\" + currentState
+//	//Load file paths required for scripts from external XML file
+//	Environment.LoadFromFile "\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Global_Path_Configuration.xml"	
+//	
+//	System.GetEnvVar("BranchPlusSharedPath")
+//	
+//	//Getting Log Folder Path	
+//	System.GetEnvVar("LogFolder")= getLogFolderPath()
+//	 CopyFile(System.GetEnvVar("BranchPlusSharedPath")&"Templates\SFAutomationIndividualTest.html", System.GetEnvVar("LogFolder")&"\"&System.GetEnvVar("TestName")&".html")
+//	
+//	startTime = Time()
+//
+//	//Initilizing Test Report
+//	 InitilizeTestReport(System.GetEnvVar("LogFolder")&"\"&System.GetEnvVar("TestName")&".html",startTime,"Branch+",currentState,appVersion + " | " + buildNumber,date(),System.GetEnvVar("TestName"))
+//	
+//	initializeCustomReport = startTime
+//	//Error handling
+//	if GetErrorCount()>0 
+//		 writeReportLog("Failed in initializeCustomReport","Failed", Error_Description,"")
+//	
+//
+//
+//
+
+// initializeCustomReport(String currentState)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //Setting the Default Printer	
+	// setWindowsDefaultPrinter("Generic / Text Only")
+	// //Getting Required data from DB
+	// appVersion = getAppVersionNumber_From_DB()
+	// System.GetEnvVar("appVersion") = appVersion
+	// buildNumber = getBuildNumber_From_DB()
+	// TestDir = "\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\" + currentState
+	// //Load file paths required for scripts from external XML file
+	// Environment.LoadFromFile "\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Global_Path_Configuration.xml"	
+	// //System.GetEnvVar("BranchPlusSharedPath")
+	// //Getting Log Folder Path	
+	// System.GetEnvVar("LogFolder")= getLogFolderPath()
+	// // CopyFile(System.GetEnvVar("BranchPlusSharedPath")&"Templates\SFAutomationIndividualTest.html", System.GetEnvVar("LogFolder")&"\"&System.GetEnvVar("TestName")&".html")
+	// //Fetching Branch ID From DB
+	// branchID = getBranchID_From_DB()
+	// //Fetching the Current UFT Version	
+	// UFTVersion = System.GetEnvVar("ProductVer")
+	// //Special Handling of Data Sheet
+	// if (DataTable.GetSheet(dtGlobalSheet).GetCurrentRow < 1 and UFTVersion <> "15.0.2") || (UFTVersion =  "15.0.2" and DataTable.GetSheet(dtGlobalSheet).GetCurrentRow = 1) 
+		// //Fetching Branch ID From DB
+		// branchID = getBranchID_From_DB()
+		// startTime = Time()
+		// //Copying FIle
+		// //*** CopyFile("\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Templates\SFAutomationIndividualTest.html", System.GetEnvVar("LogFolder")&"\"&System.GetEnvVar("TestName")&".html")
+		// CopyFile("\\sfcnas-cl-201\Shared\AUTOMATION\BranchPlus\Templates\SFAutomationIndividualTest.html", System.GetEnvVar("LogFolder")&"\"&System.GetEnvVar("TestName")& ""& System.GetEnvVar("TestNameSuffix")&".html")
+		// //Initilizing Test Report
+		// //*** InitilizeTestReport(System.GetEnvVar("LogFolder")&"\"&System.GetEnvVar("TestName")&".html",startTime,"Branch+",currentState + "_" + branchID,appVersion + " | " + buildNumber,date(),System.GetEnvVar("TestName"))
+		// InitilizeTestReport(System.GetEnvVar("LogFolder")&"\"&System.GetEnvVar("TestName")& ""& System.GetEnvVar("TestNameSuffix") &".html",startTime,"Branch+",currentState + "_" + branchID,appVersion + " | " + buildNumber,date(),System.GetEnvVar("TestName"))
+	// //Identifying which Suite to Execute
+	// identifySuiteToExecute()
+	// //Validate Check Number and update
+	// checkAndUpdate_MaxCheckNumber_Disbursement()
+	// //Return the startTime
+	// initializeCustomReport = startTime
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in initializeCustomReport","Failed", Error_Description,"")
+
+// getLogFolderPath()	
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// LogFolder = configureCustomReport()
+	// //UFT Logger
+	// LogSuccessMessage("Custom Results Folder Path",LogFolder)
+	// //Returning
+	// getLogFolderPath = LogFolder
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in getLogFolderPath","Failed", Error_Description,"")
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+//	 
+////	DataTable.ImportSheet System.GetEnvVar("BranchPlusSharedPath") + System.GetEnvVar("currentState")&"\TestData\Config.xlsx","Config","Global"
+////	configureCustomReport = DataStore.Query("Result_Path","Global")
+//	DataTable.AddSheet("Config")
+//	DataTable.ImportSheet System.GetEnvVar("BranchPlusSharedPath") + System.GetEnvVar("currentState")&"\TestData\Config.xlsx","Config","Config"
+//	configureCustomReport = DataStore.Query("Result_Path","Config")
+//	//Error handling
+//	if GetErrorCount()>0 
+//		 writeReportLog("Failed in configureCustomReport","Failed", Error_Description,"")
+//	
+//
+// configureCustomReport()	
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //	DataTable.ImportSheet System.GetEnvVar("BranchPlusSharedPath") + System.GetEnvVar("currentState")&"\TestData\Config.xlsx","Config","Global"
+	// //	configureCustomReport = DataStore.Query("Result_Path","Global")
+	// DataTable.AddSheet("Config")
+	// DataTable.ImportSheet System.GetEnvVar("BranchPlusSharedPath") + System.GetEnvVar("currentState")&"\TestData\Config.xlsx","Config","Config"
+	// //Current Host Name
+	// hostName = System.GetEnvVar("LocalHostName")
+	// //rowCnt
+	// rowCnt = DataTable.GetSheet("Config").GetRowCount	
+	// found = false
+	// //identifying the Log Folder
+	// for itr = 1 To rowCnt Step 1
+		// actHostName = DataStore.Query("LocalHostName","Config")	
+		// if hostName = actHostName 
+			// configureCustomReport = DataStore.Query("Result_Path","Config") 
+			// found = true
+			// Exit for
+		// else
+			// DataTable.GetSheet("Config").SetValue(Row
+	// //Default Value
+	// if found = false 
+		// DataTable.GetSheet("Config").SetValue(CurrentRow(1)
+		// configureCustomReport= DataStore.Query("Result_Path","Config")
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in configureCustomReport","Failed", Error_Description,"")
+
+//Created for Month Purpose
+// configureCustomReportMEnd()	
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+//	DataTable.ImportSheet System.GetEnvVar("BranchPlusSharedPath") + System.GetEnvVar("currentState")&"\TestData\Config.xlsx","Config","Global"
+//	configureCustomReport = DataStore.Query("Result_Path","Global")
+	// DataTable.AddSheet("Config")
+	// DataTable.ImportSheet System.GetEnvVar("BranchPlusSharedPathMEnd") + System.GetEnvVar("currentState")&"\TestData\Config.xlsx","Config","Config"
+	// //Current Host Name
+	// hostName = System.GetEnvVar("LocalHostName")
+	// //rowCnt
+	// rowCnt = DataTable.GetSheet("Config").GetRowCount	
+	// found = false
+	// //identifying the Log Folder
+	// for itr = 1 To rowCnt Step 1
+		// actHostName = DataStore.Query("LocalHostName","Config")	
+		// if hostName = actHostName 
+			// configureCustomReportM= DataStore.Query("Result_Path","Config") 
+			// found = true
+			// Exit for
+		// else
+			// DataTable.GetSheet("Config").SetValue(Row
+	// //Default Value
+	// if found = false 
+		// DataTable.GetSheet("Config").SetValue(CurrentRow(1)
+		// configureCustomReportMEnd= DataStore.Query("Result_Path","Config")
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in configureCustomReportMEnd","Failed", Error_Description,"")
+// 
+//**************************************************************************************
+//---------------------
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+//	LoginWin = Window("BranchPLUSLogon").WinEdit("txtUserName").IsPresent()
+//		if LoginWin 
+//		//Enter System user credentials
+//		Window("BranchPLUSLogon").WinEdit("txtUserName").SetValue( userName
+//		Window("BranchPLUSLogon").WinEdit("txtPassword").SetValue( userPassword
+//		//Click on OK
+//		Window("BranchPLUSLogon").WinButton("btnOK").Click()
+//		
+//		//Verify Network login Authentication
+//		NetworkLoginWindow = Window("BranchPLUSLogon").Window("NetworkLoginAuthentication").WinEdit("txtNetworkUser").IsPresent()
+//			if NetworkLoginWindow 
+//				Window("BranchPLUSLogon").Window("NetworkLoginAuthentication").WinEdit("txtNetworkUser").SetValue( NetworkUser
+//				Window("BranchPLUSLogon").Window("NetworkLoginAuthentication").WinEdit("txtNetworkPassword").SetValue( NetworkPasscode
+//				Window("BranchPLUSLogon").Window("NetworkLoginAuthentication").WinButton("btnOk").Click()
+//					winVisible = BranchPlus.IsPresent()
+//					if winVisible 
+//						 writeReportLog("Validate Branch Plus Login","Passed",FailComments,"")
+//					else
+//						 writeReportLog("Validate Branch Plus Login","Failed",FailComments,"")
+//					
+//				
+//			else
+//				//Fail Log - Branch Network Login window not displayed
+//				 writeReportLog("Branch Plus Network Login window not displayed","Failed",FailComments,"")
+//			
+//
+//		else
+//		//Fail Log - Branch System Login window not displayed
+//		 writeReportLog("Branch Plus System Login window not displayed","Failed",FailComments,"")
+//			
+//
+//*************************************************************
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+//	 
+//	
+//	//Load file paths required for scripts from external XML file
+//	//Environment.LoadFromFile "\\\sfcnas-cl-201\Shared\BranchPlus\Global_Path_Configuration.xml"
+//	
+//	if w_bp_frame.WaitWhileExists(5) 
+//		
+//		//w_bp_frame.PbObject("pbname:=mdi_1")
+//		if PbWindow("w_bp_frame").PbObject("PbObject").WaitWhileExists(5) || BranchPlus.CreditDecision.WaitWhileExists(5) 
+//			//Initilize Test - Kill Previous processes and map result html file
+//			 initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+//			//Login to Branch Application
+//			 Login_BranchPlus_Application()
+//			
+//			//Getting the User ID (Cashdrawer)
+//			userID = get_Existing_CashDrawer_User()
+//			
+//			//Login into Branch with Cash Drawer User
+//			 changeLogInUser(userID,"auto123")
+//			
+//		else
+//		//Login to Branch Application is not Required			
+//				
+//	else
+//		//Initilize Test - Kill Previous processes and map result html file
+//		 initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+//		//Login to Branch Application
+//		 Login_BranchPlus_Application()
+//		
+//		//Getting the User ID (Cashdrawer)
+//		userID = get_Existing_CashDrawer_User()
+//		
+//		//Login into Branch with Cash Drawer User
+//		 changeLogInUser(userID,"auto123")
+//
+//	
+//	
+//	 if GetErrorCount()>0  			
+//		      writeReportLog("Failed in Step/BranchPlusLogin","Failed", Error_Description ,"")
+//	 	
+//
+//**********************************************************
+
+//New Login Function
+// BranchPlusLogin()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //Load file paths required for scripts from external XML file
+	// //Environment.LoadFromFile "\\\sfcnas-cl-201\Shared\BranchPlus\Global_Path_Configuration.xml"
+	// //Handling Un Expected Dialog
+	// handle_Dialog("sfc_branch_plus\.exe","Close the program")
+	// handle_Dialog("RDP Clip Monitor","Close the program")	
+	// //Validating if there are any open windows	 
+	// if BranchPlus.WaitWhileExists(2) 
+		// //Checking if there are any child windows
+		// Set oDesc = Description.Create()
+		// oDesc("micclass").value = "PbWindow"
+		// Set objArr = BranchPlus.GetChildren(oDesc)
+		// if  objArr.count() >= 1 
+		// //Initilize Test - Kill Previous processes and map result html file
+			// initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+			// //Handling Un Expected Dialog
+			// handle_Dialog("sfc_branch_plus\.exe","Close the program")
+			// handle_Dialog("RDP Clip Monitor","Close the program")
+			// //Login to Branch Application
+			// Login_BranchPlus_Application()		  	
+			// //Getting the User ID (Cashdrawer)
+			// userID = get_Existing_CashDrawer_User()
+			// //Login into Branch with Cash Drawer User
+			// changeLogInUser(userID,"auto123")		
+	// else
+		// //Initilize Test - Kill Previous processes and map result html file
+		// initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+		// //Handling Un Expected Dialog
+		// handle_Dialog("sfc_branch_plus\.exe","Close the program")
+		// handle_Dialog("RDP Clip Monitor","Close the program")
+		// //Login to Branch Application
+		// Login_BranchPlus_Application()
+		// //Getting the User ID (Cashdrawer)
+		// userID = get_Existing_CashDrawer_User()
+		// //Login into Branch with Cash Drawer User
+		// changeLogInUser(userID,"auto123")
+	// //Error Handling
+	// if GetErrorCount()>0  			
+			// writeReportLog("Failed in Step/BranchPlusLogin","Failed", Error_Description ,"")
+
+//*****************************************************************************************
+//@methodName: BranchPlusLogin_Without_CashDrawer()
+//@Author Jeevan
+//@Date 27 June 2018
+//@Description This will login to BranchPlus application with out assining Cash Drawer
+//*****************************************************************************************
+// BranchPlusLogin_Without_CashDrawer()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //	if w_bp_frame.WaitWhileExists(5) 
+	// //		
+	// //		//w_bp_frame.PbObject("pbname:=mdi_1")
+	// //		if PbWindow("w_bp_frame").PbObject("PbObject").WaitWhileExists(5) || BranchPlus.CreditDecision.WaitWhileExists(5) 
+	// //			//Initilize Test - Kill Previous processes and map result html file
+	// //			 initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+	// //			//Login to Branch Application
+	// //			 Login_BranchPlus_Application()
+	// //		else
+	// //		//Login to Branch Application is not Required			
+	// //				
+	// //	else
+	// //		//Initilize Test - Kill Previous processes and map result html file
+	// //		 initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+	// //		//Login to Branch Application
+	// //		 Login_BranchPlus_Application()
+	// //		
+	// //	
+	// // if w_bp_frame.WaitWhileExists(5) 
+		// // if BranchPlus.btnClose.WaitWhileExists(5) || BranchPlus.CreditDecision.WaitWhileExists(5)  || w_bp_frame.w_view_report.WaitWhileExists(5) 
+			// // //Initilize Test - Kill Previous processes and map result html file
+			// // initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+			// // //Handling Un Expected Dialog
+			// // handle_Dialog("sfc_branch_plus\.exe","Close the program")
+			// // handle_Dialog("RDP Clip Monitor","Close the program")
+			// // //Login to Branch Application
+			// // Login_BranchPlus_Application()
+		// // else
+	// // else
+		// // //Initilize Test - Kill Previous processes and map result html file
+		// // initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+		// // //Handling Un Expected Dialog
+		// // handle_Dialog("sfc_branch_plus\.exe","Close the program")
+		// // handle_Dialog("RDP Clip Monitor","Close the program")
+		// // //Login to Branch Application
+		// // Login_BranchPlus_Application()
+	// // if GetErrorCount()>0  			
+		// // writeReportLog("Failed in Step/BranchPlusLogin_Without_CashDrawer","Failed", Error_Description ,"")
+
+//*****************************************************************************************
+//@methodName: Login_BranchPlus_Application()
+//@Author Ranjitha
+//@Date 18 June 2018
+//@Description This will login to BranchPlus application USING Support User
+////*****************************************************************************************
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+//	 
+//	//**************************************************************************************	
+//	loginSheetPath = System.GetEnvVar("BranchPlusSharedPath") + "\LoginDetails.xlsx"
+//
+//	//Importing Test Data from Excel Shet(specific sheet)
+//	 importSpecificSheet(loginSheetPath,"Login")
+//	
+//	user_Name = DataStore.Query("UserName","Login")
+//	password = DataStore.Query("Password","Login")
+//	network_Username = DataStore.Query("NetworkUsername","Login")
+//	network_Passcode = DataStore.Query("NetworkPasscode","Login")
+//	//**************************************************************************************
+//
+//	LoginWin = Window("BranchPLUSLogon").WinEdit("txtUserName").IsPresent()
+//		if LoginWin 
+//		//Enter System user credentials
+//		Window("BranchPLUSLogon").WinEdit("txtUserName").SetValue( user_Name
+//		Window("BranchPLUSLogon").WinEdit("txtPassword").SetValue( password
+//		//Click on OK
+//		Window("BranchPLUSLogon").WinButton("btnOK").Click()
+//		
+//		//Verify Network login Authentication
+//		NetworkLoginWindow = Window("BranchPLUSLogon").Window("NetworkLoginAuthentication").WinEdit("txtNetworkUser").IsPresent()
+//			if NetworkLoginWindow 
+//				Window("BranchPLUSLogon").Window("NetworkLoginAuthentication").WinEdit("txtNetworkUser").SetValue( network_Username
+//				Window("BranchPLUSLogon").Window("NetworkLoginAuthentication").WinEdit("txtNetworkPassword").SetValue( network_Passcode
+//				Window("BranchPLUSLogon").Window("NetworkLoginAuthentication").WinButton("btnOk").Click()
+//					//Handling Version Mismatch pop up
+//					 handle_VersionMismatch_Popup()
+//					winVisible = BranchPlus.IsPresent()
+//					if winVisible 
+//						// writeReportLog("Validate Branch Plus Login","Passed",FailComments,"")
+//					else
+//						 writeReportLog("Validate Branch Plus Login","Failed",FailComments,"")
+//					
+//				
+//			else
+//				//Fail Log - Branch Network Login window not displayed
+//				 writeReportLog("Branch Plus Network Login window not displayed","Failed",FailComments,"")
+//			
+//		else
+//		//Fail Log - Branch System Login window not displayed
+//		 writeReportLog("Branch Plus System Login window not displayed","Failed",FailComments,"")
+//			
+//		//Error Handling
+//		if GetErrorCount()>0  			
+//		 writeReportLog("Failed in Step/Login_BranchPlus_Application","Failed", Error_Description ,"")
+//	
+//
+//
+// Login_BranchPlus_Application()
+	// %FuncInfo[Desc="This will login to BranchPlus application USING Support User.",Group="BranchPlusFunctions"]
+	// String loginSheetPath
+	// Boolean bLoginWin,bNetworkLoginWindow,bwinVisible
+	// //oginSheetPath = System.GetEnvVar("BranchPlusSharedPath") + "LoginDetails.xlsx")
+	// //Importing Test Data from Excel Shet(specific sheet)
+	// //	 importSpecificSheet(loginSheetPath,"Login")
+	// // DataTable.AddSheet("Login")
+	// // DataTable.ImportSheet loginSheetPath,"Login","Login"
+	// // DataTable.GetSheet("Login").SetValue(CurrentRow 1
+	// // user_Name = DataStore.Query("UserName","Login")
+	// // password = DataStore.Query("Password","Login")
+	// // network_Username = DataStore.Query("NetworkUsername","Login")
+	// // network_Passcode = DataStore.Query("NetworkPasscode","Login")
+	// //**************************************************************************************
+	// //##############
+	// //Handling Special Case i.e, SOme Time Branch Login Window will not get identified as PBWindow.
+	// //##############
+	// String user_Name, password, network_Username, network_Passcode
+	// if BranchPLUSLogon.WaitWhileExists(5) 
+		// killBranchPlusProcess()
+		// Sleep (3)
+		// System.Run("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+		// //initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+		// Sleep (2)
+	// //PbWindow("Pbname:=w_bp_logon").Highlight
+	// bLoginWin = BranchPlus.CashDrawerLoginWindow.txtuserid.IsPresent()
+	// if bLoginWin == true
+		// //Enter System user credentials
+		// BranchPlus.CashDrawerLoginWindow.txtuserid.SetValue(user_Name)
+		// BranchPlus.CashDrawerLoginWindow.txtuserid.SetValue(password)
+		// //Click on OK
+		// BranchPlus.CashDrawerLoginWindow.btnOK.Click()
+		// //Verify Network login Authentication
+		// bNetworkLoginWindow =BranchPlus.CashDrawerLoginWindow.w_bp_logon_network.tx_tuserid.IsPresent()
+		// if bNetworkLoginWindow == true
+			// BranchPlus.CashDrawerLoginWindow.w_bp_logon_network.tx_tuserid.SetValue(network_Username)
+			// BranchPlus.CashDrawerLoginWindow.w_bp_logon_network.txt_password.SetValue(network_Passcode)
+			// BranchPlus.CashDrawerLoginWindow.w_bp_logon_network.btn_OK.Click()
+			// //Handling Version Mismatch pop up
+			// handle_VersionMismatch_Popup()
+			// bwinVisible = BranchPlus.IsPresent()
+			// if bwinVisible 
+				// // writeReportLog("Validate Branch Plus Login","Passed",FailComments,"")
+			// else
+				// writeReportLog("Validate Branch Plus Login","Failed",FailComments,"")
+		// else
+			// //Fail Log - Branch Network Login window not displayed
+			// writeReportLog("Branch Plus Network Login window not displayed","Failed",FailComments,"")
+	// else
+		// //Fail Log - Branch System Login window not displayed
+		// writeReportLog("Branch Plus System Login window not displayed","Failed",FailComments,"")
+	// //Removing the Data Sheet from UFT
+	// // DataTable.DeleteSheet("Login")
+	// //Error Handling
+
+//**************************************************************************
+//@MethodName changeLogInUser
+//@Description this fucntion will help in changing the Logged into User 
+//**************************************************************************
+// changeLogInUser(String newUserId,String pwd)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// String currentState = System.GetEnvVar("currentState")
+	// BranchPlus.SetActive()
+	// UA.GenKeyEvents("<F4>")
+	// //	//Enter System user credentials
+	// //		w_bp_frame.PbWindow("Pbname:=w_bp_logon").PbEdit("pbname:=sle_userid").SetValue( user_Name
+	// //		w_bp_frame.PbWindow("Pbname:=w_bp_logon").PbEdit("pbname:=sle_password").SetValue( password
+	// //		//Click on OK
+	// //		w_bp_frame.PbWindow("Pbname:=w_bp_logon").PbButton("pbname:=cb_ok").Click()
+	//  BranchPlus.CashDrawerLoginWindow.IsPresent()
+	// 
+	// BranchPlus.CashDrawerLoginWindow.txtuserid.SetValue(newUserId)
+	// BranchPlus.CashDrawerLoginWindow.txtpassword.SetValue(pwd)  
+	// BranchPlus.CashDrawerLoginWindow.btnOK.Click()
+	// if BranchPlus.CashDrawerLoginWindow.Question.btnYes.IsPresent()
+		// //Clicking on No Button in Question.. Pop Up
+		// //.Dialog("Question").WinButton("btnNo").IsPresent()
+		// BranchPlus.CashDrawerLoginWindow.Question.btnNo.Click()
+		// Print("Login with userassigned with cash drawer " + newUserId + "Current state " + currentState + "is Successful")
+	// else
+		// LogError("Login with userassigned with cash drawer " + newUserId + "Current state " + currentState + "was Failed")
+
+
+//**************************************************************************************
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+// Real GetValue_PBDataWindow(AppObject tblPBDataWindow,String RowNumber,String ColumnName)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// tblPBDataWindow.HoverMouse () ()
+	// Real rGetValue_PBDataWindow = tblPBDataWindow.GetCellData(RowNumber,ColumnName)	
+	// return rGetValue_PBDataWindow
+
+//**************************************************************************************
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+// SetValue_PBDataWindow(AppObject tblPBDataWindow,String RowNumber,String ColumnName,String CellValue)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //tblPBDataWindow.HoverMouse () ()
+	// Sleep (2)
+	// //if req radio is unchecked - check it
+	// String reqColumnStatus = tblPBDataWindow.GetCellData(RowNumber,ColumnName)
+	// if reqColumnStatus == CellValue 
+		// //Do nothing
+	// else
+		// tblPBDataWindow.SetValue(RowNumber,ColumnName,CellValue)
+
+//**************************************************************************************
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+// TypeText_PBDataWindow(AppObject tblPBDataWindow,String RowNumber,String ColumnName,String CellValue)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// if tblPBDataWindow.IsPresent()
+		// //tblPBDataWindow.HoverMouse () ()
+		// tblPBDataWindow.Click(RowNumber,ColumnName)
+		// Sleep(2)
+		// tblPBDataWindow.TypeKeys (CellValue)
+
+//**************************************************************************************
+//This will click on  Button in Credit Decision Window
+// clickOnButton_CreditDecisionWindow()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //click on next
+	// BranchPlus.CreditDecision.btnNext.Click()
+	// Sleep (5)
+
+
+//**********************************************************************************
+//This will validate the First Payment Date in the Credit Decision Window
+// validateFirstPaymentDate_CreditDecisionWindow()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// SleepTillCreditDecisionLoads("STEP 6")
+	// Set crdDecision = BranchPlus.CreditDecision.PbDataWindow("tbldwStep")
+	// //Verify First payment date validation 
+	// loanDate = GetValue_PBDataWindow(crdDecision,"#1","funding_dt")
+	// firstPaymentdate = GetValue_PBDataWindow(crdDecision,"#1","first_pmt_due_dt")
+	// //Validating the Data
+	// validateDataAndReport(Cdate(firstPaymentdate),DateAdd("m",1,CDate(loanDate)),"Validate First Payment date: " + Cdate(firstPaymentdate))	
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to validateFirstPaymentDate_CreditDecisionWindow","Failed", Error_Description ,"")
+
+//
+////**********************************************************************************
+////This will enter the Value in the Charge Amount Field in Credit Decision Window
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+//	  
+//	 //Enter value in charge amount fields
+//	Set crdDecision1 = BranchPlus.CreditDecision.PbDataWindow("tbldwcomponent")
+//    if System.GetEnvVar("currentState") = "FL" 
+//		 SetValue_PBDataWindow(crdDecision1,"#2","charge_amt","250")	
+//	     SetValue_PBDataWindow(crdDecision1,"#3","charge_amt","1100")
+//	else
+//		 SetValue_PBDataWindow(crdDecision1,"#1","charge_amt","250")	
+//	     SetValue_PBDataWindow(crdDecision1,"#2","charge_amt","1100")
+//		
+//	//Error Handling
+//	if GetErrorCount()>0  			
+//		 writeReportLog("Failed to enterChargeAmount_CreditDecisionWindow","Failed", Error_Description ,"")
+//		
+//
+//**********************************************************************************
+//Selecting the Application Status in Credit Decision Window
+// setValueInApplicationStatus_CreditDecisionWindow(String applicationStatus)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //Enter details in Application status
+	// SleepTillCreditDecisionLoads("STEP 6")
+	// Set crdDecision = BranchPlus.CreditDecision.PbDataWindow("tbldwStep")
+	// crdDecision.SelectCell "#1","app_status"
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to setValueInApplicationStatus_CreditDecisionWindow","Failed", Error_Description ,"")
+
+//**********************************************************************************
+//Clicking on Finish Button
+// clickOnFinishButton_CreditDecisionWindow()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// BranchPlus.CreditDecision.PbButton("Finish").Click()
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to clickOnFinishButton_CreditDecisionWindow","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will handel the USPS Window
+// handleUSPSWindow()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// if BranchPlus.CreditDecision.PbWindow("USPS_Window").IsPresent() 
+		// BranchPlus.CreditDecision.PbWindow("USPS_Window").PbButton("btnUseAddressAbove").Click()
+		// // writeReportLog("USPS Window appeared and Handeled","Passed","","")	
+
+//********************************************************************************
+//This will Open the Maintenance Window  by Pressing the F2 Key and Search with SSN 
+// openMaintenanceAndSearchWithSSNNumber(String ssn)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// Sleep (5)
+	// BranchPlus.SetActive()
+	// sendKeys("{F2}")
+	// Sleep (2	)
+	// if BranchPlus.PbWindow("CustomerSearchWindow").PbDataWindow("dw_search").IsPresent() 
+		// BranchPlus.PbWindow("CustomerSearchWindow").PbDataWindow("dw_search").SetValue(CellData "#1","ssn",ssn
+		// BranchPlus.PbWindow("CustomerSearchWindow").PbButton("btnOK").Click()
+		// writeReportLog("Search With SSN Number >> " + "******" + RIGHT(ssn,4) ,"Passed","","")
+	// else
+		// writeReportLog("Search With SSN Number >> " + "******" + RIGHT(ssn,4),"Failed","","")
+	// Sleep(5)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to openMaintenanceAndSearchWithSSNNumber","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will Click on the Save Button
+// clickOnSaveButon()
+	// %FuncInfo[Desc="This will Click on the Save Button",Group="BranchPlusFunctions"]
+	// BranchPlus.InsightObject("btnSave").Click()
+	// Sleep (5)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to clickOnSaveButon","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will set the values in the Fields US Resident Radio BUton, credit Score + Email
+// setValuesIn_CustomerTab(String USResident,String creditScore,String Email)
+	// %FuncInfo[Desc="This will set the values in the Fields US Resident Radio BUton, credit Score + Email",Group="BranchPlusFunctions"]
+	// //BranchPlus.CustomerF2Window.PbDataWindow("dw_cust").Check CheckPoint("dw_cust")
+	// if Err.count <> 0 
+	// Sleep (5)
+	// Set custTabPbWindow = BranchPlus.CustomerF2Window.PbDataWindow("dw_cust")
+	// if custTabPbWindow.IsPresent() 
+		// SetValue_PBDataWindow(custTabPbWindow,"#1","us_resident_yn",USResident)
+		// SetValue_PBDataWindow(custTabPbWindow,"#1","credit_score",creditScore)
+		// SetValue_PBDataWindow(custTabPbWindow,"#1","email",Email)
+		// //Logger
+		// writeReportLog("Updated the data in the Fields USResident, Credit Score + Email","Passed","","")
+	// else
+		// writeReportLog("Customer Tab in F2 Window did not get Loaded. Please check ", "Failed","","")		
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to setValuesIn_CustomerTab","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will Navigate to Specified Tab
+// navigateToTab(String tabName)
+	// %FuncInfo[Desc="This will Navigate to Specified Tab",Group="BranchPlusFunctions"]
+	// BranchPlus.CustomerF2Window.PbTabStrip("TabStripe").Select tabName
+	// Sleep (3)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to navigateToTab","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will set the Values in the Budget Tab
+// enterValuesIn_BudgetTab(String monthlyInc1,String monthlyInc2,String montlyPay1,String montlyPay2,String montlyPay3,String montlyPay4)
+	// %FuncInfo[Desc="This will set the Values in the Budget Tab",Group="BranchPlusFunctions"]
+	// //BranchPlus.CustomerF2Window.PbDataWindow("dw_budget").Check CheckPoint("dw_budget")
+	// if Err.count <> 0 
+		// //Ignoring the Error
+	// Set budgetPBWindow = BranchPlus.CustomerF2Window.PbDataWindow("dw_budget")
+	// if budgetPBWindow.IsPresent() 
+		// SetValue_PBDataWindow(budgetPBWindow,"#1","monthly_income",monthlyInc1)
+		// SetValue_PBDataWindow(budgetPBWindow,"#2","monthly_income",monthlyInc2)
+		// SetValue_PBDataWindow(budgetPBWindow,"#3","monthly_payment",montlyPay1)
+		// SetValue_PBDataWindow(budgetPBWindow,"#4","monthly_payment",montlyPay2)
+		// SetValue_PBDataWindow(budgetPBWindow,"#5","monthly_payment",montlyPay3)
+		// SetValue_PBDataWindow(budgetPBWindow,"#6","monthly_payment",montlyPay4)		
+		// //Logger
+		// writeReportLog("Data in the Budget Tab has been updated","Passed","","")
+	// else
+		// writeReportLog("Budget Tab in F2 Window did not get Loaded. Please check ", "Failed","","")		
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to enterValuesIn_BudgetTab","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will click on the "Add Row" Button
+// clickButton_AddRow()
+	// %FuncInfo[Desc="This will click on the "Add Row" Button",Group="BranchPlusFunctions"]
+	// BranchPlus.InsightObject("btnAddRow").Click()
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to clickButton_AddRow","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will Add the Reference Details in Reference Tab
+// addReferenceDetails_ReferenceTab(String rowNum,String referenceType,String firstName,String lastName,String homePhone,String cellPhone,String otherPhone)
+	// %FuncInfo[Desc="This will Add the Reference Details in Reference Tab",Group="BranchPlusFunctions"]
+	// Set refPBWindow =BranchPlus.CustomerF2Window.PbDataWindow("dw_list_reference") 
+	// if refPBWindow.IsPresent() 
+		// Set refPBWindow =BranchPlus.CustomerF2Window.PbDataWindow("dw_list_reference")
+		// SetValue_PBDataWindow(refPBWindow, rowNum, "cust_ref_type", referenceType)
+		// TypeText_PBDataWindow(refPBWindow, rowNum, "first_name", firstName)
+		// TypeText_PBDataWindow(refPBWindow, rowNum, "last_name", lastName)
+		// SetValue_PBDataWindow(refPBWindow, rowNum, "phone1", homePhone)
+		// SetValue_PBDataWindow(refPBWindow, rowNum, "phone2", cellPhone)
+		// SetValue_PBDataWindow(refPBWindow, rowNum, "phone3", otherPhone)
+		// //Logger
+		// writeReportLog("New Reference " + rowNum + " has been Added >>" + lastName + "," + firstName ,"Passed","","")
+	// else
+		// writeReportLog("Reference Tab in F2 Window did not get Loaded. Please check ", "Failed","","")		
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to addReferenceDetails_ReferenceTab","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will enter the mandatory information in the Insurance Tab
+// enterInsuranceDetails_InsuranceTab(String rowNum,String companyName,String PolicyNumber,String startDate,String endDate)
+	// %FuncInfo[Desc="This will enter the mandatory information in the Insurance Tab",Group="BranchPlusFunctions"]
+	// BranchPlus.CustomerF2Window.PbDataWindow("dw_insurance").Check CheckPoint("dw_insurance")
+	// Set insPBWindow = BranchPlus.CustomerF2Window.PbDataWindow("dw_insurance")
+	// if insPBWindow.IsPresent() 
+		// Set insPBWindow = BranchPlus.CustomerF2Window.PbDataWindow("dw_insurance")
+		// SetValue_PBDataWindow(insPBWindow,rowNum,"company_name",companyName)
+		// SetValue_PBDataWindow(insPBWindow,rowNum,"policy_nbr",PolicyNumber)
+		// TypeText_PBDataWindow(insPBWindow,rowNum,"start_dt",startDate)
+		// TypeText_PBDataWindow(insPBWindow,rowNum,"end_dt",endDate)
+		// //Logger
+		// writeReportLog("New Insurance " +  rowNum + " has been added","Passed","","")
+	// else
+		// writeReportLog("Insurance Tab in F2 Window did not get Loaded. Please check ", "Failed","","")	
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to enterInsuranceDetails_InsuranceTab","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will select the Value in the Status Select List in F2 window Account Tab
+// changeAccountStatus_InAccountTab(String accStatus)
+	// %FuncInfo[Desc="This will select the Value in the Status Select List in F2 window Account Tab",Group="BranchPlusFunctions"]
+	// BranchPlus.CustomerF2Window.dw_acct.Check CheckPoint("dw_acct")
+	// Sleep (1)
+	// BranchPlus.CustomerF2Window.dw_acct.SetValue(CellData "#1","acct_status",accStatus
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to changeAccountStatus_InAccountTab","Failed", Error_Description ,"")
+
+//********************************************************************************
+//This will click on Process Button
+// clickButton_Process()
+	// %FuncInfo[Desc="This will click on Process Button",Group="BranchPlusFunctions"]
+	// BranchPlus.InsightObject("btnProcess").Click()
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to clickButton_Process","Failed", Error_Description ,"")
+//******************************************************************************* 
+//This will click on "x" Close button
+// closeCurrentWindow()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// Sleep(3)
+	// BranchPlus.btnClose.Click()
+	// Sleep(3)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to closeCurrentWindow","Failed", Error_Description ,"")
+
+//Wait till Credt Decision Loads
+// waitTillCreditDecisionLoads(String expectedTitle)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// AppObject aocrdDecision
+	// String sGetwinTitle
+	// for(Integer i=1; i<=10; i++)
+		// //Get Window Title
+		// aocrdDecision = BranchPlus.CreditDecision
+		// sGetwinTitle = aocrdDecision.GetAttr("Text")
+			// if sGetwinTitle.IndexOf(expectedTitle) > 0 
+				// break
+
+//Click on //Add Row// Button
+// // Click_Add_Row_Button()
+	// // %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// // //Click on //Add Row// Button
+	// // BranchPlus.CreditDecision.btnNext.Click()
+
+//This will enter the Co-Applicant Details in Credit Decision Window
+// // enter_Co_ApplicantDetails_CreditDecisionWindow(String row_Num,String lastName,String firstName,String SSN,String dob,String applicant_type)
+	// // %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// // AppObject aoCrdDecision1
+	// // //Create Object for Data Window
+	// // aoCrdDecision1 = CreditDecisionSTEP.CoApplicantTable
+	// // //Select Type
+	// // TypeText_PBDataWindow(aoCrdDecision1,row_Num,"affil_type",applicant_type)
+	// // //Enter Last Name
+	// // TypeText_PBDataWindow(aoCrdDecision1,row_Num,"last_name",lastName)
+	// // //Enter First Name
+	// // TypeText_PBDataWindow(aoCrdDecision1,row_Num,"first_name",firstName)
+	// // //Enter SSN
+	// // // SetValue_PBDataWindow(crdDecision1,row_Num,"ssn",SSN)
+	// // TypeText_PBDataWindow(aoCrdDecision1,row_Num,"ssn",SSN)
+	// // //Enter DOB
+	// // // SetValue_PBDataWindow(crdDecision1,row_Num,"dob_dt",dob)
+	// // TypeText_PBDataWindow(aoCrdDecision1,row_Num,"dob_dt",dob)
+	// // //Error Handling
+	// // if GetErrorCount()>0  			
+		// // writeReportLog("Failed to enter_Co_ApplicantDetails_CreditDecisionWindow","Failed", Error_Description ,"")
+
+//This will enter the Co_Applicant Address in Credit Decision Window
+// // enter_Co_ApplicantAddess_CreditDecisionWindow(String row_num,String addr1,String zipCode)
+	// // %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// // AppObject aoCrdDecision1
+	// // //Co-Applicant Address	
+	// // aoCrdDecision1 = CreditDecisionSTEP.CoApplicantTable
+	// // //Set Address 1
+	// // SetValue_PBDataWindow(aoCrdDecision1,row_num,"addr1",addr1)	
+	// // //Enter Zipcode
+	// // SetValue_PBDataWindow(aoCrdDecision1,row_num,"zipcode",zipCode)	
+	// // //Error Handling
+
+//********************************************************************************************************
+//@methodName: MLAVerification_Credit_Decision_Window_CoApplicant()
+//@Author Chandra
+//@Date 25 March 2019
+//@Description This is will click on Verify MLA Status button in Credit Decision window for Co Applicant window
+//Ex:  MLAVerification_Credit_Decision_Window_CoApplicant()
+//********************************************************************************************************
+// MLAVerification_Credit_Decision_Window_CoApplicant()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// Set tblPBDataWindow = BranchPlus.CreditDecision.PbDataWindow("pbname:=dw_coapp")
+	// Sleep(3)
+	// if BranchPlus.CreditDecision.PbDataWindow("pbname:=dw_coapp").WaitWhileExists(5) 
+		// //#####################
+		// //for window 10 Special Handling 
+		// //#####################
+		// clickMLAVerificationButton_CoApplicant()
+		// mlaVerificationWindow = BranchPlus.CreditDecision.verifyMLAPopUp.GetReport.WaitWhileExists(30)
+		// if mlaVerificationWindow 
+			// Sleep(10)
+			// //Click on //GetReport// button
+			// BranchPlus.CreditDecision.verifyMLAPopUp.GetReport.HoverMouse ()
+			// BranchPlus.CreditDecision.verifyMLAPopUp.GetReport.Click()
+			// //Logger
+			// writeReportLog("MLA Report has been Printed successfully","Passed",FailComments,"Y")
+			// //click on Close button
+			// BranchPlus.CreditDecision.verifyMLAPopUp.CreditReport.Close.Click()
+			// //Verify MLA Covered checkbox
+			// Sleep(4)
+			// MlaCoveredstatus = GetValue_PBDataWindow(tblPBDataWindow,"#1","mla_value")
+			// //MsgBox MlaCoveredstatus
+			// Sleep(2)
+			// if MlaCoveredstatus = "No" 
+				// writeReportLog("MLA Covered autopopulated to //No//","Passed",FailComments,"YES")				
+			// else
+				// writeReportLog("MLA Covered autopopulated to //Yes//","Failed",FailComments,"")				
+		// else
+			// writeReportLog("MLA Lending Verification window not displayed","Failed",FailComments,"")			
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in MLAVerification_Credit_Decision_Window_CoApplicant","Failed", Error_Description ,"")
+
+//********************************************************************************************************
+//@methodName: enter_Primary_Employer_Details_CreditDecision_Window(emplrName,position,dept,shift,supervisor,workyrs,workmos,salSource,payday,salPeriodType,grossSal)
+//@Author Ranjitha
+//@Date 12 June 2018
+//@Description This is will enter the Primary Employer details in Credit Decision window
+//Ex:  enter_Primary_Employer_Details_CreditDecision_Window("Security Finance","Tester","Testing","Day","John Edwards","2","5","Full-time Job","Every Other Monday","Biweekly","3000")
+//********************************************************************************************************
+// enter_Primary_Employer_Details_CreditDecision_Window(String emplrName,String position,String dept,String shift,String supervisor,String workyrs,String workmos,String salSource,String payday,String salPeriodType,String grossSal)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// Sleep(3)
+	// if BranchPlus.CreditDecision.tbldwStep.WaitWhileExists(5) 
+		// Set crdtDecisionwindow = BranchPlus.CreditDecision.tbldwStep
+		// Sleep(3)
+		// //Enter Employer Details
+		// TypeText_PBDataWindow(crdtDecisionwindow,"#1","emplr_name",emplrName)
+		// TypeText_PBDataWindow(crdtDecisionwindow,"#1","position",position)
+		// TypeText_PBDataWindow(crdtDecisionwindow,"#1","dept",dept)
+		// TypeText_PBDataWindow(crdtDecisionwindow,"#1","shift",shift)
+		// TypeText_PBDataWindow(crdtDecisionwindow,"#1","sup",supervisor)
+		// SetValue_PBDataWindow(crdtDecisionwindow,"#1","work_yrs",workyrs)
+		// SetValue_PBDataWindow(crdtDecisionwindow,"#1","work_mos",workmos)
+		// SetValue_PBDataWindow(crdtDecisionwindow,"#1","salary_source",salSource)
+		// SetValue_PBDataWindow(crdtDecisionwindow,"#1","payday",payday)
+		// SetValue_PBDataWindow(crdtDecisionwindow,"#1","salary_period_type",salPeriodType)
+		// SetValue_PBDataWindow(crdtDecisionwindow,"#1","gross_salary",grossSal)
+		// Sleep(3)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in entering Primary employer details_CreditDecision_Window","Failed", Error_Description ,"")
+
+//**************************************************************************************************************************************************************************
+//@methodName: enter_Stipulated_Details_CreditDecision_Window(completed_Signed_Application,coMaker_agreement,copy_of_Valid_Driver_License,PFS_Credit_Verifictn_Authorizn_form,list_of_Relatives,proof_of_Residence,proof_of_Income,PFS_Insurance_Verification_form)
+//@Author Ranjitha
+//@Date 12 June 2018
+//@Description This is will enter the stipulated details in Credit Decision window
+//Ex:  enter_Stipulated_Details_CreditDecision_Window(completed_Signed_Application,coMaker_agreement,copy_of_Valid_Driver_License,PFS_Credit_Verifictn_Authorizn_form,list_of_Relatives,proof_of_Residence,proof_of_Income,PFS_Insurance_Verification_form)
+//***********************************************************************************************************************************************************************
+// enter_Stipulated_Details_CreditDecision_Window(String completed_Signed_Application,String coMaker_agreement,String copy_of_Valid_Driver_License,String PFS_Credit_Verifictn_Authorizn_form,String list_of_Relatives,String proof_of_Residence,String proof_of_Income,String PFS_Insurance_Verification_form)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// if BranchPlus.CreditDecision.tbldwStep.WaitWhileExists(5) 
+		// Set crdDecision = BranchPlus.CreditDecision.tbldwStep
+	// //Enter Stipulate Details
+	// TypeText_PBDataWindow(crdDecision,"#1","other_stipulation",completed_Signed_Application)
+	// TypeText_PBDataWindow(crdDecision,"#2","other_stipulation",coMaker_agreement)
+	// TypeText_PBDataWindow(crdDecision,"#3","other_stipulation",copy_of_Valid_Driver_License)
+	// TypeText_PBDataWindow(crdDecision,"#4","other_stipulation",PFS_Credit_Verifictn_Authorizn_form)
+	// TypeText_PBDataWindow(crdDecision,"#5","other_stipulation",list_of_Relatives)
+	// TypeText_PBDataWindow(crdDecision,"#6","other_stipulation",proof_of_Residence)
+	// TypeText_PBDataWindow(crdDecision,"#7","other_stipulation",proof_of_Income)
+	// TypeText_PBDataWindow(crdDecision,"#8","other_stipulation",PFS_Insurance_Verification_form)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in entering stipulated details_CreditDecision_Window","Failed", Error_Description ,"")
+//***********************************GENERIC FUNCTION*******************************************
+//@methodName: close_SpecificTab_InBrowser(pageName)
+//@Author Ranjitha
+//@Date 12 June 2018
+//@Description This is will close the tab of specifica page displayed in IE browser
+//Ex:  close_SpecificTab_InBrowser("NADA")
+//********************************************************************************************************
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+//	 
+//	Wait(10)
+////	if Browser("application version:=internet explorer 11","title:=.*"+ pageName +".*").Exit(2) 
+////		Browser("application version:=internet explorer 11","title:=.*"+ pageName +".*").close()
+////		Browser("application version:=internet explorer 11","title:=.*"+ pageName +".*").Dialog("regexpwndtitle:=Windows Internet Explorer").WinButton("regexpwndtitle:=&Leave this page").Click()
+////	else if Browser("application version:=Chrome"&".*").WaitWhileExists(3) 
+////		 KillProcess("chrome.exe")
+////	else
+////		writeReportLog "Closing "& pageName + " tab in IE Browser is NOT successful","Failed","",""
+////		
+//		
+//	if Browser("application version:=internet explorer 11","title:=.*"+ pageName +".*").WinObject("regexpwndclass:=DirectUIHWND").WinButton("acc_name:=Close Tab.*").WaitWhileExists(2) 
+//		Browser("application version:=internet explorer 11","title:=.*"+ pageName +".*").WinObject("regexpwndclass:=DirectUIHWND").WinButton("acc_name:=Close Tab.*").Click()
+//	else if Browser("application version:=Chrome"&".*").WaitWhileExists(3) 
+//		 KillProcess("chrome.exe")
+//	else
+//		writeReportLog "Closing "& pageName + " tab in IE Browser is NOT successful","Failed","",""
+//	
+//	if GetErrorCount()>0  			
+//		 writeReportLog("Failed in closing the specific tab in Browser","Failed", Error_Description ,"")
+//	
+//	Sleep(3)
+//
+
+//********************************************************************************************************
+//@methodName: enter_DirectLoan_FinanceDetails_CreditDecisionWindow(purchaseAmt,terms,intRate)
+//@Author Ranjitha
+//@Date 13 June 2018
+//@Description This is will enter the Direct loan finance details in credit decision window
+//Ex:  enter_DirectLoan_FinanceDetails_CreditDecisionWindow("3000","60","0.16")
+//*************************************************************************************************************
+// enter_DirectLoan_FinanceDetails_CreditDecisionWindow(String purchaseAmt,String terms,String intRate)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// if BranchPlus.CreditDecision.tbldwStep.WaitWhileExists(5) 
+		// Set tblPBWindow = BranchPlus.CreditDecision.tbldwStep
+		// //Enter Finance Details
+		// SetValue_PBDataWindow(tblPBWindow,"#1","purch_amt",purchaseAmt)
+		// SetValue_PBDataWindow(tblPBWindow,"#1","nbr_of_months",terms)
+		// SetValue_PBDataWindow(tblPBWindow,"#1","cust_rate",intRate)		
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/enter_DirectLoan_FinanceDetails_CreditDecisionWindow","Failed", Error_Description ,"")
+
+//********************************************************************************************************
+//@methodName: enter_ChargeAmount_InTitleFee(chrgAmt)
+//@Author Ranjitha
+//@Date 13 June 2018
+//@Description This is will enter the Charge Amount in Title fee in credit decision window
+// enter_ChargeAmount_InTitleFee("500")
+//**********************************************************************************************************
+// enter_ChargeAmount_InTitleFee(String chrgAmt)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// if BranchPlus.CreditDecision.PbDataWindow("pbname:=dw_component").WaitWhileExists(5) 
+		// Set compPBWindow = BranchPlus.CreditDecision.PbDataWindow("pbname:=dw_component")
+		// //Set Charge Amount
+		// if System.GetEnvVar("currentState") = "FL" 
+			// SetValue_PBDataWindow(compPBWindow,"#2","charge_amt",chrgAmt)
+		// else
+			// SetValue_PBDataWindow(compPBWindow,"#1","charge_amt",chrgAmt)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in to enter Charge Amount for Title Fee","Failed", Error_Description ,"")
+
+//*************************************************************************************************************************************************
+//@methodName: customerReversePaymentProcess()
+//@Author Chandra
+//@Date 22 Jun 2018
+//@Description This is for Process the Customer Reverse Payments(Cash,Cash by mail,Check,Check by Mail,Cashier//s CHeck,MoneyOrder)
+//Ex // customerReversePaymentProcess("Insufficient Funds","Cash by Mail","Test","Active","P","D","Payment Reversal","NSF Reversal")
+//*************************************************************************************************************************************************
+// customerReversePaymentProcess(String NsfReason,String paymentType,String Payment_Reason,String Active_Acc_Status,String PrincipalOnly_Character,String Deferment_Character,String ReversePaymentMethod,String NSF_ReversePaymentMethod)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //STEP: Navigating to Payment Tab
+	// navigateToTab_CustomerSubTabs("Payment")
+	// //Snap Shot
+	// writeReportLog("Snap shot from Payment Tab - Before Reverse Payment","Passed","","Y")
+	// //Get the Total Principal Balance Before Payment 
+	// Real principleBal_BeforeReversePayment = getTotalPrincipalBalance()
+	// //Get the total Charge And Paid Amount for Intrest Due before payment
+	// Real ChargeAndPaidAmtIntrestDueAmtBeforeReversepayment = get_DiffrenceAmount_ChargeAmtAndPaidAmt_SingleChargeType_PaymentTab("Interest Due")
+	// //Get the total Charge And Paid Amount for Late Charge, NSF Charge before payment
+	// Real ChargeAndPaidAmtLateNSFChargeAmtBeforeReversepayment = get_DiffrenceAmount_ChargeAmtAndPaidAmt_TwoChargeTypes_PaymentTab("Late Charge","Nsf Charge")
+	// //Getting the Pay Date, Payment Type, Amount Paid, Anount Paid, Principal Balance. Check Number
+	// AppObject  pbReportWindow = BranchPlus.CustomerF2Window.dw_payments
+	// //Validate Payment Processed Date
+	// String CashProcessesDate = GetValue_PBDataWindow(pbReportWindow,"#1","entry_dt")	
+	// List<String> lsProcessDatecheck = CashProcessesDate.Split(" ")
+	// String CashProcessesDate_BeforeReversePayment = lsProcessDatecheck[0]
+	// //Validate Payment Method 
+	// String paymentType_BeforeReversePayment = GetValue_PBDataWindow(pbReportWindow,"#1","pmt_type")
+	// //Validate Amount Received
+	// Integer amountReceived_BeforeReversePayment = (Math.Round([Integer](GetValue_PBDataWindow(pbReportWindow,"#1","recvd_amt")),4))
+	// //Validate Amount Paid
+	// Integer amountPaid_BeforeReversePayment = (Math.Round([Integer](GetValue_PBDataWindow(pbReportWindow,"#1","applied_amt")),4))
+	// //Getting Principal Balance
+	// Integer principleBalance_BeforeReversePayment = (Math.Round([Integer](GetValue_PBDataWindow(pbReportWindow,"#1","princ_amt")),4))
+	// //Getting other Balance
+	// Integer otherBalance_BeforeReversePayment = (Math.Round([Integer](GetValue_PBDataWindow(pbReportWindow,"#1","other_amt")),4))
+	// //Getting Intrest Balance
+	// Integer interestBalance_BeforeReversePayment = (Math.Round([Integer](GetValue_PBDataWindow(pbReportWindow,"#1","int_amt")),4))
+	// //Validate Check Number
+	// Integer checkNumber_BeforeReversePayment = [Integer](GetValue_PBDataWindow(pbReportWindow,"#1","check_nbr"))
+	// //Selecting First Row 
+	// pbReportWindow.SetActive()
+	// //Click on Reverse Button
+	// clickOnButton_Reverse()
+	// //Click on Yes Button
+	// clickButton_InWindow("w_message","Yes")
+	// //Handle the Multiple Reasons Reverse Payments(Cash,Cash by mail,Check,Check by Mail,Cashier//s Check,MoneyOrder)
+	// handle_MultipleReasons_Reverse_Payments(paymentType_BeforeReversePayment,Payment_Reason,NsfReason)
+	// //Validation of Reverse Payment Details
+	// ValidateReversePaymentDetails(principleBal_BeforeReversePayment,ReversePaymentMethod,NSF_ReversePaymentMethod,Payment_Reason,PrincipalOnly_Character,Deferment_Character,Active_Acc_Status,ChargeAndPaidAmtIntrestDueAmtBeforeReversepayment,ChargeAndPaidAmtLateNSFChargeAmtBeforeReversepayment,CashProcessesDate_BeforeReversePayment,paymentType_BeforeReversePayment,amountReceived_BeforeReversePayment,amountPaid_BeforeReversePayment,principleBalance_BeforeReversePayment,otherBalance_BeforeReversePayment,interestBalance_BeforeReversePayment,checkNumber_BeforeReversePayment)
+	// //Snap Shot
+	// writeReportLog("Snap shot from Payment Tab - After Reverse Payment","Passed","","Y")
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in step/customerReversePaymentProcess","Failed",Error_Description,"")
+
+//*************************************************************************************************************************************************
+//@MethodName: ValidateReversePaymentDetails()
+//@Author Chandra
+//@Date 25 Jun 2018
+//@Description This is to validate the Reverse Payment Details in Payment Tab 
+//Ex  ValidateReversePaymentDetails("8738","Payment Reversal",NSF Reversal","Test,"P","D","Active","57","20","6/25/2018","342.18",183.11,"Cash","10","10","10","","","1432")
+//*************************************************************************************************************************************************
+// ValidateReversePaymentDetails(principleBal_BeforeReversePayment,ReversePaymentMethod,NSF_ReversePaymentMethod,Payment_Reason,PrincipalOnly_Character,Deferment_Character,Active_Acc_Status,ChargeAndPaidAmtIntrestDueAmtBeforeReversepayment,ChargeAndPaidAmtLateNSFChargeAmtBeforeReversepayment,CashProcessesDate_BeforeReversePayment,paymentType_BeforeReversePayment,amountReceived_BeforeReversePayment,amountPaid_BeforeReversePayment,principleBalance_BeforeReversePayment,otherBalance_BeforeReversePayment,interestBalance_BeforeReversePayment,checkNumber_BeforeReversePayment)
+	// //To (Refresh) the Table intstead of giving hard Sleep ing the navigate tab function 	
+	// navigateToTab_CustomerSubTabs("Payment")
+	// Set pbReportWindow = BranchPlus.CustomerF2Window.PbDataWindow("pbname:=dw_payments")	
+	// //Validate Payment Processed Date
+	// CashProcessesDate = GetValue_PBDataWindow(pbReportWindow,"#1","entry_dt")	
+	// processDatecheck = Split(CashProcessesDate," ")
+	// CashProcessesDate = processDatecheck(0)
+	// Reporter.ReportEvent micPass,"Validation of Processes Payment Date and Reverese Payment Date has been displayed","Payment Processes Date : "& CashProcessesDate_BeforeReversePayment &"and Reverse Payment Date : "& CashProcessesDate &" is Matching"	
+	// //Validate Payment Method 
+	// validate_Reverse_paymentMethod(ReversePaymentMethod,NSF_ReversePaymentMethod)
+	// //Validate Amount Received and Amount Paid
+	// amountReceived = validate_AmountPaid_AmountReceived_Reverse_Payments(amountReceived_BeforeReversePayment,amountPaid_BeforeReversePayment)
+	// //	amountReceived = System.GetEnvVar("amountReceived")
+	// //Getting Principal Balance
+	// principleAmount = Abs(Math.Round(GetValue_PBDataWindow(pbReportWindow,"#1","princ_amt")))
+	// Reporter.ReportEvent micPass,"Validation of Reverese Payment Principal Balance has been displayed","Reverese Payment Principal Balance : $ "&principleAmount
+	// //Getting other Balance 
+	// otherAmount = Abs(Math.Round(GetValue_PBDataWindow(pbReportWindow,"#1","other_amt")))
+	// Reporter.ReportEvent micPass,"Validation of Reverese Payment Other Amount has been displayed","Reverese Payment Other Amount : $ "&otherAmount
+	// //Getting Intrest Balance
+	// intrestAmount = Abs(Math.Round(GetValue_PBDataWindow(pbReportWindow,"#1","int_amt")))
+	// Reporter.ReportEvent micPass,"Validation of Reverese Payment Interest Balance has been displayed","Reverese Payment Interest Balance : $ "&intrestAmount
+	// //Total Sum for Principal, other and Intrest Balance
+	// totalSum_Principal_Other_Intrest_Balance = Abs(Math.Round(principleAmount + otherAmount +intrestAmount))
+	// //Total Sum for Principal, other and Intrest Balance Before Reverse Payment 
+	// total_Sum_Principal_Other_Intrest_BeforeReversePayment = Abs(Math.Round(principleBalance_BeforeReversePayment + otherBalance_BeforeReversePayment + interestBalance_BeforeReversePayment))
+	// Reporter.ReportEvent micPass,"Validation of Processes Payment Sum of Principal, Other, Interest Amount is equal to Reverese Payment Sum of Principal, Other and Principal Amount has been displayed","Payment Processes Sum of Principal, Other, Interest Amount : $"& Math.Round(total_Sum_Principal_Other_Intrest_BeforeReversePayment) &" and Reverse Payment Sum of Principal, Other and Principal Amount: $"& Math.Round(totalSum_Principal_Other_Intrest_Balance) &" is Matching"	    
+	// //Validate Check Number
+	// validate_CheckNumber_Payments(checkNumber_BeforeReversePayment)
+	// //Validate After Reverse paymnet Principal Balance
+	// principleBal_AfterReversePayment = Abs(getTotalPrincipalBalance())
+	// //PaymentType Principal Only	
+	// if paymentType_BeforeReversePayment = "Cash" || paymentType_BeforeReversePayment = "Check - Insurance Claim" || paymentType_BeforeReversePayment = "foreign Collection" || paymentType_BeforeReversePayment = "Auction Check" || paymentType_BeforeReversePayment = "HO Warranty Claim Check" || paymentType_BeforeReversePayment = "Dealer Reserve" || paymentType_BeforeReversePayment = "Auction Check" || paymentType_BeforeReversePayment = "Check - Insurance Claim" || paymentType_BeforeReversePayment = "foreign Collection" 
+		// validate_Reverse_PrincipalOnly_Payment(PrincipalOnly_Character,principleBal_BeforeReversePayment,amountReceived,principleBal_AfterReversePayment)
+	// //PaymentType Regular
+	// else if paymentType_BeforeReversePayment = "Check" || paymentType_BeforeReversePayment = "Purchased Account" || paymentType_BeforeReversePayment = "Check by Mail" || paymentType_BeforeReversePayment = "Cashier//s Check" || paymentType_BeforeReversePayment = "Home Office" || paymentType_BeforeReversePayment = "Cash by Mail" || paymentType_BeforeReversePayment = "Allotment" || paymentType_BeforeReversePayment = "Dealer GAP Claim Check" 
+		// validate_Reverse_Regular_Payment(paymentType_BeforeReversePayment,Payment_Reason,amountReceived,principleBal_BeforeReversePayment,principleBal_AfterReversePayment,checkNumber_BeforeReversePayment,totalSum_Principal_Other_Intrest_Balance,ChargeAndPaidAmtLateNSFChargeAmtBeforeReversepayment)
+	// //PaymentType Deferment
+	// else if paymentType_BeforeReversePayment = "Money Order" || paymentType_BeforeReversePayment = "Bank Draft" || paymentType_BeforeReversePayment = "eComplish Check" || paymentType_BeforeReversePayment = "eComplish Check" || paymentType_BeforeReversePayment = "Bank Draft" || paymentType_BeforeReversePayment = "Dealer Check" || paymentType_BeforeReversePayment = "Garnish" 
+		// validate_Reverse_Deferment_Payment(Deferment_Character,otherAmount,intrestAmount,interestBalance_BeforeReversePayment,otherBalance_BeforeReversePayment)
+	// //PaymentType Pay off
+	// else if paymentType_BeforeReversePayment = "Bankruptcy" || paymentType_BeforeReversePayment = "eComplish Credit" || paymentType_BeforeReversePayment = "Money Order by Mail" || paymentType_BeforeReversePayment = "eComplish Credit" || paymentType_BeforeReversePayment = "HO GAP Claim Check" || paymentType_BeforeReversePayment = "Dealer Discount" 
+		// validate_Reverse_Payoff_Payment(total_Sum_Principal_Other_Intrest_BeforeReversePayment,amountReceived,Active_Acc_Status)
+	// //Error Handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in step/ValidateReversePaymentDetails","Failed", Error_Description,"")
+	//RemoveFunction
+//*************************************************************************************************************************************************
+//@methodName: handle_VersionMismatch_Popup()
+//@Author Ranjitha
+//@Date 26 Jun 2018
+//@Description This will handle the Version mismatch pop up after Branchplus login
+//Ex:  handle_VersionMismatch_Popup()
+//***************************************************************************************************************************************************
+// handle_VersionMismatch_Popup()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// if w_bp_frame.Dialog("regexpwndtitle:=Version Mismatch").WaitWhileExists(10) 
+		// //w_bp_frame.Dialog("regexpwndtitle:=Version Mismatch").PbButton("regexpwndtitle:=&Yes").Click()
+		// writeReportLog("Version Mismatch Pop-Up Appeared, Please deploy latest build","Failed", Error_Description,"Y")
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in step/handle_VersionMismatch_Popup","Failed", Error_Description,"Y")
+
+//*******************************************************************************************
+//@Method clickButtonInPBWindow(windowTitle,buttonName)
+//@Author Sumithra
+//@Date 05 Sep 2018
+//@Description This will click on the buttonName inside the Window Specified which will be identified by WIndow Title
+//Ex:  clickButtonInPBWindow("Branch Setup","Cancel")
+//*********************************************************************************************
+// clickButtonInPBWindow(String windowTitle,String buttonName)
+	// %FuncInfo[Desc="This will click on the buttonName inside the Window Specified which will be identified by WIndow Title",Group="BranchPlusFunctions"]
+	// if  Pbwindow("pbname:=" + "w_bp_frame").$windowTitle.PbButton("regexpwndtitle:=&" + buttonName).WaitWhileExists(5) 
+		// Pbwindow("pbname:=" + "w_bp_frame").$windowTitle.PbButton("regexpwndtitle:=&" + buttonName).Click()
+	// else if  Pbwindow("pbname:=" + "w_bp_frame").$windowTitle.buttonName.WaitWhileExists(5) 
+		// Pbwindow("pbname:=" + "w_bp_frame").$windowTitle.buttonName.Click()
+	// else
+		// writeReportLog("Failed to Click on Button : " + buttonName + " in window: " + windowTitle,"Failed",FailComments,"Button not found")
+	// Sleep (3)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: clickButtonInPBWindow","Failed", Error_Description ,"")
+
+//*******************************************************************************************
+//@Method clickButton_Level1PBwindow_DP(windowTitle,buttonName)
+//@Author Chandra
+//@Date 2 May 2018
+//@Description This will click on the buttonName inside the Window Specified which will be identified by WIndow Title
+//Ex:  clickButton_Level1PBwindow_DP("Branch Setup","Cancel")
+//*********************************************************************************************
+// clickButton_Level1PBwindow_DP(String windowTitle,String buttonName)
+	// %FuncInfo[Desc="This will click on the buttonName inside the Window Specified which will be identified by WIndow Title",Group="BranchPlusFunctions"]
+	// Flage = False
+	// if  Pbwindow("pbname:=" + "w_bp_frame").$windowTitle.PbButton("regexpwndtitle:=&" + buttonName).WaitWhileExists(10) 
+		// Pbwindow("pbname:=" + "w_bp_frame").$windowTitle.PbButton("regexpwndtitle:=&" + buttonName).Click()
+		// Flage = True
+	// else if  Pbwindow("pbname:=" + "w_bp_frame").Pbwindow("text:=" + windowTitle).buttonName.WaitWhileExists(2) 
+		// Pbwindow("pbname:=" + "w_bp_frame").Pbwindow("text:=" + windowTitle).buttonName.Click()
+		// Flage = True
+	// else if  Pbwindow("pbname:=" + "w_bp_frame").$windowTitle.buttonName.WaitWhileExists(2) 
+		// Pbwindow("pbname:=" + "w_bp_frame").$windowTitle.buttonName.Click()
+		// Flage = True
+	// clickButton_Level1PBwindow_DP = Flage
+	// //Sleep (1)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: clickButton_Level1PBwindow_DP","Failed", Error_Description ,"")
+
+//*******************************************************************************************
+//@Method clickMLAVerificationButton
+//@Author Chandra
+//@Date 18 MAr 2019
+//@Description This will click on the MLA button based on OS Name 
+//Ex:  clickMLAVerificationButton
+//*********************************************************************************************
+// clickMLAVerificationButton()
+	// %FuncInfo[Desc="This will click on the MLA button based on OS Name ",Group="BranchPlusFunctions"]
+	// osVersion = System.GetEnvVar("OS")
+	// osVersion = Replace(osVersion,"Workstation","")
+	// if Trim(osVersion) = "Windows 10" 
+		// BranchPlus.InsightObject("btn_VerifyMLAStatus_CreditDecision_Win10").Click()
+	// else
+		// BranchPlus.InsightObject("btn_VerifyMLAStatus_CreditDecision").Click()
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to clickMLAVerificationButton","Failed", Error_Description ,"")
+//*******************************************************************************************
+//@Method clickMLAVerificationButton_CoApplicant
+//@Author Chandra
+//@Date 18 MAr 2019
+//@Description This will click on the MLA button based on OS Name in Co applicant Window
+//Ex:  clickMLAVerificationButton_CoApplicant
+//*********************************************************************************************
+// clickMLAVerificationButton_CoApplicant()
+	// %FuncInfo[Desc="This will click on the MLA button based on OS Name in Co applicant Window",Group="BranchPlusFunctions"]
+	// osVersion = System.GetEnvVar("OS")
+	// osVersion = Replace(osVersion,"Workstation","")
+	// if Trim(osVersion) = "Windows 10" 
+		// BranchPlus.InsightObject("btn_VerifyMLAStatus_CreditDecision_CoApplication_Win10").Click()
+	// else
+		// BranchPlus.InsightObject("btn_VerifyMLAStatus_CreditDecision_CoApplication").Click()
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to clickMLAVerificationButton_CoApplicant","Failed", Error_Description ,"")
+//*********************************************************************************************
+//@methodName: getFieldIDBasedOnFieldName_CustomerTab
+//@Author Karthik
+//@Date 14 May 2019
+//@Description This return the column/field ID for the Field Name specified for Customer tab of F2 Screen
+//Ex  getFieldIDBasedOnFieldName_CustomerTab("First Name")
+//*********************************************************************************************
+// getFieldIDBasedOnFieldName_CustomerTab(String fldName)
+	// %FuncInfo[Desc="This return the column/field ID for the Field Name specified for Customer tab of F2 Screen",Group="BranchPlusFunctions"]
+	// //Variable
+	// idToReturn = null
+	// //Fetching ID//s based on Name
+	// if fldName = "First Name" 
+		// idToReturn = "first_name"
+	// else if fldName = "Last Name" 
+		// idToReturn = "last_name"
+	// else if fldName = "Mid Name" 
+		// idToReturn = "middle_name"
+	// else if fldName = "Credit Score" 
+		// idToReturn = "credit_score"
+	// else if fldName = "Affiliation" 
+		// idToReturn = "affil_type"
+	// else if fldName = "Name Suffix" 	
+		// idToReturn = "suffix"
+	// else if fldName = "Opted Out" 	
+		// idToReturn = "opted_out"
+	// else if fldName = "Allow Solicitation" 	
+		// idToReturn = "allow_solicit_yn"
+	// else if fldName = "Welcome " 	
+		// idToReturn = "welcome__yn"
+	// else if fldName = "Email" 
+		// idToReturn = "email"
+	// else if fldName = "Cust ID" 
+		// idToReturn = "compute_3"
+	// else
+		// writeReportLog("Please pass the Proper parameter value to method getFieldIDBasedOnFieldName_CustomerTab","Failed","","")
+	// getFieldIDBasedOnFieldName_CustomerTab = idToReturn
+
+// //**************************************************************
+// //@Method getAppVersionNumber_From_DB
+// //@Description (This) method will get the version number of the application from DB
+// //@Creation Date 08 sept 2023 lokesh
+// //Ex:  getAppVersionNumber_From_DB()
+// //***************************************************************
+// 
+// String getAppVersionNumber_From_DB()
+	// String sAppVersionNum = ""
+	// return sAppVersionNum
+
+//***************************************************************************************************************************
+//@Method: clickButton_In_Level1PBwindow_DailogPopup(windowName, dialogName, buttonToClick)
+//@Author: Chandra
+//@Date 31 may 2019
+//@Description: This function is to Click on Button in dailog popup 
+//@Returing the Dailog popup static text
+//Ex:  clickButton_In_Level1PBwindow_DailogPopup("Do Not Contact", Print Option","OK")
+//***************************************************************************************************************************
+// clickButton_In_Level1PBwindow_DailogPopup(String windowName,String dialogName,String buttonToClick)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code && Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// if w_bp_frame.PbWindow("regexpwndtitle:="+ windowName).Dialog("regexpwndtitle:=" + dialogName).$buttonName.WaitWhileExists(5) 
+		// w_bp_frame.PbWindow("regexpwndtitle:="+ windowName).Dialog("regexpwndtitle:=" + dialogName).$buttonName.Click()
+	// else if w_bp_frame.PbWindow("regexpwndtitle:="+ windowName).Dialog("regexpwndtitle:=" + dialogName).$buttonName.WaitWhileExists(5) 
+		// w_bp_frame.PbWindow("regexpwndtitle:="+ windowName).Dialog("regexpwndtitle:=" + dialogName).$buttonName.Click()	     				
+	// else
+		// writeReportLog("Clicking on Button " + buttonToClick + "Failed in Dialog: " + dialogName,"Failed","","Y")	
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to clickButton_In_Level1PBwindow_DailogPopup","Failed", Error_Description ,"")
+//*****************************************************************************************************************
+//@methodName: setValue_In_CustomerTab(fldName,fieldValue)
+//@Author Chandra
+//@Date 10 July 2018
+//@Description This will verify the Opted Out field in Customer Tab
+//Ex:  setValue_In_CustomerTab("First Name","Albert")
+//*****************************************************************************************************************
+// setValue_In_CustomerTab(String fldName,String fieldValue)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code && Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //Get Field ID Based on File Name 
+	// Coll_ID = getFieldIDBasedOnFieldName_CustomerTab(fldName)
+	// //AppObject value in Customer Tab
+	// AppObject tblwndw = BranchPlus.CustomerF2Window.PbDataWindow("pbname:=dw_cust")
+	// SetValue_PBDataWindow(tblwndw,"#1",Coll_ID,fieldValue)
+	// //Error Handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed Step/Function: setValue_In_CustomerTab","Failed", Error_Description,"Y")
+
+//******************************************************************
+//@Method searchAccountWithReferenceId
+//@Author Karthik.Shekar
+//@Description this method will open the F2 Window && Search the account with Ref ID/Account ID
+//@Date 9th Jan 2019
+//Ex: searchAccountWithReferenceId("20785")
+//**********************************************************************
+// searchAccountWithReferenceId(String refID)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code && Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// BranchPlus.SetActive()
+	// //Open
+	// sendKeys("{F2}")
+	// enterValuesIn_CustmerSearch("acct_id",refID)
+	// clickOkButton_CustomerSearchWindow()
+	// //Error Handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in step/searchAccountWithReferenceId","Failed", Error_Description,"")
+
+// 	 Validate_GL_Details_InViewTransacations("000000392598","1153","DB","Sales Loans-Auto-new loans", ">0", "0.00")
+//**************************************************************************************************************************
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+//	 
+//	//get row count
+//	GL_RowCount = getRowCount_PbDataWindow("w_view_transaction","dw_1")
+//	//Flag value 
+//	Flag = false
+//	
+//	//Identifying the Row && get the GL details Where COA is matched 
+//	for ( GL_Row  = 1; GL_Row <=GL_RowCount; GL_Row ++)
+//		//Get the GL Transaction Details
+//		acttranID = getValue_ViewTransactions_Window(GL_Row,"Transaction ID")
+//		act_COA = getValue_ViewTransactions_Window(GL_Row,"COA")		
+//		actCRDB = getValue_ViewTransactions_Window(GL_Row,"Credit Debit")
+//		actDescription = getValue_ViewTransactions_Window(GL_Row,"Description")
+//		actDebitAmt = getValue_ViewTransactions_Window(GL_Row,"Debit Amount")
+//		actCreditAmt = getValue_ViewTransactions_Window(GL_Row,"Credit Amount")
+//		
+//		//Validating all the data
+//		if (act_COA = expCOA) && (actCRDB = expCRDB)  && (actDescription = expDesc) && (Math.Round(actCreditAmt) = Math.Round(expCreditAmt)) && (Math.Round(actDebitAmt) = Math.Round(expDebitAmt))  	
+//			//Validating if the Transaction id is Not Numm
+//			if Trim(Length(expTransID)) > 0 
+//				if acttranID = expTransID 
+//					Flag = true
+//					break
+//				
+//			//Ignoring the Transaction ID Validation
+//			else
+//				Flag = true
+//		  		break 
+//			
+//		
+//	
+//	
+//		
+//	//Verifying the Flage value is false exit the execution
+//	if Flag = false 
+//		 writeReportLog("GL Valdiation is FAILED for Data >> " + expTransID + "|" + expCOA + "|" + expCRDB + "|" + expDesc + "|" + expCreditAmt + "|" + expDebitAmt, "Failed","","")
+//	else
+//		 writeReportLog("GL Valdiation is succesfull for the Data >> " + expTransID + "|" + expCOA + "|" + expCRDB + "|" + expDesc + "|" + expCreditAmt + "|" + expDebitAmt, "Passed","","")
+//	
+//	
+//	//Error Handling
+//	if GetErrorCount()>0 
+//		 writeReportLog("Failed Step/Function: Validate_GL_Details_InViewTransacations","Failed", Error_Description,"Y")
+//	
+//
+//*********************************************************************************************
+//@methodName: isDirectLoanApplicableforCurrentState
+//@Author Ambika
+//@Date 27 Oct 2020
+//@Description This function will return the status of direct loan for current state
+//@Return: Returns true if direct loan applicable else it will return false
+//EX:  isDirectLoanApplicableforCurrentState()
+//*********************************************************************************************
+// isDirectLoanApplicableforCurrentState()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code && Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //handling for direct loan states
+	// if System.GetEnvVar("currentState") = "NC" || System.GetEnvVar("currentState") = "SC" || System.GetEnvVar("currentState") = "FL" || System.GetEnvVar("currentState") = "GA" ||  System.GetEnvVar("currentState") = "AL"or  System.GetEnvVar("currentState") = "OH" 
+		// isDirectLoanApplicableforCurrentState = true
+	// else
+		// isDirectLoanApplicableforCurrentState = false 
+	// //Error Handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed Step/Function: isDirectLoanApplicableforCurrentState","Failed", Error_Description,"")
+
+// //********************************************************************************************************
+// //@methodName: clickOnBackButton_CreditDecisionWindow()
+// //@Author:Shelma Joseph
+// //@Date 19 Nov 2020
+// //@Description:This function will click on "Back" button in Credit Decision Window
+// //Ex:  clickOnBackButton_CreditDecisionWindow()
+// //********************************************************************************************************
+// clickOnBackButton_CreditDecisionWindow()
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code && Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //click on back
+	// BranchPlus.CreditDecision.btnBack.Click()
+	// Sleep (2)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to clickOnBackButton_CreditDecisionWindow","Failed", Error_Description ,"")
+
+
+
+//This will handel the USPS Window for Co-Applicant
+// // handleUSPSWindow_CoApplicant()
+	// // %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// // if BranchPlus.CreditDecision.USPS_Window.IsPresent() 
+		// // BranchPlus.CreditDecision.USPS_Window.btnUseAddressAbove.Click()
+		// // Print("USPS Window for Co-Applicant appeared and Handeled","Passed")
+	// // else
+		// // LogError("USPS Window for Co-Applicant does not exist if Failed")
+	// // 
+//Update CoApplicant Details
+// // Update_CoApplicant_Details(String row_num,String Co_Applicant_Last_Name,String Co_Applicant_First_Name,String Co_Applicant_SSN,String Co_Applicant_DOB,String customer_Type)
+	// // %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// // //Select //Add Row// Button
+	// // Click_Add_Row_Button()
+	// // //Enter Co-Applicant Details in Credit Decision Window
+	// // enter_Co_ApplicantDetails_CreditDecisionWindow(row_num,Co_Applicant_Last_Name,Co_Applicant_First_Name,Co_Applicant_SSN,Co_Applicant_DOB,customer_Type)
+	// // //Error Handling
+
+//Select Cell in CoApplicant Window
+// Select_Cell_CoApplicant_Window(String rowNum,String colName)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// //Select Cell in CoApplicant Window
+	// AppObject aoCoAppWnd = CreditDecisionSTEP.CoApplicantTable
+	// Select_PBDataWindow(aoCoAppWnd, rowNum,colName)
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed to Select_Cell_CoApplicant_Window","Failed", Error_Description ,"")
+
+//@Author Devaraju
+//@Date 20 Apr 2018
+//@Description This is to Validate the Dual Loan SSN Number
+//@Param SSNNumber--> SSN Number
+//Ex  ValidateDualLoanSSN("503765393")
+// ValidateDualLoan_SSN(String SSNNumber)
+	// %FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	// if BranchPlus.CreditDecision.PbWindow("pbname:=w_message", "regexpwndtitle:=Branch PLUS").WaitWhileExists(5) 
+	// writeReportLog("Looks Like there is already a Customer on file with the above SSN Number"& SSNNumber,"Failed",FailComments,"")
+	// BranchPlus.CreditDecision.PbWindow("pbname:=w_message").PbButton("pbname:=cb_1").Click()   
+	// ExitTest
+	// //Error Handling
+		// if GetErrorCount()>0  			
+			// writeReportLog("Failed to ValidateDualLoan_SSN","Failed", Error_Description ,"")
+
+// Coomented SQL Functions
+
+////*****************************************************************************************
+////@methodName : clickOn_HelpButton_InWindow()
+////@Author     : Chandra
+////@Date       : 27 July 2018
+////@Description: This will Validate Help Button in Credit Decision Window
+//
+////Ex: clickOn_HelpButton_InWindow("Help")
+////*****************************************************************************************
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+//	 
+//	if  BranchPlus.CreditDecision.$buttonName.WaitWhileExists (10)
+//		BranchPlus.CreditDecision.$buttonName.Click()
+//		 writeReportLog("Display of Help web page was successful","Passed","","Y")
+//	else if  BranchPlus.CreditDecision.$buttonName.WaitWhileExists (10)
+//		 BranchPlus.CreditDecision.$buttonName.Click()
+//		  writeReportLog("Display of Help web page was successful","Passed","","Y")
+//	else
+//		 writeReportLog("Failed to Click on Button : " + buttonName + " in window: " + windowName,"Failed",FailComments,"Button not found")
+//	
+//	//Error Handling
+//	if GetErrorCount()>0  			
+//		 writeReportLog("Failed in Step/clickOn_HelpButton_InWindow","Failed", "" ,"")
+//	
+//
+// //*****************************************************************************************************************
+// //@methodName: Validation_of_CreditCheck_Window_F2Window(outputType)
+// //@Author Ranjitha
+// //@Date 5 Sep 2018
+// //@Description This will validate the Credit Report in Payment Tab
+// //Ex:  Validation_of_CreditCheck_Window_F2Window(outputType)
+// //*****************************************************************************************************************
+// Validation_of_CreditCheck_Window_F2Window(String outputType)
+	// %FuncInfo[Desc="This function is to generate the name || text randomly based on given length.",Group="BranchPlusFieldLevelValidation"]
+	// String lName, fName, ssn_crdtwndw, city_crdtwndw, zipcode_crdtwndw
+	// //Click on Credit Check button
+	//  ClickButton_Credit()
+	// //Select bureau id && output type
+	//  select_CreditBureau_CreditCheckWindow_F2Window("EQUIFAX")
+	//  select_OutputType_CreditCheckWindow_F2Window(outputType)
+	// //Validate data in credit Check window
+	// lName = getValue_CreditCheckWindow_F2Window("last_name").ToUpper()
+	// fName = getValue_CreditCheckWindow_F2Window("first_name").ToUpper()
+	// ssn_crdtwndw = getValue_CreditCheckWindow_F2Window("ssn")
+	// city_crdtwndw = getValue_CreditCheckWindow_F2Window("city").ToUpper()
+	// zipcode_crdtwndw = getValue_CreditCheckWindow_F2Window("zipcode")
+	//  validateDataAndReport(lName,System.GetEnvVar("lastName"),"Validation of Last Name in Credit Check window :"+lName+ " && in Applicant Address window :"+System.GetEnvVar("lastName"))
+	//  validateDataAndReport(fName,System.GetEnvVar("firstName"),"Validation of First Name in Credit Check window :"+fName+ " && in Applicant Address window :"+System.GetEnvVar("firstName"))
+	//  validateDataAndReport(ssn_crdtwndw,System.GetEnvVar("SSN"),"Validation of SSN in Credit Check window :"+"xxxxx"+ssn_crdtwndw.Right(4)+ " && in Applicant Address window :"+"xxxxx"+System.GetEnvVar("SSN").Right(4))
+	//  validateDataAndReport(city_crdtwndw,sCity,"Validation of City in Credit Check window :"+city_crdtwndw+ " && in Applicant Address window :"+sCity)
+	//  validateDataAndReport(zipcode_crdtwndw,System.GetEnvVar("zipcode"),"Validation of Zip Code in Credit Check window :"+zipcode_crdtwndw+ " && in Applicant Address window :"+System.GetEnvVar("zipcode"))
+	// //Click on Get Report button
+	//  clickButton_InWindow("w_creditcheck","Get Report")
+	// AppObject repObj = BranchPlus.PbWindow("pbname:=w_creditcheck").PbWindow("pbname:=w_view_report").dw_list
+	// //Fetching Report Content
+	// verifytitlecreditReport = GetValue_PBDataWindow(repObj,"#1","text_line")
+	// verifyalertsCreditReport = GetValue_PBDataWindow(repObj,"#4","text_line")
+	// //Validating for Credit Report Generation
+	//  validatePartialDataAndReport(verifytitlecreditReport,"THIS FORM PRODUCED BY EQUIFAX","Validate Title in Credit Report "+verifytitlecreditReport)
+	// if outputType == "Persona Plus" 
+	// else
+		// verifyvalue1CreditReport = GetValue_PBDataWindow(repObj,"#10","text_line")
+		// verifyvalue2CreditReport = GetValue_PBDataWindow(repObj,"#12","text_line")
+		// verifyvalue3CreditReport = GetValue_PBDataWindow(repObj,"#14","text_line")
+		// //Validating for Credit Report
+	// //		 validatePartialDataAndReport(verifyvalue1CreditReport,"COMPLIANCE DATA CENTER, INC. ","Validate Report in Credit Report "+verifyvalue1CreditReport)
+	// //		 validatePartialDataAndReport(verifyvalue2CreditReport,"*NO MATCH FOUND IN CDC//S OFAC DATABASE ","Validate Report in Credit Report "+verifyvalue2CreditReport)
+	// //		 validatePartialDataAndReport(verifyvalue3CreditReport,"*   END OF REPORT, COMPLIANCE DATA CENTER, INC.","Validate Report in Credit Report "+verifyvalue3CreditReport)
+	// //Click on Close button
+	// BranchPlus.PbWindow("pbname:=w_creditcheck").PbWindow("pbname:=w_view_report").PbButton("pbname:=cb_close").Click()
+	// //Error Handling
+	// if GetErrorCount()>0  			
+		//  writeReportLog("Failed to Validation_of_CreditCheck_Window_F2Window","Failed", "" ,"")
+// //**********************************************************************************************************************
+// //@MethodName queryAndExportResultToExcel
+// //@Author Karthik Shekar
+// //@Description this method will run the Query && export the query result to excel sheet along with Column header
+// //@Creation Date: 10th Sep 2019
+// //@Param
+	// //QueryToExecute --> Pass the query || SP to be executed
+	// //excelFilePathToSave --> Specify the complete file path along with file extension
+// //@Return Nothing
+// //EX:  queryAndExportResultToExcel("exec sp_rpt_stats_acct_summary 2290,//2019-09-10//,//%//,//DAILY//", "c:\Sp1.xlsx")
+// //EX:   queryAndExportResultToExcel("select * from bp_branch_AppObjectup_tbl", "c:\BS1.xlsx")
+// //***********************************************************************************************************************
+// queryAndExportResultToExcel(String queryToExecute,String excelFilePathToSave)
+	// %FuncInfo[Desc="This is to get the test url from bp_credit_service_ref_tbl && validte it",Group="BranchPlusSQLFunctions"]
+	// //Creating the Excel Object for Saving the Query Data
+	//  AppObject objExcel = CreateObject("Excel.Application")
+	//  //objExcel.Visible = true
+	//  AppObject XLDoc = objExcel.Workbooks.Add
+	//  AppObject XLSheet = XLDoc.Worksheets(1)
+//  	//Creating the DB Connection
+	//  AppObject cnn1 = CreateObject("ADODB.Connection")
+	//  AppObject mrs = CreateObject("ADODB.RecordAppObject") 
+	//  cnn1.ConnectionTimeout = 30
+	//  cnn1.Open "Dsn=branch;Uid=support;Pwd=sql;" 
+		// //Query to Execute
+	//  //SQry = "exec sp_rpt_stats_acct_summary 2290,//2019-09-10//,//%//,//DAILY//"
+	// //Execute the Query
+	//   mrs.Open queryToExecute, cnn1
+	//  //Fetching the Header details && updating in Excel Sheet
+	//  for iCols = 0 To mrs.Fields.Count - 1
+		// XLSheet.Cells(1, iCols + 1).Value = mrs.Fields(iCols).Name
+	// //Exporting the Query Output to Excel Sheet
+	//  XLSheet.Range("A2").CopyFromRecordAppObject mrs
+	// //Saving the Excel WorkBook
+	//  objExcel.ActiveWorkbook.SaveAs excelFilePathToSave
+	// //Quitting && Closing Objects
+	//  objExcel.Quit
+	//  AppObject objExcel = Nothing
+	//  mrs.Close
+	//  cnn1.Close
+
+
+// ApplicationFunctions
+// '******************************************************************************************************************
+// 'EX: Call Get_Data_DB("Select * from CUSTOMER_TBL where SSN=253981024", "LAST_NAME")
+// '******************************************************************************************************************
+//  String runSQLQuery(String query, String requiredFieldName)
+	// String conn, sGetQueryValue
+	// List<String> rs
+	// Database database 
+	// database.Connect ("DSN=branch; Dbq=??;Uid=support;Pwd=sql") //??
+	// LogSuccessMessage("Test Data Get Query",query)
+	// // database.Connect ("Driver=Microsoft Excel Driver (*.xls);Dbq= C:\Users\pradeep.Matryxsoft\Desktop\QAEXCEL.xls;ReadOnly=0") 
+	// database.Execute (query) 
+	// database.Fetch(sGetQueryValue)
+	// database.Disconnect()  
+	// 
+	// if GetErrorCount() > 0  			
+		// LogError("Failed to runSQLQuery")
+	// return sGetQueryValue
+	// 
+//Ex: processDirectLoan_ToMakeActive("Automation Testing","Test Employer")
+//********************************************************************************************************
+// processDirectLoan_ToMakeActive(String reason, String payToName)
+	// 
+	// Sleep (2)
+	// clickButton_Process()
+	// 
+	// //For Joint Customer Popup
+	// //clickButton_Level1PBwindow_DP("Process Loan Validation","Yes")
+	// 
+	// //validate_For_DualLoan_Warning_Popup()
+	// //Redirecting To Test popup
+	// if (sCurrentState == "NC" )
+		// clickButtonInPBWindow("Redirecting To Test","OK")
+	// 
+	// //Handle Dual Loan Pop up
+	// if (sCurrentState== "NC" )
+		// handle_DualLoan_PopUp()
+	// 
+	// //Check below process for Loan validation for other State,This is Not applicable to GA(10.0.0)
+	// //Process Loan Validation popup Click on Yes button
+	// //clickButtonInPBWindow("Process Loan Validation ","Yes")
+	// 
+	// //Click ok button in Truth in lending Disclosure window
+	// //LogError("Capturing screenshot in Truth in lending Disclosure window during Direct Loan process","Passed","","Y")
+	// BranchPlus.w_acct_loan_disclosure.btnOK.Click()
+	// 
+	// //Click Yes button in Process Loan pop up
+	// //LogError("Capturing screenshot in Process Loan pop up during Direct Loan process","Passed","","Y")
+	// BranchPlus.w_acct_loan_disclosure.w_message.btnYes.Click()
+	// 
+	// //enter reason in Check Book Payment Load Proceeds window
+	// if (BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[1].Reason.WaitWhileExists(5))
+		// BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[1].Reason.SetText(reason)
+	// if (BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[2].Reason.WaitWhileExists(5))
+		// BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[2].PayTo.SetText(payToName)
+		// BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[2].Reason.SetText(reason)
+	// 
+	// //LogError("Capturing screenshot in Check Book Payment Load Proceeds window during Direct Loan process","Passed","","Y")
+	// //Clickin on Process Button
+	// BranchPlus.w_checkbook_pmt_split.btnProcess.Click()
+	// 
+	// //Handling Check Number Popup by clicking on Yes button
+	// Sleep (5)
+	// //Click on Mailing validation dailog -- 9.2.0 Release handled
+	// handle_PbWindow("w_message","OK")
+	// //Handeling Check Number Popup
+	// if (BranchPlus.NextCheckNumberPopUp.WaitWhileExists(5))
+		// BranchPlus.NextCheckNumberPopUp.btnYes.Click()
+	// 
+	// Sleep (5)
+	// //Handling Multiple Checks
+	// if (BranchPlus.NextCheckNumberPopUp.WaitWhileExists(5))
+		// BranchPlus.NextCheckNumberPopUp.btnYes.Click()
+	// //Error Handling
+	// if GetErrorCount() > 0 
+			// LogError("Failed to Process the Direct Loan")
+	// 
+
+// false moves down if true scrolls up according to UFT
+// MouseScroll (MouseScrollDirection sScrollDirection, String sWheelTurns)
+	//  %FuncInfo[Desc="This scrolls the mouse wheel up/down based on the input for the turns given as input",Group="Other"] 
+	//  //Author: Kavyashree Parkala 
+	//  System.Execute (GetRunDir ()+"\Project\Other\DoMouseScroll.exe "+ sScrollDirection + " " + sWheelTurns)  
+// KillProcess(String sProcessName) 
+	//  %FuncInfo[Desc="This function will kill system process.Do not add extension with the process name.",Group="Process"] 
+	//  String sProcess = "Taskkill " + "/IM " + sProcessName +"*" + " /" + "F" 
+	//  System.Execute (sProcess)  
+
+
+// Converted Functions
+
+//====================================================================================================
+// InitilizeTestReport(String summaryReportPath,String startTime,String Application,String State,String Build,String Executiondate,String TestName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// forReading = 1
+	// forWriting = 2
+	// Set fso = CreateObject( "Scripting.FileSystemObject" )
+	// Set textFile = fso.Open(summaryReportPath, forReading )
+	// if Not textFile.AtEndOfStream  text = textFile.ReadAll    
+	// textFile.Close
+	// //testDuration = fncFetchExecutionTime(startTime, endTime)
+	// newText = Replace( text, "<!-- Inject Application -->", Application)
+	// newText = Replace( newText, "<!-- Inject State -->", State)
+	// newText = Replace( newText, "<!-- Inject Build -->", Build)
+	// newText = Replace( newText, "<!-- Inject Date -->", Executiondate)
+	// newText = Replace( newText, "<!-- Inject Starttime -->", startTime)
+	// //newText = Replace( newText, "<!-- Inject Endtime -->", endTime)
+	// //newText = Replace( newText, "<!-- Inject Duration -->", testDuration)
+	// newText = Replace( newText, "<!-- Inject TestName -->", TestName)
+	// newText = Replace( newText, "<!-- Inject Executed By -->", Environment.Value("UserName"))
+	// osName = Environment.Value("OS")
+	// osName = Replace(osName,"Workstation","")
+	// hostName = Environment.Value("LocalHostName") & " | " & GetIPAddress() 
+	// newText = Replace( newText, "<!-- Inject Windows Version -->", osName)
+	// newText = Replace( newText, "<!-- VM Name -->", hostName)
+	// Set textFile = fso.Open( summaryReportPath, forWriting )
+	// textFile.WriteLine newText
+	// textFile.Close
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in InitilizeTestReport","Failed", Error_Description,"")
+
+//====================================================================================================
+// WrapupTestReport(String summaryReportPath,String startTime,String endTime)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// forReading = 1
+	// forWriting = 2
+	// Set fso = CreateObject( "Scripting.FileSystemObject" )
+	// Set textFile = fso.Open(summaryReportPath, forReading )
+	// if Not textFile.AtEndOfStream  text = textFile.ReadAll    
+	// textFile.Close
+	// testDuration = fncFetchExecutionTime(startTime, endTime)
+	// newText = Replace( text, "<!-- Inject Endtime -->", endTime)
+	// newText = Replace( newText, "<!-- Inject Duration -->", testDuration)
+	// Set textFile = fso.Open( summaryReportPath, forWriting )
+	// textFile.WriteLine newText
+	// textFile.Close
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in WrapupTestReport","Failed", Error_Description,"")
+//**********************************************************************************************************************************************************
+//@methodName: updateSummaryReport(startTime,endTime)
+//@Description: This Is the last that should be ed in the Test to Generate the Summary Report
+//@Author: Hemanth
+//Ex:  updateSummaryReport("","")
+//*******************************************************************************************************************************************************
+// updateSummaryReport(String startTime,String endTime)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// appVersion = getAppVersionNumber_From_DB()
+	// buildNumber = getBuildNumber_From_DB()
+	// currentState = Environment.Value("StateName")	
+	// branchID = getBranchID_From_DB()
+	// WrapupTestReport(Environment.Value("LogFolder") & "\" & Environment.Value("TestName") & ""& Environment.Value("TestNameSuffix") & ".html",startTime,endTime)	
+	// if Environment.Value("TestStatus") 
+		// writeSummaryReport(Environment.Value("LogFolder")&"\Execution_Summary\SFAutomationSummaryReport.html",Environment.Value("LogFolder")&"\"&Environment.Value("TestName")& ""& Environment.Value("TestNameSuffix")&".html",Environment.Value("TestName")& ""& Environment.Value("TestNameSuffix"),startTime,endTime,"Passed","Branch Plus",currentState & "_" & branchID,appVersion & " | " & buildNumber,date(),Environment.Value("UserName"))
+	// else
+		// writeSummaryReport(Environment.Value("LogFolder")&"\Execution_Summary\SFAutomationSummaryReport.html",Environment.Value("LogFolder")&"\"&Environment.Value("TestName")& ""& Environment.Value("TestNameSuffix") &".html",Environment.Value("TestName")& ""& Environment.Value("TestNameSuffix"),startTime,endTime,"Failed","Branch Plus",currentState & "_" & branchID,appVersion & " | " & buildNumber,date(),Environment.Value("UserName"))
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in updateSummaryReport","Failed", Error_Description,"")
+
+//UFT On Pass Capture Screen Shot
+// LogSuccessMessage_And_CaptureScreenShot(String LogSummary,String LogDetails )
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// screenShotFileName = captureDesktopScreenShot()
+	// Reporter.ReportEvent micPass, LogSummary, LogDetails, screenShotFileName	
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in LogSuccessMessage_And_CaptureScreenShot","Failed", Error_Description,"")
+
+//UFT On Pass Capture Screen Shot
+// LogSuccessMessage(String LogSummary,String LogDetails )
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// Reporter.ReportEvent micPass, LogSummary, LogDetails, screenShotFileName	
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: LogSuccessMessage","Failed", Error_Description ,"")
+
+//UFT Log Failure Message
+// LogFailureMessage(String LogSummary,String LogDetails )
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// screenShotFileName = captureDesktopScreenShot()
+	// Reporter.ReportEvent micFail, LogSummary, LogDetails, screenShotFileName
+	// //Exiting the Test on Validation Failure
+	// //ExitTest
+	// //Error handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in LogFailureMessage","Failed", Error_Description,"")
+
+// captureDesktopScreenShot()	
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// String sDateTimeNow, sDesktopFileName
+	// DateTime dt = DateTime.Now()
+	// sDateTimeNow = dt.Format("yyyyMMddhhss")
+	// sDesktopFileName = "Desktop_" + sDateTimeNow+".png"
+	// sDesktopFileName = sDesktopFilePath + sDesktopFileName
+	// UA.CaptureImage (sDesktopFileName)
+
+//***********************************************************************************************************
+//@methodName: handle_Dialog()
+//@Description: This will click on the Button Name Specified in the Dialog Box if it Exists
+//@Author:Sumithra 
+//@Date 27 September 2018
+//Ex:  handle_Dialog("branch\.exe","Close the program")
+	// handle_Dialog("RDP Clip Monitor","Close the program")
+//************************************************************************************************************
+// handle_Dialog(String dialogWindow,String buttonName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// 
+	// if (DialogBox["*{dialogWindow}*"].WaitWhileExists(5) == true)
+		// DialogBox["*{dialogWindow}*"].PushButton["*{buttonName}*"].Click()			
+	// //Handling On Error
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/handle_Dialog","Failed", Error_Description ,"")
+
+//****************************** GENERIC FUNCTION ***********************************************
+//@methodName: createExcel_And_AddColumns(sheetPath,sheetName,ColumnHdrInArray)
+//@Author Chandra
+//@Date 03 Jan 2019
+//@Description This is to Create an Excel in perticular location, specified sheet name and Add an single or multiple Columns 
+//Ex: ColumnHdrArray = {"ACCOUNT_ID","ACCOUNT_COMPONENT_OPTION","CHARGED_AMOUNT","REFUNDED_AMOUNT","ACCOUNT_COMPONENT_STATUS","REFUNDED_DATETIME")
+// createExcel_And_AddColumns("C:\Users\ap1\Downloads\Statistics_Report.xlsx","Insurance Cancellation",ColumnHdrArray)
+//*********************************************************************************************
+// createExcel_And_AddColumns(String sheetPath,String sheetName,String ColumnHdrInArray)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Creating the Excel Object
+	// set objExcel = createobject("excel.application")
+	// //Creating the Workbooks object
+	// set objWB = objExcel.workbooks.Add
+	// //Creating the sheet object
+	// set objsheet = objwb.worksheets.Add
+	// //Add Sheet in Excel
+	// objsheet.Name = (sheetName)
+	// for colCount = 0 To Ubound(ColumnHdrInArray)
+	// //add columns in Excel
+	// objsheet.cells(1,colCount + 1).Value = ColumnHdrInArray(colCount)
+	// //Saving the workbook after changes
+	// objWb.SaveAs sheetPath
+	// //closing the workbook
+	// objWB.close
+	// //Quit the Excel and destroying the Excel object
+	// objExcel.Quit
+	// set objExcel=nothing
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: createExcel_And_AddColumns ","Failed", Error_Description ,"")
+
+//**********************************************************************************************
+//@methodName: setWindowsDefaultPrinter(strPrinterName)
+//@Description: This is to set windows default printer 
+//@Author: Chandra
+//@Date 26 FEB 2018
+//Ex:  setWindowsDefaultPrinter("PrimoPDF")
+//*********************************************************************************************** 
+// setWindowsDefaultPrinter(String strPrinterName)
+	// %FuncInfo[Desc="This is to set windows default printer",Group="CommonFunctions"]
+	// String WshNetwork
+	// WshNetwork = CreateObject("WScript.Network")
+	// WshNetwork.SetValue(DefaultPrinter strPrinterName 
+	// //Error Handling
+	// if GetErrorCount()>0 
+		// writeReportLog("Failed in Step/: setWindowsDefaultPrinter","Failed", Error_Description ,"")
+
+//**********************************************************************************************
+//@methodName: runBatFile_WaitTillClose_InCmdPrmt(commandLine)
+//@Description: This is to Run CMD file and Wait until close cmd widnow
+//@Author: Chandra
+//@Date 26 FEB 2018
+//Ex:  runBatFile_WaitTillClose_InCmdPrmt("C:\SupportRoot\Batch\sync.CMD")
+//*********************************************************************************************** 
+// runBatFile_WaitTillClose_InCmdPrmt(String commandLine)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //	Set objShell = CreateObject("Wscript.Shell")
+	// //	//Launch the CMD window
+	// //	 objShell.Run(commandLine)
+	// //	Set oShell = CreateObject("Shell.Application")
+	// //	oShell.ShellExecute "cmd.exe","/C "& commandLine,,"runas",1
+	// //	Set oShell = Nothing
+	// startTimeNB = time()
+	// Set oShell = CreateObject("Shell.Application")
+	// oShell.ShellExecute commandLine,,,"runas",1
+	// Set oShell = Nothing
+	// Sleep 5
+	// if Window("regexpwndclass:=ConsoleWindowClass").WaitWhileExists(10) 
+		// for Iterator = 1 To 80 Step 1
+			// if Window("regexpwndclass:=ConsoleWindowClass").WaitWhileExists(2) = False 				
+				// Exit for
+		// Sleep 30
+	// endTimeNB = time()
+	// totNBTaken = DateDiff("n",startTimeNB, endTimeNB)
+	// writeReportLog("Execution of Nightly Job is Completed","Passed","Time Taken(Min)" & totNBTaken,"")	
+	// //Error Handling    
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: runBatFile_WaitTillClose_InCmdPrmt","Failed", Error_Description ,"")
+
+//*************************************************************************************************************************************************
+//@Method: runSQLQuery_FetchMultipleValues(query, requiredFieldName)   
+//@Author Karthik Shekar
+//@Date 3 Oct 2018
+//@Description This function is run the SQL query
+//Ex: runSQLQuery_FetchMultipleValues(query, "loan_nbr:trans_id")   
+//*************************************************************************************************************************************************
+// runSQLQuery_FetchMultipleValues(String query,String requiredFieldName)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Variable declaration
+	// String conn, rs
+	// LogSuccessMessage("Test Data Get Query",query)
+	// //Object declaration
+	// Set conn= createobject("adodb.connection")
+	// set rs = createobject("adodb.recordset")
+	// //Connection string
+	// conn.Open =  "Dsn=branch;Uid=support;Pwd=sql;"
+	// //Executing the Query
+	// rs.open query, conn
+	// //Validating for Query No Results
+	// if rs.EOF 
+		// writeReportLog("Looks Like Query >> " + query +  " did not found any record","Failed", Error_Description,"")
+		// ExitTest
+	// else
+		// //splitting the name
+		// arr = Split(requiredFieldName,":")
+		// for i = 0 To UBound(arr)
+		// if i <> 0 
+		// outputString = outputString & ":"
+		// requiredFieldName = rs.Fields(arr(i))
+		// outputString = outputString & requiredFieldName
+		// //Returing the Value
+		// runSQLQuery_FetchMultipleValues = outputString 
+	// rs.Close
+	// conn.Close 	  
+	// //Error handling
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/: runSQLQuery_FetchMultipleValues","Failed", Error_Description ,"")
+
+//*********************************************************************************************
+//@methodName: validate_InsightObject(Parent_Object,Object_Name,CustomReport)
+//@Author Chandra
+//@Date 28 May 2019
+//@Modified Karthik
+//@Modified Date 28 May 2019
+//@Description This is Validate Insight object based on Parent object and Object name 
+//Ex  validate_InsightObject("forms_InsightObjects","DirectLoanContract_Header","Validating for the Direct Loan Header")
+//******************************************************************************************
+// validate_InsightObject(String Parent_Object,String Object_Name,String CustomMsg)
+	// %FuncInfo[Desc="This will enter security credentials in the security alert popup in IE",Group="CommonFunctions"]
+	// //Validating Insight Objsect
+	// if PbWindow(""&Parent_Object&"").InsightObject(""&Object_Name&"").WaitWhileExists(10) 
+		// //Error Handling
+		// if GetErrorCount()>0  			
+			// //msgbox "Object Not Present in Repo"
+			// writeReportLog("<font color=//orange//>"& CustomMsg &" does not exist in Object Repository, Please verify</font>","Failed", Error_Description ,"")
+		// else
+			// PbWindow(""&Parent_Object&"").InsightObject(""&Object_Name&"").HoverMouse			
+			// writeReportLog("Validation of "& CustomMsg &" has been displayed successfully","Passed", "","Y")		
+	// else		
+		// writeReportLog("Validation of "& CustomMsg &" has been Failed. i.e., Required data is not present","Failed", "","Y")	
+	// //Error handling 
+	// if GetErrorCount()>0  			
+			// writeReportLog("Failed to validate_InsightObject","Failed", Error_Description ,"")
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Object Name="Dt_ConvertingUFTORtoExactATOR" Label="UFTOR_TO_ATOR" Type="Record_ConvertingUFTORtoExactATORList" FileName="Dt_ConvertingUFTORtoExactATOR.zData"/>
+	<Object Name="Dt_UFTConversion_Functions" Type="Record_UFTConvertion_StepsList" FileName="Dt_UFTConversion_Functions.zData"/>
+	<Object Name="Dt_UFTConvertion_Steps" Type="Record_UFTConvertion_StepsList" FileName="Dt_UFTConvertion_Steps.zData"/>
+	<Object Name="Dt_UFTTestToATTest" Type="Record_UFTTestToATTestList" FileName="Dt_UFTTestToATTest.zData"/>
+	<Object Name="DTKeywordConversion" Type="Record_KeywordConversionList" FileName="DTKeywordConversion.zData"/>
+</DataStore>

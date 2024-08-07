@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="5D30A03D">
+		<Record Name="record_Methods">
+			<Field Name="SeleniumMethods" Type="ListOfString"/>
+			<Field Name="AscentialTestMethods" Type="ListOfString"/>
+		</Record>
+		<List Name="ReplaceMethodsList" ItemType="record_Methods"/>
+		<List Name="ListOfString" ItemType="String"/>
+	</Types>
+	<Objects>
+		<Object Name="Methods" Type="ReplaceMethodsList">
+			<record_Methods>
+				<SeleniumMethods>
+					<String>.click()</String>
+					<String>.sendKeys(</String>
+					<String>.isDisplayed()</String>
+					<String>System.out.println(</String>
+					<String>.getTitle()</String>
+					<String>.getText()</String>
+					<String>.size()</String>
+					<String>public static </String>
+					<String>.split</String>
+				</SeleniumMethods>
+				<AscentialTestMethods>
+					<String>.Click()</String>
+					<String>.SetValue(</String>
+					<String>.IsPresent()</String>
+					<String>Print(</String>
+					<String>.Title</String>
+					<String>.GetText()</String>
+					<String>.Count()</String>
+					<String> </String>
+					<String>.Split</String>
+				</AscentialTestMethods>
+			</record_Methods>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Methods">
+			<Field Name="SeleniumMethods" Width="431"/>
+			<Field Name="AscentialTestMethods" Width="371"/>
+		</Object>
+	</Layout>
+</DataStore>

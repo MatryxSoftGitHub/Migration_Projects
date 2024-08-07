@@ -1,0 +1,9 @@
+class LoginToWorkday_Step : Step
+	%StepInfo[Desc="LoginToWorkday_Step",Group="null"]
+	Main()
+		config=new ConfigDataProvider()
+		sTxt_Username.WaitWhileExists(30)
+		sTxt_Username.sendKeys(config.GetUsername())
+		Txt_Password.sendKeys(config.GetPassword())
+		Btn_SignIn.click()
+		Lnk_Skip.click()

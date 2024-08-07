@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="3E22D8E6">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="Record_GenKeyEvents">
+			<Field Name="SeleniumKeyEvents" Type="ListOfString"/>
+			<Field Name="AscentialTestKeyEvents" Type="ListOfString"/>
+		</Record>
+		<List Name="Record_GenKeyEventsList" ItemType="Record_GenKeyEvents"/>
+	</Types>
+	<Objects>
+		<Object Name="GenKeyEvents" Type="Record_GenKeyEventsList">
+			<Record_GenKeyEvents>
+				<SeleniumKeyEvents>
+					<String>.sendKeys(Keys.CONTROL, &quot;a&quot;)</String>
+					<String>.sendKeys(Keys.ENTER)</String>
+				</SeleniumKeyEvents>
+				<AscentialTestKeyEvents>
+					<String>.GenKeyEvents(&quot;&lt;Ctrl-A&gt;&quot;)</String>
+					<String>.GenKeyEvents (&quot;&lt;Enter&gt;&quot;)</String>
+				</AscentialTestKeyEvents>
+			</Record_GenKeyEvents>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="GenKeyEvents">
+			<Field Name="SeleniumKeyEvents" Width="301"/>
+			<Field Name="AscentialTestKeyEvents" Width="347"/>
+		</Object>
+	</Layout>
+</DataStore>

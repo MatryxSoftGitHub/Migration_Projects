@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="73E80415">
+		<Record Name="record_FindElement">
+			<Field Name="SeleniumFormat" Type="lsSeleniumFormat"/>
+			<Field Name="ATFormat" Type="lsATFormat"/>
+		</Record>
+		<List Name="Record_FindElementList" ItemType="record_FindElement"/>
+		<List Name="lsSeleniumFormat" ItemType="String"/>
+		<List Name="lsATFormat" ItemType="String"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_FindElement" Type="Record_FindElementList">
+			<record_FindElement>
+				<SeleniumFormat>
+					<String>driver.findElement(By.xpath(&quot;//yt-formatted-string[contains(text(), '&quot;+ChannelName+&quot;')]&quot;))</String>
+					<String>driver.findElement(By.xpath(&quot;//body//ytd-grid-video-renderer[&quot;+i+&quot;]&quot;))</String>
+					<String>driver.findElement(By.xpath(&quot;//body//ytd-grid-video-renderer[&quot;+randomNumber+&quot;]&quot;))</String>
+					<String>drivr.findElement(By.xpath(&quot;//div[@data-automation-id=\&quot;inbox_row_title\&quot; and contains(text(),\&quot;&quot; + InboxItemName + &quot;\&quot;)]&quot;))</String>
+					<String>driver.findElement(By.xpath(&quot;//span[text()='&quot; + columnName + &quot;']/ancestor::td&quot;))</String>
+					<String>WebElement SpanTablePromotion = driver.findElement(By.xpath(&quot;(//caption[text()='&quot; + TableName+ &quot;']/following-sibling::tbody//td[contains(@headers,\&quot;columnheader&quot; + colNum+ &quot;\&quot;)]//span[@data-automation-id=\&quot;promptIcon\&quot;])&quot;))</String>
+					<String>WebElement TableNameWithRowHeader = driver.findElement(By.xpath(&quot;//caption[text()='&quot; + TableName+ &quot;']/following-sibling::tbody//td[contains(@headers,\&quot;columnheader&quot; + colNum + &quot;\&quot;)]//input&quot;))</String>
+					<String>WebElement Rbtn_Grid = driver.findElement(By.xpath(&quot;//div[text()='&quot; + TestData + &quot;']/..//input[@type=\&quot;radio\&quot;]&quot;))</String>
+					<String>WebElement VerifyTableSelectedData = driver.findElement(By.xpath(&quot;//td[contains(@headers,\&quot;columnheader&quot;+ colNum + &quot;\&quot;)]//div[contains(@data-automation-id,\&quot;selectedItem\&quot;)]//p[text()='&quot; + TestData+ &quot;']&quot;))</String>
+					<String>WebElement inputRowHeader = driver.findElement(By.xpath(&quot;(//td[contains(@headers,\&quot;columnheader&quot; + colNum + &quot;\&quot;)]//input)[1]&quot;));</String>
+				</SeleniumFormat>
+				<ATFormat>
+					<String>YoutubeSearchChannelPage.ChannelName</String>
+					<String>ItemsCount[i]</String>
+					<String>ItemsCount[randomNumber]</String>
+					<String>ApprovalProcessPages.InboxItemName</String>
+					<String>CommonsFunctions.ColumnName</String>
+					<String>CommonsFunctions.TableName</String>
+					<String>CommonsFunctions.TableName</String>
+					<String>CommonsFunctions.TestData</String>
+					<String>CommonsFunctions.TestData</String>
+					<String>CommonsFunctions.Columnheader</String>
+				</ATFormat>
+			</record_FindElement>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_FindElement">
+			<Field Name="SeleniumFormat" Width="514"/>
+			<Field Name="ATFormat" Width="475"/>
+		</Object>
+	</Layout>
+</DataStore>

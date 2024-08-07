@@ -1,0 +1,76 @@
+﻿app TopWin MicroFocusMyFlightSample
+	path window[@regexpwndtitle=="Micro Focus MyFlight Sample Application"]
+	path window[@devname=="Micro Focus MyFlight Sample Application"]
+		WpfDataGrid flightsDataGrid
+		path [@ObjectName=="flightsDataGrid"]
+		AppObject ToParis
+		path [@ObjectName=="toCity"]
+		AppObject SELECTFLIGHT
+		path [@ObjectName=="SELECT FLIGHT"]
+		AppObject Price
+		path [@ObjectName=="Price"]
+		AppObject Order88completed
+		path [@ObjectName=="orderCompleted"]
+		AppObject FromLondon
+		path [@ObjectName=="fromCity"]
+		AppObject Flight
+		path [@ObjectName=="Flight"]
+		AppObject Date
+		path [@ObjectName=="Date"]
+		AppObject WpfImage_6
+		path image[@ObjectClass=="Micro Focus MyFlight Sample Application"]
+		path image[@Text==";;"]
+		path image[@ObjectName==""]
+		AppObject WpfImage_5
+		path image[@ObjectClass=="Micro Focus MyFlight Sample Application"]
+		path image[@Text==";;"]
+		path image[@ObjectName==""]
+		AppObject WpfImage_4
+		path image[@ObjectClass=="Micro Focus MyFlight Sample Application"]
+		path image[@Text==";;"]
+		path image[@ObjectName==""]
+		AppObject WpfImage_3
+		path image[@ObjectClass=="Micro Focus MyFlight Sample Application"]
+		path image[@Text==";;"]
+		path image[@ObjectName==""]
+		AppObject WpfImage_2
+		path image[@ObjectClass=="Micro Focus MyFlight Sample Application"]
+		path image[@Text==";;"]
+		path image[@ObjectName==""]
+		AppObject WpfImage
+		path image[@ObjectClass=="Micro Focus MyFlight Sample Application"]
+		path image[@Text==";;;"]
+		path image[@ObjectName==""]
+		WpfTextField password
+		path [@ObjectName=="password"]
+		WpfTextField passengerName
+		path [@ObjectName=="passengerName"]
+		WpfTextField agentName123
+		path [@ObjectName=="agentName"]
+		WpfComboBox TravelFromCity
+		path [@ObjectName=="fromCity"]
+		WpfComboBox toCity
+		path [@ObjectName=="toCity"]
+		AppObject Mo
+		path [@ObjectName==""]
+		WpfPushButton WpfButton
+		path button[@Text==""]
+		path button[@ObjectName==""]
+		WpfPushButton SELECTFLIGHT
+		path [@Text=="SELECT FLIGHT"]
+		path [@ObjectName=="selectFlightBtn"]
+		WpfPushButton ORDER
+		path [@Text=="ORDER"]
+		path [@ObjectName=="orderBtn"]
+		WpfPushButton OK
+		path [@Text=="OK"]
+		path [@ObjectName=="okButton"]
+		WpfPushButton FINDFLIGHTS
+		path [@Text=="FIND FLIGHTS"]
+		path [@ObjectName=="FIND FLIGHTS"]
+		WpfPushButton BACK
+		path [@Text=="BACK"]
+		path [@ObjectName=="BACK"]
+		AppObject Window
+		path [@WinClass=="Shell_TrayWnd"]
+

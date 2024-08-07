@@ -1,0 +1,143 @@
+﻿// class MethodsReplace : Step
+	// %StepInfo[Group="Methods"]
+	// parameter String sReadFile
+	// Main()
+		// Integer iPos, iSeleniumMethodsCount, iAscentialTestMethodsCount
+		// String sReadData, sSingleLine, sCBrace = Char (125), sOBrace = Char (123), sWaitTime, sObjectName
+		// List<String> lsMainData, lsReplaceCode, lsData, lsWaitTime
+		// List<Integer> liStepCount
+		// 
+		// TextFile textFile
+		// textFile.Open (sReadFile, FileMode.Read, FileEncoding.ANSI)
+		// while textFile.Read (sReadData)
+			// lsMainData.Add (sReadData)
+		// // Print (lsMainData)
+		// for (Integer i = 1; i<=lsMainData.Count(); i++)
+			// if lsMainData[i].Contains("public void")
+				// liStepCount.Add(i)
+		// for (Integer j = liStepCount[1]; j<=lsMainData.Count(); j++)
+			// lsData.Add (lsMainData[j])
+		// for(Integer k=1;k<=lsData.Count();k++)
+			// if lsData[k].IsSpace ()
+				// lsData.Remove(k)
+		// lsData.Remove (lsData.Count())
+		// // Print (lsData)
+		// // List<AppObject>
+		// 
+		// // Getting values and count from table
+		// List<record_Methods> rMethods = DataStore.Query ("Methods")
+		// // Print(rMethods)
+		// 
+		// for(Integer i=1;i<=rMethods.Count();i++)
+			// iSeleniumMethodsCount = DataStore.Query ("Methods[{i}].SeleniumMethods").Count ()
+			// iAscentialTestMethodsCount = DataStore.Query ("Methods[{i}].AscentialTestMethods").Count ()
+		// // Print (iSeleniumMethodsCount, iAscentialTestMethodsCount)
+		// 
+		// // Methods
+		// for(Integer i=1;i<=lsData.Count();i++)
+			// for (Integer k = 1; k<=rMethods.Count(); k++)
+				// for (Integer j = 1, l = 1; j<=iSeleniumMethodsCount && l<=iAscentialTestMethodsCount; j++,l++)
+					// if lsData[i].Contains (rMethods[k].SeleniumMethods[j])
+						// // Print(lsData[i])
+						// sSingleLine=lsData[i]
+						// sSingleLine = sSingleLine.Replace (rMethods[k].SeleniumMethods[j], rMethods[k].AscentialTestMethods[l])
+						// lsData.Remove(i)
+						// lsData.Insert (i, sSingleLine)
+						// // Print(sSingleLine)
+		// // Print (lsData)
+		// 
+		// //Sleep
+		// List<record_Sleep> rSleep = DataStore.Query ("Sleep")
+		// // Print(rSleep)
+		// 
+		// for (Integer i = 1; i<=rSleep.Count(); i++)
+			// iSeleniumMethodsCount = DataStore.Query ("Sleep[{i}].SeleniumMethods").Count ()
+			// iAscentialTestMethodsCount = DataStore.Query ("Sleep[{i}].AscentialTestMethods").Count ()
+		// // Print (iSeleniumMethodsCount, iAscentialTestMethodsCount)
+		// 
+		// for(Integer i=1;i<=lsData.Count();i++)
+			// for (Integer k = 1; k<=rSleep.Count(); k++)
+				// for (Integer j = 1, l = 1; j<=iSeleniumMethodsCount && l<=iAscentialTestMethodsCount; j++,l++)
+					// if lsData[i].Contains (rSleep[k].SeleniumMethods[j])
+						// // Print(lsData[i])
+						// sSingleLine=lsData[i]
+						// sSingleLine = sSingleLine.Replace (rSleep[k].SeleniumMethods[j], rSleep[k].AscentialTestMethods[l])
+						// lsData.Remove(i)
+						// lsData.Insert (i, sSingleLine)
+						// // Print(sSingleLine)
+		// // Print (lsData)
+		// 
+		// // WaitUntilExists
+		// // List<record_WaitUntilExists> rWaitUntilExists = DataStore.Query ("WaitUntilExists")
+		// // // Print(rWaitUntilExists)
+		// // 
+		// // for (Integer i = 1; i<=rWaitUntilExists.Count(); i++)
+			// // iSeleniumMethodsCount = DataStore.Query ("WaitUntilExists[{i}].SeleniumMethods").Count ()
+			// // iAscentialTestMethodsCount = DataStore.Query ("WaitUntilExists[{i}].AscentialTestMethods").Count ()
+		// // // Print (iSeleniumMethodsCount, iAscentialTestMethodsCount)
+		// // 
+		// // for(Integer i=1;i<=lsData.Count();i++)
+			// // for (Integer k = 1; k<=rWaitUntilExists.Count(); k++)
+				// // for (Integer j = 1, l = 1; j<=iSeleniumMethodsCount && l<=iAscentialTestMethodsCount; j++,l++)
+					// // if lsData[i].Contains (rWaitUntilExists[k].SeleniumMethods[j])
+						// // // Print(lsData[i])
+						// // sSingleLine=lsData[i]
+						// // sSingleLine = sSingleLine.Replace (rWaitUntilExists[k].SeleniumMethods[j], rWaitUntilExists[k].AscentialTestMethods[l])
+						// // lsData.Remove(i)
+						// // lsData.Insert (i, sSingleLine)
+						// // // Print(sSingleLine)
+		// // // Print (lsData)
+		// // 
+		// // //WaitUntilExists Method
+		// // for(Integer i=1;i<=lsData.Count();i++)
+			// // if lsData[i].Contains ("WaitUntil") || lsData[i].Contains ("WaitWhile")
+				// // sObjectName=lsData[i+1].GetField(".",1)
+				// // sObjectName = sObjectName+"."+lsData[i]
+				// // lsData[i] = lsData[i].Replace (lsData[i], sObjectName)
+			// // else if lsData[i].Contains ("WaitUntil") || lsData[i].Contains ("WaitWhile")
+				// // sObjectName=lsData[i+1].GetField(".",1)
+				// // sObjectName = sObjectName.GetField ("(", 2)
+				// // sObjectName = sObjectName+"."+lsData[i]
+				// // lsData[i] = lsData[i].Replace (lsData[i], sObjectName)
+		// // Print(lsData)
+		// 
+		// 
+		// 
+		// for(Integer i=1;i<=lsData.Count();i++)
+			// lsReplaceCode.Add (lsData[i])
+		// lsReplaceCode.WriteFile ("D:\Nagaraj WorkSpace\youtube txt file\YoutubeSignInPage.txt")
+		// 
+		// 
+		// // D:\Nagaraj WorkSpace\YoutubeProject\YoutubeChannel\src\test\java\com\matryxsoft\youtube\Pages\YoutubeSignInPage.java
+		// // D:\Nagaraj WorkSpace\YoutubeProject\YoutubeChannel\src\test\java\com\matryxsoft\youtube\Pages\YoutubeSearchChannelPage.java
+		// // D:\Nagaraj WorkSpace\YoutubeProject\YoutubeChannel\src\test\java\com\matryxsoft\youtube\Pages\YoutubeRandomVideoStreamingPage.java
+		// //D:\Nagaraj WorkSpace\YoutubeProject\YoutubeChannel\src\test\java\com\matryxsoft\youtube\Pages\YoutubeVideoStreamingPage.java
+		// //D:\Nagaraj WorkSpace\YoutubeProject\YoutubeChannel\src\test\java\com\matryxsoft\youtube\Pages\YoutubeForwardVideoPage.java
+		// //D:\Nagaraj WorkSpace\YoutubeProject\YoutubeChannel\src\test\java\com\matryxsoft\youtube\Pages\YoutubeSignOutPage.java
+		// 
+		// 
+		// 
+// 
+
+class Sleeps_Replacement_Seq4 : Step
+	%StepInfo[Desc="Converts Thread sleep of Selenium into Sleep of AscentialTest",Group="Conversion_MainStep"]
+	parameter List<String> lsData
+	parameter String OutSleepFileName
+	Main()
+		Integer  iSeleniumMethodsCount, iAscentialTestMethodsCount
+		String  sSingleLine
+		List<String> lsMainData
+		
+		record_Sleeps rSleep = DataStore.Query ("Sleeps[1]")
+		
+		for(Integer i=1;i<=lsData.Count();i++)
+			for (Integer j = 1; j<=rSleep.SeleniumSleepMethods.Count(); j++)
+				if lsData[i].Contains (rSleep.SeleniumSleepMethods[j])
+						lsData[i] = lsData[i].Replace (rSleep.SeleniumSleepMethods[j], rSleep.AscentialTestSleepMethods[j])
+		Print (lsData)
+		
+		lsData.WriteFile (OutSleepFileName)
+		// lsData.WriteFile("D:\Temp\Sleep.txt")
+		
+		
+

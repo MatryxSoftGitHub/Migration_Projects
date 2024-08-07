@@ -1,0 +1,1630 @@
+﻿class DeleteUnwantedTags_UFTOriginalTxtFile : Step
+	%StepInfo[Desc="Deletes all unwanted tags from the original UFT OR txt file",Group="UFT To AT ObjectRepo / Delete Unwanted tags"]
+	parameter List<String> lsUnwantedTags
+	parameter String sOrgUFT_FileName
+	parameter String sModifiedUFT_FileName
+	Main()
+		// Declaration of Variables
+		Integer iLoop , jLoop
+		Boolean bUnwantedTagFound
+		String sLine, sItem,sSearchItem
+		List<String> lsAllDataFromOrgUFT_txt, lsWriteAfterRemoveUnwantedTags
+		TextFile orgUFTFile,UFTModifiedOrgFile
+		
+		
+		//Read UFT Orginal Format txt file
+		orgUFTFile.Open (sOrgUFT_FileName, FileMode.Read)
+		while orgUFTFile.Read (sLine)
+			lsAllDataFromOrgUFT_txt.Add (sLine)
+		orgUFTFile.Close ()
+		
+		//Create new text file
+		step CreateTextFile
+			sNewTxtFileName:sModifiedUFT_FileName
+		
+		//Deletes all unwanted tags from the original UFT OR txt file
+		for (iLoop = 1; iLoop<=lsAllDataFromOrgUFT_txt.Count(); iLoop++)
+			for (jLoop = 1; jLoop<=lsUnwantedTags.Count(); jLoop++)
+				sItem = lsAllDataFromOrgUFT_txt[iLoop]
+				sSearchItem = lsUnwantedTags[jLoop]
+				if sItem.Contains (sSearchItem)
+					bUnwantedTagFound = true
+					break
+			if bUnwantedTagFound == false
+				lsWriteAfterRemoveUnwantedTags.Add (sItem)
+			bUnwantedTagFound = false
+		
+		//Open Modified UFT txt File
+		UFTModifiedOrgFile.Open (sModifiedUFT_FileName, FileMode.Write)
+		
+		// Writing into modified UFT txt file after remove unwanted tags
+		for (iLoop = 1; iLoop<=lsWriteAfterRemoveUnwantedTags.Count(); iLoop++)
+			UFTModifiedOrgFile.Write (lsWriteAfterRemoveUnwantedTags[iLoop])
+		
+		
+class ConvertUFTORtoATOR : Step
+	%StepInfo[Desc="Converts UFT Objects and property to AT Objects and Property",Group="UFT To AT ObjectRepo / Convert Object"]
+	parameter String sModifiedUFT_FileName
+	parameter String sConvertedToATFile
+	Main()
+		// Declaration of Variables
+		Integer iCount = 0, iLoop
+		Boolean bMainWindow = false
+		String sSingleTab = "    ",sDoubleTab = "        ",sCollapse = "    ", sLine, sObjType, sObjName,sATORSyntax,sTempValue, sObjValue, sATPathSyntax,sAttrValue
+		Object ObjValue
+		TextFile UFTModifiedOrgFile, UFTObjectRepofile
+		List<String> lsData
+		// Text File to read UFT Text File and write Modified AT Text file
+		UFTModifiedOrgFile.Open (sModifiedUFT_FileName, FileMode.Read)
+		
+		//Creating new txt file for writting UFT Obj Repo
+		step CreateTextFile
+			sNewTxtFileName:sConvertedToATFile
+		UFTObjectRepofile.Open (sConvertedToATFile, FileMode.Write)
+		
+		
+		// Read each line in the UFT text file, converts and writes into a  new Text file
+		while UFTModifiedOrgFile.Read (sLine)
+			iCount++
+			if sLine.Contains ("<Object") && sLine!="<Objects>" || sLine.Contains("<EncodedObject") && sLine!="<EncodedObjects>"// Converts only objects
+				bMainWindow = false
+				sObjType = sLine.GetField ("""", 2)
+				sObjName = sLine.GetField ("""", 4)
+				if iCount ==2// Handles Main window
+					if (iCount ==2 )
+						sATORSyntax = "[-] app " + sObjType+ " " +sObjName
+					else
+						sATORSyntax = "app " + sObjType+ " " +sObjName
+					bMainWindow = true
+					lsData.Add (sATORSyntax)
+					// UFTObjectRepofile.Write (sATORSyntax)
+				else
+					sATORSyntax = String.Tabs(1)+ sCollapse + sObjType+ " " +sObjName
+					lsData.Add (sATORSyntax)
+					// UFTObjectRepofile.Write (sATORSyntax)
+			else if sLine.Contains ("<Property") || sLine.Contains("<StandardProperty")// Checks for Property 
+				sObjName = sLine.GetField ("""", 2)
+				sObjType = sLine.GetField ("""", 8)
+				sObjValue = sLine.GetField ("<Value RegularExpression=""0""><![CDATA[", 2)
+				ObjValue = sObjValue.GetField ("]]></Value>", 1)
+				if sObjName.ToLower ().Contains ("wpftypename") // checks the type of the control
+					if bMainWindow == true // to handle main window
+						sATPathSyntax = sSingleTab + "path " + ObjValue
+					else
+						sATPathSyntax = sDoubleTab + "path " + ObjValue
+					lsData.Add (sATPathSyntax)
+					// UFTObjectRepofile.Write (sATPathSyntax)
+				else
+					if sObjType.ToLower().Contains ("string")
+						if bMainWindow == true
+							sATPathSyntax = String.Tabs(1)+ "path [@" + sObjName+"==" + """{ObjValue}"""+"]"
+						else
+							sATPathSyntax = String.Tabs(2)+ "path [@" + sObjName+"==" + """{ObjValue}"""+"]"
+						lsData.Add (sATPathSyntax)
+						// UFTObjectRepofile.Write (sATPathSyntax)
+					else
+						if bMainWindow == true
+							sATPathSyntax = String.Tabs(1) + "path [@" + sObjName+"==" + ObjValue+"]"
+						else
+							sATPathSyntax = String.Tabs(2)+ "path [@" + sObjName+"==" + ObjValue+"]"
+						lsData.Add (sATPathSyntax)
+						// UFTObjectRepofile.Write (sATPathSyntax)
+		for (iLoop = 1; iLoop<=lsData.Count(); iLoop++)
+			if lsData[iLoop].Contains ("InsightObject")
+				lsData[iLoop] = lsData[iLoop].Replace ("InsightObject", "RenderImage")
+			if lsData[iLoop].Contains ("@visual relations")
+				lsData[iLoop] = lsData[iLoop].Replace ("@visual relations", "@Name")
+				sAttrValue = lsData[iLoop-1].GetField (" ", 2)
+				lsData[iLoop] = lsData[iLoop].Replace ("==""""", "==""{sAttrValue}""")
+			UFTObjectRepofile.Write (lsData[iLoop])
+		UFTModifiedOrgFile.Close ()
+		UFTObjectRepofile.Close ()
+		
+
+
+// Dileep/Krutika/Nag
+
+class ConvertObjectname : Step
+	%StepInfo[Desc="Convert Object name with space to without space",Group="UFT Object Repo To AT Object Repo/Convert Object"]
+	parameter String sVal
+	out parameter String sOutput
+	out parameter String sExpectedObjName
+	Main()
+		List<String> lsResult,lsVal
+		String sTemp, sActualObjName = "",sValue
+		Integer k, count = 0, j
+		//app PbWindow ResaleOfRepo_Header_Signature
+		//
+		lsResult = sVal.Split (" ") // Splitting Object name with space
+		sTemp = lsResult[2]
+		if sTemp.Contains("app") //To fetch the actual obj name with spaces
+			k = 4
+			for(j=k;j<=lsResult.Count();j++) 
+				sActualObjName = (sActualObjName+lsResult[j]+" ")
+				Print (sActualObjName,"1")
+		else
+			k=2
+			for(j=k;j<=lsResult.Count();j++)
+				sActualObjName= (sActualObjName+lsResult[j]+" ")
+				Print (sActualObjName,"2")
+		sActualObjName.Trim ()
+		for (Integer i = k; i<=lsResult.Count(); i++) // To get obj name without spaces
+			lsVal.Add(lsResult[i])
+		sExpectedObjName = String.Join (lsVal)
+		Print (sExpectedObjName,"3")
+		step ReplaceSpecialCharInAString
+			sPathString:sExpectedObjName
+		// To Insert the actual and Expected obj into excel
+		step InsertActualandExpectedObjNamesToExcel
+			sActual:sActualObjName
+			sExpected:ReplaceSpecialCharInAString.sPathResult
+		// Covertning the obj name to AT obj path
+		Print (lsResult)
+		Print (k)
+		if k==4
+			switch sApp_Type
+				case "Browser"
+					step UftAppObjectsToAT_Web
+						UftObject:lsResult[3]
+					sOutput = "[-] app "+UftAppObjectsToAT_Web.ATObject+" "+ReplaceSpecialCharInAString.sPathResult
+					// Print (sOutput)
+				case "WpfWindow"
+					step UftAppObjectsToAT_WpfWindow
+						UftObject:lsResult[3]
+					sOutput = "[-] app "+UftAppObjectsToAT_WpfWindow.ATObject+" "+ReplaceSpecialCharInAString.sPathResult
+				case "Window" , "PbWindow"
+					step UftAppObjectsToAT_Window
+						UftObject:lsResult[3]
+					sOutput = "[-] app "+UftAppObjectsToAT_Window.ATObject+" "+ReplaceSpecialCharInAString.sPathResult
+		else
+			switch sApp_Type
+				case "Browser"
+					step UftAppObjectsToAT_Web
+						UftObject:lsResult[1]
+					if UftAppObjectsToAT_Web.ATObject.Contains ("WebPage")
+						sOutput = "[-] app "+UftAppObjectsToAT_Web.ATObject+" "+ReplaceSpecialCharInAString.sPathResult
+					else
+						sOutput = "    "+UftAppObjectsToAT_Web.ATObject+" "+ReplaceSpecialCharInAString.sPathResult
+				case "WpfWindow"
+					step UftAppObjectsToAT_WpfWindow
+						UftObject:lsResult[1]
+					sOutput = "    "+UftAppObjectsToAT_WpfWindow.ATObject+" "+ReplaceSpecialCharInAString.sPathResult
+				case "Window"
+					step UftAppObjectsToAT_Window
+						UftObject:lsResult[1]
+					if UftAppObjectsToAT_Window.ATObject.Contains ("DialogBox")
+						sOutput = "[-] app "+UftAppObjectsToAT_Window.ATObject+" "+ReplaceSpecialCharInAString.sPathResult
+					else
+						if !UftAppObjectsToAT_Window.ATObject.Contains ("Path")
+							sOutput = String.Tabs(1)+" "+UftAppObjectsToAT_Window.ATObject+" "+ReplaceSpecialCharInAString.sPathResult
+						else
+							sOutput =+"    "+UftAppObjectsToAT_Window.ATObject+" "+ReplaceSpecialCharInAString.sPathResult
+		Print (sOutput)
+		
+class AddsObjClassToitsOwnPathStatements : Step
+	%StepInfo[Desc="Insert Object Class To Multiple Path Statements Within Same Object",Group="UFT Object Repo To AT Object Repo / Convert Object"]
+	parameter String sSourceFile
+	parameter String sDestinationFile
+	Main()
+		// Declaration of Variables
+		Integer k
+		Integer iCount=0,iLoop,jLoop
+		String sData,sVal, sTemp,sSingleTab = "  "// Adding Tab spaces to Object types
+		List<String> lsVal, lsUFTPaths, lsATObjType
+		TextFile UFTObjectRepoFile, ConvertUFTtoATRepoFile
+		
+		// Reading from UFT object repo file source file
+		UFTObjectRepoFile.Open (sSourceFile, FileMode.Read)// Reading from Source file
+		while UFTObjectRepoFile.Read (sData)// fetching all data into a list
+			lsVal.Add(sData)
+		
+		//Creating new file for Writing to Destination file
+		step CreateTextFile
+			sNewTxtFileName:sDestinationFile
+		ConvertUFTtoATRepoFile.Open (sDestinationFile, FileMode.Write, FileEncoding.Auto)// Write to Destination file
+		
+		//Converting UFT path containing Object type to AT Object path
+		for (iLoop = 1; iLoop<=lsVal.Count(); iLoop++) 
+			if lsVal[iLoop].Contains ("path")// Spliting multiple path statements between object types
+				lsUFTPaths.Add (lsVal[iLoop])
+				if !(lsVal[iLoop].Contains ("["))// PathStatment contains only Object class and gets into a variable
+					sVal = lsVal[iLoop].GetField (" ", 2)
+					iCount++ //
+					lsUFTPaths = {}// to avoid appending of path statement after pathstatment containing object class
+				else 
+					if iCount==0 //Child Objects having single path
+						ConvertUFTtoATRepoFile.Write (lsVal[iLoop])
+			else
+				if iCount>0 //Converting UFT path containing Object type to AT Object path
+					step InsertObjectClassToMultiplePathStmtWithinSameObj
+						lsPath:lsUFTPaths
+						sVal:sVal
+					iCount = 0// to find the next line which contains only  Object class in the path
+					for (jLoop = 1; jLoop<=InsertObjectClassToMultiplePathStmtWithinSameObj.lsATObjType.Count(); jLoop++)
+						ConvertUFTtoATRepoFile.Write (InsertObjectClassToMultiplePathStmtWithinSameObj.lsATObjType[jLoop])
+					ConvertUFTtoATRepoFile.Write (sSingleTab+lsVal[iLoop])
+				else
+						ConvertUFTtoATRepoFile.Write (lsVal[iLoop])
+		
+		
+class InsertObjectClassToMultiplePathStmtWithinSameObj : Step
+	%StepInfo[Desc="Insert Object Class To Multiple Path Statements Within SameObj",Group="UFT Object Repo To AT Object Repo / Common"]
+	parameter List<String> lsPath
+	out parameter List<String> lsATObjType
+	parameter String sVal
+	Main()
+		String sTemp
+		for (Integer j = 1; j<=lsPath.Count(); j++)
+			if lsPath[j].Contains ("[")
+				sTemp = lsPath[j].Replace ("path [", "path {sVal}[")
+				lsATObjType.Add(sTemp)
+		
+class CovertingEquivalentUFTOR_ATOR : Step
+	%StepInfo[Desc="a)Covert Object Name to AT. b)Repalcing the special char with null in Obj name. c)Updating Actual UFT Obj name to Expected AT Obj name.",Group="UFT Object Repo To AT Object Repo / Convert Object"]
+	parameter String sDestinationFile
+	parameter String sFinalDestination
+	Main()
+		// Declaration of Variables
+		List<String> lsVal
+		String sData
+		Boolean bMainWindow = false
+		TextFile textFile,textFile1
+		textFile1.Open (sDestinationFile, FileMode.Read, FileEncoding.Auto)// Reading From Source File
+		step CreateTextFile
+			sNewTxtFileName:sFinalDestination
+		textFile.Open (sFinalDestination, FileMode.Write)// Wrting into Destination File
+		while textFile1.Read (sData)//To Fetch all values from Source File
+			lsVal.Add(sData)
+		for (Integer i = 1; i<=lsVal.Count(); i++)
+			if lsVal[i].Contains ("path")// Write into Destination File
+				if bMainWindow == false && sApp_Type=="Browser"
+					textFile.Write ("    "+lsVal[i])
+					Print ("    "+lsVal[i], "1111111111111111111")
+				else
+				if bMainWindow == true
+					lsVal[i]=lsVal[i].TrimLeft()
+					textFile.Write (String.Tabs(1)+lsVal[i])
+					Print (String.Tabs(1)+lsVal[i], "22222222222222222222222")
+				// else
+					// lsVal[i]=lsVal[i].TrimLeft()
+					// textFile.Write (String.Tabs(2)+lsVal[i])
+					// Print (String.Tabs(2)+lsVal[i], "3333333333333333333333")
+					
+			else
+				//Covert UFT Object name to AT Object name
+				step ConvertObjectname
+					sVal:lsVal[i]
+				if (ConvertObjectname.sOutput.Contains ("DialogBox") || ConvertObjectname.sOutput.Contains ("WebPage") || ConvertObjectname.sOutput.Contains ("MainWin"))
+					bMainWindow = true
+				else
+					bMainWindow = false
+				Print (ConvertObjectname.sOutput,"44444444444444444444444444444444444")
+				textFile.Write (ConvertObjectname.sOutput)
+		
+class ReplaceSpecialCharInAString : Step
+	%StepInfo[Desc="Replace special charecters to null in the string",Group="UFT Object Repo To AT Object Repo/Special Char"]
+	parameter String sPathString
+	out parameter String sPathResult
+	Main()
+		List<String> lsWildChr = {"!","@","#","$","%","^","&","*","(",")","+","?","/",">","<","\",":","-","|",".",","}
+		// String sResultString
+		for (Integer i = 1; i<=sPathString.Length(); i++)
+			for (Integer j = 1; j<=lsWildChr.Count(); j++)
+				if sPathString[i]==lsWildChr[j]
+					sPathString = sPathString.Replace (sPathString[i], "")
+		sPathResult=sPathString
+		
+class UftAppObjectsToAT_WpfWindow : Step
+	%StepInfo[Desc="To Convert Uft AppObject to Equivalent AT Objects for WPFWindow",Group="UFT Object Repo To AT Object Repo / Replace AttributeType/WpfWindow"]
+	parameter String UftObject
+	out parameter String ATObject
+	Main()
+		switch UftObject
+			case "WpfTable"
+				ATObject = "WpfDataGrid"
+				break
+			case "WpfEdit"
+				ATObject = "WpfTextField"
+				break
+			case "WpfButton"
+				ATObject = "WpfPushButton"
+				break
+			case "WpfComboBox"
+				ATObject = "WpfComboBox"
+				break
+			case "WpfCheckBox"
+				ATObject = "WpfCheckBox"
+				break
+			case "WpfMenu"
+				ATObject = "WpfMenu"
+				break
+			case "WpfRadioButton","WinRadioButton"
+				ATObject = "WpfRadioButton"
+				break
+			case "WpfScrollBar"
+				ATObject = "WpfScrollBar"
+				break
+			case "WpfStatusBar"
+				ATObject = "WpfStatusBar"
+				break
+			case "WpfTabStrip"
+				ATObject = "WpfTab"
+				break
+			case "WpfToolbar"
+				ATObject = "WpfToolbar"
+				break
+			case "WpfTreeView"
+				ATObject = "WpfTreeView"
+				break
+			case "WpfWindow"
+				ATObject = "TopWin"
+				break
+			case "devname"
+				ATObject = "ObjectName"
+				break
+			default
+				ATObject ="AppObject"
+		
+class InsertActualandExpectedObjNamesToExcel : Step
+	%StepInfo[Desc="Insert Actual and Expected Object Names To Excel",Group="UFT Object Repo To AT Object Repo/Excel"]
+	parameter String sActual
+	parameter String sExpected
+	Main()
+		Database Db
+		String sPath=DataStore.Query("PathLocation")
+		Db.Connect ("DSN=Excel Files;Dbq={sPath}InsertActualandExpectedObjNames.xlsx;ReadOnly=0")
+		Db.Execute ("INSERT INTO [Sheet1$] (Actual,Expected) VALUES ('{sActual}','{sExpected}') ")
+		Db.Disconnect()
+		
+
+class ChangeUFTAttrToATAttr : Step
+	%StepInfo[Desc="Changing UFT attribute to AT attribute",Group="UFT Object Repo To AT Object Repo / Common"]
+	parameter String sFile
+	parameter String sFinalDestinationFile
+	Main()
+		// Declaration of Variables
+		List<String> lsData,lsPath,lsAttr
+		Integer iEndingPos_UFTAttr, iAttrUFTLength, iStartingPos_UFTAttr, iLoop, jLoop, sLoop, iIndex = 0, iCount = 0
+		String sUFTPath, sPathOfWithOutUFTAttr, sAT_Path
+		TextFile textFile
+		step CreateTextFile
+			sNewTxtFileName:sFinalDestinationFile
+		//Print (sFinalDestinationFile)
+		textFile.Open (sFinalDestinationFile, FileMode.Write, FileEncoding.Auto)
+		step OpenAndReadTextFile
+			sFile:sFile
+		
+		//Loop for getting UFT Attr
+		for ( iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Contains (sApp_Type+"[")
+				lsPath = OpenAndReadTextFile.lsData[iLoop].Split ("==")
+				lsAttr=lsPath[1].Split ("@")
+				if OpenAndReadTextFile.lsData[iLoop].Contains (lsAttr[2])//lsAtte[2] is UFT Attr     Ex : devname
+					sUFTPath = OpenAndReadTextFile.lsData[iLoop]
+					for (jLoop = 1; jLoop<=sUFTPath.Length(); jLoop++)
+						if sUFTPath[jLoop].Contains ("@")
+							iStartingPos_UFTAttr = jLoop+1
+						if sUFTPath[jLoop].Contains ("=")
+							iCount++
+							if iCount==1
+								iEndingPos_UFTAttr = jLoop
+								iAttrUFTLength = iEndingPos_UFTAttr-iStartingPos_UFTAttr
+								sPathOfWithOutUFTAttr = OpenAndReadTextFile.lsData[iLoop].Remove (iStartingPos_UFTAttr, iAttrUFTLength)
+								step ChangeParentObjAttr
+									sAttr:lsAttr[2]
+									sAT_Attr:""
+								sAT_Path = sPathOfWithOutUFTAttr.Insert (iStartingPos_UFTAttr, ChangeParentObjAttr.sAT_Attr)
+								textFile.Write (sAT_Path)
+					iCount= 0
+			else
+				step FindAttrForRequirePathSyntax
+				for (sLoop = 1; sLoop<=FindAttrForRequirePathSyntax.lspath.Count(); sLoop++)
+					iIndex++
+					if OpenAndReadTextFile.lsData[iLoop].Contains (FindAttrForRequirePathSyntax.lspath[sLoop])
+						lsPath = OpenAndReadTextFile.lsData[iLoop].Split ("==")
+						lsAttr=lsPath[1].Split ("@")
+						sUFTPath = OpenAndReadTextFile.lsData[iLoop]
+						for (jLoop = 1; jLoop<=sUFTPath.Length(); jLoop++)
+							if sUFTPath[jLoop].Contains ("@")
+								iStartingPos_UFTAttr = jLoop+1
+							if sUFTPath[jLoop].Contains ("=")
+								iCount++
+								if iCount==1
+									iEndingPos_UFTAttr = jLoop
+									iAttrUFTLength = iEndingPos_UFTAttr-iStartingPos_UFTAttr
+									sPathOfWithOutUFTAttr = OpenAndReadTextFile.lsData[iLoop].Remove (iStartingPos_UFTAttr, iAttrUFTLength)
+									step ChangeUFTChildAttrtoATAttr
+										sAttr:lsAttr[2]
+									sAT_Path = sPathOfWithOutUFTAttr.Insert (iStartingPos_UFTAttr, ChangeUFTChildAttrtoATAttr.sAT_Attr)
+									if sAT_Path.Contains ("@right of StaticText[@Text")
+										sAT_Path = sAT_Path.Replace ("@right of StaticText[@Text", "right of StaticText[@Text")
+										sAT_Path=sAT_Path.Replace ("&", "")
+										sAT_Path = sAT_Path.Replace ("]", "]]")
+									textFile.Write (sAT_Path)
+							iIndex=0
+						iCount= 0
+					else
+						if FindAttrForRequirePathSyntax.lspath.Count()==iIndex
+							textFile.Write (OpenAndReadTextFile.lsData[iLoop])
+		
+class ChangeParentObjAttr : Step
+	%StepInfo[Desc="To change the UFT parent attr to AT attr",Group="UFT Object Repo To AT Object Repo/Replace AttributeType"]
+	parameter String sAttr
+	out parameter String sAT_Attr
+	Main()
+		if sApp_Type=="Window" || sApp_Type=="WpfWindow"
+			switch sAttr
+				case "regexpwndtitle"
+					sAT_Attr="Caption"
+					break
+				case "devname"
+					sAT_Attr = "WinText"
+					break
+		if sApp_Type=="Browser"
+			switch sAttr
+				case "title"
+					sAT_Attr = "Title"
+					break
+				case "openurl"
+					sAT_Attr = "URL"
+					break
+		
+class ChangeUFTChildAttrtoATAttr : Step
+	%StepInfo[Desc="To change the UFT child object attr to AT attr",Group="UFT Object Repo To AT Object Repo / Replace AttributeType"]
+	parameter String sAttr
+	out parameter String sAT_Attr
+	Main()
+		if sApp_Type=="Window" || sApp_Type=="WpfWindow"
+			switch sAttr
+				case "regexpwndtitle"
+					sAT_Attr = "ObjectClass"
+					break
+				case "devname"
+					sAT_Attr = "ObjectName"
+					break
+				case "text"
+					sAT_Attr = "Text"
+					break
+				case "nativeclass", "regexpwndclass"
+					sAT_Attr = "WinClass"
+					break
+				case "window id"
+					sAT_Attr = "WinId"
+					break
+				case "attached text"
+					sAT_Attr = "right of StaticText[@Text"
+					break
+				default
+					sAT_Attr = "Text"
+		if sApp_Type=="Browser"
+			switch sAttr
+				case "title"
+					sAT_Attr = "Title"
+					break
+				case "name"
+					sAT_Attr = "Name"
+					break
+				case "html id"
+					sAT_Attr = "ElemId"
+					break
+				case "href"
+					sAT_Attr = "URL"
+					break
+				case "class"
+					sAT_Attr = "ElemClass"
+					break
+				default
+					sAT_Attr = "Text"
+		
+class FindAttrForRequirePathSyntax : Step
+	%StepInfo[Group="UFT Object Repo To AT Object Repo / Common"]
+	out parameter List<String> lspath
+	Main()
+		lspath = {"path [","path image[@","path button[@"}
+		
+class DeleteUnwantedPathStmt : Step
+	%StepInfo[Desc="Deleting all Unwanted Path Stmt",Group="UFT Object Repo To AT Object Repo/ Delete Unwanted data"]
+	parameter String sSourcePath
+	parameter String sDestinationPath
+	parameter List<String> lsDeleteunwnatedRows
+	out parameter String sOutput
+	Main()
+		// Declaration of Variables
+		List<String> lsRestRows
+		Integer iCount=0
+		TextFile textFile
+		textFile.Open (sDestinationPath, FileMode.Write, FileEncoding.Auto)
+		step OpenAndReadTextFile
+			sFile:sSourcePath
+		List<String> lsData=OpenAndReadTextFile.lsData
+		for (Integer j = 1; j<=lsDeleteunwnatedRows.Count(); j++)
+			for (Integer i = 1; i<=lsData.Count(); i++)
+				if lsData[i].Contains (lsDeleteunwnatedRows[j])
+					lsData.Remove (i)
+					i--
+		for (Integer i = 1; i<=lsData.Count(); i++)
+			textFile.Write (lsData[i])
+		
+class CovertRepositoryXmlToTxt : Step
+	%StepInfo[Desc="To convert Repository xml file to txt file and move the txt to Specific Dir",Group="UFT Object Repo To AT Object Repo / Replace AttributeType"]
+	parameter String sRepositoryFile
+	parameter String sXMLRepository_Path
+	parameter String sChangeFormat
+	parameter String sOrgUFT_FileName
+	parameter String sDeleteFolderPath
+	parameter String sExistingDirPath
+	Main()
+		// Declaration of Variables
+		TextFile UFTObjectRepo, UFTModifiedFormat, ConvertUFTtoATRepo, ConvertedAT
+		String sCommand
+		//
+		if System.FileExists (sXMLRepository_Path)
+			System.DeleteFile (sXMLRepository_Path, DeleteFlags.Force)
+		if !(System.FileExists (sXMLRepository_Path))
+			System.CopyFile (sRepositoryFile, sXMLRepository_Path, CopyFlags.{Force,Replace})
+		sCommand = "ren Repository.xml UFTOrginalFormat.txt"
+		System.Execute (sCommand)
+		
+		if System.FileExists (sOrgUFT_FileName)
+			System.DeleteFile(sOrgUFT_FileName)
+			
+		Print (sOrgUFT_FileName)
+		if!( System.FileExists (sOrgUFT_FileName))
+			System.MoveFile (sChangeFormat, sOrgUFT_FileName, MoveFlags.Force)
+		if System.FileExists (sDeleteFolderPath)
+			System.DeleteDir (sDeleteFolderPath, DeleteFlags.{Force,Recurse})
+		
+		if System.FileExists (sExistingDirPath)
+			System.DeleteDir (sExistingDirPath, DeleteFlags.{Force,Recurse})
+			Sleep(2)
+			System.CreateDir (sExistingDirPath)
+		else
+				System.CreateDir (sExistingDirPath)
+		
+class CreateTextFile : Step
+	%StepInfo[Desc="Create a Txt file if not present",Group="UFT Object Repo To AT Object Repo / Directory/TextFile"]
+	parameter String sNewTxtFileName
+	Main()
+		Boolean bFileExists=true
+		TextFile textFile
+		bFileExists = System.FileExists (sNewTxtFileName)
+		if bFileExists==false
+			textFile.Open (sNewTxtFileName, FileMode.Write)
+		textFile.Close ()
+		
+		
+		
+
+
+
+
+class CreatingOrgUFTFile : Step
+	%StepInfo[Desc="Creating org UFT file and getting the Applocation type",Group="UFT Object Repo To AT Object Repo / Common"]
+	parameter String sSourceFile
+	parameter String sDestinationFile
+	Main()
+		// Declaration of Variables
+		TextFile UFTModifiedOrgFile
+		Integer iLoop,jLoop
+		List<String> lsDataforAppType,lsData
+		String sObjName, sJunkName = "<qtpRep:Setting Index=""1"" Type=""INSIGHTTestObject"""
+		
+		UFTModifiedOrgFile.Open (sDestinationFile, FileMode.Write)
+		
+		// Open and read UFTObjectRepo txt file
+		step OpenAndReadTextFile Step_1
+			sFile:sSourceFile
+		
+		for (iLoop = 1; iLoop<=Step_1.lsData.Count(); iLoop++)
+			if Step_1.lsData[iLoop].Contains(sJunkName)
+				for (jLoop = iLoop; jLoop<=Step_1.lsData.Count(); jLoop++)
+					if Step_1.lsData[jLoop].Contains ("</qtpRep:")
+						iLoop=jLoop
+						break
+			else
+				lsData.Add (Step_1.lsData[iLoop])
+		// Print (lsData)
+		for (iLoop = 1; iLoop<=lsData.Count(); iLoop++)
+			sObjName = lsData[iLoop].Replace ("qtpRep:","")// Replace null instead of unwanted data into UFTObjectRepo txt file
+			UFTModifiedOrgFile.Write (sObjName)
+			
+		lsDataforAppType = lsData[3].Split ("""")// Split for application type 
+		String sAppType=lsDataforAppType[2]
+		Print ("Application type is :" + sAppType)
+		
+		// //Skiping the junk fields.
+		// step OpenAndReadTextFile Step_2
+			// sFile:UFTModifiedOrgFile
+		
+class CreateFolderAndPlaceUFTObjRepoAndFinalATRepo : Step
+	%StepInfo[Desc="Create Folder and place UFT App Object Repository file and Final AT Object Repository file",Group="UFT Object Repo To AT Object Repo / Directory"]
+	parameter String sFolderName
+	parameter String sRepositoryFile
+	parameter String sRepositoryDestionPath
+	parameter String sFinalATFile
+	parameter String sATFolderDestionPath
+	Main()
+		String sPath=DataStore.Query("PathLocation")
+		System.CreateDir (sFolderName)
+		Print (sRepositoryFile)
+		Print (sRepositoryDestionPath)
+		if System.FileExists (sRepositoryFile)
+			System.CopyFile (sRepositoryFile, sRepositoryDestionPath)
+		if System.FileExists (sFinalATFile)
+			System.MoveFile (sFinalATFile, sATFolderDestionPath)
+		
+class ExecuteCommandPath : Step
+	%StepInfo[Desc="To Find the Comand Execution Directory Path",Group="UFT Object Repo To AT Object Repo / Common"]
+	out parameter String sDefaultDirectoryPath = null
+	Main()
+		// Declaration of Variables
+		List<String> lsDirPaths
+		String sDirectory
+		
+		String sCommand = "dir"
+		System.Execute (sCommand, lsDirPaths)
+		List<String> lsDirectory
+		for (Integer i = 1; i<=lsDirPaths.Count(); i++)
+			if lsDirPaths[i].Contains ("Directory")
+				sDirectory = lsDirPaths[i]
+				sDefaultDirectoryPath = sDirectory.Replace (" Directory of ", "")
+		// Print(sDefaultDirectoryPath)
+		
+class UftAppObjectsToAT_Web : Step
+	%StepInfo[Desc="To Convert Uft AppObject to Equivalent AT Objects for Web",Group="UFT Object Repo To AT Object Repo / Replace AttributeType/Web"]
+	parameter String UftObject
+	out parameter String ATObject
+	Main()
+		switch UftObject
+			case "Browser"
+				ATObject = "WebPage"
+				break
+			case "WebRadioGroup"
+				ATObject = "WebRadioGroup"
+				break
+			case "WebList"
+				ATObject = "WebPopupList"
+				break
+			case "WebEdit"
+				ATObject = "WebTextField"
+				break
+			case "WebCheckBox"
+				ATObject = "WebCheckBox"
+				break
+			case "Link"
+				ATObject = "WebLink"
+				break
+			case "Page"
+				ATObject = "WebPage"
+				break
+			case "WebButton"
+				ATObject = "WebPushButton"
+				break
+			case "WebElement"
+				ATObject = "WebElem"
+				break
+			case "Image"
+				ATObject = "WebImage"
+				break
+			case "RenderImage"
+				ATObject = "RenderImage"
+				break
+			case "Dialog"
+				ATObject = "DialogBox"
+				break
+			default
+				ATObject ="AppObject"
+		
+		
+class UftAppObjectsToAT_Window : Step
+	%StepInfo[Desc="To Convert Uft AppObject to Equivalent AT Objects for Window",Group="UFT Object Repo To AT Object Repo / Replace AttributeType/ Window"]
+	parameter String UftObject
+	out parameter String ATObject
+	Main()
+		switch UftObject
+			case "WinEdit"
+				ATObject = "TextField"
+				break
+			case "WinButton"
+				ATObject = "PushButton"
+				break
+			case "WinComboBox"
+				ATObject = "ComboBox"
+				break
+			case "WinRadioButton"
+				ATObject = "RadioButton"
+				break
+			case "Dialog"
+				ATObject = "DialogBox"
+				break
+			case "WinListView"
+				ATObject = "ListView"
+				break
+			case "WinMenu"
+				ATObject = "MenuItem"
+				break
+			case "Window"
+				ATObject = "MainWin"
+				break
+			case "PbWindow"
+				ATObject = "MainWin"
+				break
+			default
+				ATObject ="AppObject"
+		
+		
+		
+class OpenAndReadTextFile : Step
+	%StepInfo[Desc="Open and read the text file",Group="UFT Object Repo To AT Object Repo / Directory / TextFile"]
+	parameter String sFile
+	out parameter List<String> lsData
+	Main()
+		String sData
+		TextFile textFile
+		
+		textFile.Open (sFile, FileMode.Read, FileEncoding.Auto)// Reading from Source file
+		while textFile.Read (sData) //fetching all data into a list
+			lsData.Add (sData)
+			// Print (lsData)
+		textFile.Close()
+		
+class CreateStepZFormate : Step
+	%StepInfo[Desc="a)Get Step Name and Decription. b)Create Step Formate.",Group="UFT Steps To AT Steps"]
+	out parameter String sClass
+	out parameter String sDescription
+	out parameter String sMain
+	parameter String sStepFormateSourceFile
+	Main()
+		String sStepName ,sStepdescription
+		
+		step OpenAndReadTextFile
+			sFile:sStepFormateSourceFile
+		// Creating a Class Name.
+		for (Integer i = 1; i<=OpenAndReadTextFile.lsData.Count(); i++)
+			if OpenAndReadTextFile.lsData[i].Contains ("< / G u i d > < N a m e > < ! [ C D A T A [")
+				sStepName = OpenAndReadTextFile.lsData[i].GetField ("< / G u i d > < N a m e > < ! [ C D A T A [", 2)
+				sStepName = sStepName.GetField ("]", 1)
+				sStepName=sStepName.Replace(" ","")
+				break
+		sClass = "class {sStepName} : Step"
+		
+		//Creating Step Info And Group.
+		for (Integer i = 1; i<=OpenAndReadTextFile.lsData.Count(); i++)
+			if OpenAndReadTextFile.lsData[i].Contains ("< D e s c r i p t i o n > < ! [ C D A T A [")
+				sStepdescription = OpenAndReadTextFile.lsData[i].GetField ("< D e s c r i p t i o n > < ! [ C D A T A [", 2)
+				sStepdescription = sStepdescription.GetField ("]", 1)
+				sStepdescription = sStepdescription.Replace ("   ", "&&&")
+				sStepdescription = sStepdescription.Replace (" ", "")
+				sStepdescription = sStepdescription.Replace ("&&&", " ")
+				break
+		sDescription = "[ ] %StepInfo[Desc= ""{sStepdescription}"",Group=""""]"
+		sMain = "Main()"
+		
+class GettingParameters : Step
+	%StepInfo[Desc="Getting Parameters From UFT Scrips File.",Group="UFT Steps To AT Steps"]
+	parameter List<String> lsData
+	out parameter List<String> lsParameters
+	out parameter List<String> lsRemainData
+	Main()
+		// Declaration of Variables
+		
+		Integer PositionOfLastopenparentheses,PositionOfLastCam
+		String sParameters
+		
+		// Getting UFT Parameters.
+		for (Integer iLoop = 1; iLoop<=lsData.Count(); iLoop++)
+			if lsData[iLoop].EndsWith ("Sheet)") || lsData[iLoop].EndsWith ("Sheet))")|| lsData[iLoop].EndsWith ("Sheet) ")
+				PositionOfLastopenparentheses = lsData[iLoop].LastIndexOf ("(")
+				PositionOfLastCam = lsData[iLoop].LastIndexOf ("""")
+				sParameters = lsData[iLoop].Substring (PositionOfLastopenparentheses+2, PositionOfLastCam-(PositionOfLastopenparentheses+2))
+				lsParameters.Add(sParameters)
+			if lsData[iLoop].EndsWith ("Sheet)") ||  lsData[iLoop].EndsWith ("Sheet))")|| lsData[iLoop].EndsWith ("Sheet) ")
+				PositionOfLastCam = lsData[iLoop].LastIndexOf ("""")
+				lsData[iLoop] = lsData[iLoop].Remove (PositionOfLastCam)
+				if lsData[iLoop].Contains(" DataTable(")|| lsData[iLoop].Contains(" DataTable (")
+					lsData[iLoop] = lsData[iLoop].Replace (" DataTable (""", " DataTable (")
+					lsData[iLoop] = lsData[iLoop].Replace (" DataTable(""", " DataTable (")
+				lsRemainData.Add (lsData[iLoop]+")")
+			else
+				lsRemainData.Add (lsData[iLoop])
+		// Print (lsRemainData)
+		
+class CreateStepFormate_Parameters : Step
+	%StepInfo[Desc="Create Step Formate And Parameters, Writing Modifird Data In Note Pad.",Group="UFT Steps To AT Steps"]
+	parameter String sStepFormateSourceFile
+	parameter String sStepsSourceFilePath
+	parameter String sStepDestinationPath
+	Main()
+		// Declaration of Variables
+		TextFile textFile
+		
+		//Creating Class Name , Step Info And Group.
+		step CreateStepZFormate
+			sStepFormateSourceFile:sStepFormateSourceFile
+		
+		step OpenAndReadTextFile
+			sFile:sStepsSourceFilePath
+		
+		//Getting UFT Parameters And Changins As AT Parameters.
+		step GettingParameters
+			lsData:OpenAndReadTextFile.lsData
+		
+		// Write Class Name , Step Info And Group in a Note Pad.
+		textFile.Open (sStepDestinationPath, FileMode.Write)
+		textFile.Write (CreateStepZFormate.sClass)
+		textFile.Write (String.Tabs (1)+CreateStepZFormate.sDescription)
+		
+		// Write Parameters in a Note Pad.
+		for(Integer i=1; i<=GettingParameters.lsParameters.Count(); i++)
+			textFile.Write (String.Tabs (1)+"parameter String "+ "{GettingParameters.lsParameters[i]}")
+		textFile.Write (String.Tabs (1)+CreateStepZFormate.sMain)
+		
+		// Write Data in a Note Pad.
+		for (Integer i = 1; i<=GettingParameters.lsRemainData.Count(); i++)
+			textFile.Write (String.Tabs (2)+GettingParameters.lsRemainData[i])
+			
+		
+
+class ChangeDataTypeDimToString : Step
+	%StepInfo[Desc="a)Changing Data Type From Dim To String.",Group="UFT Steps To AT Steps"]
+	out parameter List<String> lsModifiedData
+	parameter String sDataTypeSourceFile
+	parameter String sDataTypeDestinationPath
+	Main()
+		// Declaration of Variables
+		TextFile textFile
+		
+		step OpenAndReadTextFile
+			sFile:sDataTypeSourceFile
+		
+		//Replacing Dim With String.
+		for (Integer iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+				if OpenAndReadTextFile.lsData[iLoop].Contains("Print") && OpenAndReadTextFile.lsData[iLoop].Contains("&") && OpenAndReadTextFile.lsData[iLoop].Contains(")")
+					Print (OpenAndReadTextFile.lsData[iLoop])
+					OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("&", ", ")// Converting UFT Print to AT Print Statement
+			//Handling Radio Button.
+			step RadioBut
+				sData:OpenAndReadTextFile.lsData[iLoop]
+			// If the next line have 'WinRadioButton' then we are skipping.
+			if RadioBut.sModifyData.Contains("WinRadioButton")&&iLoop+1<=OpenAndReadTextFile.lsData.Count()
+				if OpenAndReadTextFile.lsData[iLoop+1].Contains ("WinRadioButton")
+					iLoop=iLoop+1
+			if RadioBut.sModifyData.Contains ("Dim")
+				RadioBut.sModifyData = RadioBut.sModifyData.Replace ("Dim", "String")
+				lsModifiedData.Add (RadioBut.sModifyData)
+			else
+				lsModifiedData.Add (RadioBut.sModifyData)
+		
+		// Writing Modified in a Note Pad.
+		textFile.Open (sDataTypeDestinationPath, FileMode.Write)
+		for (Integer iLoop = 1; iLoop<=lsModifiedData.Count(); iLoop++)
+				if lsModifiedData[iLoop].Contains ("'")
+					lsModifiedData[iLoop] = lsModifiedData[iLoop].Replace ("'", "//")// Converting Comment ' to //
+			textFile.Write (lsModifiedData[iLoop])
+		// Print (lsModifiedData)
+		
+		
+		
+		
+		
+
+class ModifyUFTScriptToATScriptFormat : Step
+	%StepInfo[Desc="Modify UFT original file by removing empty lines and changing UFT script to AT script.",Group="UFT Steps To AT Steps"]
+	parameter String sModifyDataTypes_TxtFile
+	parameter String sModifyUFTScriptToATScriptFormat_TxtFile
+	parameter List<String> lsUFTMethods
+	out parameter List<String> lsFinalData
+	Main()
+		//Variable Declaration
+		Integer iLoop,jLoop,iPosition,iOpenBracketCount,iCloseBracketCount,iState
+		String sReplace, sUFTCode, sUFTReplacedCode, sSubstring, sData, sCloseBracketSubstring,sTemp=""
+		List<Integer> liOpenBracketCount, liCloseBracketCount
+		List<String> lsModifiedData
+		TextFile UFTFMethodsModifiedFile
+		
+		UFTFMethodsModifiedFile.Open (sModifyUFTScriptToATScriptFormat_TxtFile, FileMode.Write)
+		
+		// Open and read UFTObjectsRemoved_Script txt file
+		step OpenAndReadTextFile
+			sFile:sModifyDataTypes_TxtFile
+		
+		//Remove Empty Lines
+		for (iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if !(OpenAndReadTextFile.lsData[iLoop].IsNullOrSpace())
+				//OpenAndReadTextFile.lsData[iLoop].Contains("Next")||OpenAndReadTextFile.lsData[iLoop].Contains("Wend")||
+				lsModifiedData.Add (OpenAndReadTextFile.lsData[iLoop])
+		//Change Script From UFT To AT.
+		for (iLoop = 1; iLoop<=lsModifiedData.Count(); iLoop++)
+			if (lsModifiedData[iLoop].Contains ("Dialog")||lsModifiedData[iLoop].Contains ("PopUp")) && !(lsModifiedData[iLoop].Contains ("If"))&& !lsModifiedData[iLoop].Contains ("//")|| lsModifiedData[iLoop].Contains ("WinMenu")// || lsModifiedData[iLoop].Contains ("For")
+				step CountOfTabs
+					sStatements:lsModifiedData[iLoop]
+				lsModifiedData[iLoop]=lsModifiedData[iLoop].TrimLeft()
+				for(Integer kLoop=1; kLoop<=lsModifiedData[iLoop].Length(); kLoop++)
+					for (Integer mLoop = 1; mLoop<=lsUFTMethods.Count(); mLoop++)
+						if lsModifiedData[iLoop].Contains(lsUFTMethods[mLoop])   
+							iPosition = lsModifiedData[iLoop].IndexOf (lsUFTMethods[mLoop])
+							sSubstring = lsModifiedData[iLoop].Substring (iPosition)   //Store The Data In sSubString Variable.
+							lsModifiedData[iLoop] = lsModifiedData[iLoop].Remove (iPosition)     //Removing The Data From The Method.
+							for (jLoop = 1; jLoop<=lsModifiedData[iLoop].Length(); jLoop++)// Finding The Open And Close Brakers Possitions For getting Proper AppObjects.
+								if lsModifiedData[iLoop][jLoop]== ("(")// Getting Open Bracket Count.
+									liOpenBracketCount.Add (jLoop)
+								if lsModifiedData[iLoop][jLoop]== (")")  // Getting Close Bracket Count.
+									liCloseBracketCount.Add (jLoop)
+				//Changing Script From UFT To At W.R.T "Dialog" AppObject.
+				step ChangingScript_UFTToAT
+					liOpenBracketCount:liOpenBracketCount
+					liCloseBracketCount:liCloseBracketCount
+					sData:lsModifiedData[iLoop]
+				lsModifiedData[iLoop] = ChangingScript_UFTToAT.sModifiedData+sSubstring// Adding Method And Parameter to AppObjects.
+				if lsModifiedData[iLoop].Contains(".Menu.")
+					step HandleMenu
+						sData:lsModifiedData[iLoop]
+					lsModifiedData[iLoop]=HandleMenu.sMenuOutput
+				lsModifiedData[iLoop] = lsModifiedData[iLoop].TrimLeft ()
+				UFTFMethodsModifiedFile.Write (String.Tabs (CountOfTabs.iTabsCount)+String.Replicate (" ", CountOfTabs.iSpaceCount)+lsModifiedData[iLoop])
+				lsFinalData.Add (String.Tabs (CountOfTabs.iTabsCount)+String.Replicate (" ", CountOfTabs.iSpaceCount)+lsModifiedData[iLoop])
+				liOpenBracketCount=null  //Assigning Open Bracket Count as Null. 
+				liCloseBracketCount=null  //Assigning Open Bracket Count as Null. 
+			else
+				// If Statement For String Doesn't Have "Dialog, Popup And If".
+				if !lsModifiedData[iLoop].Contains ("If")&&!lsModifiedData[iLoop].Contains ("While")&&!lsModifiedData[iLoop].Contains ("For ")&&!lsModifiedData[iLoop].Contains ("Print")&& !lsModifiedData[iLoop].Contains ("String")&& !lsModifiedData[iLoop].Contains ("'")&& !lsModifiedData[iLoop].Contains ("CDate")&& !lsModifiedData[iLoop].Contains ("class ")&& !lsModifiedData[iLoop].Contains ("%StepInfo")&& !lsModifiedData[iLoop].Contains ("parameter ")&& !lsModifiedData[iLoop].Contains ("Main()")&& !lsModifiedData[iLoop].Contains ("//")&& !lsModifiedData[iLoop].Contains ("Next")&& !lsModifiedData[iLoop].Contains ("Wend")
+					step CountOfTabs
+						sStatements:lsModifiedData[iLoop]
+					for(Integer kLoop=1; kLoop<=lsModifiedData[iLoop].Length(); kLoop++)
+						for (Integer mLoop = 1; mLoop<=lsUFTMethods.Count(); mLoop++)
+							if lsModifiedData[iLoop].Contains(lsUFTMethods[mLoop])
+								iPosition = lsModifiedData[iLoop].IndexOf (lsUFTMethods[mLoop])
+								sSubstring = lsModifiedData[iLoop].Substring (iPosition)   //Store The Data In sSubString Variable.
+								lsModifiedData[iLoop] = lsModifiedData[iLoop].Remove (iPosition)    //Removing The Data From The Method.
+								for (jLoop = 1; jLoop<=lsModifiedData[iLoop].Length(); jLoop++) // Finding The Open And Close Brakers Possitions For getting Proper AppObjects.
+									if lsModifiedData[iLoop][jLoop]== ("(") // Getting Open Bracket Count.
+										liOpenBracketCount.Add (jLoop) 
+									if lsModifiedData[iLoop][jLoop]== (")")   // Getting Close Bracket Count.
+										liCloseBracketCount.Add (jLoop)
+						// Print (lsModifiedData[iLoop])// Adding Method And Parameter to AppObjects.)
+						// Changing Script From UFT To AT w.r.t "Dialog" AppObject.
+						
+					step ChangingScript_UFTToAT
+						liOpenBracketCount:liOpenBracketCount
+						liCloseBracketCount:liCloseBracketCount
+						sData:lsModifiedData[iLoop]
+					// Print(ChangingScript_UFTToAT.sModifiedData+sSubstring)// Adding Method And Parameter to AppObjects.)
+					lsModifiedData[iLoop] = ChangingScript_UFTToAT.sModifiedData+sSubstring// Adding Method And Parameter to AppObjects.
+					// lsModifiedData[iLoop] = lsModifiedData[iLoop].TrimLeft ()
+					UFTFMethodsModifiedFile.Write (String.Tabs (CountOfTabs.iTabsCount)+String.Replicate (" ", CountOfTabs.iSpaceCount)+lsModifiedData[iLoop])
+					lsFinalData.Add (String.Tabs (CountOfTabs.iTabsCount)+String.Replicate (" ", CountOfTabs.iSpaceCount)+lsModifiedData[iLoop])
+					liOpenBracketCount = null// Assigning Open Bracket Count as Null.
+					liCloseBracketCount = null// Assigning Open Bracket Count as Null. 
+				else
+					UFTFMethodsModifiedFile.Write (lsModifiedData[iLoop])
+					lsFinalData.Add (lsModifiedData[iLoop])
+		// Print (lsFinalData)
+		
+class ChangingScript_UFTToAT : Step
+	%StepInfo[Desc="Changing Script From UFT To At W.R.T ""Dialog"" AppObject.",Group="UFT Object Repo To AT Object Repo / Common"]
+	parameter List<Integer> liOpenBracketCount
+	parameter List<Integer> liCloseBracketCount
+	parameter String sData
+	out parameter String sModifiedData
+	Main()
+		List<String> lsObjects={}
+		String sSubstring
+		Integer iPos, kLoop, k = 0, iPos_Dialog
+		
+		// Initialize The 'k' Value w.r.t "Dialog" AppObject.
+		if sData.Contains ("Dialog")
+			iPos_Dialog=sData.IndexOf ("Dialog")
+			if iPos_Dialog<=6
+				k=1
+			else
+				k = 2
+		else
+			k = 1
+		
+		//Getting All AppObjects.
+		for (kLoop = k; kLoop<=liOpenBracketCount.Count(); kLoop++)
+			iPos= liCloseBracketCount[kLoop]-liOpenBracketCount[kLoop]
+			sSubstring = sData.Substring (liOpenBracketCount[kLoop]+2, iPos-3)
+			sSubstring = sSubstring.Replace (" ", "")
+			step ReplaceSpecialCharInAString
+				sPathString:sSubstring
+			lsObjects.Add (ReplaceSpecialCharInAString.sPathResult)
+		// Writing Script w.r.t AppObjects Count.
+		switch lsObjects.Count()
+			case 1
+				sModifiedData = lsObjects[1]+"."
+				break
+			case 2
+				sModifiedData ="{ lsObjects[1]}"+"."+"{lsObjects[2]}"+"."
+				break
+			case 3
+				sModifiedData ="{ lsObjects[1]}"+"."+"{lsObjects[2]}"+"."+"{lsObjects[3]}"+"."
+				break
+			case 4
+				sModifiedData ="{ lsObjects[1]}"+"."+"{lsObjects[2]}"+"."+"{lsObjects[3]}"+"."+"{lsObjects[4]}"+"."
+				break
+		Print (sModifiedData)
+		
+		
+		
+		
+		
+		// if sData.Contains ("Dialog")&&sData.Contains ("If")
+			// k = 2
+		
+
+class ModifyUFtMethodsToATMethods : Step
+	%StepInfo[Desc="Modify UFT Methods To AT Methods.",Group="UFT Steps To AT Steps"]
+	parameter List<String> lsModifyUFTScriptToATScriptFormat
+	parameter List<String> lsUFTMethods
+	parameter List<String> lsATMethods
+	parameter String sModifyUFtMethodsToATMethods_TxtFile
+	out parameter List<String> lsModifyUFtMethodsToATMethods
+	Main()
+		// Declaration of Variables
+		Integer iLoop,jLoop
+		TextFile UFTFMethodsModifiedFile
+		
+		UFTFMethodsModifiedFile.Open (sModifyUFtMethodsToATMethods_TxtFile, FileMode.Write)
+		// If The String  Have UFT Method Then Replacing UFT Methods With AT Methods.
+		for (iLoop = 1; iLoop<=lsModifyUFTScriptToATScriptFormat.Count(); iLoop++)
+			for (jLoop = 1; jLoop<=lsUFTMethods.Count(); jLoop++)
+				if lsModifyUFTScriptToATScriptFormat[iLoop].Contains( lsUFTMethods[jLoop])
+					lsModifyUFTScriptToATScriptFormat[iLoop] = lsModifyUFTScriptToATScriptFormat[iLoop].Replace (lsUFTMethods[jLoop], lsATMethods[jLoop])//Replacing UFT Methods With AT Methods.
+					lsModifyUFtMethodsToATMethods.Add (lsModifyUFTScriptToATScriptFormat[iLoop])
+					break
+				else
+					if jLoop==lsUFTMethods.Count()// If The String Doesn't Have UFT Method Then Write Same Like.
+						lsModifyUFtMethodsToATMethods.Add (lsModifyUFTScriptToATScriptFormat[iLoop])
+		
+		for (iLoop = 1; iLoop<=lsModifyUFtMethodsToATMethods.Count(); iLoop++)
+			if lsModifyUFtMethodsToATMethods[iLoop].Contains (" '")|| lsModifyUFtMethodsToATMethods[iLoop].Contains ("'")
+				lsModifyUFtMethodsToATMethods[iLoop] = lsModifyUFtMethodsToATMethods[iLoop].Replace ("'", "//")// Replacing ' With //.
+				UFTFMethodsModifiedFile.Write (lsModifyUFtMethodsToATMethods[iLoop])
+				// lsModifyUFtMethodsToATMethods.Add (lsModifyUFTScriptToATScriptFormat[iLoop])
+			else
+				UFTFMethodsModifiedFile.Write (lsModifyUFtMethodsToATMethods[iLoop])
+				// lsModifyUFtMethodsToATMethods.Add (lsModifyUFTScriptToATScriptFormat[iLoop])
+		// Print (lsModifyUFtMethodsToATMethods)
+		
+		
+		
+		
+		
+
+class ConvertingStatements : Step
+	%StepInfo[Desc="Converting Looping And Conditional Statements",Group="UFT Steps To AT Steps"]
+	parameter List<String> lsModifyUFtMethodsToATMethodsData
+	parameter String sConvertingStatementsDestinationFile
+	parameter List<String> lsUFTConditionalStatments
+	parameter List<String> lsATConditionalStatments
+	out parameter List<String> lsConvertingStatements
+	Main()
+		// Author: M.Dileep
+		//Declaring Variables
+		
+		Integer iLoop,jLoop, iCount
+		String sRemCondition, sRemConditionEnd,sIncDec,sStepRep,sDataTypeInit, sStoreInteger,sTemp,sInc
+		List<String> lsDataforAppType, lsBeforeTo,lsResult,lsCondition
+		Boolean bResultIf,bResultEnd,bResultIfSmall,bResultEndSmall, bFor, bTo,bForCap,bToUp, bComment
+		TextFile stepConditionalStatments
+		
+		List<String> lsUFTData= DataStore.Query ("Dt_UFTConvertion_Steps[1].lsUFTConditionalStatments")
+		List<String> lsATData = DataStore.Query ("Dt_UFTConvertion_Steps[1].lsATConditionalStatments")
+		
+		stepConditionalStatments.Open (sConvertingStatementsDestinationFile, FileMode.Append)
+		
+		// Converting Loops 
+		for (iLoop = 1; iLoop<=lsModifyUFtMethodsToATMethodsData.Count(); iLoop++)
+			step CountOfTabs
+				sStatements:lsModifyUFtMethodsToATMethodsData[iLoop]
+			if lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("'")
+				lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace ("'", "//")// Converting Comment ' to //
+			for (jLoop = 1; jLoop<=lsUFTData.Count(); jLoop++)
+				if lsModifyUFtMethodsToATMethodsData[iLoop].Contains (lsUFTData[jLoop])
+					lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace (lsUFTData[jLoop], lsATData[jLoop])// Converting While Loop
+			// Converting UFT Conditional statements to AT Conditional Statements
+			if (lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("If")||lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("if")) ==true && (lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("Then")||lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("then"))==true// If Statement Conversion
+				lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace ("If", "if")
+				lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace ("if NOT(", "if !(")// Converting If NOT Loop
+				lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace (") Then", ")")
+				lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace ("Then", "")
+				lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace ("then", "")
+				// if (lsModifyUFtMethodsToATMethodsData[iLoop].Contains("Dialog")&& lsModifyUFtMethodsToATMethodsData[iLoop].Contains("."))
+				step ReplaceUnwantedCharInStatement
+					sStatement:lsModifyUFtMethodsToATMethodsData[iLoop]
+				lsModifyUFtMethodsToATMethodsData[iLoop]=lsModifyUFtMethodsToATMethodsData[iLoop].TrimLeft()
+				// Print(CountOfTabs.iTabsCount)
+				// Print (CountOfTabs.iSpaceCount)
+				// Print(ReplaceUnwantedCharInStatement.sNewStatement)
+				lsModifyUFtMethodsToATMethodsData[iLoop] = String.Tabs (CountOfTabs.iTabsCount)+String.Replicate (" ", CountOfTabs.iSpaceCount)+ReplaceUnwantedCharInStatement.sNewStatement
+				// Replacing UFT For Loop to AT for loop 
+			if (lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("for ") ||lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("For "))&&(lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("to")||lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("To"))&&(!lsModifyUFtMethodsToATMethodsData[iLoop].Contains ("//"))==true
+				lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace ("For", "for")// Converting for Loop
+				lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace ("to ", " To ")// Converting to - To
+				lsBeforeTo = lsModifyUFtMethodsToATMethodsData[iLoop].Split (" To")// Splitting Object name with space
+				lsCondition = lsBeforeTo[2].Split (" ")// To Fetch the Condition
+				lsResult = lsBeforeTo[1].Split ("for")
+				sDataTypeInit=lsResult[2] // To Fetch the Initalizer value
+				sDataTypeInit = sDataTypeInit.Replace (" ", "")
+				lsResult = sDataTypeInit.Split ("for")
+				lsResult = lsResult[1].Split ("=")
+				sInc = lsBeforeTo[2][lsBeforeTo[2].Length()]// To get the Increment Value
+				
+				if Integer.Parse (sInc)>1// If Incremental Value >1 (ex: Step=Step+2)
+					sStepRep=lsCondition[2]
+					lsModifyUFtMethodsToATMethodsData[iLoop] = String.Tabs (CountOfTabs.iTabsCount)+String.Replicate (" ", CountOfTabs.iSpaceCount)+"for(Integer "+sDataTypeInit.Trim()+";"+lsResult[1].Trim()+"<"+lsCondition[1].Trim()+";"+lsResult[1].Trim()+"="+lsResult[1].Trim()+"+"+sInc+")"
+				else // If Incremetal Value =1 ( ex: i++)
+					lsModifyUFtMethodsToATMethodsData[iLoop] = String.Tabs (CountOfTabs.iTabsCount)+String.Replicate (" ", CountOfTabs.iSpaceCount)+"for(Integer "+sDataTypeInit.Trim()+";"+lsResult[1].Trim()+"<"+lsCondition[1].Trim()+";"+lsResult[1].Trim()+"="+lsResult[1].Trim()+"++)"
+			// Converting UFT For each to AT for each
+			if lsModifyUFtMethodsToATMethodsData[iLoop].Contains (" in ")&&lsModifyUFtMethodsToATMethodsData[iLoop].Contains("for each")&&!lsModifyUFtMethodsToATMethodsData[iLoop].Contains("//")
+				lsModifyUFtMethodsToATMethodsData[iLoop] = lsModifyUFtMethodsToATMethodsData[iLoop].Replace ("for each","for (String")
+				lsModifyUFtMethodsToATMethodsData[iLoop]=lsModifyUFtMethodsToATMethodsData[iLoop]+")"
+			lsConvertingStatements.Add (lsModifyUFtMethodsToATMethodsData[iLoop])
+			stepConditionalStatments.Write (lsModifyUFtMethodsToATMethodsData[iLoop])
+		stepConditionalStatments.Close()
+		
+		
+class DeleteExistingFiles : Step
+	%StepInfo[Desc="Delete all the existing files",Group="UFT Object Repo To AT Object Repo / Common"]
+	parameter List<String> lsExistingFiles
+	parameter String sDeleteDir
+	Main()
+		//Delete all the existing files.
+		String sPath=DataStore.Query("PathLocation")
+		if System.FileExists (sPath+sDeleteDir)
+			System.DeleteDir (sPath+sDeleteDir, DeleteFlags.{Force,Recurse})
+			Sleep(2)
+			System.CreateDir (sPath+sDeleteDir)
+		else
+			System.CreateDir (sPath+sDeleteDir)
+		
+		for (Integer iLoop = 2; iLoop<=lsExistingFiles.Count(); iLoop++)
+			if System.FileExists (sPath+lsExistingFiles[iLoop])
+				System.DeleteFile (sPath+lsExistingFiles[iLoop], DeleteFlags.{Force,Quiet,Recycle})
+		
+class sample : Step
+	parameter List<String> lsData
+	parameter List<String> lsATMethods
+	Main()
+		//if (Dialog("Confirm Save As").IsPresent())
+		Integer iLoop, jLoop, mLoop, pLoop, iDotPosition, iState
+		String sTemp, sATMethod
+		List<Integer> liOpenBracketPositons,liCloseBracketPositons
+		for(iLoop=1; iLoop<=lsData.Count(); iLoop++)
+			if lsData[iLoop].Contains("if") && !lsData[iLoop].Contains("String") && !lsData[iLoop].Contains("//")
+				for (Integer mLoop = 1; mLoop<=lsATMethods.Count(); mLoop++)
+					if lsData[iLoop].Contains (lsATMethods[mLoop])
+						iDotPosition = lsData[iLoop].LastIndexOf (".")
+						sATMethod = lsData[iLoop].Substring (iDotPosition)// Store The Data In sSubString Variable.
+						lsData[iLoop] = lsData[iLoop].Remove (iDotPosition)// Removing The Data From The Method.
+						lsData[iLoop] = lsData[iLoop].Replace ("if (", "")
+						lsData[iLoop] = lsData[iLoop].Replace ("if(", "")
+						for (pLoop = 1; pLoop<=lsData[iLoop].Length(); pLoop++)
+							if lsData[iLoop][pLoop]=="("
+								liOpenBracketPositons.Add (pLoop)
+						Print (liOpenBracketPositons)
+						for (pLoop = 1; pLoop<=lsData[iLoop].Length(); pLoop++)
+							if lsData[iLoop][pLoop]==")"
+								liCloseBracketPositons.Add (pLoop)
+						Print (liCloseBracketPositons)
+						step ChangingScript_UFTToAT_Copy
+							liOpenBracketCount:_
+							liCloseBracketCount:_
+							sData:""
+							// if lsData[iLoop][p]=="'("
+								// break
+							// else
+								// lsModifiedData[iLoop] = lsData[iLoop].Remove (p)
+							// lsModifiedData[iLoop] = "("+lsData[iLoop]
+						// Print (lsData[iLoop]+"lllllh")
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				
+				// else// else Statement For String Doesn Have "If".
+					// if lsModifiedData[iLoop].Contains ("If")
+						// for(Integer kLoop=1; kLoop<=lsModifiedData[iLoop].Length(); kLoop++)
+							// for (Integer mLoop = 1; mLoop<=lsUFTMethods.Count(); mLoop++)
+								// if lsModifiedData[iLoop].Contains(lsUFTMethods[mLoop])
+									// iCloseBracketCount = lsModifiedData[iLoop].LastIndexOf (".")
+									// sCloseBracketSubstring = lsModifiedData[iLoop].Substring (iCloseBracketCount)// Store The Data In sSubString Variable.
+									// lsModifiedData[iLoop] = lsModifiedData[iLoop].Remove (iCloseBracketCount)// Removing The Data From The Method.
+									// lsModifiedData[iLoop] = lsModifiedData[iLoop].Replace ("If (", "")
+									// lsModifiedData[iLoop] = lsModifiedData[iLoop].Replace ("If(", "")
+									// for(Integer p=1; p<=lsModifiedData[iLoop].Length(); p++)
+										// if lsModifiedData[iLoop][p]=="("
+											// iState = p
+									// for (Integer p = 1; p<=lsModifiedData[iLoop].Length(); p++)
+										// if p==iState
+											// break
+										// else
+											// sTemp = sTemp+lsModifiedData[iLoop][p]
+									// lsModifiedData[iLoop].GetField (sTemp, 1)
+									// Print (lsModifiedData[iLoop])
+										// // if lsModifiedData[iLoop][p]=="'("
+											// // break
+										// // else
+											// // lsModifiedData[iLoop] = lsModifiedData[iLoop].Remove (p)
+										// // lsModifiedData[iLoop]="("+lsModifiedData[iLoop]
+									// // Print (lsModifiedData[iLoop]+"lllllh")
+									// // for (jLoop = 1; jLoop<=lsModifiedData[iLoop].Length(); jLoop++) // Finding The Open And Close Brakers Possitions For getting Proper AppObjects.
+										// // if lsModifiedData[iLoop][jLoop]== ("(") // Getting Open Bracket Count.
+											// // liOpenBracketCount.Add (jLoop) 
+										// // if lsModifiedData[iLoop][jLoop]== (")")   // Getting Close Bracket Count.
+											// // liCloseBracketCount.Add (jLoop)
+									// step ChangingScript_UFTToAT
+										// liOpenBracketCount:liOpenBracketCount
+										// liCloseBracketCount:liCloseBracketCount
+										// sData:lsModifiedData[iLoop]
+									// lsModifiedData[iLoop] = "if("+ChangingScript_UFTToAT.sModifiedData+sCloseBracketSubstring// Adding Method And Parameter to AppObjects.
+								// lsModifiedData[iLoop] = lsModifiedData[iLoop].TrimLeft ()
+								// UFTFMethodsModifiedFile.Write (String.Tabs (3)+lsModifiedData[iLoop])
+								// lsFinalData.Add (String.Tabs (3)+lsModifiedData[iLoop])
+								// liOpenBracketCount=null //Assigning Open Bracket Count as Null.
+								// liCloseBracketCount=null  //Assigning Open Bracket Count as Null. 
+							// UFTFMethodsModifiedFile.Write (lsModifiedData[iLoop])
+							// lsFinalData.Add (lsModifiedData[iLoop])
+		// 
+		
+class ChangingScript_UFTToAT_Copy : Step
+	%StepInfo[Desc="Changing Script From UFT To At W.R.T ""Dialog"" AppObject.",Group="UFT Object Repo To AT Object Repo / Common"]
+	parameter List<Integer> liOpenBracketCount
+	parameter List<Integer> liCloseBracketCount
+	parameter String sData
+	out parameter String sModifiedData
+	Main()
+		List<String> lsObjects={}
+		String sSubstring
+		Integer iPos, kLoop, k = 0, iPos_Dialog
+		
+		// Initialize The 'k' Value w.r.t "Dialog" AppObject.
+		
+		//Getting All AppObjects.
+		for (kLoop = k; kLoop<=liOpenBracketCount.Count(); kLoop++)
+			iPos= liCloseBracketCount[kLoop]-liOpenBracketCount[kLoop]
+			sSubstring = sData.Substring (liOpenBracketCount[kLoop]+2, iPos-3)
+			sSubstring = sSubstring.Replace (" ", "")
+			step ReplaceSpecialCharInAString
+				sPathString:sSubstring
+			lsObjects.Add (ReplaceSpecialCharInAString.sPathResult)
+		// Writing Script w.r.t AppObjects Count.
+		switch lsObjects.Count()
+			case 1
+				sModifiedData = lsObjects[1]+"."
+				break
+			case 2
+				sModifiedData ="{ lsObjects[1]}"+"."+"{lsObjects[2]}"+"."
+				break
+			case 3
+				sModifiedData ="{ lsObjects[1]}"+"."+"{lsObjects[2]}"+"."+"{lsObjects[3]}"+"."
+				break
+			case 4
+				sModifiedData ="{ lsObjects[1]}"+"."+"{lsObjects[2]}"+"."+"{lsObjects[3]}"+"."+"{lsObjects[4]}"+"."
+				break
+			default
+		// Print (sModifiedData)
+		
+		
+		
+		
+		
+		// if sData.Contains ("Dialog")&&sData.Contains ("If")
+			// k = 2
+		
+class ReplaceUnwantedCharInStatement : Step
+	%StepInfo[Desc="Replaces all unwanted character in a statement",Group="UFT Object Repo To AT Object Repo / Common"]
+	parameter String sStatement
+	out parameter String sNewStatement
+	Main()
+		Integer iCount = 0
+		String sTemp , sFirstField, sSecondField, sATObject, sATObject1,sThirdField, sFirstFieldInSecond,sElseIF
+		//Checking the statement
+		if (sStatement.Contains("else if"))
+			sElseIF = "else if"
+		else
+			sElseIF = "if"
+		
+		// To get "." counts
+		if (sStatement.Contains("Dialog") || sStatement.Contains("dialog"))
+			sStatement = sStatement.GetField ("ialog", 2)
+		sTemp = sStatement
+		for (Integer i = 1; i<=sStatement.Length(); i++)
+			if (sStatement[i] == ".")
+				iCount++
+		// Convert Statement to AT if one "."
+		switch iCount
+			case 1
+				sFirstField = sTemp.GetField (".", 1)
+				sSecondField = sTemp.GetField (".", 2)
+				sFirstField = sFirstField.GetField("""", 2)
+				sFirstField = sFirstField.GetField ("""", 1)
+				sATObject = sFirstField.Replace (" ", "")
+				sNewStatement = "{sElseIF} ("+ "{sATObject}" + "." + "{sSecondField}"
+				break
+				// Convert Statement to AT if Two "."
+			case 2
+				sFirstField = sTemp.GetField (".", 1)
+				sSecondField = sTemp.GetField (".", 2)
+				sThirdField = sTemp.GetField (".", 3)
+				sFirstField = sFirstField.GetField("""", 2)
+				sFirstField = sFirstField.GetField ("""", 1)
+				sATObject = sFirstField.Replace (" ", "")
+				
+				sFirstFieldInSecond = sSecondField.GetField (".", 1)
+				sFirstFieldInSecond = sFirstFieldInSecond.GetField ("""", 2)
+				sFirstFieldInSecond = sFirstFieldInSecond.GetField ("""", 1)
+				sATObject1 = sFirstFieldInSecond.Replace (" ", "")
+				sNewStatement = "{sElseIF} ("+ "{sATObject}" + "." + "{sATObject1}" + "." + "{sThirdField}"
+			default
+				sNewStatement = sStatement.Trim()
+		// Print(sNewStatement)
+		
+class CountOfTabs : Step
+	%StepInfo[Group="UFT Object Repo To AT Object Repo / Common"]
+	parameter String sStatements
+	out parameter Integer iTabsCount = 0
+	out parameter Integer iSpaceCount = 0
+	Main()
+		Integer iCount = 0, iSpace = 0, iTabs = 0
+		for(Integer i=1; i<=sStatements.Length(); i++)
+			if !(sStatements[i].IsAlphaNumeric())
+				if (sStatements[i]== Char(9))
+					iTabs++
+					iTabsCount = iTabs
+					// Print ("iTabs", iTabs)
+				else
+					if ( sStatements[i]== Char(32))
+						iSpace++
+						iSpaceCount = iSpace
+						// Print ("iSpace", iSpace)
+			else
+				break
+		// if iSpaceCount==null
+			// iSpaceCount=0
+		// Print (iSpaceCount, iTabs)
+		
+		
+		
+		
+class ConvertXSLtoCSV : Step
+	%StepInfo[Desc="Converts UFT XSL to CSV Format which internally will be converted to AT Datatable using DataEditor",Group="DB Conversion"]
+	parameter String sExcelFileLocation = null
+	Main()
+		// sExcelFileLocation = "‪C:\VBtoZLanguage"
+		List<String> lsOut
+		String sCommand, sExcelFile, sExcelFile_Path
+		
+		if (System.FileExists (sCSVExcelPath)== false)
+			System.CreateDir (sCSVExcelPath)
+		sCommand = "C:\Program Files (x86)\Advanced XLS Converter\xlscnv.exe {sExcelFileLocation}.xls {sCSVExcelPath}.csv"
+		System.Execute (sCommand, lsOut)
+		// sCommand = "C:\Program Files (x86)\Advanced XLS Converter\xlscnv.exe C:\VBtoZLanguage\Default.xls C:\VBtoZLanguage\ATDefault.csv"
+		// Print(lsOut)
+		
+		
+class Demo : Step
+	Main()
+		
+class FetchTCName : Step
+	%StepInfo[Desc="Fetching TestCase Name and Add Test Info.",Group="TestCase"]
+	parameter String sUFTOrgTestFile
+	parameter String sTCName_TestInfo
+	Main()
+		//Variables Declaration
+		Integer iLoop
+		String sTCName,sClass,sTestInfo,sMain,sStepdescription
+		TextFile textFile
+		
+		//Reading Text.txt file.
+		step OpenAndReadTextFile
+			sFile:sUFTOrgTestFile
+		
+		for (iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Contains ("< / G u i d > < N a m e > < ! [ C D A T A [")
+				sTCName = OpenAndReadTextFile.lsData[iLoop].GetField ("< / G u i d > < N a m e > < ! [ C D A T A [", 2)
+				sTCName = sTCName.GetField ("]", 1)
+				sTCName = sTCName.Replace (" ", "")
+				break
+		sClass = "[-] class {sTCName} : Test"
+		
+		for (Integer i = 1; i<=OpenAndReadTextFile.lsData.Count(); i++)
+			if OpenAndReadTextFile.lsData[i].Contains ("< D e s c r i p t i o n > < ! [ C D A T A [")
+				sStepdescription = OpenAndReadTextFile.lsData[i].GetField ("< D e s c r i p t i o n > < ! [ C D A T A [", 2)
+				sStepdescription = sStepdescription.GetField ("]", 1)
+				sStepdescription = sStepdescription.Replace ("   ", "&&&")
+				sStepdescription = sStepdescription.Replace (" ", "")
+				sStepdescription = sStepdescription.Replace ("&&&", " ")
+				break
+		
+		sTestInfo = String.Tabs(1)+"    %TestInfo[Desc=""{sStepdescription}"",Group="""",Table=""""]"
+		sMain = String.Tabs(1)+"    Main()"
+		
+		textFile.Open (sTCName_TestInfo, FileMode.Append)
+		textFile.Write (sClass)
+		textFile.Write (sTestInfo)
+		textFile.Write (sMain)
+		
+		
+		
+class FetchStepName_AddToTestFormat : Step
+	%StepInfo[Desc="Fetching Step Names From Action Files And Add To Test Format.",Group="TestCase"]
+	parameter String sActionFile
+	parameter String sTestFormatFile
+	Main()
+		//Variables Declaration
+		Integer iLoop
+		String sStepName
+		List<String> lsStepNames
+		TextFile textFile
+		
+		step OpenAndReadTextFile
+			sFile:sActionFile
+		for (iLoop= 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			sStepName=OpenAndReadTextFile.lsData[iLoop].GetField("""",2)
+			sStepName = sStepName.GetField ("""", 1)
+			sStepName = String.Tabs(2)+"    step {sStepName}"
+			lsStepNames.Add (sStepName)
+		// Print (lsStepNames)
+		
+		textFile.Open (sTestFormatFile, FileMode.Append)
+		for (iLoop = 1; iLoop<=lsStepNames.Count(); iLoop++)
+			textFile.Write (lsStepNames[iLoop])
+		
+class DeleteExistingDir : Step
+	%StepInfo[Desc="Deleting Existing Files If Present Else Create Directories.",Group="TextFile"]
+	parameter List<String> lsDirPath
+	Main()
+		//Delete all the existing files.
+		Integer iLoop
+		
+		String sPath=DataStore.Query("PathLocation")
+		
+		for(iLoop=1; iLoop<=lsDirPath.Count(); iLoop++)
+			if System.FileExists (sPath+lsDirPath[iLoop])
+				System.DeleteDir (sPath+lsDirPath[iLoop], DeleteFlags.{Force,Recurse})
+				Sleep(2)
+				System.CreateDir (sPath+lsDirPath[iLoop])
+			else
+				System.CreateDir (sPath+lsDirPath[iLoop])
+		
+class RadioBut : Step
+	%StepInfo[Desc="Handling radio button Lines.",Group="UFT Steps To AT Steps"]
+	parameter String sData
+	out parameter String sModifyData
+	Main()
+		Integer iDotPosition,iCount=0,iLoop
+		String sMethod,sParameters
+		
+		// Deleting unnecessary words.
+		if sData.Contains ("WinRadioButton")&&sData.Contains ("SetTOProperty")
+			for(iLoop=1; iLoop<=sData.Length(); iLoop++)
+				if sData[iLoop]=="."
+					iCount++
+			//Fetching Parameter
+			sMethod = sData.GetField (".", iCount+1)
+			sParameters = sMethod.GetField ("(", 2)
+			sParameters = sParameters.GetField (")", 1)
+			sModifyData = sData.Replace (sMethod, "SetTOProperty()")
+			// Print (sModifyData)
+		else
+			sModifyData=sData
+		
+		// InPut: Window("Orders").Dialog("New order").WinRadioButton("rbn_Card").SetTOProperty "Text", DataTable("sCard")
+		//OutPut: Window("Orders").Dialog("New order").WinRadioButton("rbn_Card").SetTOProperty("sCard") 
+		
+class HandleMenu : Step
+	%StepInfo[Group="UFT Steps To AT Steps"]
+	parameter String sData
+	out parameter String sMenuOutput
+	Main()
+		//Orders.Menu.Select "File;Save As..."
+		
+		String sTemp1 = sData.GetField ("Menu.", 1)
+		String sTemp2 = sData.GetField ("Menu.", 2)
+		sTemp2 = sTemp2.GetField ("""", 2)
+		sTemp2 = sTemp2.GetField ("""", 1)
+		List<String> lsMenuItem = sTemp2.Split (";")
+		for(Integer iLoop=1; iLoop<=lsMenuItem.Count(); iLoop++)
+			lsMenuItem[iLoop] = lsMenuItem[iLoop].Replace (" ", "")
+			lsMenuItem[iLoop] = lsMenuItem[iLoop].Replace (".", "")
+		
+		switch(lsMenuItem.Count())
+			case 1
+				sMenuOutput = sTemp1+lsMenuItem[1]+".HoverMouse ()" +"                                       //This is a Menu."
+				break
+			case 2
+				sMenuOutput = sTemp1+lsMenuItem[1]+"."+lsMenuItem[2]+".Select()" +"                                       //This is a Menu."
+				break
+			case 3
+				sMenuOutput = sTemp1+lsMenuItem[1]+"."+lsMenuItem[2]+"."+lsMenuItem[3]+".Select()"+"                                       //This is a Menu."
+				break
+			case 4
+				sMenuOutput = sTemp1+lsMenuItem[1]+"."+lsMenuItem[2]+"."+lsMenuItem[3]+"."+lsMenuItem[4]+".Select()"+"                                       //This is a Menu."
+				break
+		
+class ConvertCSVtoDS : Step
+	%StepInfo[Desc="Converts CSV File to AT .DS format",Group="DB Conversion"]
+	Main()
+		List <FileInfo> lFileInfo = System.GetFileList (sActCSVFilePath, "*.csv")
+		String sFileName
+		List<String> lsFileNames
+		Print (lFileInfo[1].Name)
+		for (Integer i = 1; i<=lFileInfo.Count(); i++)
+			sFileName = lFileInfo[i].Name.Replace ("Default", "DT")
+			System.Execute ("REN  {sActCSVFilePath+ lFileInfo[i].Name} {sFileName}")
+			Sleep(2)
+			lsFileNames.Add(sFileName)
+		
+		if ZeenyxDataEditor.WaitUntilExists (5, NotExistAction.None)
+			ZeenyxDataEditor.MainMenu.File.Exit.Select ()
+		// 
+		// Launch Dataeditor and convert to .DS File
+		System.Run ("DataEditor.exe")
+		for (Integer i = 1; i<=lsFileNames.Count(); i++)
+			ZeenyxDataEditor.MainMenu.Data.ImportFromCSV.Select ()
+			Sleep(2)
+			UA.GenKeyEvents (lsFileNames[i], 0.2)
+			UA.GenKeyEvents ("<Enter>")
+			Sleep (1)
+			ZeenyxDataEditor.MainMenu.File.SaveAs.Select ()
+			lsFileNames[i] = lsFileNames[i].Replace (".csv", ".ds")
+			UA.GenKeyEvents (lsFileNames[i], 0.2)
+			UA.GenKeyEvents ("<Enter>")
+		ZeenyxDataEditor.MainMenu.File.New.Select ()
+		Sleep (1)
+		ZeenyxDataEditor.Close()
+		
+
+class MoveFile : Step
+	%StepInfo[Group="UpDated"]
+	parameter String sOrgUFT_FileName
+	parameter String sChangeFormat
+	parameter String sExistingDirPath
+	Main()
+		
+		if System.FileExists (sChangeFormat)
+			Print ("File is present")
+			System.DeleteDir (sExistingDirPath, DeleteFlags.{Force,Recurse})
+			Sleep(2)
+			System.CreateDir (sExistingDirPath)
+		
+		if( System.FileExists (sOrgUFT_FileName))
+			Print (sOrgUFT_FileName+"File is present")
+			System.MoveFile (sOrgUFT_FileName, sChangeFormat, MoveFlags.Force)
+			// System.CopyFile ("sOrgUFT_FileName", "sChangeFormat", CopyFlags.Force)
+		
+

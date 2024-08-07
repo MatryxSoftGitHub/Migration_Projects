@@ -1,0 +1,13 @@
+﻿class Demo : Step
+	parameter String sExpectedStatus = null
+	parameter String sFirstStatusMessage = null
+	parameter String sFirstStatusMessage1 = null
+	Main()
+		DateTime dtCurrentDateTime = DateTime.Now()
+		Print (dtCurrentDateTime)
+		DateTime dtNewDateTime
+		
+		dtNewDateTime = DateTime.Parse ("MM/dd/yyyy HH:mm:ss", "2011-05-26")
+		
+		
+		

@@ -1,0 +1,21 @@
+record Record_RanorexSteps_ATSteps
+	String RowId
+	List<String> lsRanorexMethods
+	List<String> lsATMethods
+record DtWorkdayRecord
+	String UserName
+	String Password
+	String sStartProxy
+	String ProxyAs
+	String AdHocBankTransactionDate
+	String BPNameVar
+	String sBpName
+	String str
+	String Memo
+	String CompanyName
+	String BankAccount
+	String TransactionAmount
+	String ReferrenceName
+	String TransactionLines_RevenueSpendCategory
+	String TransactionLines_Memo
+	String TransactionLines_CostCenter

@@ -1,0 +1,760 @@
+﻿class SplitMultipleMethodsIntoaList : Step
+	%StepInfo[Desc="Splits methods and its line into a List of String",Group="Conversion_Step"]
+	parameter String FileName
+	out parameter List<List<String>> llsSelMethods
+	Main()
+		String sReadData,sTemp="",sCBraces
+		sCBraces = Char (125)
+		List<String> lsSteps, lsTemp, lsMethodContentsOnly, lsSelConversionFormatOut
+		
+		step GettingOnlyMethodFromSeleniumJavaFile
+			sReadFile:FileName
+		lsMethodContentsOnly = GettingOnlyMethodFromSeleniumJavaFile.lsMethodContents
+		
+		step AddsNewLineForOpenAndCloseBraces
+			lsOriginalSelData:lsMethodContentsOnly
+		lsSelConversionFormatOut = AddsNewLineForOpenAndCloseBraces.lsSelConversionFormat
+		
+		// Split the methods and its line of code into a String , final output will be list of string
+		for (Integer k = 1; k<=lsSelConversionFormatOut.Count(); k++)
+			sTemp = sTemp+"???"+lsSelConversionFormatOut[k]
+			// Print(sTemp)
+		lsSteps = sTemp.Split ("public ")
+		// Print (lsSteps)
+		
+		// Placing public text before void as it is lost after splitting
+		for (Integer l = 1; l<=lsSteps.Count(); l++)
+			if lsSteps[l].StartsWith ("???")// Removes the first empty ???
+				lsSteps.Remove (l)
+			lsSteps[l] = lsSteps[l].Insert (1, "public ")
+		// Print(lsSteps)
+		
+		// Split "n" number of methods and its content into a list of list 
+		for (Integer m = 1; m<=lsSteps.Count(); m++)
+			lsTemp = lsSteps[m].Split ("???")
+			llsSelMethods.Add (lsTemp)
+		// Print (llsSelMethods)
+		
+		// 
+		// 
+		
+class GettingOnlyMethodFromSeleniumJavaFile : Step
+	%StepInfo[Desc="Gets the Methods and its line of code into a list",Group="Conversion_Step"]
+	parameter String sReadFile
+	out parameter List<String> lsMethodContents
+	Main()
+		String sReadData
+		List<String> lsOriginalSelData
+		Integer iMethodStartLine
+		
+		// Read entire selenium java file
+		TextFile textFile
+		textFile.Open (sReadFile, FileMode.Read, FileEncoding.ANSI)
+		while textFile.Read (sReadData)
+			lsOriginalSelData.Add (sReadData.Trim())
+		// Print (lsMainData)
+		
+		// Gets the first  method line number from Java file
+		for (Integer i = 1; i<=lsOriginalSelData.Count(); i++)
+			if lsOriginalSelData[i].Contains ("public void ")
+				iMethodStartLine = i
+				break
+		
+		// Gets only the method and its statements  from java file
+		for (Integer j = iMethodStartLine; j<=lsOriginalSelData.Count(); j++)
+			lsMethodContents.Add (lsOriginalSelData[j])
+		
+		//Removes Empty lines from Java file
+		for (Integer k = 1; k<=lsMethodContents.Count(); k++)
+			if lsMethodContents[k].IsSpace ()
+				lsMethodContents.Remove (k)// Gets the rowcount to the next line after deleting the current empty line
+				k= k-1
+		lsMethodContents.Remove (lsMethodContents.Count())
+		// Print (lsMethodContents)
+		
+class Methods_Replacement_Seq5 : Step
+	%StepInfo[Desc="Converts all Selenium Methods to its equivalent AscentialTest Methods",Group="Conversion_MainStep"]
+	parameter String SleepFileName
+	parameter String MethodOutFileName
+	out parameter List<String> lsData
+	Main()
+		String  sLine
+		
+		// MethodsReplace
+		TextFile textFile
+		textFile.Open (SleepFileName, FileMode.Read)
+		while textFile.Read(sLine)
+			lsData.Add (sLine)
+			
+		// Getting values and count from table
+		record_Methods rMethods = DataStore.Query ("Methods[1]")
+		
+		// Print(lsData)
+		for(Integer i=1;i<=lsData.Count();i++)
+			for (Integer j = 1; j<=rMethods.SeleniumMethods.Count(); j++)
+				if lsData[i].Contains (rMethods.SeleniumMethods[j])
+						lsData[i] = lsData[i].Replace (rMethods.SeleniumMethods[j], rMethods.AscentialTestMethods[j])
+		// Print (lsData)
+		
+		// Replaces findElement Line
+		record_FindElement rElement = DataStore.Query ("Dt_FindElement[1]")
+		for (Integer k = 1; k<=lsData.Count(); k++)
+			for (Integer l = 1; l<=rElement.SeleniumFormat.Count(); l++)
+				if lsData[k].Contains (rElement.SeleniumFormat[l]) && lsData[k].Contains("WebElement")
+					lsData[k] = lsData[k].Replace (rElement.SeleniumFormat[l], rElement.ATFormat[l]+ ".GetObject()")
+				else
+					lsData[k] = lsData[k].Replace (rElement.SeleniumFormat[l], rElement.ATFormat[l])
+		
+		// Getting values and count from table
+		record_DataTypes rDataType = DataStore.Query ("DataTypes[1]")
+		for(Integer i=1;i<=lsData.Count();i++)
+			for (Integer j = 1; j<=rDataType.Selenium_DataTypes.Count(); j++)
+				if lsData[i].Contains (rDataType.Selenium_DataTypes[j]) && !lsData[i].Contains("Print") && ! lsData[i].StartsWith("\\")
+						lsData[i] = lsData[i].Replace (rDataType.Selenium_DataTypes[j], rDataType.AscentialTest_DataType[j])
+		
+		// Remove New Keyword present lines in code
+		for (Integer i = 1; i<=lsData.Count(); i++)
+			if ( lsData[i].Contains("=new ") || lsData[i].Contains("= new "))&& lsData[i].Contains("(")
+				lsData.Remove (i)
+		
+		lsData.WriteFile(MethodOutFileName)
+		
+class ConvertSelMethodlineToATClassMethodFormat_Seq1 : Step
+	%StepInfo[Desc="Converts the method line in Selenium to equivalent Class method format in AT",Group="Conversion_MainStep"]
+	parameter String FileName
+	parameter String OutputFileName
+	out parameter List<String> lsData
+	Main()
+		String sMethodName, sPublicLine, sParameters, sStepInfo
+		List<String>lsMethodName, lsParameter,lsReplaceCode
+		List<List<String>> llsTemp
+		TextFile MyFile
+		// MyFile.Open ("D:\Temp\YoutubeSignInPage.txt", FileMode.Append)
+		MyFile.Open (OutputFileName, FileMode.Append)
+		
+		// Split n no of methods into a list of list
+		step SplitMultipleMethodsIntoaList
+			FileName:FileName
+		
+		List<List<String>> llsMethodsOnly = SplitMultipleMethodsIntoaList.llsSelMethods
+		
+		// Replacing the Function line with equivalent Step name in AT
+		for (Integer i = 1; i<=llsMethodsOnly.Count(); i++)
+			for (Integer j = 1; j<=llsMethodsOnly[i].Count(); j++)
+				if llsMethodsOnly[i][j].Contains ("public void") || llsMethodsOnly[i][j].Contains ("public static void")
+					sPublicLine = llsMethodsOnly[i][j]
+					// Split function name , paramters into AT Format
+					step SplitFunctionLineIntoATFormat
+						MethodLine:sPublicLine
+					for (Integer k=1; k<=SplitFunctionLineIntoATFormat.lsMainMethodLine.Count();k++)
+						MyFile.Write (SplitFunctionLineIntoATFormat.lsMainMethodLine[k])
+						lsData.Add (SplitFunctionLineIntoATFormat.lsMainMethodLine[k])
+				else
+					if llsMethodsOnly[i][j].IsNull() ||  llsMethodsOnly[i][j].IsEmpty ()
+						// do nothing
+					else
+						MyFile.Write (llsMethodsOnly[i][j])
+						lsData.Add (llsMethodsOnly[i][j])
+		
+		// 
+		// 
+		
+class SplitFunctionLineIntoATFormat : Step
+	%StepInfo[Desc="Split the methodname and its parameter to AT format",Group="Conversion_Step"]
+	parameter String MethodLine
+	out parameter List<String> lsMainMethodLine
+	Main()
+		String sClassName, sParameters, sStepInfo, sGroup, sDescription, sStepName
+		List<String> lsMethodName, lsParameter, lsReplaceCode, lsSplitFuncName
+		// Splittting the MethodLine with space
+		
+		// Splitting classname, Paramters
+		String sSplitWithParameter = MethodLine.GetField ("(", 1).Trim ()
+		lsSplitFuncName =sSplitWithParameter.Split(" ")
+		 sClassName =sSplitWithParameter.GetField (" ", lsSplitFuncName.Count())
+		sParameters = MethodLine.GetField (sClassName, 2)
+		sParameters = sParameters.GetField (")", 1)
+		sParameters = sParameters.GetField ("(", 2)
+		// Print (sParameters)
+		
+		// Formatting Function line into AT format
+		lsParameter = sParameters.Split (",")
+		sStepName = "class"+" "+sClassName+" : Step"
+		
+		// Adding step dsecription to AT format
+		lsMainMethodLine.Add (sStepName)
+		sStepInfo = '%StepInfo[Desc="{sClassName}",Group="{ sGroup}"]'
+		lsMainMethodLine.Add (sStepInfo)
+		
+		//Adding parameters and Main to AT Format
+		for (Integer j = 1; j<=lsParameter.Count(); j++)
+			if (lsParameter[j].IsNullOrEmpty())
+				//Nothing
+			else
+				lsParameter[j] = "parameter "+lsParameter[j]
+				lsMainMethodLine.Add (lsParameter[j])
+		lsMainMethodLine.Add ("Main()")
+		// Print (lsMainMethodLine)
+		// 
+		// lsMainMethodLine.WriteFile ("D:\Temp\YoutubeSignInPage.txt")
+		
+class IndentationAndRemoveBraces_Seq2 : Step
+	%StepInfo[Desc="Indentation wrt AT and Replace braces with indentation",Group="Conversion_MainStep"]
+	parameter List<String> lsSeq1Data
+	parameter String sIntegratedOutFileName
+	parameter String Indent_OutFileName
+	parameter String sFindParentfromJavaFileName
+	out parameter List<String> lsData
+	Main()
+		String sReadData, sSingleLine, sTime, sTime1, sObjectName, sWaitTime, sLine = "", sOBraces, sCBraces, sParaName, sObjName, sData, sKeyword, sDataBrace, print1, print2
+		sOBraces = Char (123)
+		sCBraces = Char (125)
+		TextFile MyFile
+		Integer iPos,i,iSeleniumMethodCount,iReplaceMethodCount, iCount=0, iLength, iSpaceCount=0
+		List<String> lsData1,  lsWaitTime, lsMain, lsLines,lsBraces, lsprint
+		List<List<String>> llsData
+		List<Integer>liOBraces
+		
+		lsData = lsSeq1Data
+		// Replaces Sel getAttribute and equlas methods to equivalent AT GetAttr and ==
+		step ReplaceGetAttrAndComparisonOperaterToAT
+			lsData:lsData
+		
+		// Replaces all Function called into AT steps
+		step ReplaceFunctionLineByATSteps
+			lsData:ReplaceGetAttrAndComparisonOperaterToAT.lsReplaceGetAttr
+			sIntegratedOutFileName:sIntegratedOutFileName
+		
+		// Convert FindElements to AT Format
+		String sParentObjectName = sFindParentfromJavaFileName.GetField (".", 1)
+		step ConvertFindElements
+			lsData:ReplaceFunctionLineByATSteps.lsStepAddedData
+			sParentObjectName:sParentObjectName
+		
+		lsData = ConvertFindElements.lsReplaceFindElements
+		
+		//Indentation
+		for(Integer i=1;i<=lsData.Count();i++)
+			if (lsData[i].StartsWith("//") && (lsData[i+1].Contains("class") && lsData[i+1].Contains(": Step"))) || (lsData[i].Contains("class") && lsData[i].Contains(": Step"))
+				//do nothing
+			else
+				lsData[i] = String.Tabs(1)+lsData[i]
+		
+		//Position of Close Braces
+		for(Integer j=1;j<=lsData.Count();j++)
+			if lsData[j].Contains(sOBraces) || lsData[j].Contains(sCBraces)
+				lsBraces.Add(lsData[j])
+				liOBraces.Add (j)
+				
+		// indentation for open and Close braces as per AT standards
+		for (Integer l = 1, k = 1; l<=lsBraces.Count() && k<=liOBraces.Count(); l++,k++)
+			if(l==lsBraces.Count() || k==liOBraces.Count())
+				break
+			else
+				if lsBraces[l].Contains(sOBraces) && lsBraces[l+1].Contains(sOBraces)
+					iCount++
+					for (Integer m = (liOBraces[k]+1); m<=liOBraces[k+1]-1; m++)
+						lsData[m] = String.Tabs(iCount)+lsData[m]
+				else if( lsBraces[l].Contains(sOBraces) && lsBraces[l+1].Contains(sCBraces))
+					iCount++
+					for (Integer m = (liOBraces[k]+1); m<=liOBraces[k+1]-1; m++)
+						lsData[m] = String.Tabs(iCount)+lsData[m]
+				else if lsBraces[l].Contains(sCBraces) && lsBraces[l+1].Contains(sOBraces)
+					iCount--
+					for (Integer m = (liOBraces[k]+1); m<=liOBraces[k+1]-1; m++)
+						lsData[m] = String.Tabs(iCount)+lsData[m]
+				else if lsBraces[l].Contains(sCBraces) && lsBraces[l+1].Contains(sCBraces)
+					iCount--
+					for (Integer m = (liOBraces[k]+1); m<=liOBraces[k+1]-1; m++)
+						lsData[m] = String.Tabs(iCount)+lsData[m]
+		// Print(lsData)
+		
+		//Remove Braces
+		for(Integer i=1;i<=lsData.Count();i++)
+			if lsData[i].Contains(sOBraces) || lsData[i].Contains(sCBraces)
+				lsData.Remove(i)
+		
+		//Remove Braces
+		for(Integer i=1;i<=lsData.Count();i++)
+			if lsData[i].Contains(sOBraces) || lsData[i].Contains(sCBraces)
+				lsData.Remove(i)
+		// Print(lsData)
+		
+		// Removes Semicolon synntax at the end of the line
+		for (Integer i = 1; i<=lsData.Count(); i++)
+			if lsData[i].EndsWith (";")
+				lsData[i] = lsData[i].Replace (";", "")
+			if lsData[i].Contains(";") && lsData[i].Contains("//") && ( ! lsData[i].Contains("for("))
+				lsData[i] = lsData[i].Replace (";", "")
+		
+		lsData.WriteFile (Indent_OutFileName)
+		
+		// lsData.WriteFile ("D:\Temp\IndentationSigin.txt")
+		// lsData.WriteFile (Indent_OutFileName)
+		
+class ConvertSelImplicitandExplicitWaitToATWaits_Seq3 : Step
+	%StepInfo[Desc="Converts Selenium Implicit, Explicit wait to AT waittwhilexists and WaituntilExists",Group="Conversion_MainStep"]
+	parameter String Waits_OutputFileName
+	parameter List<String> lsData
+	out parameter List<String> lsImplicitExplicitData
+	Main()
+		String  sObjectName, sWaitTime, sLine
+		List<String>  lsWaitTime
+		TextFile MyFile
+		
+		// ExplicitWait to WaitUntilExists as per AT Standards
+		for(Integer i=1;i<=lsData.Count();i++)
+			if lsData[i].Contains ("WebDriverWait")
+				lsWaitTime = lsData[i].Split (",")
+				sWaitTime = lsWaitTime[2].GetField (")", 1)
+				lsData.Remove(i) // Removes WebDRiver Wait Definition
+			if lsData[i].Contains ("wait.")
+				sObjectName = lsData[i].GetField ("(", 3)
+				sObjectName = sObjectName.GetField (")", 1)
+				// Getting Indentation position
+				step GetPositionofAlphaNumeric_String
+					sData:lsData[i]
+				Print (GetPositionofAlphaNumeric_String.iGetAlphaPos)
+				if sObjectName.IsNull ()== false
+					sObjectName = String.Tabs(GetPositionofAlphaNumeric_String.iGetAlphaPos)+ sObjectName
+				sObjectName=sObjectName+".WaitUntilExists({sWaitTime},NotExistAction.None)"
+				lsData[i] = lsData[i].Replace (lsData[i], sObjectName)
+		
+		// ImplicitWait to WaitUntilExists
+		// Ignores Thread,//, driver./System.
+		for(Integer i=1;i<=lsData.Count();i++)
+			sObjectName =""
+			if lsData[i].Contains ("implicitlyWait")
+				sWaitTime = lsData[i].GetField ("implicitlyWait(", 2)
+				sWaitTime=sWaitTime.GetField(",",1)
+				if lsData[i+1].Contains("Thread.sleep") || lsData[i+1].Contains("//") || lsData[i+1].Contains("driver.") || lsData[i+1].Contains("System.")
+						sObjectName = lsData[i+2].GetField (".", 1)
+						if sObjectName.Contains("//") || sObjectName.Contains("driver") || sObjectName.Contains("System") || sObjectName.IsNull()
+							sObjectName = lsData[i+3].GetField (".", 1)
+							if sObjectName.Contains("//") || sObjectName.Contains("driver") || sObjectName.Contains("System") || sObjectName.IsNull()
+								sObjectName = lsData[i+4].GetField (".", 1)
+						if sObjectName.Contains ("if") || sObjectName.Contains ("for") || sObjectName.Contains ("while")
+							sObjectName = sObjectName.GetField ("(", 2)
+					sObjectName = sObjectName+".WaitWhileExists({sWaitTime})"
+				else
+					sObjectName = lsData[i+1].GetField (".", 1)
+						if sObjectName.Contains ("if") || sObjectName.Contains ("for") || sObjectName.Contains ("while")
+							sObjectName = sObjectName.GetField ("(", 2)
+					sObjectName = sObjectName+".WaitWhileExists({sWaitTime})"
+				// Print(lsData[i])
+				// Print(sObjectName)
+				step GetPositionofAlphaNumeric_String
+					sData:lsData[i]
+				// Print (GetPositionofAlphaNumeric_String.iGetAlphaPos)
+				if sObjectName.IsNull ()== false
+					sObjectName = String.Tabs(GetPositionofAlphaNumeric_String.iGetAlphaPos)+ sObjectName
+				lsData[i] = lsData[i].Replace (lsData[i], sObjectName)
+		
+		for(Integer i=1;i<=lsData.Count();i++)
+			if lsData[i].Contains ("else.")
+				lsData.Remove(i)
+		
+		lsImplicitExplicitData = lsData
+		lsImplicitExplicitData.WriteFile (Waits_OutputFileName)
+		// lsData.WriteFile ("D:\Temp\ImplictExplicitWait.txt")
+		
+class GetPositionofAlphaNumeric_String : Step
+	%StepInfo[Desc="Gets the position of ALphaNumeric in a  String",Group="GetPosition"]
+	parameter String sData
+	out parameter Integer iGetAlphaPos
+	Main()
+		iGetAlphaPos =0
+		for (Integer j = 1; j<=sData.Length(); j++)
+			if sData[j].IsAlphaNumeric ()
+				iGetAlphaPos = j-1
+				break
+		// Print(iGetAlphaPos)
+		
+class FinalStepZeeFile_Seq6 : Step
+	%StepInfo[Group="Conversion_MainStep"]
+	parameter String sStepTextFile
+	parameter String sStepZeeFile
+	Main()
+		String sReadData
+		List<String>lsOriginalSelData
+		TextFile MyFile
+		MyFile.Open (sStepZeeFile, FileMode.Append)
+		TextFile textFile
+		textFile.Open (sStepTextFile, FileMode.Read, FileEncoding.ANSI)
+		while textFile.Read (sReadData)
+			lsOriginalSelData.Add(sReadData)
+			MyFile.Write (sReadData)
+		Print (lsOriginalSelData)
+		
+
+// Nagaraj
+class ConvertFindElements : Step
+	%StepInfo[Desc="Convert FindElemts Line in AT format",Group="FindElements"]
+	parameter List<String> lsData
+	parameter String sParentObjectName
+	out parameter List<String> lsReplaceFindElements
+	Main()
+		String sElement, sOpenSqBrace, sCloseSqBrace, sATFormat = "", sXpath,sTemp, sGetMethod
+		List<String> lsTemp, lsTemp1
+		sOpenSqBrace = Char (91)//Ascii value of "["
+		sCloseSqBrace = Char (93)// Ascii value of "]"
+		
+		// Replaces FindElements Method into GetObject method
+		for(Integer i=1;i<=lsData.Count();i++)
+			//Replaces FindElements By (id,name, LinkText. partialLinkText, Classname)
+			if lsData[i].Contains ("findElements(By.id") || lsData[i].Contains ("findElements(By.name") || lsData[i].Contains ("findElements(By.linkText") || lsData[i].Contains ("findElements(By.partialLinkText") || lsData[i].Contains ("findElements(By.className")
+				sElement = lsData[i].GetField ("""", 2)
+				sATFormat = "WebElem"+sOpenSqBrace+ """"+ sElement+ """"+sCloseSqBrace + ".GetObject()"
+				lsTemp=lsData[i].Split("=")
+				sATFormat = lsTemp[1] + " = " + sParentObjectName+ "."+ sATFormat
+				lsData.Remove(i)
+				lsData.Insert (i, sATFormat)
+			// Replaces FindElements By (xPath and CSS)
+			if lsData[i].Contains ("findElements(By.xpath") || lsData[i].Contains ("findElements(By.css")// Search CSS and xPath
+				sXpath = lsData[i].GetField ("'", 2)
+				sXpath = sParentObjectName+ "."+"WebElem"+sOpenSqBrace+ """"+sXpath+""""+sCloseSqBrace +".GetObject()"// Required AT format GetObject method is stored in variable
+				// Print (sXpath)
+				
+				if (lsData[i].Contains ("if(") ||  lsData[i].Contains("if ("))
+					step GetRepaetableCharCount
+						sData:lsData[i]
+						sChar:"."
+					if GetRepaetableCharCount.iRepeatCharCount == iDotRepeatCount
+						sGetMethod = lsData[i].GetField (".", 4)
+						sXpath = sXpath + "."+ sGetMethod
+						//sXpath = sParentObjectName+ "."+sXpath + "."+ sGetMethod
+					sXpath = "if (" + sXpath
+				else
+					lsTemp=lsData[i].Split("=")
+					sXpath = lsTemp[1] + " = " +sParentObjectName+ "."+ sXpath
+				// Print(sXpath)
+				lsData.Remove (i)
+				lsData.Insert (i, sXpath)
+		
+		// Convert driver.getTitle() to AT Parent.getTitle()
+		for(Integer i=1;i<=lsData.Count();i++)
+			if (lsData[i].Contains("driver.getTitle"))
+				lsData[i] = lsData[i].Replace("driver.getTitle()", sParentObjectName + ".getTitle()")
+				
+		// Output of this Step
+		lsReplaceFindElements = lsData
+		// 
+		
+class GetRepaetableCharCount : Step
+	%StepInfo[Desc="Gets the Total Number of Repaetable character count",Group="Conversion_Step"]
+	parameter String sData
+	parameter String sChar
+	out parameter Integer iRepeatCharCount
+	Main()
+		iRepeatCharCount = 0
+		for(Integer i =1; i<=sData.Length(); i++)
+			if sData [i] == sChar
+				iRepeatCharCount++
+		// Print( iRepeatCharCount)
+		
+class Sleeps_DataTypeConversion_Replacement_Seq4 : Step
+	%StepInfo[Desc="Converts Thread sleep of Selenium into Sleep of AscentialTest",Group="Conversion_MainStep"]
+	parameter List<String> lsData
+	parameter String OutSleepFileName
+	Main()
+		Integer  iSeleniumMethodsCount, iAscentialTestMethodsCount
+		String  sSingleLine, sTemp, sTemp1, sTemp2
+		List<String> lsMainData
+		
+		record_Sleeps rSleep = DataStore.Query ("Sleeps[1]")
+		
+		for(Integer i=1;i<=lsData.Count();i++)
+			for (Integer j = 1; j<=rSleep.SeleniumSleepMethods.Count(); j++)
+				if lsData[i].Contains (rSleep.SeleniumSleepMethods[j])
+						lsData[i] = lsData[i].Replace (rSleep.SeleniumSleepMethods[j], rSleep.AscentialTestSleepMethods[j])
+		// Print (lsData)
+		
+		// Datatype Conversion from Sel Datatype to At Datatype
+		record_DataTypeConversion rcDataType = DataStore.Query ("DataTypeConversion[1]")
+		for(Integer i=1;i<=lsData.Count();i++)
+			for (Integer j = 1; j<=rcDataType.SeleniumDataTypes.Count(); j++)
+				if lsData[i].Contains (rcDataType.SeleniumDataTypes[j])
+					lsData[i] = lsData[i].Replace (rcDataType.SeleniumDataTypes[j], rcDataType.AscentialTestDataType[j])
+		Print(lsData)
+		
+		// For loop incrementing by 1 as in Java it starts with 0 and IN AT it stats with 1
+		for(Integer i=1;i<=lsData.Count();i++)
+			if (lsData[i].Trim().StartsWith("for"))
+				sTemp = lsData[i].Trim().GetField(";", 1)
+				sTemp1 = sTemp.Trim ().GetField ("=", 2)
+				sTemp2 = sTemp1+ "+ 1"
+				lsData[i] = lsData[i].Replace (sTemp1, sTemp2)
+		
+		lsData.WriteFile (OutSleepFileName)
+		
+		
+class ReplaceGetAttrAndComparisonOperaterToAT : Step
+	%StepInfo[Desc="Replaces Sel getAttribute and equlas methods to equivalent AT GetAttr and ==",Group="Conversion_Step"]
+	parameter List<String> lsData
+	out parameter List<String> lsReplaceGetAttr
+	Main()
+		String sLine, sObjectName, sName,sFinal,sChar
+		sChar = Char(34)
+		
+		
+		// Replace sel getattribute is true or false to AT equivalent IsPresent
+		for (Integer i = 1; i<=lsData.Count(); i++)
+			if lsData[i].Contains("getAttribute") && lsData[i].Contains(".equals(""true"")")
+				// sObjectName = lsData[i].Trim ().GetField ("""", 2)
+				sName = lsData[i].Trim ().GetField (".", 1)
+				sFinal = sName+".GetAttr(""Text"").IsPresent())"
+				// Print(sFinal)
+				lsData[i]=lsData[i].Replace(lsData[i],sFinal)
+			else 
+				if lsData[i].Contains("getAttribute") && lsData[i].Contains(".equals(""false"")")
+					sName = lsData[i].Trim ().GetField (".", 1)
+					sFinal = sName+".GetAttr(""Text"").IsEnabled())"
+					lsData[i]=lsData[i].Replace(lsData[i],sFinal)
+		
+		// Replacement of Equal operator
+		for(Integer i=1;i<=lsData.Count();i++)
+			if (lsData[i].Contains("if(") ||  lsData[i].Contains("if (")) && lsData[i].Contains(".equals(") 
+				lsData[i] = lsData[i].Replace (".equals", " == ")
+		lsReplaceGetAttr = lsData
+		
+
+// Anil
+class DeletingExistingConversionFolders : Step
+	%StepInfo[Desc="Deletes all the pre existing converted folders created during last run",Group="PreRequisite"]
+	Main()
+		if System.FileExists (sTextFolderPath)
+			System.DeleteDir (sTextFolderPath, DeleteFlags.{Force,Quiet,Recycle,Recurse})
+		if System.FileExists (sImplicitExplicitWaitFolderPath)
+			System.DeleteDir (sImplicitExplicitWaitFolderPath, DeleteFlags.{Force,Quiet,Recycle,Recurse})
+		if System.FileExists (sAscentialTestFolderPath)
+			System.DeleteDir (sAscentialTestFolderPath, DeleteFlags.{Force,Quiet,Recycle,Recurse})
+		if System.FileExists (sSequence1OutputFilePath)
+			System.DeleteDir (sSequence1OutputFilePath, DeleteFlags.{Force,Quiet,Recycle,Recurse})
+		
+class CreateFolderPathsForATConversion : Step
+	%StepInfo[Desc="To  Create a common path for all files",Group="PreRequisite"]
+	Main()
+		if System.FileExists (sTextFolderPath)
+			//Do Nothing
+		else
+			System.CreateDir (sTextFolderPath)
+		if System.FileExists (sImplicitExplicitWaitFolderPath)
+			//Do Nothing
+		else
+			System.CreateDir (sImplicitExplicitWaitFolderPath)
+		if System.FileExists (sAscentialTestFolderPath)
+			//Do Nothing
+		else
+			System.CreateDir (sAscentialTestFolderPath)
+		if System.FileExists (sSequence1OutputFilePath)
+			//Do Nothing
+		else
+			System.CreateDir (sSequence1OutputFilePath)
+		if System.FileExists (sAppObjectsOutputFilePath)
+			//Do Nothing
+		else
+			System.CreateDir (sAppObjectsOutputFilePath)
+		
+
+
+// Get Working Directory Path
+String GetWorkingDirectoryPath()
+	%FuncInfo[Desc="Gets the Current Working Directory Path",Group="DirectoryPath"]
+	List<String> lsOut
+	System.Execute ("%CD%", lsOut)
+	sWorkingDirectory = lsOut[1].GetField ("'", 2)
+	sWorkingDirectory = sWorkingDirectory.GetField ("'", 1)
+	return sWorkingDirectory
+	
+
+// Sharan And Nagaraj
+class ReplaceFunctionLineByATSteps : Step
+	%StepInfo[Desc="Replace Function Lineby AT Steps format",Group="Replace"]
+	parameter String sIntegratedOutFileName
+	parameter List<String> lsData
+	out parameter List<String> lsStepAddedData
+	Main()
+		String sReadData,sClassName, sParameters,sStepName, sTempParameterName, sOBraces, sCBraces
+		List<String> lsParameter,lsMainMethodLine,lsClassName,lsMatchedParameters, lsTemp
+		Integer iMethodStartLine
+		sOBraces = Char (123)
+		sCBraces = Char (125)
+		
+		// Reads entire Seq1 Output file of all Selenium Java Files to be converted
+		TextFile MyFile
+		MyFile.Open (sIntegratedOutFileName, FileMode.Read)
+		while MyFile.Read (sReadData)
+			lsTemp.Add (sReadData)
+		MyFile.Close()
+		
+		// Reads only function call and replaces by AT Steps Format
+		for(Integer i=1;i<=lsData.Count();i++)
+			lsMatchedParameters = {}
+			lsMainMethodLine = {}
+			if ! lsData[i].Contains(".") && ! lsData[i].Contains("Main()") &&  lsData[i].EndsWith(";") &&  lsData[i].Contains("(")&& ! lsData[i].Contains("=") && ! lsData[i].StartsWith("\\")
+				sClassName = lsData[i].Trim().GetField ("(", 1)
+				sParameters = lsData[i].Trim().GetField (sClassName, 2)
+				sParameters = sParameters.GetField (")", 1)
+				sParameters = sParameters.GetField ("(", 2)
+				lsClassName.Add(sClassName)
+				sStepName = "step"+" "+sClassName
+				
+				// Formatting Function line into AT format
+				lsParameter = sParameters.Trim ().Split (",")
+				Print ("lsParameter", lsParameter.Count())
+				if lsParameter.Count()>0 && lsParameter[1].IsAlpha() 
+					lsStepAddedData.Add (sStepName)// Gets ClassName
+					lsStepAddedData.Add(sOBraces)
+					for (Integer j = 1; j<=lsParameter.Count(); j++) // Splits of Sel Parameters into list
+						if (lsParameter[j].IsNullOrEmpty())
+							//Nothing
+						else
+							lsParameter[j] = " : " + lsParameter[j]
+							lsMainMethodLine.Add (lsParameter[j])
+					Print (lsMainMethodLine)
+							
+					// Compares Subfunction name with ClassName and Fetches Parameter from the AT class until it find Main ()
+					for (Integer k = 1; k<=lsTemp.Count(); k++)
+						if lsTemp[k].Contains (sClassName.Trim()) && lsTemp[k].Contains ("class")
+							for (Integer l = 2; l<=20; l++)
+								if lsTemp[k+l].Contains ("Main()")
+									break
+									// do nothing
+								else
+									if lsTemp[k+l].Contains ("parameter") || lsTemp[k+l].Contains ("out parameter") || lsTemp[k+l].Contains ("shared")
+										step GetRepaetableCharCount
+											sData:lsTemp[k+l]
+											sChar:" "
+										sTempParameterName = lsTemp[k+l].GetField (" ", GetRepaetableCharCount.iRepeatCharCount + 1)
+										lsMatchedParameters.Add(sTempParameterName)
+									// Print(lsMatchedParameters)
+					Print(lsMainMethodLine.Count())
+					Print (lsMatchedParameters.Count())
+					if (lsMainMethodLine.Count() == lsMatchedParameters.Count())
+						for (Integer m= 1; m<=lsMainMethodLine.Count();m++)
+							lsStepAddedData.Add(lsMatchedParameters[m] + lsMainMethodLine[m])
+						lsStepAddedData.Add(sCBraces)
+				else
+					lsStepAddedData.Add (sStepName) // Gets ClassName
+			else
+				lsStepAddedData.Add(lsData[i])
+		
+		// Print(lsStepAddedData)
+		// lsStepAddedData.WriteFile ("D:\Temp\FunctionReplacement.txt")
+		
+class GetASingleTextFileWithAllSteps : Step
+	%StepInfo[Desc="Gets a Single Text file with all the converted SelFunction line to AT class",Group="Conversion_MainStep"]
+	parameter String TestCaseID
+	Main()
+		List<record_Paths> lrRecord_Paths = DataStore.Query ("Dt_DataPaths")
+		Integer iReadFilePathCount
+		String sJavaFilePath, sTxtFilePath, sIndentationFilePath, sImplicitExplicitFilePath, sAscentialFilePath, sAscentialZeeFilePath, sSeq1OutFilePath
+		List<String>lsMain
+		
+		sTextFolderPath = sTextFolderPath + "\"
+		sImplicitExplicitWaitFolderPath = sImplicitExplicitWaitFolderPath + "\"
+		sAscentialTestFolderPath = sAscentialTestFolderPath + "\"
+		sSequence1OutputFilePath = sSequence1OutputFilePath +"\"
+		
+		// Actual TestCode
+		for (Integer i = 1; i<=lrRecord_Paths.Count(); i++)
+			iReadFilePathCount = DataStore.Query ("Dt_DataPaths[{i}].lsJavaFile").Count ()// //Fetching Source code file path from Data Tables
+			for (Integer j = 1; j<=iReadFilePathCount; j++)
+				sJavaFilePath="{lrRecord_Paths[i].lsJavaFile[j]}"
+				sSeq1OutFilePath = "{lrRecord_Paths[i].sATClass_SelFunctionOut}"
+				sTxtFilePath = "{lrRecord_Paths[i].lsTxtFile[j]}"
+				// Step1
+				step ConvertSelMethodlineToATClassMethodFormat_Seq1
+					FileName:sSeleniumJavaFolderPath+sJavaFilePath
+					OutputFileName:sTextFolderPath+sTxtFilePath
+				step Seq1IntegratedTxtOutput
+					sSeq1OutputTextFile:sTextFolderPath+sTxtFilePath
+					sCommonTxtFile:sSequence1OutputFilePath+sSeq1OutFilePath
+		
+class Seq1IntegratedTxtOutput : Step
+	%StepInfo[Desc="Comman Text file after Sequence 1 output",Group="Seq1OutTxtFile"]
+	parameter String sSeq1OutputTextFile
+	parameter String sCommonTxtFile
+	Main()
+		String sReadData
+		List<String>lsOriginalSelData
+		TextFile textFile
+		TextFile MyFile
+		MyFile.Open (sCommonTxtFile, FileMode.Append)
+		textFile.Open (sSeq1OutputTextFile, FileMode.Read, FileEncoding.ANSI)
+		while textFile.Read (sReadData)
+			MyFile.Write (sReadData)
+		
+
+// FindElement is replaced by AT objects 
+class FindElementLineReplacement : Step
+	%StepInfo[Desc="Converts all Selenium Methods to its equivalent AscentialTest Methods",Group="FindElementLineReplacement"]
+	parameter String SleepFileName
+	parameter String MethodOutFileName
+	out parameter List<String> lsData
+	Main()
+		String  sLine
+		List<String>  lsData
+		
+		// MethodsReplace
+		TextFile textFile
+		textFile.Open (SleepFileName, FileMode.Read)
+		while textFile.Read(sLine)
+			lsData.Add (sLine)
+			
+		// Getting values and count from table
+		record_FindElement rElement = DataStore.Query ("Dt_FindElement[1]")
+		// Print(rElement)
+		
+		
+		for(Integer i=1;i<=lsData.Count();i++)
+			for (Integer j = 1; j<=rElement.SeleniumFormat.Count(); j++)
+				if lsData[i].Contains (rElement.SeleniumFormat[j])
+						lsData[i] = lsData[i].Replace (rElement.SeleniumFormat[j], rElement.ATFormat[j])
+		// Print (lsData)
+		lsData.WriteFile(MethodOutFileName)
+		
+
+
+class FinalSteplslsParentAddedOutFiletFile: Step
+	%StepInfo[Group="Conversion_MainStep"]
+	parameter String sStepTextFile
+	parameter String sStepZeeFile
+	Main()
+		String sReadData
+		List<String>lsOriginalSelData
+		TextFile MyFile
+		MyFile.Open (sStepZeeFile, FileMode.Append)
+		TextFile textFile
+		textFile.Open (sStepTextFile, FileMode.Read, FileEncoding.ANSI)
+		while textFile.Read (sReadData)
+			lsOriginalSelData.Add(sReadData)
+			MyFile.Write (sReadData)
+		Print (lsOriginalSelData)
+		
+class FinalStepZeeFile_Seq7 : Step
+	%StepInfo[Group="Conversion_MainStep"]
+	parameter List<String> lsParentAddedOutFile
+	parameter String sStepZeeFile
+	Main()
+		String sReadData
+		TextFile MyFile
+		MyFile.Open (sStepZeeFile, FileMode.Append)
+		for (Integer i = 1; i<=lsParentAddedOutFile.Count(); i++)
+			MyFile.Write (lsParentAddedOutFile[i])
+		
+
+
+Integer ListFind_PartialText(List<String> lsTargetList, String sSearchItem, Boolean bPartialString = null)
+	%FuncInfo[Group="ListFind"]
+	String sPartialText
+	if (bPartialString == null)
+			bPartialString = true
+	if bPartialString == false
+			return lsTargetList.Find(sSearchItem)
+	else                                                                                                                                                                                      
+		for (sPartialText in lsTargetList)                                                                                /* Compare list items with regular expression */
+			if (sPartialText.IsNull() == false && sPartialText like sSearchItem)
+					return lsTargetList.Find(sPartialText)
+	return 0
+

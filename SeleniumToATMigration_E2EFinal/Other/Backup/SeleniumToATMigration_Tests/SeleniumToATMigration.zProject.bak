@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project GUID="03E7277D4CB3FF2BABC82EB812D64484">
+	<Name>UpdateVersionMethods</Name>
+	<Settings>
+		<AppList>
+			<App Name="chrome"/>
+		</AppList>
+		<GenPath>
+			<Classes/>
+		</GenPath>
+		<Runtime>
+			<ResolveTimeout>5000</ResolveTimeout>
+			<PageLoadTimeout>60000</PageLoadTimeout>
+			<ScreenLoadTimeout>30000</ScreenLoadTimeout>
+			<CloseInactiveTimeout>1000</CloseInactiveTimeout>
+			<CloseProcessTimeout>10000</CloseProcessTimeout>
+			<CloseWindowTimeout>10000</CloseWindowTimeout>
+			<VerifyFailSnapshot>False</VerifyFailSnapshot>
+			<InternationalKeys>False</InternationalKeys>
+		</Runtime>
+		<AppValue>
+			<BooleanValues>false|true</BooleanValues>
+			<DecimalPlaces>2</DecimalPlaces>
+			<DateFormat>M/d/yyyy</DateFormat>
+			<TimeFormat>h:mm:ss</TimeFormat>
+			<DateTimeFormat>M/d/yyyy h:mm:ss</DateTimeFormat>
+		</AppValue>
+		<TestId>
+			<Enabled>False</Enabled>
+			<Format>%ProjectId-%PlanId-%NodeId</Format>
+		</TestId>
+		<TestTool>
+			<Type>(none)</Type>
+			<TypesFile>GeneratedTypes.inc</TypesFile>
+		</TestTool>
+		<Translate>
+			<Enabled>False</Enabled>
+			<DataTable></DataTable>
+			<Language></Language>
+		</Translate>
+		<Other>
+			<DefaultTestClass></DefaultTestClass>
+			<JiraProject></JiraProject>
+			<AlwaysUseTestName>False</AlwaysUseTestName>
+		</Other>
+	</Settings>
+</Project>

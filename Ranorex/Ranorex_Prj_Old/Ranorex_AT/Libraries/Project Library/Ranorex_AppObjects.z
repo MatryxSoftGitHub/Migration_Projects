@@ -1,0 +1,195 @@
+﻿// app WebPage CreateAdHocBankTransactionWorkday
+	// path [@Caption=="impl.workday.com"]
+	// WebTextField Txt_Date
+		// path [@Text=="~.."]
+	// WebTextField  Txt_Memo
+		// path [@Text=="text"]
+	// WebTextField  Txt_Company
+		// path [@Text=="text"]
+	// WebTextField  Txt_BankAccount
+		// path [@Text=="text"]
+	// WebTextField  Rbtn_Withdrawal
+		// path [@Name=="ViewModel_.."]
+	// WebTextField  Txt_TransactionAmount
+		// path [@Text=="text"]
+	// WebTextField  Txt_Reference
+		// path [@Text=="text"]
+	// WebTextField Tab_AdHocBankTransactionLines
+		// path [@Text=="Ad Hoc Bank Transaction Lines"]
+	// WebTextField  Txt_Company_LinesTab
+		// path [@Text=="text"]
+	// WebTextField  Txt_RevenueSpendCategory
+		// path [@Text=="text"]
+	// AppObject Btn_Memo_LinesTab
+		// path [@Text=='mainContent']
+	// WebTextField  Txt_CostCenter
+		// path [@Text=="text"]
+	// WebTextField Tab_Attachments
+		// path [@Text=="Attachments"]
+	// WebPushButton Lnk_SelectFiles
+		// path [@Text=="Select files"]
+	// AppObject Txt_Memo_LinesTab
+		// path [@Text=="nullFalse"]
+// app WebPage Open
+	// path [@Caption=="Open"]
+	// ComboBox Cbo_File
+		// path [@ElemId=="1148"]
+	// ComboBox Txt_File
+		// path [@ElemId=="1148/text[@controlid"]
+	// WebPushButton Btn_Open
+		// path [@Text=="&amp;Open"]
+// app WebPage CreateBankAccountTransferForSettlement
+	// path [@Caption=="impl.workday.com"]
+	// AppObject TransferPaymentDetails
+		// path [@Text=='mainContent']
+		// WebTextField Txt_Date
+			// path [@Text=="~.."]
+		// WebTextField  Txt_Currency
+			// path [@Text=="text"]
+		// WebTextField  Txt_Amount
+			// path [@Text=="text"]
+		// WebTextField  Txt_PaymentType
+			// path [@Text=="text"]
+		// WebTextField  Txt_IntiatingCompany
+			// path [@Text=="text"]
+		// WebTextField  Txt_IntiatingAccount
+			// path [@Text=="text"]
+		// WebTextField  Txt_Memo
+			// path [@Text=="text"]
+	// WebTextField  Txt_ToAccount
+		// path [@Text=="text"]
+	// WebPushButton Btn_Cancel
+		// path [@Text=="Cancel"]
+	// AppObject Dlg_TakingTooLongToProcess
+		// path [@Text=="body/div[9]/div/div/div"]
+	// WebPushButton Lnk_SelectFiles
+		// path [@Text=="Select files"]
+// app WebPage Open1
+	// path [@Caption=="Open"]
+	// ComboBox Cbo_File
+		// path [@ElemId=="1148"]
+	// ComboBox Txt_File
+		// path [@ElemId=="1148/text[@controlid"]
+	// WebPushButton Btn_Open
+		// path [@Text=="&amp;Open"]
+// app WebPage WorkdayHomePage
+	// path [@Caption=="impl.workday.com"]
+	// WebTextField  Txt_Search
+		// path [@Text=="search"]
+	// WebTextField  LoginPage
+		// path [@Text=="search"]
+		// WebPushButton Btn_Skip
+			// path [@Text=="Skip"]
+		// WebPushButton Btn_SignIn
+			// path [@Text=="Sign In"]
+		// WebTextField  Txt_Username
+			// path [@Text=="text and @aria-label"]
+		// WebTextField  Txt_Password
+			// path [@Text=="password"]
+	// AppObject MainContent
+		// path [@Text=='mainContent']
+		// WebTextField  Txt_BankAccount
+			// path [@Text=="text"]
+		// WebTextField  Txt_Company
+			// path [@Text=="text"]
+		// WebTextField Rbtn_Payee_old
+			// path [@Text=="Payee"]
+		// WebTextField  Txt_Payee
+			// path [@Text=="text"]
+		// WebTextField  Txt_ControlTotalAmount
+			// path [@Text=="text"]
+		// WebTextField  Txt_SpendCategory
+			// path [@Text=="text"]
+		// WebTextField  Txt_Quantity
+			// path [@Text=="text"]
+		// WebTextField  Txt_CostCenter
+			// path [@Text=="text"]
+		// WebPushButton Btn_Submit
+			// path [@Text=="Submit/span[@title"]
+		// WebTextField Tab_Attachments
+			// path [@Text=="Attachments"]
+		// WebPushButton Lnk_SelectFiles
+			// path [@Text=="Select files/span[@title"]
+		// WebPushButton Btn_Approve
+			// path [@Text=="Approve/span[@title"]
+		// AppObject Txt_Date_Old
+			// path [@Text=='mainContent']
+		// WebTextField  Txt_Memo
+			// path [@Text=="text"]
+		// WebTextField  Txt_UnitCost
+			// path [@Text=="text"]
+		// WebTextField  Txt_ActAs
+			// path [@Text=="text"]
+		// WebPushButton Btn_Ok
+			// path [@Text=="OK"]
+		// WebTextField Tab_Lines
+			// path [@Text=="Lines"]
+		// WebLink Cbo_ListIcon
+			// path [@ElemClass=="svg"]
+		// WebLink WebElementSvg
+			// path [@ElemClass=="svg"]
+		// WebTextField  Rbtn_Payee
+			// path [@Name=="ViewModel_.."]
+		// WebTextField WebTxt_PaymentDate
+			// path [@Text=="Payment Date"]
+		// WebTextField Txt_Date_UnUsed
+			// path [@Text=="null()"]
+		// WebTextField Txt_Date
+			// path [@Text=="~.."]
+		// WebPushButton Btn_Done
+			// path [@Text=="Done/span[@title"]
+		// AppObject Txt_Comment
+			// path [@Placeholder=="enter your comment"]
+	// WebTextField  Rbtn_Advertising
+		// path [@Text=="radio"]
+	// AppObject WGEVWPFV
+		// path [@Text=='wd-Inbox-mainpage']
+	// WebTextField Lnk_StartProxyPage
+		// path [@Text=="Start Proxy"]
+		// WebTextField Lnk_StartProxy
+			// path [@Text=="Start Proxy"]
+	// WebTextField Lnk_BPName
+		// path [@Text=="$sTxt_BSNameValue"]
+	// WebTextField Lnk_StopProxy
+		// path [@Text=="Stop Proxy"]
+	// WebTextField WdappchromeAp
+		// path [@Text=="/div[2/div[1"]
+	// AppObject OnBehalfOf
+		// path [@Text=='workdayApplicationFrame']
+	// WebLink Lnk_MailBox
+		// path [@ElemClass=="svg/"]
+// app WebPage Open2
+	// path [@Caption=="Open"]
+	// AppObject ThisPC
+		// path [@Text=="This PC"]
+	// AppObject ListItem1
+		// path [@ElemId=="1"]
+	// WebPushButton Btn_Open
+		// path [@Text=="&amp;Open"]
+	// AppObject Container0
+		// path [@ElemId=="0"]
+		// AppObject SystemItemNameDisplay1
+			// path [@ElemId=="System.ItemNameDisplay"]
+		// WebPushButton UIImage
+			// path [@Name=="UIImage"]
+		// AppObject SystemItemNameDisplay
+			// path [@ElemId=="System.ItemNameDisplay"]
+	// ComboBox Cbo_File
+		// path [@ElemId=="1148"]
+	// ComboBox Txt_File
+		// path [@ElemId=="1148/text[@controlid"]
+// app WebPage HomeWorkdayGoogleChrome
+	// path [@Caption=="Home - Workday - Google Chrome"]
+	// WebTextField Pane
+		// path [@Text==">Home - Workday - Google C/container/container/container[2/container[1"]
+// app WebPage CreateAdHocPaymentWorkdayGoogle
+	// path [@Caption=="Create Ad Hoc Payment - Workday - Google Chrome"]
+	// WebPushButton Extensions
+		// path [@Name=="Extensions"]
+	// WebTextField Pane
+		// path [@Text==">Create Ad Hoc Payment - Workday/container/container/container[2/container[1"]
+// app WebPage sTxt_BSNameValue
+	// path [@Caption==""]
+// 
+// 
+// 

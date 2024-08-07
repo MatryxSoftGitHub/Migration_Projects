@@ -1,0 +1,38 @@
+record record_Methods
+	List<String> SeleniumMethods
+	List<String> AscentialTestMethods
+record record_Sleeps
+	List<String> SeleniumSleepMethods
+	List<String> AscentialTestSleepMethods
+record record_Paths
+	String TestCaseId
+	List<String> lsJavaFile
+	List<String> lsTxtFile
+	List<String> lsIndentationFile
+	List<String> lsImplicitExplicitWaitFile
+	List<String> lsAscentialFile
+	String sStepsZeeFile
+	String sATClass_SelFunctionOut
+record record_DataTypes
+	List<String> Selenium_DataTypes
+	List<String> AscentialTest_DataType
+record record_FindElement
+	List<String> SeleniumFormat
+	List<String> ATFormat
+record record_Parent
+	List<String> lsAscentialTestMethod
+record Record_MigrateSeleniumToAT
+	String TestCaseID
+	String sATAppObjOutputFile
+	List<String> lsReadFile
+	List<String> lsSearchData
+	List<String> lsSeleniumClass
+	List<String> lsUnwantedCharacters
+	List<String> lsATClassNames
+record record_DataTypeConversion
+	List<String> SeleniumDataTypes
+	List<String> AscentialTestDataType
+	List<String> Declaration
+record Record_GenKeyEvents
+	List<String> SeleniumKeyEvents
+	List<String> AscentialTestKeyEvents

@@ -1,0 +1,11 @@
+class SearchForBP_Step : Step
+	%StepInfo[Desc="SearchForBP_Step",Group="null"]
+	parameter String sBPSearchValue
+	Main()
+		//Search for BP---------------------------------------------------------------------------------------------------
+		Txt_BPSearch.WaitWhileExists(30)
+		Txt_BPSearch.Click()
+		Txt_BPSearch.SetValue(sBPSearchValue)
+		Txt_BPSearch.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		Lnk_BPSearch.Click()

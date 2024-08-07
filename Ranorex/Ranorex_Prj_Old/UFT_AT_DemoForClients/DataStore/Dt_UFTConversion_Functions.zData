@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="7E417754">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="Record_UFTConvertion_Steps">
+			<Field Name="TestcaseID" Type="String" Unique="true"/>
+			<Field Name="lsStepsSourceFilePath" Type="ListOfString"/>
+			<Field Name="lsStepFormateSourceFile" Type="ListOfString"/>
+			<Field Name="lsUFTMethods" Type="ListOfString"/>
+			<Field Name="lsATMethods" Type="ListOfString"/>
+			<Field Name="lsUFTConditionalStatments" Type="ListOfString"/>
+			<Field Name="lsATConditionalStatments" Type="ListOfString"/>
+			<Field Name="sDeleteDir" Type="String"/>
+			<Field Name="lsDestinationFiles" Type="ListOfString"/>
+		</Record>
+		<List Name="Record_UFTConvertion_StepsList" ItemType="Record_UFTConvertion_Steps"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_UFTConversion_Functions" Type="Record_UFTConvertion_StepsList">
+			<Record_UFTConvertion_Steps>
+				<TestcaseID>1</TestcaseID>
+				<lsStepsSourceFilePath>
+					<String>BranchPlusFunctions.txt</String>
+				</lsStepsSourceFilePath>
+				<lsStepFormateSourceFile>
+					<String IsNull="true"/>
+				</lsStepFormateSourceFile>
+				<lsUFTMethods>
+					<String>Select DataTable</String>
+					<String>Select</String>
+					<String>Click</String>
+					<String>SetDate</String>
+					<String>Set DataTable</String>
+					<String>SetTOProperty</String>
+					<String>Set</String>
+					<String>Close</String>
+					<String>Exist</String>
+					<String>Type</String>
+					<String>GetColumnHeader</String>
+					<String>GetSubItem</String>
+					<String>GetItem</String>
+				</lsUFTMethods>
+				<lsATMethods>
+					<String>Select</String>
+					<String>Select</String>
+					<String>Click()</String>
+					<String>SetDate</String>
+					<String>SetValue</String>
+					<String>Click</String>
+					<String>Select</String>
+					<String>Close()</String>
+					<String>IsPresent()</String>
+					<String>SetValue</String>
+					<String>GetColumnHeader</String>
+					<String>GetSubItem</String>
+					<String>GetItem</String>
+				</lsATMethods>
+				<lsUFTConditionalStatments>
+					<String>Wend</String>
+					<String>For</String>
+					<String>Next</String>
+					<String>End select</String>
+					<String>Switch</String>
+					<String>Case</String>
+					<String>End If</String>
+					<String>end if</String>
+					<String>Exit for</String>
+					<String>ElseIf</String>
+					<String>Else</String>
+					<String>While</String>
+				</lsUFTConditionalStatments>
+				<lsATConditionalStatments>
+					<String></String>
+					<String>for</String>
+					<String></String>
+					<String></String>
+					<String>switch</String>
+					<String>case</String>
+					<String></String>
+					<String></String>
+					<String></String>
+					<String>else if</String>
+					<String>else</String>
+					<String>while</String>
+				</lsATConditionalStatments>
+				<sDeleteDir>ATFunctionFiles</sDeleteDir>
+				<lsDestinationFiles>
+					<String>ATFunctionFiles\StepFormateAndParameters1.txt</String>
+					<String>ATFunctionFiles\ModifiedDataTypes2.txt</String>
+					<String>ATFunctionFiles\ModifyUFTScriptToATScriptFormat3.txt</String>
+					<String>ATFunctionFiles\ModifyUFtMethodsToATMethods4.txt</String>
+					<String>ATFunctionFiles\FinalATStepsFile5.txt</String>
+				</lsDestinationFiles>
+			</Record_UFTConvertion_Steps>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_UFTConversion_Functions">
+			<Field Name="TestcaseID"/>
+			<Field Name="lsStepsSourceFilePath" Width="228"/>
+			<Field Name="lsStepFormateSourceFile"/>
+			<Field Name="lsUFTMethods"/>
+			<Field Name="lsATMethods"/>
+			<Field Name="lsUFTConditionalStatments"/>
+			<Field Name="lsATConditionalStatments"/>
+			<Field Name="sDeleteDir"/>
+			<Field Name="lsDestinationFiles"/>
+		</Object>
+	</Layout>
+</DataStore>

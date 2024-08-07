@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OtherFiles>
+	<File RelPath="AppObject.txt"/>
+	<File RelPath="JavaFiles\HomePage.java"/>
+	<File RelPath="JavaFiles\ProductDetailsPage.java"/>
+	<File RelPath="JavaFiles\ProductPage.java"/>
+	<File RelPath="JavaFiles\ProductsBookingPage.java"/>
+</OtherFiles>

@@ -1,0 +1,283 @@
+class initWebDriver : Step
+%StepInfo[Desc="initWebDriver",Group="null"]
+parameter String URL
+Main()
+{
+// Setting up Chrome driver path.
+System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
+// Launching Chrome browser.
+driver = new ChromeDriver();
+driver.get(URL);
+driver.manage().window().maximize();
+}
+class main : Step
+%StepInfo[Desc="main",Group="null"]
+parameter String[] args
+Main()
+{
+driver.findElement(By.id(sSearchBox)).sendKeys(sBookKey);
+WebElement searchResult = getElement(By.xpath(sSearchResult));
+searchResult.click();
+WebDriverWait wait = new WebDriverWait(driver, 30);
+wait.until(ExpectedConditions.elementToBeClickable(By.xpath(sBookName))).click();
+wait.until(ExpectedConditions.elementToBeClickable(By.xpath(sAddToCart))).click();
+getElement(By.xpath(sViewCartXPath)).click();
+getElement(By.cssSelector("form[id='view-cart-form'] button")).click();
+getElement(By.xpath("//input[@id='email' and @name='email']")).sendKeys("test@testmail.com");
+// pause for a second and close the browser.
+Thread.sleep(1000);
+endSession();
+}
+public static WebElement getElement(final By locator)
+{
+FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(30, TimeUnit.SECONDS)
+.pollingEvery(5, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
+WebElement element = wait.until(new Function<WebDriver, WebElement>()
+{
+@Override
+public WebElement apply(WebDriver arg0)
+{
+return arg0.findElement(locator);
+}
+class ViewProductQualitybyImages : Step
+%StepInfo[Desc="ViewProductQualitybyImages",Group="null"]
+Main()
+{
+Actions actions = new Actions(driver);
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+System.out.println("View product function");
+Thread.sleep(3000);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+int iNumOfProducts = ProductsViewImages.size();
+System.out.println(iNumOfProducts);
+Thread.sleep(5000);
+for (WebElement listProductImages : ProductsViewImages)
+{
+Thread.sleep(3000);
+actions.moveToElement(listProductImages).perform();
+Thread.sleep(2000);
+ViewImagesBlock.click();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock).perform();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock, 100, 50).perform();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock, 60, 40).perform();
+Thread.sleep(2000);
+actions.moveToElement(ViewImagesBlock).perform();
+}
+}
+class NavigateToBuyProduct : Step
+%StepInfo[Desc="NavigateToBuyProduct",Group="null"]
+Main()
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+System.out.println("Buy the product using Buy now option");
+Thread.sleep(3000);
+WebDriverWait wait = new WebDriverWait(driver, 30);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+wait.until(ExpectedConditions.visibilityOf(Btn_BUYNOW));
+Btn_BUYNOW.click();
+}
+class AddAndNavigateToCart : Step
+%StepInfo[Desc="AddAndNavigateToCart",Group="null"]
+Main()
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+System.out.println("Add the product to the cart");
+Thread.sleep(3000);
+WebDriverWait wait = new WebDriverWait(driver, 30);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+wait.until(ExpectedConditions.visibilityOf(Btn_GoToCart));
+Btn_GoToCart.click();
+Thread.sleep(5000);
+Btn_PlaceOrder.click();
+}
+class RemoveProductsFromCart : Step
+%StepInfo[Desc="RemoveProductsFromCart",Group="null"]
+Main()
+{
+try
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Actions actions = new Actions(driver);
+System.out.println("Remove product from the cart");
+Thread.sleep(1000);
+Lnk_Cart.click();
+int iNumOfProducts = Lnk_RemoveProducts.size();
+//System.out.println(iNumOfProducts);
+for (int i = 0; i <= iNumOfProducts; i++)
+{
+Thread.sleep(3000);
+actions.moveToElement(Btn_RemoveInCart).perform();
+Thread.sleep(2000);
+Btn_RemoveInCart.click();
+if (Blk_RemoveItem.isDisplayed() == true)
+{
+actions.moveToElement(Btn_RemoveInBlk).perform();
+Thread.sleep(2000);
+Btn_RemoveInBlk.click();
+//System.out.println("Product removed successfully");
+}
+}
+}
+catch (Exception e)
+{
+System.out.println(e.getMessage());
+}
+}
+class CheckProduct : Step
+%StepInfo[Desc="CheckProduct",Group="null"]
+Main()
+{
+System.out.println("Add details to Delivery Address to book product");
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+JavascriptExecutor js = (JavascriptExecutor) driver;
+Actions actions = new Actions(driver);
+WebDriverWait wait = new WebDriverWait(driver, 10);
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+if (tabs.size()>1)
+{
+driver.switchTo().window(tabs.get(0));
+driver.close();
+driver.switchTo().window(tabs.get(1));
+}
+Thread.sleep(2000);
+Txt_EnterPincode.sendKeys(Keys.CONTROL, "a");
+Txt_EnterPincode.sendKeys("560094");
+Lnk_PincodeCheck.click();
+Thread.sleep(5000);
+Lnk_FAssured.click();
+Thread.sleep(4000);
+actions.moveToElement(Lnk_ProductRatings).perform();
+wait.until(ExpectedConditions.visibilityOf(Lnk_ProductRatings));
+js.executeScript("arguments[0].scrollIntoView(true);", Lnk_ProductRatings);
+js.executeScript("arguments[0].click();", Lnk_ProductRatings);
+Thread.sleep(2000);
+}
+class SelectTheReqProduct : Step
+%StepInfo[Desc="SelectTheReqProduct",Group="null"]
+parameter String sProductName
+Main()
+{
+System.out.println("Search a product in Flipkart Application");
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Itm_Popularity.click();
+Thread.sleep(5000);
+for (WebElement listProducts : sTxt_SearchedProducts)
+{
+// System.out.println(listProducts.getText());
+// int iNumOfProducts =sTxt_SearchedProducts.size();
+// System.out.println(iNumOfProducts);
+// if (listProducts.getText().equals(sProductName.trim()))
+if (listProducts.getText().contains(sProductName.trim()))
+{
+Actions actions = new Actions(driver);
+actions.moveToElement(listProducts).perform();
+listProducts.click();
+}
+}
+Thread.sleep(2000);
+}
+class SelectProductUsingName : Step
+%StepInfo[Desc="SelectProductUsingName",Group="null"]
+parameter String sProductName
+Main()
+{
+System.out.println("Add details to Delivery Address to book product");
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Thread.sleep(5000);
+WebElement ReqProduct = driver.findElement(By.xpath("//*[contains(text(),'" + sProductName + "')]"));
+ReqProduct.click();
+}
+class AddDetailsToDeliveryAddress : Step
+%StepInfo[Desc="AddDetailsToDeliveryAddress",Group="null"]
+Main()
+{
+System.out.println("Add details to Delivery Address to book product");
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Thread.sleep(2000);
+Btn_AddressChange.click();
+Thread.sleep(2000);
+Lnk_Edit.click();
+Txt_Name.sendKeys(Keys.CONTROL, "a");
+Txt_Name.sendKeys("MatryxsoftTech");
+Txt_MobileNumber.sendKeys(Keys.CONTROL, "a");
+Txt_MobileNumber.sendKeys("8310618462");
+Txt_Pincode.sendKeys(Keys.CONTROL, "a");
+Txt_Pincode.sendKeys("560094");
+Txt_Locality.sendKeys(Keys.CONTROL, "a");
+Txt_Locality.sendKeys("Banglore");
+Txt_AddressArea.sendKeys(Keys.CONTROL, "a");
+Txt_AddressArea.sendKeys("#9/2, 8th Cross, Outer Ring Rd, R.M.V. 2nd Stage,\r\n"
++ "Lottegollahalli, Bengaluru, Karnataka 560094.");
+Txt_City.sendKeys(Keys.CONTROL, "a");
+Txt_City.sendKeys("Banglore");
+Txt_Landmark.sendKeys(Keys.CONTROL, "a");
+Txt_Landmark.sendKeys("Near Jalageramma Temple");
+Txt_AlternatePhone.sendKeys(Keys.CONTROL, "a");
+Txt_AlternatePhone.sendKeys("0123456789");
+Select dropdown = new Select(Pop_State);
+dropdown.selectByVisibleText("Karnataka");
+Rbtn_Work.click();
+Thread.sleep(2000);
+Btn_SaveAndDeliveryHere.click();
+Thread.sleep(2000);
+Btn_Continue.click();
+System.out.println("Added address details");
+}
+class AddDetailsPaymentOptions : Step
+%StepInfo[Desc="AddDetailsPaymentOptions",Group="null"]
+Main()
+{
+System.out.println("Add details to payment options to book product");
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+int iNumOfProducts = PaymentOptions.size();
+// System.out.println(iNumOfProducts);
+Thread.sleep(5000);
+for (WebElement listProducts : PaymentOptions)
+{
+// System.out.println(listProducts.getText());
+if (listProducts.getText().contains("Credit"))
+{
+Actions actions = new Actions(driver);
+actions.moveToElement(listProducts).perform();
+listProducts.click();
+}
+}
+Thread.sleep(3000);
+Txt_CardNumber.sendKeys("0123456789012345");
+Select Pop_month = new Select(Pop_Month);
+Pop_month.selectByVisibleText("09");
+Select Pop_year = new Select(Pop_Year);
+Pop_year.selectByVisibleText("30");
+Txt_CVV.sendKeys("1234");
+System.out.println("Added payment details");
+}
+class NavigateToFlipkartHomePage : Step
+%StepInfo[Desc="NavigateToFlipkartHomePage",Group="null"]
+Main()
+{
+System.out.println("Add details to Delivery Address to book product");
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Thread.sleep(2000);
+Lnk_FlipkartLogo.click();
+}

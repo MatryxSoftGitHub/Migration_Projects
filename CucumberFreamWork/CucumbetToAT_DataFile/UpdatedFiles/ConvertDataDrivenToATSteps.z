@@ -1,0 +1,70 @@
+class UserIsOnLoginPage : Step
+	%StepInfo[Desc="user is on login page",Group=""]
+	Main()
+class UserShouldGetWorkdayTransre_previewTiTlePage : Step
+	%StepInfo[Desc="user should get Workday transre_preview title page",Group=""]
+	parameter Object PageTitle
+	Main()
+class UserEntErsUsernameAndPassword : Step
+	%StepInfo[Desc="user enters username and password",Group=""]
+	parameter Object userName
+	parameter Object password
+	Main()
+class UserCliCkOnSignInButton : Step
+	%StepInfo[Desc="user click on sign in button",Group=""]
+	Main()
+class UserGetsRememberDiviceMessage : Step
+	%StepInfo[Desc="user gets Remember Divice message",Group=""]
+	Main()
+class UserCliCkOnSkipButton : Step
+	%StepInfo[Desc="user click on skip button",Group=""]
+	Main()
+class UserShouldGetTiTleOfTheHomePage : Step
+	%StepInfo[Desc="user should get title of the home page",Group=""]
+	Main()
+class UserSearchForStartProxyInTheSearchBarAndUserCliCkOnStartProxyLink : Step
+	%StepInfo[Desc="user search for Start Proxy in the Search bar and  user click on Start proxy link",Group=""]
+	parameter Object StartProxy
+	Main()
+class EnterInTheActAsAliceChow : Step
+	%StepInfo[Desc="Enter in the Act As Alice Chow",Group=""]
+	parameter Object ActAs
+	Main()
+class CliCkOK : Step
+	%StepInfo[Desc="click OK",Group=""]
+	Main()
+class SearchCreateAdHocPaymentInTheSearchBar : Step
+	%StepInfo[Desc="Search Create Ad Hoc Payment in the search bar",Group=""]
+	parameter Object PaymentType
+	Main()
+class UserCliCkOnCreateAdHocPaymentLink : Step
+	%StepInfo[Desc="user click on Create Ad Hoc Payment link",Group=""]
+	Main()
+class UserEntErsValuesForAdHocPaymentInformation : Step
+	%StepInfo[Desc="user enters values for Ad Hoc Payment Information ",Group=""]
+	parameter Object Company
+	parameter Object BankAccount
+	parameter Object Payee
+	parameter Object Currency
+	parameter Object PaymentType
+	parameter Object ShipToAddress
+	parameter Object HandlingCode
+	Main()
+class UserEntErsValuesForPaymentDetails : Step
+	%StepInfo[Desc="user enters values for Payment Details ",Group=""]
+	parameter Object ControlTotalAmount
+	parameter Object FreightAmount
+	parameter Object OtherCharges
+	parameter Object Memo
+	Main()
+class UserEntErsValuesForLinesTable : Step
+	%StepInfo[Desc="user enters values for Lines table ",Group=""]
+	parameter Object LinesCompany
+	parameter Object SpendCategory
+	parameter Object TaxApplicability
+	parameter Object Quantity
+	parameter Object UnitCost
+	parameter Object LinesMemo
+	parameter Object LinesCostCenter
+	parameter Object AdditionalWorktags
+	Main()

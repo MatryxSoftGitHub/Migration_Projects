@@ -1,0 +1,52 @@
+﻿class ConvertFeatureFileToATSteps : Test
+	%TestInfo[Desc="Convert Cucumber feature file to AT Steps.",Group="ATSteps",Table="Dt_ConvertFeatureFileToATSteps"]
+	parameter String RowId
+	Main()
+		Record_ConvertFeatureFileToATSteps record_ConvertFeatureFileToATSteps = DataStore.QueryTableRow ("Dt_ConvertFeatureFileToATSteps", "RowId", RowId)
+		
+		//Delete all the existing files and create it again.
+		step DeleteExistingFiles
+			lsDeleteDir:record_ConvertFeatureFileToATSteps.lsDeleteDir
+		
+		//Getting step name,  Info, parameter and inputs.
+		step GettingStepNameAndInfoAndParameters
+			lsKeyWords:record_ConvertFeatureFileToATSteps.lsKeyWords
+			lsFeatureFile:record_ConvertFeatureFileToATSteps.lsFeatureFile
+			sUpdatedFile:record_ConvertFeatureFileToATSteps.lsUpdatedFile[1]
+		
+		//Getting all parameters and inputs from feature files.
+		step GettingAllParametersAndInputs
+			lsFeatureFile:record_ConvertFeatureFileToATSteps.lsFeatureFile
+			lsAllParameters:GettingStepNameAndInfoAndParameters.lsAllParameters
+			lsAllInputs:GettingStepNameAndInfoAndParameters.lsAllInputs
+			sParametersAndInputFile:record_ConvertFeatureFileToATSteps.sParametersAndInputFile
+		
+		//Convert Cucumber data driven to AT steps.
+		step ConvertDataDrivenToATSteps
+			sFeatureFile:record_ConvertFeatureFileToATSteps.lsUpdatedFile[1]
+			sUpdatedFile:record_ConvertFeatureFileToATSteps.lsUpdatedFile[2]
+		
+class ConvertFeatureFileToATTestCase : Test
+	%TestInfo[Group="ATTestCase"]
+	parameter String RowId
+	Main()
+		Record_ConvertFeatureFileToATSteps record_ConvertFeatureFileToATSteps = DataStore.QueryTableRow ("Dt_ConvertFeatureFileToATSteps", "RowId", RowId)
+		
+		//Delete all the existing files and create it again.
+		step DeleteExistingFiles
+			lsDeleteDir:record_ConvertFeatureFileToATSteps.lsTCDeleteDir
+		
+		for (Integer iLoop = 1; iLoop<=record_ConvertFeatureFileToATSteps.lsTCFeatureFiles.Count(); iLoop++)
+			step ConvertToATTestCase
+				sFeatureFile:record_ConvertFeatureFileToATSteps.lsFeatureFile[iLoop]
+				sUpdatedFile:record_ConvertFeatureFileToATSteps.lsUpdatedTCFiles[1]+"{iLoop}"
+			
+			step GettingStepsFromFeatureFile
+				sUpdatedFeatureFile:record_ConvertFeatureFileToATSteps.lsFeatureFile[iLoop]
+				lsKeyWords:record_ConvertFeatureFileToATSteps.lsKeyWords
+				sUpdatedFile:record_ConvertFeatureFileToATSteps.lsUpdatedTCFiles[2]
+				lsTestInfo:ConvertToATTestCase.lsTestInfo
+		
+		
+		
+		

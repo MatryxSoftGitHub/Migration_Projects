@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Types CRC="C3E65ECD">
+	<Record Name="record_Methods">
+		<Field Name="SeleniumMethods" Type="ListOfString"/>
+		<Field Name="AscentialTestMethods" Type="ListOfString"/>
+	</Record>
+	<List Name="ReplaceMethodsList" ItemType="record_Methods"/>
+	<List Name="ListOfString" ItemType="String"/>
+	<Record Name="record_Sleeps">
+		<Field Name="SeleniumSleepMethods" Type="ListOfString"/>
+		<Field Name="AscentialTestSleepMethods" Type="ListOfString"/>
+	</Record>
+	<List Name="record_SleepsList" ItemType="record_Sleeps"/>
+	<Record Name="record_Paths">
+		<Field Name="TestCaseId" Type="String" Unique="true"/>
+		<Field Name="lsJavaFile" Type="ListOfString"/>
+		<Field Name="lsTxtFile" Type="ListOfString"/>
+		<Field Name="lsIndentationFile" Type="ListOfString"/>
+		<Field Name="lsImplicitExplicitWaitFile" Type="ListOfString"/>
+		<Field Name="lsAscentialFile" Type="ListOfString"/>
+		<Field Name="sStepsZeeFile" Type="String"/>
+		<Field Name="sATClass_SelFunctionOut" Type="String"/>
+	</Record>
+	<List Name="Record_PathsList" ItemType="record_Paths"/>
+	<Record Name="record_DataTypes">
+		<Field Name="Selenium_DataTypes" Type="ListOfString"/>
+		<Field Name="AscentialTest_DataType" Type="ListOfString"/>
+	</Record>
+	<List Name="DataTypesList" ItemType="record_DataTypes"/>
+	<Record Name="record_FindElement">
+		<Field Name="SeleniumFormat" Type="lsSeleniumFormat"/>
+		<Field Name="ATFormat" Type="lsATFormat"/>
+	</Record>
+	<List Name="Record_FindElementList" ItemType="record_FindElement"/>
+	<List Name="lsSeleniumFormat" ItemType="String"/>
+	<List Name="lsATFormat" ItemType="String"/>
+	<Record Name="record_Parent">
+		<Field Name="lsAscentialTestMethod" Type="ListOfString"/>
+	</Record>
+	<List Name="record_ParentObjMethodList" ItemType="record_Parent"/>
+	<List Name="StringList" ItemType="String"/>
+	<Record Name="Record_MigrateSeleniumToAT">
+		<Field Name="TestCaseID" Type="String" Unique="true"/>
+		<Field Name="sATAppObjOutputFile" Type="String"/>
+		<Field Name="lsReadFile" Type="lsReadFile"/>
+		<Field Name="lsSearchData" Type="StringList"/>
+		<Field Name="lsSeleniumClass" Type="StringList"/>
+		<Field Name="lsUnwantedCharacters" Type="StringList"/>
+		<Field Name="lsATClassNames" Type="StringList"/>
+	</Record>
+	<List Name="Record_MigrateSeleniumToATList" ItemType="Record_MigrateSeleniumToAT"/>
+	<List Name="lsReadFile" ItemType="String"/>
+	<Record Name="record_DataTypeConversion">
+		<Field Name="SeleniumDataTypes" Type="ListOfString"/>
+		<Field Name="AscentialTestDataType" Type="ListOfString"/>
+		<Field Name="Declaration" Type="ListOfString"/>
+	</Record>
+	<List Name="record_DataTypeConversionList" ItemType="record_DataTypeConversion"/>
+	<Record Name="Record_GenKeyEvents">
+		<Field Name="SeleniumKeyEvents" Type="ListOfString"/>
+		<Field Name="AscentialTestKeyEvents" Type="ListOfString"/>
+	</Record>
+	<List Name="Record_GenKeyEventsList" ItemType="Record_GenKeyEvents"/>
+</Types>

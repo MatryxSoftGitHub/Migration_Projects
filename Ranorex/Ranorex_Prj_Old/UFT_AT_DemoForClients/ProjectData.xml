@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Types CRC="F2AB72F3"/>
+	<Declare>
+		<Variables>
+			<Variable Name="PathLocation" Type="String"/>
+		</Variables>
+	</Declare>
+	<Layout>
+		<Variables>
+			<Variable Name="PathLocation"/>
+		</Variables>
+	</Layout>
+	<Data>
+		<PathLocation>C:\VBtoZLanguage\</PathLocation>
+	</Data>
+</Project>

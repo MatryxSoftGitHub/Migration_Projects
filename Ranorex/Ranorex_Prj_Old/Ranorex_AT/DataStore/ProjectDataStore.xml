@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Object Name="Dt_RanorexSteps_ATSteps" Type="Record_RanorexSteps_ATStepsList" FileName="Dt_RanorexSteps_ATSteps.zData"/>
+	<Object Name="DtWorkday" Label="Dt_Workday" Type="DtWorkdayList" FileName="DtWorkday.zData"/>
+</DataStore>

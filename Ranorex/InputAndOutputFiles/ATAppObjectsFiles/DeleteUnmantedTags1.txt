@@ -1,0 +1,99 @@
+name="PBus_PrjRepository">
+classname="PBus_PrjRepository"
+name="Root"
+name="SelectADataSource"
+refpath="/form[@title='Select a data source:']"
+	name="ButtonOK"
+	refpath="button[@text='OK']"
+		button[@text='OK']
+name="PowerBuilderUltimateSuiteSampleAppli"
+refpath="/form[@title='PowerBuilder Ultimate Suite Sample Application']"
+	name="Element2000"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//element[@class='FNUDO3125' and @instance='8']
+	name="Text25"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/descendant-or-self::*/text[@accessiblerole='Text']
+	name="EmpLname"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/text[@accessiblename='emp_lname']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='emp_lname']
+	name="ListItem"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/list[@accessiblename='manager_id']/listitem[@accessiblerole='ListItem']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/?/?/element[@controlid='1006']//list[@accessiblename='manager_id']/listitem[@accessiblerole='ListItem']
+	name="RD"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/list[@accessiblename='dept_id']/listitem[@accessiblename='R &amp; D']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/?/?/element[@controlid='1006']//list[@accessiblename='dept_id']/listitem[@accessiblename='R &amp; D']
+	name="ComboBoxSex"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/combobox[@accessiblename='sex']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//combobox[@accessiblename='sex']
+	name="Street"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='street' and @accessiblerole='Text']
+	name="City"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='city' and @accessiblerole='Text']
+	name="ListItemAB"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/list[@accessiblename='state']/listitem[@accessiblename='AB']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/?/?/element[@controlid='1006']//list[@accessiblename='state']/listitem[@accessiblename='AB']
+	name="ZipCode"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/text[@accessiblename='zip_code']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='zip_code']
+	name="Phone"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/text[@accessiblename='phone']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='phone']
+	name="StartDate"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/text[@accessiblename='start_date']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='start_date']
+	name="TerminationDate"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/text[@accessiblename='termination_date']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='termination_date']
+	name="Element1005"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1005']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/?/?/element[@controlid='1006']/?/?/element[@controlid='1005']
+	name="Element1004"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1004']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/?/?/element[@controlid='1006']/?/?/element[@controlid='1004']
+	name="Status"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/combobox[@accessiblename='status']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/?/?/element[@controlid='1006']/element[@class='FNUDO3125' and @instance='2']/?/?/combobox[@accessiblename='status']
+	name="Male"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']/combobox[@accessiblename='sex']/listitem[@accessiblename='Male']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/?/?/element[@controlid='1006']//combobox[@accessiblename='sex']/listitem[@accessiblename='Male']
+	name="Element20001"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1003']/element[@controlid='1000']/element[@controlid='2000' and @class='FNUDO3125' and @instance='1']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1003']/?/?/element[@class='FNUDO3125' and @instance='1']
+	name="Element1006"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']/element[@controlid='2000' and @class='FNUDO3125' and @instance='2']/element[@controlid='1006']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/?/?/element[@controlid='1006']/?/?/element[@controlid='1006']
+	name="Element1001"
+	refpath="/form[@title>'PowerBuilder Ultimate Suite']/element[@controlid='1003']/element[@controlid='1000']/element[@controlid='1001']"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1003']/?/?/element[@controlid='1001']
+	name="BOD"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='birth_date']
+	name="Salary"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='salary']
+	name="DateOfBirth"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='birth_date']
+	name="SocialSecurity"
+		/form[@title&gt;'PowerBuilder Ultimate Suite']/element[@controlid='1004']/element[@controlid='1006']//text[@accessiblename='ss_number']
+name="PbusSample"
+refpath="/form[@title='']"
+	name="ButtonOK"
+	refpath="button[@text='OK']"
+		button[@text='OK']
+	name="ButtonNo"
+	refpath="button[@text='No']"
+		button[@text='No']
+name="SelectEmployee"
+refpath="/form[@title='Select Employee']"
+	name="EmpLname"
+		element[@controlid='1003']/text[@text=$varEmployeeName]
+	name="Element1000"
+	refpath="element[@controlid='1000']"
+		element[@controlid='1000']
+	name="ButtonOK"
+	refpath="button[@text='OK']"
+		button[@text='OK']
+<variables>
+<var
+name="varEmployeeName">
+	Cobb
+</var>
+</variables>
+</repository>

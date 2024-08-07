@@ -1,0 +1,10 @@
+﻿class Demo : Step
+	Main()
+		DateTime dt = "2011-05-26 23:01:01"
+		DateTime dtNewDateTime
+		
+		dtNewDateTime = dt.Add (0, 0, -5)
+		// String sIncrementTime = dtNewDateTime.Format ("yyyy-MM-dd'T'HH:mm:ss")
+		
+		Print (dtNewDateTime)
+		

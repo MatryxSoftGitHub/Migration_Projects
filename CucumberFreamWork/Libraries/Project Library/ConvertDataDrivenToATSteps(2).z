@@ -1,0 +1,127 @@
+﻿class UserIsOnLoginPage : Step
+	%StepInfo[Desc="user is on login page",Group=""]
+	Main ()
+class UserShouldGetWorkdayTransre_previewTiTlePage : Step
+	%StepInfo[Desc="user should get Workday transre_preview title page",Group=""]
+	parameter Object PageTitle
+class UserEntErsUsernameAndPassword : Step
+	%StepInfo[Desc="user enters username and password",Group=""]
+	parameter Object userName
+	parameter Object password
+class UserCliCkOnSignInButton : Step
+	%StepInfo[Desc="user click on sign in button",Group=""]
+class UserGetsRememberDiviceMessage : Step
+	%StepInfo[Desc="user gets Remember Divice message",Group=""]
+class UserCliCkOnSkipButton : Step
+	%StepInfo[Desc="user click on skip button",Group=""]
+class UserShouldGetTiTleOfTheHomePage : Step
+	%StepInfo[Desc="user should get title of the home page",Group=""]
+class UserSearchForStartProxyInTheSearchBarAndUserCliCkOnStartProxyLink : Step
+	%StepInfo[Desc="user search for Start Proxy in the Search bar and  user click on Start proxy link",Group=""]
+	parameter Object StartProxy
+class EnterInTheActAsAliceChow : Step
+	%StepInfo[Desc="Enter in the Act As Alice Chow",Group=""]
+	parameter Object ActAs
+class CliCkOK : Step
+	%StepInfo[Desc="click OK",Group=""]
+class SearchCreateAdHocPaymentInTheSearchBar : Step
+	%StepInfo[Desc="Search Create Ad Hoc Payment in the search bar",Group=""]
+	parameter Object PaymentType
+class UserCliCkOnCreateAdHocPaymentLink : Step
+	%StepInfo[Desc="user click on Create Ad Hoc Payment link",Group=""]
+class UserEntErsValuesForAdHocPaymentInformation : Step
+	%StepInfo[Desc="user enters values for Ad Hoc Payment Information ",Group=""]
+	parameter Object Company
+	parameter Object BankAccount
+	parameter Object Payee
+	parameter Object Currency
+	parameter Object PaymentTypes
+	parameter Object ShipToAddress
+	parameter Object HandlingCode
+class UserEntErsValuesForPaymentDetails : Step
+	%StepInfo[Desc="user enters values for Payment Details ",Group=""]
+	parameter Object ControlTotalAmount
+	parameter Object FreightAmount
+	parameter Object OtherCharges
+	parameter Object Memo
+class UserEntErsValuesForLinesTable : Step
+	%StepInfo[Desc="user enters values for Lines table ",Group=""]
+	parameter Object LinesCompany
+	parameter Object SpendCategory
+	parameter Object TaxApplicability
+	parameter Object Quantity
+	parameter Object UnitCost
+	parameter Object LinesMemo
+	parameter Object LinesCostCenter
+	parameter Object AdditionalWorktags
+class UserCliCkOnTestAdHocTransactionLink : Step
+	%StepInfo[Desc="user click on Test Ad Hoc Transaction link",Group=""]
+class UserEntErsValuesForAdHocBankTransactionInformation : Step
+	%StepInfo[Desc="user enters values for Ad Hoc Bank Transaction Information ",Group=""]
+	parameter Object Memo
+	parameter Object Company
+	parameter Object BankAccount
+	parameter Object Currency
+class SelectDepositOrWithdrawalRadioButton : Step
+	%StepInfo[Desc="select Deposit or Withdrawal radio button",Group=""]
+class UserEntErsValuesForAdHocBankTransactionDetails : Step
+	%StepInfo[Desc="user enters values for Ad Hoc Bank Transaction Details ",Group=""]
+	parameter Object TransactionAmount
+	parameter Object Purpose
+	parameter Object Reference
+class ClickOnAdHocBankTransactionLinesTab : Step
+	%StepInfo[Desc="Click on Ad Hoc Bank Transaction Lines tab",Group=""]
+class UserEntErsValuesForAdHocBankTransactionLinesTable : Step
+	%StepInfo[Desc="user enters values for Ad Hoc Bank Transaction Lines table ",Group=""]
+	parameter Object LinesCompany
+	parameter Object SelectRevenueSpendCategory
+	parameter Object LedgerAccount
+	parameter Object Amount
+	parameter Object LinesMemo
+	parameter Object CostCenter
+class SearchCreatePurchaseOrderInTheSearchBar : Step
+	%StepInfo[Desc="Search Create Purchase Order in the search bar",Group=""]
+	parameter Object PaymentType
+class UserCliCkOnCreatePurchaseOrderLink : Step
+	%StepInfo[Desc="user click on Create Purchase Order link",Group=""]
+class UserShouldProvideValideDataToCreatePurchaseOrderCompanyAndSupplierAndCurrency : Step
+	%StepInfo[Desc="user should provide valide data to create purchase order Company and Supplier and Currency",Group=""]
+	parameter Object Company
+	parameter Object Supplier
+	parameter Object Currency
+class EntErTpdayDateForDocumentDateField : Step
+	%StepInfo[Desc="enter tpday date for Document date field",Group=""]
+class CliCkOnCreateBlanckPurchaseOrderRadioButton : Step
+	%StepInfo[Desc="click on Create blanck purchase order radio button",Group=""]
+class CliCkOnOKButton : Step
+	%StepInfo[Desc="click on OK button",Group=""]
+class UserShouldBeAbleToSeeCreatePurchaseOrderPage : Step
+	%StepInfo[Desc="user should be able to see Create Purchase Order page",Group=""]
+class UserProvideDataForSummarySection : Step
+	%StepInfo[Desc="user provide data for summary section ",Group=""]
+	parameter Object Supplier1
+	parameter Object LinesCurrency
+	parameter Object FreightAmount
+	parameter Object OtherCharges
+class UserShouldProvideProPerDataForTermsAndTaxesSetion : Step
+	%StepInfo[Desc="user should provide proper data for Terms and Taxes setion ",Group=""]
+	parameter Object PaymentTerms
+	parameter Object OverridePaymentType
+	parameter Object ShippingTerms
+	parameter Object ShippingMethod
+	parameter Object ShippingInstructions
+	parameter Object SupplierContract
+	parameter Object DefaultTaxOption
+	parameter Object DefaultTaxCode
+class GoToContactInformationSectionAndProvideData : Step
+	%StepInfo[Desc="Go to Contact Information section and provide data ",Group=""]
+	parameter Object IssueOption
+	parameter Object Buyer
+	parameter Object BillTocontact
+	parameter Object BillToContactDetails
+	parameter Object BillToAddress
+	parameter Object ShipToContact
+	parameter Object ShipToContactDetail
+	parameter Object ShipToAddress
+	parameter Object Memo
+	parameter Object InternalMemo

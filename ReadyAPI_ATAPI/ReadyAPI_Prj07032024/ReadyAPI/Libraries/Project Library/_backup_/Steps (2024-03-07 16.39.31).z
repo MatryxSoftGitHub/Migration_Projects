@@ -1,0 +1,9 @@
+﻿class Demo : Step
+	parameter String sVal2
+	Main()
+		Integer iCode, iExpectedValue
+		String  sChar = "F"
+		
+		iCode = [Integer]sChar
+		
+		Print (iCode)

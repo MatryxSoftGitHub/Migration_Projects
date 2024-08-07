@@ -1,0 +1,3 @@
+The following fields were missing and added to the project:
+DtWorkdayRecord.sStr
+

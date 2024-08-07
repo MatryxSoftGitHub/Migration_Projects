@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Types CRC="7F276151">
+	<Enum Name="WebBrowserType" IsZee="true">
+		<Value Name="InternetExplorer" Label="Internet Explorer" Value="0"/>
+		<Value Name="Firefox" Label="Firefox" Value="1"/>
+		<Value Name="Chrome" Label="Chrome" Value="2"/>
+		<Value Name="Edge" Label="Edge" Value="3"/>
+	</Enum>
+</Types>

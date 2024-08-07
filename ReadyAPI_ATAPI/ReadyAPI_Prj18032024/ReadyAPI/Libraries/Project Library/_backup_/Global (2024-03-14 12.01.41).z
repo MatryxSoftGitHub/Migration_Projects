@@ -1,0 +1,26 @@
+﻿//Input Property
+String projectDirectory = ""
+String propertyName =""
+
+
+//Error Logs
+String sActualResult =""
+
+Boolean nameOfProperty 
+String finalFilePath = ""
+String filename = ""
+String sKey = ""
+String sParameterName = ""
+
+Boolean bEnableMessageIntegrityCheckValueValidation
+String sBeginDateTimeRequest = ""
+String sBeginDateTimeDB = ""
+String sEndDateTimeRequest = ""
+String sEndDateTimeDB = ""
+String sFutureBeginDateTimeRequest=""
+String sFutureEndDateTimeRequest=""
+
+String sServerCurrentTime=""
+String sCurrentDate=""
+String sServerMonth=""
+

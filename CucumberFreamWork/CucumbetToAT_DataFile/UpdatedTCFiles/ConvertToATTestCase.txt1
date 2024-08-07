@@ -1,0 +1,3 @@
+class CreateAdHocPayment : Test
+	%TestInfo[Desc="Create ad hoc payment.",Group="CreateAdHocPayment",Table=""]
+	Main()

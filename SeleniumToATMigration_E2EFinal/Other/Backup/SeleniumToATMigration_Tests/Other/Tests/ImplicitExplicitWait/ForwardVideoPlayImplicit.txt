@@ -1,0 +1,25 @@
+class ForwardVideoTC : Test
+%TestInfo[Desc="ForwardVideoTC",Group="null",Table="null"]
+parameter String UserId
+parameter String UserPwd
+parameter String ChannelName
+Main()
+{
+//Navigate to Youtube User Account
+YoutubeSignInPage SignInElements= PageFactory.initElements(driver, YoutubeSignInPage.class);
+SignInElements.SignIn(UserId,UserPwd);
+YoutubeSearchChannelPage.WaitWhileExists(30)
+//Search and Select the Channel
+YoutubeSearchChannelPage ToSearchChannel= PageFactory.initElements(driver, YoutubeSearchChannelPage.class);
+ToSearchChannel.SearchString(ChannelName);
+YoutubeForwardVideoPage.WaitWhileExists(30)
+//Forward video play, like and subscribe the channel
+YoutubeForwardVideoPage ForwardRandomPlayList = PageFactory.initElements(driver, YoutubeForwardVideoPage.class);
+ForwardRandomPlayList.PlayListLooping();
+YoutubeSignOutPage.WaitWhileExists(30)
+//SignOut from the User Account
+YoutubeSignOutPage SignOutElements= PageFactory.initElements(driver, YoutubeSignOutPage.class);
+SignOutElements.SignOut();
+AppOnStart();
+config.GetURL();
+}

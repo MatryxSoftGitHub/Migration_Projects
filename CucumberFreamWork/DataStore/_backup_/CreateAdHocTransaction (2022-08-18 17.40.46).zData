@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="48B76A86">
+		<Record Name="CreateAdHocTransactionRecord">
+			<Field Name="PageTitle" Label="PageTitle" Type="String"/>
+			<Field Name="userName" Label="userName" Type="String"/>
+			<Field Name="password" Label="password" Type="String"/>
+			<Field Name="StartProxy" Label="StartProxy" Type="String"/>
+			<Field Name="ActAs" Label="ActAs" Type="String"/>
+			<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+			<Field Name="Company" Label="Company" Type="String"/>
+			<Field Name="BankAccount" Label="BankAccount" Type="String"/>
+			<Field Name="Payee" Label="Payee" Type="String"/>
+			<Field Name="Currency" Label="Currency" Type="String"/>
+			<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+			<Field Name="ShipToAddress" Label="ShipToAddress" Type="String"/>
+			<Field Name="HandlingCode" Label="HandlingCode" Type="String"/>
+			<Field Name="ControlTotalAmount" Label="ControlTotalAmount" Type="String"/>
+			<Field Name="FreightAmount" Label="FreightAmount" Type="String"/>
+			<Field Name="OtherCharges" Label="OtherCharges" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="LinesCompany" Label="LinesCompany" Type="String"/>
+			<Field Name="SpendCategory" Label="SpendCategory" Type="String"/>
+			<Field Name="TaxApplicability" Label="TaxApplicability" Type="String"/>
+			<Field Name="Quantity" Label="Quantity" Type="String"/>
+			<Field Name="UnitCost" Label="UnitCost" Type="String"/>
+			<Field Name="LinesMemo" Label="LinesMemo" Type="String"/>
+			<Field Name="LinesCostCenter" Label="LinesCostCenter" Type="String"/>
+			<Field Name="AdditionalWorktags" Label="AdditionalWorktags" Type="String"/>
+			<Field Name="Memo" Label="Memo" Type="String"/>
+			<Field Name="Company" Label="Company" Type="String"/>
+			<Field Name="BankAccount" Label="BankAccount" Type="String"/>
+			<Field Name="Currency" Label="Currency" Type="String"/>
+			<Field Name="TransactionAmount" Label="TransactionAmount" Type="String"/>
+			<Field Name="Purpose" Label="Purpose" Type="String"/>
+			<Field Name="Reference" Label="Reference" Type="String"/>
+			<Field Name="LinesCompany" Label="LinesCompany" Type="String"/>
+			<Field Name="SelectRevenueSpendCategory" Label="SelectRevenue/SpendCategory" Type="String"/>
+			<Field Name="LedgerAccount" Label="LedgerAccount" Type="String"/>
+			<Field Name="Amount" Label="Amount" Type="String"/>
+			<Field Name="LinesMemo" Label="LinesMemo" Type="String"/>
+			<Field Name="CostCenter" Label="CostCenter" Type="String"/>
+		</Record>
+		<List Name="CreateAdHocTransactionList" ItemType="CreateAdHocTransactionRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="CreateAdHocTransaction" Label="CreateAdHocTransaction" Type="CreateAdHocTransactionList">
+			<CreateAdHocTransactionRecord>
+				<PageTitle>Workday transre_preview</PageTitle>
+				<userName>lkumar</userName>
+				<password>Matryx1@2020</password>
+				<StartProxy>Start Proxy</StartProxy>
+				<ActAs>Alice Chow</ActAs>
+				<PaymentType>Wire</PaymentType>
+				<Company>NYT USD  - New York Home Office</Company>
+				<BankAccount>NYT ACH Tax - JPMC USD-3465</BankAccount>
+				<Payee>EVP I LP Mgmt</Payee>
+				<Currency>USD</Currency>
+				<ShipToAddress>One Liberty Plaza - 165 Broadway New York? NY 10006 United States of America</ShipToAddress>
+				<HandlingCode>Immediate</HandlingCode>
+				<ControlTotalAmount>400</ControlTotalAmount>
+				<FreightAmount>0</FreightAmount>
+				<OtherCharges>0</OtherCharges>
+				<Memo>Test Ad Hoc Transaction</Memo>
+				<LinesCompany>NYT USD  - New York Home Office</LinesCompany>
+				<SpendCategory>Advertising</SpendCategory>
+				<TaxApplicability>Sales/Use Tax</TaxApplicability>
+				<Quantity>1</Quantity>
+				<UnitCost>400</UnitCost>
+				<LinesMemo>Test Ad Hoc Bank Transaction Line</LinesMemo>
+				<LinesCostCenter>100-000 General Overhead</LinesCostCenter>
+				<AdditionalWorktags>Customer: Farmers</AdditionalWorktags>
+				<TransactionAmount>500</TransactionAmount>
+				<Purpose>Bank Fees</Purpose>
+				<Reference>ABT001</Reference>
+				<SelectRevenueSpendCategory>2039 Debt</SelectRevenueSpendCategory>
+				<LedgerAccount>Not Required</LedgerAccount>
+				<Amount>500</Amount>
+				<CostCenter>100-050 Corporate Accounting (Default)</CostCenter>
+			</CreateAdHocTransactionRecord>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="CreateAdHocTransaction"/>
+	</Layout>
+</DataStore>

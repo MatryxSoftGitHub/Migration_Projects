@@ -1,0 +1,135 @@
+﻿String projectDirectory = ""
+
+List<String> FormatTime(String sResponseTime, String sDBTime, out List<String> lsResult)
+	%FuncInfo[Desc="To replace ""T"" from the response to "" "" and removing millisecond from the DB date and Response Date"]
+	List<String> lsFinalModifiedTime, lsLastModifiedTime
+	
+	// Step 1: Replace 'T' with whitespace in the ResponseTime
+	String sUpdateModifiedTime = sResponseTime.Replace ("T", " ")
+	// Step 2: Split ResponseTime and DBTime by dot (.)
+	lsFinalModifiedTime = sUpdateModifiedTime.Split (".")
+	lsLastModifiedTime = sDBTime.Split (".")
+	// Step 3: Create an array containing the first parts of the split strings
+	lsResult = {lsFinalModifiedTime[1], lsLastModifiedTime[1]}
+	
+	
+	// public String[] formatTime(String ResponseTime, String DBTime) {
+		// // Step 1: Replace 'T' with whitespace in the ResponseTime
+		// String UpdateModifiedTime = ResponseTime.replace("T", " ");
+		// 
+		// // Step 2: Split ResponseTime and DBTime by dot (.)
+		// String[] FinalModifiedTime = UpdateModifiedTime.split("\\.");
+		// String[] lastModifiedTime = DBTime.split("\\.");
+		// 
+		// // Step 3: Create an array containing the first parts of the split strings
+		// String[] result = [FinalModifiedTime[0], lastModifiedTime[0]];
+		// 
+		// // Step 4: Return the result array
+		// return result;
+	//}
+	
+String changeTime(String sTimeStamp, out String sIncrementTime)
+	%FuncInfo[Desc="This method will decrement the time by 8hr 00mins"]
+	DateTime dtDateTime,dtIncrementTime
+	String sChangedTime,sDate6
+	List<String> lsUpdatedTime
+	// Step 1: Replace 'T' with whitespace in the timeStamp
+	sChangedTime = sTimeStamp.Replace ("T", " ")
+	// Step 2: Split timeStamp by dot (.)
+	lsUpdatedTime = sChangedTime.Split (".")
+	sDate6 = lsUpdatedTime[1]
+	// Step 3: Parse the split time string into a Date object using SimpleDateFormat
+	dtDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", "{sDate6}")
+	// Step 4: Increment the parsed date object by 5 hours and 30 minutes using TimeCategory
+	dtIncrementTime = null
+	dtIncrementTime = dtDateTime.Add (0, 5, 30)
+	// Step 5: Format the incremented time to the desired format
+	sIncrementTime = dtIncrementTime.Format ("yyyy-MM-dd HH:mm:ss")
+	
+	
+	
+	// public def changeTime(String timeStamp) {
+		// // Step 1: Replace 'T' with whitespace in the timeStamp
+		// def changedTime = timeStamp.replace("T", " ")
+		// 
+		// // Step 2: Split timeStamp by dot (.)
+		// def updatedTime = changedTime.split("\\.")
+		// String sDate6 = updatedTime[0]
+	// 
+		// // Step 3: Parse the split time string into a Date object using SimpleDateFormat
+		// SimpleDateFormat formatter6 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// Date date6 = formatter6.parse(sDate6);
+	// 
+		// // Step 4: Increment the parsed date object by 5 hours and 30 minutes using TimeCategory
+		// def incrementTime = null;
+		// use(TimeCategory) {
+			// incrementTime = date6 + 5.hours + 30.minutes
+		// }
+	// 
+		// // Step 5: Format the incremented time to the desired format
+		// return incrementTime.format("yyyy-MM-dd HH:mm:ss")
+	// }
+	
+incrementMinute(String sDateTime)
+	%FuncInfo[Desc="This method will be used to increment by a Minute for given date time."]
+	DateTime dtdecrementedDateTime,dtDateTime
+	List<String> dateTimesplit
+	String dateTimeStamp
+	
+	// Step 1: Split the input datetime string by dot (.)
+	dateTimesplit = sDateTime.Split ("\\.")
+	
+	// Step 2: Parse the datetime string into a Date object using SimpleDateFormat
+	dtDateTime = DateTime.Parse ("yyyy-MM-dd HH:mm:ss", "{dateTimeStamp}")
+	
+	// Step 3: Increment the parsed datetime by 1 minute using TimeCategory
+	dtdecrementedDateTime = null
+	//  dtdecrementedDateTime = dateTimeStamp + 1.minutes
+	
+	
+	
+	// 
+	// public def incrementMinute(String datetime) {
+		// // Step 1: Split the input datetime string by dot (.)
+		// def dateTimesplit = datetime.split("\\.")
+		// 
+		// // Step 2: Parse the datetime string into a Date object using SimpleDateFormat
+		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		// Date dateTimeStamp = formatter.parse(datetime);
+		// 
+		// // Step 3: Increment the parsed datetime by 1 minute using TimeCategory
+		// def decrementedDateTime = null;
+		// use(TimeCategory) {
+			// decrementedDateTime = dateTimeStamp + 1.minutes
+		// }
+		// 
+		// // Step 4: Format the incremented datetime to the desired format
+		// def finalDateTime = decrementedDateTime.format("YYYY-MM-dd'T'HH:mm")
+		// 
+		// // Step 5: Return the final formatted datetime string
+		// return finalDateTime;
+	// }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//  public def incrementMinute(String datetime) {
+	//    def dateTimesplit = datetime.split("\\.")
+	//    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+	//    Date dateTimeStamp = formatter.parse(datetime);
+	//    def decrementedDateTime = null;
+	//    use(TimeCategory) {
+		// decrementedDateTime = dateTimeStamp + 1. minutes
+	//    }
+	//    def finalDateTime = decrementedDateTime.format("YYYY-MM-dd'T'HH:mm")
+	//    return finalDateTime;
+	//   }
+	// 
+	

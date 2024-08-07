@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="2B4DE63A">
+		<List Name="StringList" ItemType="String"/>
+		<Record Name="ReplacePathSyntaxTBRecord">
+			<Field Name="SelPathSyntax" Type="StringList"/>
+			<Field Name="ATPathSyntax" Type="StringList"/>
+		</Record>
+		<List Name="ReplacePathSyntaxTBRecordList" ItemType="ReplacePathSyntaxTBRecord"/>
+	</Types>
+	<Objects>
+		<Object Name="ReplacePathSyntaxTB" Type="ReplacePathSyntaxTBRecordList">
+			<ReplacePathSyntaxTBRecord>
+				<SelPathSyntax>
+					<String>&quot;&quot; + </String>
+					<String>+&quot;</String>
+					<String>&quot;\&quot;+</String>
+					<String> or . </String>
+					<String> and </String>
+					<String>@data-automation-id</String>
+					<String>\&quot;</String>
+				</SelPathSyntax>
+				<ATPathSyntax>
+					<String>&quot;{</String>
+					<String>}&quot;</String>
+					<String>&quot;</String>
+					<String> || @ElemId =</String>
+					<String> &amp;&amp; </String>
+					<String>@ElemId=</String>
+					<String>&quot;</String>
+				</ATPathSyntax>
+			</ReplacePathSyntaxTBRecord>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="ReplacePathSyntaxTB">
+			<Field Name="SelPathSyntax" Width="249"/>
+			<Field Name="ATPathSyntax" Width="273"/>
+		</Object>
+	</Layout>
+</DataStore>

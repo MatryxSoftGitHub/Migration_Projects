@@ -1,0 +1,6 @@
+﻿String sInputFilesTestDir = "C:\Users\nagarjuna\Desktop\TC\"
+String sTestExtension = "cs"
+
+//Write files
+String sWriteTestFileDir = "C:\Ranorex\Steps_OutPutFiles\"
+

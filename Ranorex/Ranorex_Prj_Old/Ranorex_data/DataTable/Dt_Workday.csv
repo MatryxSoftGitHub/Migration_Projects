@@ -1,0 +1,2 @@
+UserName,Password,sStartProxy,ProxyAs,AdHocBankTransactionDate,Memo,CompanyName,BankAccount,TransactionAmount,ReferrenceName,TransactionLines_RevenueSpendCategory,TransactionLines_Memo,TransactionLines_CostCenter,sStr
+msadmin,admin@123,Start Proxy,Narayan,12/29/2020,Test  Ad Hoc Transaction 1,NYT USD  - New York Home Office,NYT Controlled Disbursement Opersting - JPMC USD - 1183,45,KS-ABT001,,,,

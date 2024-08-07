@@ -1,0 +1,10 @@
+﻿const String sApp_Type = "Window"
+String sUFTExcelPath = "C:\VBtoZLanguage\Default"
+String sCSVExcelPath = "C:\VBtoZLanguage\ConvertedDSFile\Default"
+String sActCSVFilePath = "C:\VBtoZLanguage\ConvertedDSFile\"
+String sFunctionsZFiles = "ATFunctionFiles\ATFunctions.z"
+// Handling DataeDitor unexpected dialogbox
+AddHandler_DataEditorOK(AppObject ao)
+	%FuncInfo[Desc="Handles Dialogbox OK in DataEditor",Group="DB Conversion"]
+	ao.OK.Click ()
+	

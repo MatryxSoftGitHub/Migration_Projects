@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Types CRC="42CBD8C6"/>
+	<Declare>
+		<Attributes/>
+		<Variables/>
+	</Declare>
+	<Plans>
+		<Plan GUID="C5A5E3C140E4A760AF458092610A4828">
+			<Name>Demo</Name>
+			<Nodes>
+				<Node GUID="ECD08983421800A1861C40A0DFCF2528"/>
+			</Nodes>
+		</Plan>
+	</Plans>
+</Project>

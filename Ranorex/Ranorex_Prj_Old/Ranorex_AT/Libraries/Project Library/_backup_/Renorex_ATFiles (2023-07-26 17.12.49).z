@@ -1,0 +1,11 @@
+﻿String sInputFilesDir = "C:\Users\nagarjuna\Desktop\Steps\CashManagement\CreateBankAccountTransferForSettlement\"
+String sExtension = "cs"
+
+//Write files
+String sWriteFileDir = "C:\Ranorex\Steps_OutPutFiles\"
+String sWriteFile1 = "GetATFormat1.txt"
+String sWriteFile2 = "ReplaceRanorexMathodsToAt2.txt"
+String sWriteFinalFile = "FinalFile.txt"
+
+//Delete unwanted lines
+List<String> lsUnWantedLines = {"Mouse.DefaultMoveTime","Keyboard.DefaultKeyPressTime","Delay.SpeedFactor","UA.DefaultKeyPressTime","}","{"}

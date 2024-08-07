@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="6E25952B">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="record_Paths">
+			<Field Name="TestCaseId" Type="String" Unique="true"/>
+			<Field Name="lsJavaFile" Type="ListOfString"/>
+			<Field Name="lsTxtFile" Type="ListOfString"/>
+			<Field Name="lsIndentationFile" Type="ListOfString"/>
+			<Field Name="lsImplicitExplicitWaitFile" Type="ListOfString"/>
+			<Field Name="lsAscentialFile" Type="ListOfString"/>
+			<Field Name="sStepsZeeFile" Type="String"/>
+		</Record>
+		<List Name="Record_PathsList" ItemType="record_Paths"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_DataPaths" Type="Record_PathsList">
+			<record_Paths>
+				<TestCaseId>SeleniumMethodsMigrationToAscentialTestMethods</TestCaseId>
+				<lsJavaFile>
+					<String>\Other\JavaFiles\YoutubeForwardVideoPage.java</String>
+					<String>\Other\JavaFiles\YoutubeRandomVideoStreamingPage.java</String>
+					<String>\Other\JavaFiles\YoutubeSearchChannelPage.java</String>
+					<String>\Other\JavaFiles\YoutubeSignInPage.java</String>
+					<String>\Other\JavaFiles\YoutubeSignOutPage.java</String>
+					<String>\Other\JavaFiles\YoutubeVideoStreamingPage.java</String>
+				</lsJavaFile>
+				<lsTxtFile>
+					<String>\Other\TempTextFiles\YoutubeForwardVideoPage.txt</String>
+					<String>\Other\TempTextFiles\YoutubeRandomVideoStreamingPage.txt</String>
+					<String>\Other\TempTextFiles\YoutubeSearchChannelPage.txt</String>
+					<String>\Other\TempTextFiles\YoutubeSignInPage.txt</String>
+					<String>\Other\TempTextFiles\YoutubeSignOutPage.txt</String>
+					<String>\Other\TempTextFiles\YoutubeVideoStreamingPage.txt</String>
+				</lsTxtFile>
+				<lsIndentationFile>
+					<String>\Other\TempTextFiles\Indentation1.txt</String>
+					<String>\Other\TempTextFiles\Indentation2.txt</String>
+					<String>\Other\TempTextFiles\Indentation3.txt</String>
+					<String>\Other\TempTextFiles\Indentation4.txt</String>
+					<String>\Other\TempTextFiles\Indentation5.txt</String>
+					<String>\Other\TempTextFiles\Indentation6.txt</String>
+				</lsIndentationFile>
+				<lsImplicitExplicitWaitFile>
+					<String>\Other\ImplicitExplicitWait\ImplicitExplicitWait1.txt</String>
+					<String>\Other\ImplicitExplicitWait\ImplicitExplicitWait2.txt</String>
+					<String>\Other\ImplicitExplicitWait\ImplicitExplicitWait3.txt</String>
+					<String>\Other\ImplicitExplicitWait\ImplicitExplicitWait4.txt</String>
+					<String>\Other\ImplicitExplicitWait\ImplicitExplicitWait5.txt</String>
+					<String>\Other\ImplicitExplicitWait\ImplicitExplicitWait6.txt</String>
+				</lsImplicitExplicitWaitFile>
+				<lsAscentialFile>
+					<String>\Other\ATConvertedFiles\YoutubeForwardVideoPage.txt</String>
+					<String>\Other\ATConvertedFiles\YoutubeRandomVideoStreamingPage.txt</String>
+					<String>\Other\ATConvertedFiles\YoutubeSearchChannelPage.txt</String>
+					<String>\Other\ATConvertedFiles\YoutubeSignInPage.txt</String>
+					<String>\Other\ATConvertedFiles\YoutubeSignOutPage.txt</String>
+					<String>\Other\ATConvertedFiles\YoutubeVideoStreamingPage.txt</String>
+				</lsAscentialFile>
+				<sStepsZeeFile>\Other\ATConvertedFiles\Steps.z</sStepsZeeFile>
+			</record_Paths>
+			<record_Paths>
+				<lsJavaFile/>
+				<lsTxtFile/>
+				<lsIndentationFile/>
+				<lsImplicitExplicitWaitFile/>
+				<lsAscentialFile/>
+			</record_Paths>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_DataPaths">
+			<Field Name="lsJavaFile" Width="270"/>
+			<Field Name="lsTxtFile" Width="59"/>
+			<Field Name="TestCaseId" Width="206"/>
+			<Field Name="lsIndentationFile" Width="194"/>
+			<Field Name="lsAscentialFile"/>
+			<Field Name="sStepsZeeFile"/>
+			<Field Name="lsImplicitExplicitWaitFile" Width="159"/>
+		</Object>
+	</Layout>
+</DataStore>

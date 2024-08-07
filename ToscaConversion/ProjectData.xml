@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Types CRC="7F276151">
+		<Enum Name="WebBrowserType" IsZee="true">
+			<Value Name="InternetExplorer" Label="Internet Explorer" Value="0"/>
+			<Value Name="Firefox" Label="Firefox" Value="1"/>
+			<Value Name="Chrome" Label="Chrome" Value="2"/>
+			<Value Name="Edge" Label="Edge" Value="3"/>
+		</Enum>
+	</Types>
+	<Declare>
+		<Variables>
+			<Variable Name="BrowserType" Type="WebBrowserType"/>
+			<Variable Name="StartURL" Type="String"/>
+		</Variables>
+	</Declare>
+	<Layout>
+		<Variables>
+			<Variable Name="BrowserType"/>
+			<Variable Name="StartURL"/>
+		</Variables>
+	</Layout>
+	<Data>
+		<BrowserType>Chrome</BrowserType>
+		<StartURL>http://10.10.20.160:3000</StartURL>
+	</Data>
+</Project>

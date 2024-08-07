@@ -1,0 +1,238 @@
+﻿class UserIsOnLoginPage : Step
+	%StepInfo[Desc="user is on login page",Group=""]
+	Main()
+class UserShouldGetWorkdayTransre_previewTiTlePage : Step
+	%StepInfo[Desc="user should get Workday transre_preview title page",Group=""]
+	parameter Object PageTitle
+	Main()
+class UserEntErsUsernameAndPassword : Step
+	%StepInfo[Desc="user enters username and password",Group=""]
+	parameter Object userName
+	parameter Object password
+	Main()
+class UserCliCkOnSignInButton : Step
+	%StepInfo[Desc="user click on sign in button",Group=""]
+	Main()
+class UserGetsRememberDiviceMessage : Step
+	%StepInfo[Desc="user gets Remember Divice message",Group=""]
+	Main()
+class UserCliCkOnSkipButton : Step
+	%StepInfo[Desc="user click on skip button",Group=""]
+	Main()
+class UserShouldGetTiTleOfTheHomePage : Step
+	%StepInfo[Desc="user should get title of the home page",Group=""]
+	Main()
+class UserSearchForStartProxyInTheSearchBarAndUserCliCkOnStartProxyLink : Step
+	%StepInfo[Desc="user search for Start Proxy in the Search bar and  user click on Start proxy link",Group=""]
+	parameter Object StartProxy
+	Main()
+class EnterInTheActAsAliceChow : Step
+	%StepInfo[Desc="Enter in the Act As Alice Chow",Group=""]
+	parameter Object ActAs
+	Main()
+class CliCkOK : Step
+	%StepInfo[Desc="click OK",Group=""]
+	Main()
+class SearchCreateAdHocPaymentInTheSearchBar : Step
+	%StepInfo[Desc="Search Create Ad Hoc Payment in the search bar",Group=""]
+	parameter Object PaymentType
+	Main()
+class UserCliCkOnCreateAdHocPaymentLink : Step
+	%StepInfo[Desc="user click on Create Ad Hoc Payment link",Group=""]
+	Main()
+class UserEntErsValuesForAdHocPaymentInformation : Step
+	%StepInfo[Desc="user enters values for Ad Hoc Payment Information ",Group=""]
+	parameter Object Company
+	parameter Object BankAccount
+	parameter Object Payee
+	parameter Object Currency
+	parameter Object PaymentType
+	parameter Object ShipToAddress
+	parameter Object HandlingCode
+	Main()
+class UserEntErsValuesForPaymentDetails : Step
+	%StepInfo[Desc="user enters values for Payment Details ",Group=""]
+	parameter Object ControlTotalAmount
+	parameter Object FreightAmount
+	parameter Object OtherCharges
+	parameter Object Memo
+	Main()
+class UserEntErsValuesForLinesTable : Step
+	%StepInfo[Desc="user enters values for Lines table ",Group=""]
+	parameter Object LinesCompany
+	parameter Object SpendCategory
+	parameter Object TaxApplicability
+	parameter Object Quantity
+	parameter Object UnitCost
+	parameter Object LinesMemo
+	parameter Object LinesCostCenter
+	parameter Object AdditionalWorktags
+	Main()
+class UserCliCkOnTestAdHocTransactionLink : Step
+	%StepInfo[Desc="user click on Test Ad Hoc Transaction link",Group=""]
+	Main()
+class UserEntErsValuesForAdHocBankTransactionInformation : Step
+	%StepInfo[Desc="user enters values for Ad Hoc Bank Transaction Information ",Group=""]
+	parameter Object Memo
+	parameter Object Company
+	parameter Object BankAccount
+	parameter Object Currency
+	Main()
+class SelectDepositOrWithdrawalRadioButton : Step
+	%StepInfo[Desc="select Deposit or Withdrawal radio button",Group=""]
+	Main()
+class UserEntErsValuesForAdHocBankTransactionDetails : Step
+	%StepInfo[Desc="user enters values for Ad Hoc Bank Transaction Details ",Group=""]
+	parameter Object TransactionAmount
+	parameter Object Purpose
+	parameter Object Reference
+	Main()
+class ClickOnAdHocBankTransactionLinesTab : Step
+	%StepInfo[Desc="Click on Ad Hoc Bank Transaction Lines tab",Group=""]
+	Main()
+class UserEntErsValuesForAdHocBankTransactionLinesTable : Step
+	%StepInfo[Desc="user enters values for Ad Hoc Bank Transaction Lines table ",Group=""]
+	parameter Object LinesCompany
+	parameter Object SelectRevenueSpendCategory
+	parameter Object LedgerAccount
+	parameter Object Amount
+	parameter Object LinesMemo
+	parameter Object CostCenter
+	Main()
+class SearchCreatePurchaseOrderInTheSearchBar : Step
+	%StepInfo[Desc="Search Create Purchase Order in the search bar",Group=""]
+	parameter Object PaymentType
+	Main()
+class UserCliCkOnCreatePurchaseOrderLink : Step
+	%StepInfo[Desc="user click on Create Purchase Order link",Group=""]
+	Main()
+class UserShouldProvideValideDataToCreatePurchaseOrderCompanyAndSupplierAndCurrency : Step
+	%StepInfo[Desc="user should provide valide data to create purchase order Company and Supplier and Currency",Group=""]
+	parameter Object Company
+	parameter Object Supplier
+	parameter Object Currency
+	Main()
+class EntErTpdayDateForDocumentDateField : Step
+	%StepInfo[Desc="enter tpday date for Document date field",Group=""]
+	Main()
+class CliCkOnCreateBlanckPurchaseOrderRadioButton : Step
+	%StepInfo[Desc="click on Create blanck purchase order radio button",Group=""]
+	Main()
+class CliCkOnOKButton : Step
+	%StepInfo[Desc="click on OK button",Group=""]
+	Main()
+class UserShouldBeAbleToSeeCreatePurchaseOrderPage : Step
+	%StepInfo[Desc="user should be able to see Create Purchase Order page",Group=""]
+	Main()
+class UserProvideDataForSummarySection : Step
+	%StepInfo[Desc="user provide data for summary section ",Group=""]
+	parameter Object Supplier
+	parameter Object Currency
+	parameter Object FreightAmount
+	parameter Object OtherCharges
+	Main()
+class UserShouldProvideProPerDataForTermsAndTaxesSetion : Step
+	%StepInfo[Desc="user should provide proper data for Terms and Taxes setion ",Group=""]
+	parameter Object PaymentTerms
+	parameter Object OverridePaymentType
+	parameter Object ShippingTerms
+	parameter Object ShippingMethod
+	parameter Object ShippingInstructions
+	parameter Object SupplierContract
+	parameter Object DefaultTaxOption
+	parameter Object DefaultTaxCode
+	Main()
+class GoToContactInformationSectionAndProvideData : Step
+	%StepInfo[Desc="Go to Contact Information section and provide data ",Group=""]
+	parameter Object IssueOption
+	parameter Object Buyer
+	parameter Object BillTocontact
+	parameter Object BillToContactDetails
+	parameter Object BillToAddress
+	parameter Object ShipToContact
+	parameter Object ShipToContactDetail
+	parameter Object ShipToAddress
+	parameter Object Memo
+	parameter Object InternalMemo
+	Main()
+		
+		
+		
+		
+class GettingStepsFromFeatureFile : Step
+	%StepInfo[Group="TestCase"]
+	parameter String sUpdatedFeatureFile
+	parameter List<String> lsTestInfo
+	parameter List<String> lsKeyWords
+	parameter String sUpdatedFile
+	out parameter List<String> lsATTestInfo
+	Main()
+		Integer iPosition,iIndex,iLength,iRemove
+		String sStepName,sStepName1,sStepName2=" ",sPar,sSubString
+		List<String> lsStepName,lsStepNames,lsData,lsSplit
+		
+		step OpenAndReadTextFile
+			sFile:sTCFeatureFile+sUpdatedFeatureFile
+		// Print (OpenAndReadTextFile.lsData)
+		
+		for (Integer iLoop =1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Contains("Scenario Outline:")|| OpenAndReadTextFile.lsData[iLoop].Contains ("Scenario:")//Searching for "Scenario Outline:" 
+				for (Integer jLoop = iLoop+1; jLoop<=OpenAndReadTextFile.lsData.Count(); jLoop++)//Getting Step name
+					for (Integer kLoop = 1; kLoop<=lsKeyWords.Count(); kLoop++)//Searching KeyWords. Ex: Given, When, Then, And and But. 
+						if OpenAndReadTextFile.lsData[jLoop].Contains(lsKeyWords[kLoop])
+							sStepName = OpenAndReadTextFile.lsData[jLoop].GetField (lsKeyWords[kLoop], 2)//Removing KeyWords.
+							lsStepName = sStepName.Split (" ")
+							sStepName2=" "
+							for (Integer mLoop = 1; mLoop<=lsStepName.Count(); mLoop++)//Removing space between the step words.
+								sStepName1=lsStepName[mLoop].TrimLeft()
+								sStepName1 = sStepName1.Replace (sStepName1[1], sStepName1[1].ToUpper())//Change first leter into Upper case.
+								sStepName2 = sStepName2+sStepName1//convert step name into camelcase type.
+								if mLoop==lsStepName.Count()
+									if lsStepNames.IsNull()
+										lsTestInfo.Add (String.Tabs(2)+"step {sStepName2.TrimLeft()}")// Getting Step Name.
+										if OpenAndReadTextFile.lsData[jLoop+1].Contains("|")
+											List<String> lsPara = OpenAndReadTextFile.lsData[jLoop+1].Split ("|")//Spliting all parameters with '|'.
+											for (Integer nLoop=1; nLoop<=lsPara.Count(); nLoop++)//Getting all parameters.
+												if lsPara[nLoop].IsAlphaNumeric()
+													lsTestInfo.Add (String.Tabs(3)+"{lsPara[nLoop].Replace("|","").TrimLeft()}:_")// Getting prameters
+											break
+									else
+										lsTestInfo.Add (String.Tabs(2)+"step {sStepName2.TrimLeft()}")// Getting Step info.
+										if OpenAndReadTextFile.lsData[jLoop+1].Contains("|")
+											List<String> lsPara = OpenAndReadTextFile.lsData[jLoop+1].Split ("|")//Spliting all parameters with '|'.
+											for (Integer nLoop=1; nLoop<=lsPara.Count(); nLoop++)//Getting all parameters.
+												if lsPara[nLoop].IsAlphaNumeric()
+													lsTestInfo.Add (String.Tabs(3)+"{lsPara[nLoop].Replace("|","").TrimLeft()}:_")// Getting prameters
+										break
+										
+		//Getting Parameter names from data driven senario. 
+		for (Integer iLoop = 1; iLoop<=lsTestInfo.Count(); iLoop++)
+			if lsTestInfo[iLoop].Contains ("<")
+				iPosition = lsTestInfo[iLoop].IndexOf ("""<")
+				iIndex = lsTestInfo[iLoop].LastIndexOf (">""")
+				iLength = lsTestInfo[iLoop].Length ()
+				iRemove = iIndex-iPosition
+				sSubString = lsTestInfo[iLoop].Substring (iPosition, iRemove+2)
+				sSubString = sSubString.Replace ("""", " ")
+				sSubString = sSubString.Replace ("<", " ")
+				sSubString = sSubString.Replace (">", " ")
+				sSubString = sSubString.Replace (" And ", " ")
+				sSubString = sSubString.Replace (" and ", " ")
+				lsSplit = sSubString.Split("  ")
+				lsTestInfo[iLoop] = lsTestInfo[iLoop].Remove (iPosition, iRemove+2)// Removing all variables in step name.
+				lsData.Add (lsTestInfo[iLoop])
+				if lsTestInfo[iLoop].Contains ("step ")
+					for (Integer jLoop = 1; jLoop<=lsSplit.Count(); jLoop++)//Getting all variable names in step name.
+						if !lsSplit[jLoop].IsEmpty()
+							lsSplit[jLoop]=lsSplit[jLoop].Replace("-","")
+							lsData.Add (String.Tabs(3)+"{lsSplit[jLoop].Replace(" ","").TrimLeft()}:_")
+			else
+				lsData.Add (lsTestInfo[iLoop])
+		// Print (lsData)
+		TextFile textFile
+		textFile.Open (sUpdatedTCFiles+sUpdatedFile, FileMode.Append)
+		for (Integer iLoop = 1; iLoop<=lsData.Count(); iLoop++)
+			textFile.Write (lsData[iLoop])
+		textFile.Close ()
+		// lsData.WriteFile (sUpdatedTCFiles+sUpdatedFile)
+		

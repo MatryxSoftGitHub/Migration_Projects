@@ -1,0 +1,42 @@
+﻿const String sApp_Type = "Window"
+String sUFTExcelPath = "C:\VBtoZLanguage\Default"
+String sCSVExcelPath = "C:\VBtoZLanguage\ConvertedDSFile\Default"
+String sActCSVFilePath = "C:\VBtoZLanguage\ConvertedDSFile\"
+String sFunctionsZFiles = "ATFunctionFiles\ATFunctions.z"
+//Environment.Value("currentState")
+String sCurrentState = "NC"
+
+// Environment.Value("SuiteToExecute")
+String sSuiteToExecute = "BVT"
+
+String loanTypeUsedData 
+
+// Handling DataeDitor unexpected dialogbox
+AddHandler_DataEditorOK(AppObject ao)
+	%FuncInfo[Desc="Handles Dialogbox OK in DataEditor",Group="DB Conversion"]
+	ao.OK.Click ()
+	
+
+
+
+
+
+
+
+// '@methodName : getValue_AddApplicant_Search_CoApplicantWindow()
+// '@Author     : Chandra
+// '@Date       : 31 July 2018
+// '@Description: This Function will get the value in Add Applicant Search Co-Applicant Credit Decision Window
+// 
+// 'Ex:Call getValue_AddApplicant_Search_CoApplicantWindow("last_name") 
+// '*******************************************************************************************************************
+// getValue_AddApplicant_Search_CoApplicantWindow(String ColName)
+	//  %FuncInfo[Desc="This Function will get the value in Add Applicant Search Co-Applicant Credit Decision Window.",Group="BranchPlusFieldLevelValidation"]
+	// String sGetValue_AddApplicant_Search_CoApplicantWindow,CellValue
+	// if BranchPlus.CreditDecision.w_search_coapplicant.dw_list.WaitWhileExist(10)
+		// //'get cell value 
+		// CellValue = BranchPlus.CreditDecision.w_search_coapplicant.dw_list.GetCellData("#1",ColName)
+	// sGetValue_AddApplicant_Search_CoApplicantWindow = CellValue
+	// //'Error Handling
+	// if GetErrorCount()>0 
+		// LogError("Failed Step/Function: getValue_AddApplicant_Search_CoApplicantWindow , Failed")

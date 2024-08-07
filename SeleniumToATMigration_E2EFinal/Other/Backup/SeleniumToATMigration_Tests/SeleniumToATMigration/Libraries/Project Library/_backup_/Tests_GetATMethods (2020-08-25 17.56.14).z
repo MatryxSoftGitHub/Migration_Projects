@@ -1,0 +1,142 @@
+﻿
+class SeleniumMethodsMigrationToAscentialTestMethods : Test
+	%TestInfo[Desc="Converts Selenium Java Files Iinto AscentialTest Zee files",Group="MainConversionTest",Table="Dt_DataPaths"]
+	parameter String TestCaseID
+	Main()
+		List<record_Paths> lrRecord_Paths = DataStore.Query ("Dt_DataPaths")
+		Integer iReadFilePathCount
+		String sJavaFilePath,sTxtFilePath,sIndentationFilePath,sImplicitExplicitFilePath,sAscentialFilePath,sAscentialZeeFilePath, sSeq1OutFilePath
+		
+		// PreRequisites Clear all Previous Run textfiles and creates a new folder for the new run
+		step DeletingExistingConversionFolders
+		step CreateFolderPathsForATConversion
+		
+		// Gets a Single Text file with all the converted SelFunction line to AT class
+		step GetASingleTextFileWithAllSteps
+			TestCaseID:TestCaseID
+		
+		sTextFolderPath = sTextFolderPath + "\"
+		sImplicitExplicitWaitFolderPath = sImplicitExplicitWaitFolderPath + "\"
+		sAscentialTestFolderPath = sAscentialTestFolderPath + "\"
+		sSequence1OutputFilePath = sSequence1OutputFilePath + "\"
+		
+		// Actual TestCode
+		for (Integer i = 1; i<=lrRecord_Paths.Count(); i++)
+			iReadFilePathCount = DataStore.Query ("Dt_DataPaths[{i}].lsJavaFile").Count ()// //Fetching Source code file path from Data Tables
+			for (Integer j = 1; j<=iReadFilePathCount; j++)
+				sJavaFilePath="{lrRecord_Paths[i].lsJavaFile[j]}"
+				sTxtFilePath = "{lrRecord_Paths[i].lsTxtFile[j]}"
+				sIndentationFilePath="{lrRecord_Paths[i].lsIndentationFile[j]}"
+				sImplicitExplicitFilePath="{lrRecord_Paths[i].lsImplicitExplicitWaitFile[j]}"
+				sAscentialFilePath="{lrRecord_Paths[i].lsAscentialFile[j]}"
+				sAscentialZeeFilePath="{lrRecord_Paths[i].sStepsZeeFile}"
+				sSeq1OutFilePath = "{lrRecord_Paths[1].sATClass_SelFunctionOut}"
+				
+				// Step1
+				step ConvertSelMethodlineToATClassMethodFormat_Seq1
+					FileName:sSeleniumJavaFolderPath+sJavaFilePath
+					OutputFileName:sTextFolderPath+sTxtFilePath
+				
+				//Step2
+				step IndentationAndRemoveBraces_Seq2
+					lsSeq1Data:ConvertSelMethodlineToATClassMethodFormat_Seq1.lsData
+					Indent_OutFileName:sTextFolderPath+sIndentationFilePath
+					sFindParentfromJavaFileName:sJavaFilePath
+					
+					sIntegratedOutFileName:sSequence1OutputFilePath+sSeq1OutFilePath
+				
+				//Step3
+				step ConvertSelImplicitandExplicitWaitToATWaits_Seq3
+					Waits_OutputFileName:sTextFolderPath+sImplicitExplicitFilePath
+					lsData:IndentationAndRemoveBraces_Seq2.lsData
+				Print (ConvertSelImplicitandExplicitWaitToATWaits_Seq3.lsImplicitExplicitData)
+				
+				//Step4
+				step Sleeps_DataTypeConversion_Replacement_Seq4
+					OutSleepFileName:sImplicitExplicitWaitFolderPath+sImplicitExplicitFilePath
+					lsData:ConvertSelImplicitandExplicitWaitToATWaits_Seq3.lsImplicitExplicitData
+				
+				//Step5
+				step Methods_Replacement_Seq5
+					SleepFileName:sImplicitExplicitWaitFolderPath+sImplicitExplicitFilePath
+					MethodOutFileName:sAscentialTestFolderPath+sAscentialFilePath
+				// 
+				//Step6
+				step FinalStepZeeFile_Seq6
+					sStepTextFile:sAscentialTestFolderPath+sAscentialFilePath
+					sStepZeeFile:sAscentialTestFolderPath+sAscentialZeeFilePath
+		
+		
+class SeleniumFinalSelJavaToATZee : Test
+	%TestInfo[Desc="Converts Selenium Java Files Iinto AscentialTest Zee files",Group="MainConversionTest",Table="Dt_DataPaths"]
+	parameter String TestCaseID
+	Main()
+		List<record_Paths> lrRecord_Paths = DataStore.Query ("Dt_DataPaths")
+		Integer iReadFilePathCount
+		String sJavaFilePath,sTxtFilePath,sIndentationFilePath,sImplicitExplicitFilePath,sAscentialFilePath,sAscentialZeeFilePath, sSeq1OutFilePath
+		
+		// PreRequisites Clear all Previous Run textfiles and creates a new folder for the new run
+		step DeletingExistingConversionFolders
+		step CreateFolderPathsForATConversion
+		
+		// Gets a Single Text file with all the converted SelFunction line to AT class
+		step GetASingleTextFileWithAllSteps
+			TestCaseID:TestCaseID
+		
+		sTextFolderPath = sTextFolderPath + "\"
+		sImplicitExplicitWaitFolderPath = sImplicitExplicitWaitFolderPath + "\"
+		sAscentialTestFolderPath = sAscentialTestFolderPath + "\"
+		sSequence1OutputFilePath = sSequence1OutputFilePath + "\"
+		
+		// Actual TestCode
+		for (Integer i = 1; i<=1; i++)
+			iReadFilePathCount = DataStore.Query ("Dt_DataPaths[{i}].lsJavaFile").Count ()// //Fetching Source code file path from Data Tables
+			for (Integer j = 1; j<=iReadFilePathCount; j++)
+				sJavaFilePath="{lrRecord_Paths[i].lsJavaFile[j]}"
+				sTxtFilePath = "{lrRecord_Paths[i].lsTxtFile[j]}"
+				sIndentationFilePath="{lrRecord_Paths[i].lsIndentationFile[j]}"
+				sImplicitExplicitFilePath="{lrRecord_Paths[i].lsImplicitExplicitWaitFile[j]}"
+				sAscentialFilePath="{lrRecord_Paths[i].lsAscentialFile[j]}"
+				sAscentialZeeFilePath="{lrRecord_Paths[i].sStepsZeeFile}"
+				sSeq1OutFilePath = "{lrRecord_Paths[1].sATClass_SelFunctionOut}"
+				
+				// Step1
+				step ConvertSelMethodlineToATClassMethodFormat_Seq1
+					FileName:sSeleniumJavaFolderPath+sJavaFilePath
+					OutputFileName:sTextFolderPath+sTxtFilePath
+				
+				//Step2
+				step IndentationAndRemoveBraces_Seq2
+					lsSeq1Data:ConvertSelMethodlineToATClassMethodFormat_Seq1.lsData
+					Indent_OutFileName:sTextFolderPath+sIndentationFilePath
+					sFindParentfromJavaFileName:sJavaFilePath
+					
+					sIntegratedOutFileName:sSequence1OutputFilePath+sSeq1OutFilePath
+				
+				//Step3
+				step ConvertSelImplicitandExplicitWaitToATWaits_Seq3
+					Waits_OutputFileName:sTextFolderPath+sImplicitExplicitFilePath
+					lsData:IndentationAndRemoveBraces_Seq2.lsData
+				Print (ConvertSelImplicitandExplicitWaitToATWaits_Seq3.lsImplicitExplicitData)
+				
+				//Step4
+				step Sleeps_DataTypeConversion_Replacement_Seq4
+					OutSleepFileName:sImplicitExplicitWaitFolderPath+sImplicitExplicitFilePath
+					lsData:ConvertSelImplicitandExplicitWaitToATWaits_Seq3.lsImplicitExplicitData
+				
+				//Step5
+				step Methods_Replacement_Seq5
+					SleepFileName:sImplicitExplicitWaitFolderPath+sImplicitExplicitFilePath
+					MethodOutFileName:sAscentialTestFolderPath+sAscentialFilePath
+				// 
+				// Step 6 Adding Parent
+				step AddParentNameToAppObjects
+					lsMethodFunctions:Methods_Replacement_Seq5.lsData
+					sParentObjectName:sJavaFilePath
+				
+				// Step7
+				step FinalStepZeeFile_Seq7
+					sStepZeeFile:sAscentialTestFolderPath+sAscentialZeeFilePath
+					lsParentAddedOutFile:AddParentNameToAppObjects.lsParentObject
+				
+		

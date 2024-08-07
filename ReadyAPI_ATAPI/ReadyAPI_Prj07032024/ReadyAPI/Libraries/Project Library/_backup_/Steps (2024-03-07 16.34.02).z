@@ -1,0 +1,10 @@
+﻿class Demo : Step
+	parameter String sVal2
+	Main()
+		String sVal = "A"
+		String sVal1 = "F"
+		if sVal2>"C"
+			Print("aaa")
+		else
+			Print ("wwww")
+		

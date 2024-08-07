@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="21CA2120">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="Record_TestsFilePath">
+			<Field Name="lsJavaFile" Type="ListOfString"/>
+			<Field Name="lsTxtFile" Type="ListOfString"/>
+			<Field Name="lsIndentationFile" Type="ListOfString"/>
+			<Field Name="lsImplicitansExplicitWait" Type="ListOfString"/>
+			<Field Name="lsAscentialFile" Type="ListOfString"/>
+			<Field Name="sTestsZee" Type="String"/>
+			<Field Name="sATClass_SelFunctionOut" Type="String"/>
+		</Record>
+		<List Name="Record_TestsFilePathList" ItemType="Record_TestsFilePath"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_TestsFilePaths" Type="Record_TestsFilePathList">
+			<Record_TestsFilePath>
+				<lsJavaFile/>
+				<lsTxtFile/>
+				<lsIndentationFile/>
+				<lsImplicitansExplicitWait/>
+				<lsAscentialFile/>
+			</Record_TestsFilePath>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_TestsFilePaths"/>
+	</Layout>
+</DataStore>

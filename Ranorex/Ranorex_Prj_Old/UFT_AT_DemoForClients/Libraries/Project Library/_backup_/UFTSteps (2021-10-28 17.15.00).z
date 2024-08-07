@@ -1,0 +1,66 @@
+﻿class SaveOrder : Step
+	%StepInfo[Desc= "Save the created order.",Group=""]
+	parameter String sStartDate
+	parameter String sExpiryDate
+	parameter String sProduct
+	parameter String sCustomerName
+	parameter String sStreet
+	parameter String sCity
+	parameter String sState
+	parameter String sZip
+	parameter String sCard
+	Main()
+		String d_StartDate, d_ExpiryDate,sColName, sColValue
+		Integer iRowCount, R_Count, C_Count, row, rowCount
+		//Convert String to date format wssshile accessing from data table
+		d_StartDate=CDate(DataTable("sStartDate)
+		d_ExpiryDate=CDate(DataTable("sExpiryDate)
+		Neworder.Product.Select (sProduct)
+		//SetValue keys to set the StartDate
+		//Window("Orders").Dialog("New order").WinCalendar("StartDate").SetDate d_StartDate
+		Neworder.StartDate.Click()
+		Neworder.StartDate.SetValue(d_StartDate)
+		Neworder.txt_CustomerName.SetValue (sCustomerName)
+		Neworder.txt_Street.SetValue (sStreet)
+		Neworder.txt_City.SetValue (sCity)
+		Neworder.State.SetValue (sState)
+		Neworder.txt_Zip.SetValue (sZip)
+		//Update the text property to the datatable value to select the radio button
+		Neworder.rbn_Card.Click()
+		//SetValue keys to set the ExpirationDate 
+		Neworder.ExpirationDate.Click()
+		Neworder.ExpirationDate.SetValue(d_ExpiryDate)
+		Neworder.btn_OK.Click()
+		for(Integer i=0;i<R_Count;i=i++)
+			for(Integer j=0;j<C_Count;j=j++)
+				Orders.lvw_Orders.GetColumnHeader(j)
+				Orders.lvw_Orders.GetSubItem(i,sColName)
+				if (sColValue="Dileep"=true)
+					Orders.lvw_Orders.GetItem(i)
+					Orders.lvw_Orders.GetSubItem(sColValue)
+					Print("Fetched Cell Value Row Number: ", rowCount)
+					Print("Fetched Cell Value: ", row)
+			
+			
+		
+class Create_NewOrder : Step
+	%StepInfo[Desc= "Enter all the details in the New Order dialogbox.",Group=""]
+	parameter String FileName
+	Main()
+		Integer R_Count = 0
+		Orders.File.SaveAs.Select()                                       //This is a Menu.
+		Save.Filename.SetValue (FileName)
+		Save.Save.Click()
+		if (ConfirmSaveAs.IsPresent())
+			ConfirmSaveAs.Yes.Click()
+		
+		Orders.Close()
+		//Function call to fetch Perticular row value
+		while (R_Count-1=0)
+			Print("Enter In To while Loop")
+			Orders.lvw_Orders.GetItem(i)
+			Orders.lvw_Orders.GetSubItem(sColValue)
+			Print("Fetched Cell Value Row Number: ", rowCount)
+			Print("Fetched Cell Value: ", row)
+		
+

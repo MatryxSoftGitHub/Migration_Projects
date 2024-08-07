@@ -1,0 +1,52 @@
+﻿app MainWin Orders
+		path [@ObjectClass=="Orders"]
+		path [@WinClass=="Afx:"]
+		AppObject lvw_Header
+			path [@WinClass=="SysHeader32"]
+		MenuItem Menu
+			path [@Text==2]
+		ListView lvw_Orders
+			path [@WinClass=="SysListView32"]
+app DialogBox Orders1
+		path [@Text=="Orders"]
+		path [@WinClass=="#32770"]
+		PushButton No
+			path [@Text=="&No"]
+			path [@WinClass=="Button"]
+app DialogBox Neworder
+		path [@Text=="New order"]
+		path [@WinClass=="#32770"]
+		RadioButton rbn_MasterCard
+			path [@Text=="Master Card"]
+			path [@WinClass=="Button"]
+		TextField txt_Zip
+			path [@WinClass=="Edit"]
+			path [right of StaticText[@Text=="Zip:"]]
+		TextField txt_Street
+			path [@WinClass=="Edit"]
+			path [right of StaticText[@Text=="Street:"]]
+		TextField txt_CustomerName
+			path [@WinClass=="Edit"]
+			path [right of StaticText[@Text=="Customer Name:"]]
+		TextField txt_City
+			path [@WinClass=="Edit"]
+			path [right of StaticText[@Text=="City:"]]
+		TextField txt_CardNr
+			path [@WinClass=="Edit"]
+			path [right of StaticText[@Text=="Card Nr:"]]
+		TextField State
+			path [@WinClass=="Edit"]
+			path [right of StaticText[@Text=="State:"]]
+		ComboBox Product
+			path [@WinClass=="ComboBox"]
+			path [right of StaticText[@Text=="Product :"]]
+		AppObject StartDate
+			path [@WinId==1003]
+			path [@WinClass=="SysDateTimePick32"]
+		AppObject ExpirationDate
+			path [@WinId==1015]
+			path [@WinClass=="SysDateTimePick32"]
+		PushButton btn_OK
+			path [@Text=="OK"]
+			path [@WinClass=="Button"]
+

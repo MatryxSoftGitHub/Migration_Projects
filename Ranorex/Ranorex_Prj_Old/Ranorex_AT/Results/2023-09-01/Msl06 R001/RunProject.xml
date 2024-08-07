@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RunProject>
+	<Run>
+		<RunDate>2023-09-01</RunDate>
+		<RunComputer>Msl06</RunComputer>
+		<RunNumber>1</RunNumber>
+		<RunEntity>Demo</RunEntity>
+	</Run>
+	<Project GUID="F05E6B4B4D9A7651244C1DBF4D583CD0">
+		<Name>Ranorex_AT</Name>
+		<Types CRC="42CBD8C6"/>
+		<Declare>
+			<Attributes>
+				<Attribute Name="RunCount" Type="Integer" Optional="true"/>
+				<Attribute Name="RunGroup" Type="String" Optional="true"/>
+				<Attribute Name="RunPriority" Type="Integer" Optional="true"/>
+				<Attribute Name="Author" Type="String"/>
+			</Attributes>
+		</Declare>
+		<Plans>
+			<Plan GUID="C5A5E3C140E4A760AF458092610A4828">
+				<Name>Demo</Name>
+				<Nodes>
+					<Node GUID="0EFE8A3E49B843BBCACE7ABDC8BA06EE">
+						<Name>Converting Ranorex OR to AT OR.</Name>
+						<Attributes>
+							<Author>Nagarjuna</Author>
+						</Attributes>
+						<RunTest TestNumber="1"/>
+					</Node>
+					<Node GUID="EEC6BC3644F4EC2E8D654CBCE5265BAD">
+						<Name>Converting Ranorex OR to AT OR.</Name>
+						<Attributes>
+							<Author>Nagarjuna</Author>
+						</Attributes>
+						<RunTest TestNumber="2"/>
+					</Node>
+				</Nodes>
+			</Plan>
+		</Plans>
+	</Project>
+</RunProject>

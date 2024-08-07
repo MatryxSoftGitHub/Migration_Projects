@@ -1,0 +1,44 @@
+﻿const String sApp_Type = "Window"
+String sUFTExcelPath = "C:\VBtoZLanguage\Default"
+String sCSVExcelPath = "C:\VBtoZLanguage\ConvertedDSFile\Default"
+String sActCSVFilePath = "C:\VBtoZLanguage\ConvertedDSFile\"
+String sFunctionsZFiles = "ATFunctionFiles\ATFunctions.z"
+//Environment.Value("currentState")
+String sCurrentState = "NC"
+
+// Environment.Value("SuiteToExecute")
+String sSuiteToExecute = "BVT"
+
+String loanTypeUsedData 
+
+// Handling DataeDitor unexpected dialogbox
+AddHandler_DataEditorOK(AppObject ao)
+	%FuncInfo[Desc="Handles Dialogbox OK in DataEditor",Group="DB Conversion"]
+	ao.OK.Click ()
+	
+
+//SQL Functions
+String windowName = ""
+String date = Date.Now().Format("MM/dd/yyyy")
+String delinqStatus
+String contractual_status 
+
+//#####################################################################################
+//     BRANCH Functions
+//#####################################################################################
+String sCapturePath = "C:\Temp\"
+String sSSFileName = "DesktopSS_"
+String sUsername
+String sPassword
+String sNetworkUsername
+String sNetworkPasscode
+String screenShotFileName
+String sBranchPlusApp = ""
+String sBranchPlusSQLPath = ""
+String sEnvDefermentAmtRecvd = ""
+String sEnvAmtReceived = ""
+String osVersion
+String CellData
+String Promise_FutureDate,Promise_FutureDate_Time,time_period
+String Activity_Date
+

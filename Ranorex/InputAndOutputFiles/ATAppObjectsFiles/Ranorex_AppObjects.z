@@ -1,0 +1,70 @@
+﻿app MainPage SelectADataSource
+	path [@Caption=="Select a data source:"]
+	Window ButtonOK
+		path button[@Text=='OK']
+app MainPage PowerBuilderUltimateSuiteSampleAppli
+	path [@Caption=="PowerBuilder Ultimate Suite Sample Application"]
+	Window Element2000
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinClass=='FNUDO3125 '][8]
+	// Window Text25
+		// path Window[@WinId==1004]/Window[@WinId==1006]/descendant-or-self::*/TextField[@WinClass=='Edit']
+	Window EmpLname
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/TextField[@Text=='emp_lname']
+	Window ListItem
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/AppObject[@Text=='manager_id']/Item[@WinClass=='ComboBox']
+	Window RD
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/AppObject[@Text=='dept_id']/Item[@Text=='R &amp; D']
+	Window ComboBoxSex
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/ComboBox[@Text=='sex']
+	Window Street
+		path Window[@WinId==1004]/Window[@WinId==1006]/TextField[@Text=='street' && @WinClass=='Edit']
+	Window City
+		path Window[@WinId==1004]/Window[@WinId==1006]/TextField[@Text=='city' && @WinClass=='Edit']
+	Window ListItemAB
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/AppObject[@Text=='state']/Item[@Text=='AB']
+	Window ZipCode
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/TextField[@Text=='zip_code']
+	Window Phone
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/TextField[@Text=='phone']
+	Window StartDate
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/TextField[@Text=='start_date']
+	Window TerminationDate
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/TextField[@Text=='termination_date']
+	Window Element1005
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1005]
+	Window Element1004
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1004]
+	Window Status
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/ComboBox[@Text=='status']
+	Window Male
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]/ComboBox[@Text=='sex']/Item[@Text=='Male']
+	Window Element20001
+		path Window[@WinId==1003]/Window[@WinId==1000]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][1]
+	Window Element1006
+		path Window[@WinId==1004]/Window[@WinId==1006]/Window[@WinId==2000 && @WinClass=='FNUDO3125 '][2]/Window[@WinId==1006]
+	Window Element1001
+		path Window[@WinId==1003]/Window[@WinId==1000]/Window[@WinId==1001]
+	Window BOD
+		path Window[@WinId==1004]/Window[@WinId==1006]/TextField[@Text=='birth_date']
+	Window Salary
+		path Window[@WinId==1004]/Window[@WinId==1006]/TextField[@Text=='salary']
+	Window DateOfBirth
+		path Window[@WinId==1004]/Window[@WinId==1006]/TextField[@Text=='birth_date']
+	Window SocialSecurity
+		path Window[@WinId==1004]/Window[@WinId==1006]/TextField[@Text=='ss_number']
+app MainPage PbusSample
+	path [@Caption==""]
+	Window ButtonOK
+		path button[@Text=='OK']
+	Window ButtonNo
+		path button[@Text=='No']
+app MainPage SelectEmployee
+	path [@Caption=="Select Employee"]
+	Window EmpLname
+		path Window[@WinId==1003]/TextField[@Text=='$varEmployeeName']
+	Window Element1000
+		path Window[@WinId==1000]
+	Window ButtonOK
+		path button[@Text=='OK']
+app MainPage varEmployeeName
+	path [@Caption==""]

@@ -1,0 +1,342 @@
+﻿class ConvertCSVtoDS : Step
+	%StepInfo[Desc="Converts CSV File to AT .DS format",Group="DB Conversion"]
+	parameter String sFileName = null
+	Main()
+		List <FileInfo> lFileInfo = System.GetFileList (sActCSVFilePath, "*.csv")
+		Print (lFileInfo)
+		String sFileName
+		List<String> lsFileNames
+		// for (Integer i = 1; i<=lFileInfo.Count(); i++)
+			// sFileName = lFileInfo[i].Name.Replace ("Default", "DT")
+			// System.Execute ("REN  {sActCSVFilePath+ lFileInfo[i].Name} {sFileName}")
+			// Sleep(2)
+			// lsFileNames.Add(sFileName)
+		// Print (lsFileNames)
+		// Launch Dataeditor and convert to .DS File
+		System.Run ("DataEditor.exe")
+		Sleep(2)
+		for (Integer i = 1; i<=lsFileNames.Count(); i++)
+			ZeenyxDataEditor.MainMenu.Data.ImportFromCSV.Select ()//Getting File info.
+			Sleep(2)
+			UA.GenKeyEvents (sActCSVFilePath+sFileName, 0.2)
+			UA.GenKeyEvents ("<Enter>")
+			Sleep (1)
+			ZeenyxDataEditor.MainMenu.File.SaveAs.Select ()
+			sFileName = sFileName.Replace (".csv", ".ds")
+			UA.GenKeyEvents (sActCSVFilePath+sFileName, 0.2)
+			UA.GenKeyEvents ("<Enter>")
+		ZeenyxDataEditor.MainMenu.File.Click()
+		ZeenyxDataEditor.MainMenu.File.New.Click()
+		ZeenyxDataEditor.Close()
+		
+		
+
+
+class OpenAndReadTextFile : Step
+	%StepInfo[Desc="Open and read the text file",Group="TextFile"]
+	parameter String sFile
+	out parameter List<String> lsData
+	Main()
+		String sData
+		TextFile textFile
+		
+		textFile.Open (sFile, FileMode.Read, FileEncoding.Auto)// Reading from Source file
+		while textFile.Read (sData) //fetching all data into a list
+			lsData.Add (sData)
+			// Print (lsData)
+		textFile.Close()
+		
+class DeleteExistingFiles : Step
+	%StepInfo[Desc="Delete all the existing files",Group="Common"]
+	parameter List<String> lsDeleteDir
+	Main()
+		//Delete all the existing files.
+		// String sPath=DataStore.Query("PathLocation")
+		for (Integer iLoop = 1; iLoop<=lsDeleteDir.Count(); iLoop++)
+			if System.FileExists (sCommonFilePath+lsDeleteDir[iLoop])
+				System.DeleteDir (sCommonFilePath+lsDeleteDir[iLoop], DeleteFlags.{Force,Recurse})
+				Sleep(2)
+				System.CreateDir (sCommonFilePath+lsDeleteDir[iLoop])
+		
+class ExecuteCommandPath : Step
+	%StepInfo[Desc="To Find the Comand Execution Directory Path",Group="Common"]
+	out parameter String sDefaultDirectoryPath = null
+	Main()
+		// Declaration of Variables
+		List<String> lsDirPaths
+		String sDirectory
+		
+		String sCommand = "dir"
+		System.Execute (sCommand, lsDirPaths)
+		List<String> lsDirectory
+		for (Integer i = 1; i<=lsDirPaths.Count(); i++)
+			if lsDirPaths[i].Contains ("Directory")
+				sDirectory = lsDirPaths[i]
+				sDefaultDirectoryPath = sDirectory.Replace (" Directory of ", "")
+		Print(sDefaultDirectoryPath)
+		
+
+class GettingStepNameAndInfoAndParameters : Step
+	%StepInfo[Desc="Getting step name,  Info, parameter and inputs.",Group="Steps"]
+	parameter List<String> lsFeatureFile
+	parameter List<String> lsKeyWords
+	parameter String sUpdatedFile
+	out parameter List<String> lsAllParameters
+	out parameter List<String> lsAllInputs
+	Main()
+		Integer iPresent
+		String sStepName,sStepName1,sStepName2=" ",sPar
+		List<String> lsStepName,lsStepNames
+		
+		//Reading text file.
+		for (Integer iLoop = 1; iLoop<=lsFeatureFile.Count(); iLoop++)
+			step OpenAndReadTextFile
+				sFile:sFeatureFile+lsFeatureFile[iLoop]
+			
+			for (Integer iLoop =1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+				if OpenAndReadTextFile.lsData[iLoop].Contains("Scenario Outline:")//Searching for "Scenario Outline:" 
+					for (Integer jLoop = iLoop+1; jLoop<=OpenAndReadTextFile.lsData.Count(); jLoop++)//Getting Step name
+						for (Integer kLoop = 1; kLoop<=lsKeyWords.Count(); kLoop++)//Searching KeyWords. Ex: Given, When, Then, And and But. 
+							if OpenAndReadTextFile.lsData[jLoop].Contains(lsKeyWords[kLoop])
+								sStepName = OpenAndReadTextFile.lsData[jLoop].GetField (lsKeyWords[kLoop], 2)//Removing KeyWords.
+								lsStepName = sStepName.Split (" ")
+								sStepName2=" "
+								for (Integer mLoop = 1; mLoop<=lsStepName.Count(); mLoop++)//Removing space between the step words.
+									sStepName1=lsStepName[mLoop].TrimLeft()
+									sStepName1 = sStepName1.Replace (sStepName1[1], sStepName1[1].ToUpper())//Change first leter into Upper case.
+									sStepName2 = sStepName2+sStepName1//convert step name into camelcase type.
+									if mLoop==lsStepName.Count()
+										if lsStepNames.IsNull()
+											lsStepNames.Add ("class {sStepName2.TrimLeft()} : Step")// Getting Step info.
+											lsStepNames.Add (String.Tabs(1)+"%StepInfo[Desc=""{sStepName}"",Group=""""]")
+											if OpenAndReadTextFile.lsData[jLoop+1].Contains("|")
+												List<String> lsPara = OpenAndReadTextFile.lsData[jLoop+1].Split ("|")//Spliting all parameters with '|'.
+												for (Integer nLoop=1; nLoop<=lsPara.Count(); nLoop++)//Getting all parameters.
+													if lsPara[nLoop].IsAlphaNumeric()
+														lsPara[nLoop]=lsPara[nLoop].Replace("-","")
+														lsStepNames.Add (String.Tabs(1)+"parameter Object {lsPara[nLoop].Replace("|","").TrimLeft()}")// Getting prameters
+														lsAllParameters.Add (lsPara[nLoop])
+												lsPara={}
+												if OpenAndReadTextFile.lsData[jLoop+2].Contains ("|")
+													List<String> lsInputs = OpenAndReadTextFile.lsData[jLoop+2].Split ("|")// Spliting all inputs with '|'.
+													for (Integer pLoop = 1; pLoop<=lsInputs.Count(); pLoop++)// Getting all inputs.
+														if lsInputs[pLoop].IsEmpty ()
+															lsAllInputs.Add (lsInputs[pLoop])
+													lsInputs = {}
+											lsStepNames.Add (String.Tabs(1)+"Main()")
+											break
+										else
+											iPresent = lsStepNames.Find ("class {sStepName2.TrimLeft()} : Step")
+											if iPresent==0
+												lsStepNames.Add ("class {sStepName2.TrimLeft()} : Step")// Getting Step info.
+												lsStepNames.Add (String.Tabs(1)+"%StepInfo[Desc=""{sStepName}"",Group=""""]")
+												if OpenAndReadTextFile.lsData[jLoop+1].Contains("|")
+													List<String> lsPara = OpenAndReadTextFile.lsData[jLoop+1].Split ("|")//Spliting all parameters with '|'.
+													for (Integer nLoop=1; nLoop<=lsPara.Count(); nLoop++)//Getting all parameters.
+														if lsPara[nLoop].IsAlphaNumeric()
+															lsPara[nLoop]=lsPara[nLoop].Replace("-","")
+															lsStepNames.Add (String.Tabs(1)+"parameter Object {lsPara[nLoop].Replace("|","").TrimLeft()}")// Getting prameters
+															lsAllParameters.Add (lsPara[nLoop])
+													lsPara={}
+													if OpenAndReadTextFile.lsData[jLoop+2].Contains ("|")
+														List<String> lsInputs = OpenAndReadTextFile.lsData[jLoop+2].Split ("|")// Spliting all inputs with '|'.
+														for (Integer pLoop = 1; pLoop<=lsInputs.Count(); pLoop++)// Getting all inputs.
+															if !lsInputs[pLoop].IsEmpty()
+																lsAllInputs.Add (lsInputs[pLoop].Replace(",","?"))
+														lsInputs = {}
+												lsStepNames.Add (String.Tabs(1)+"Main()")
+												break
+												
+		//Updating Text File
+		TextFile UFTFMethodsModifiedFile
+		UFTFMethodsModifiedFile.Open (sUpdatedFiles+sUpdatedFile, FileMode.Write)
+		for (Integer iLoop = 1; iLoop<=lsStepNames.Count(); iLoop++)
+				UFTFMethodsModifiedFile.Write (lsStepNames[iLoop])
+		UFTFMethodsModifiedFile.Close()
+		
+class GettingAllParametersAndInputs : Step
+	%StepInfo[Desc="Getting all parameters and inputs from feature files.",Group="Steps"]
+	parameter List<String> lsFeatureFile
+	parameter List<String> lsAllParameters
+	parameter List<String> lsAllInputs
+	parameter String sParametersAndInputFile
+	Main()
+		String sAllParameters, sAllInputs
+		
+		//Reading Json File.
+		for (Integer iLoop = 1; iLoop<=lsFeatureFile.Count(); iLoop++)
+			step OpenAndReadTextFile
+				sFile:sFeatureFile+lsFeatureFile[iLoop]
+			
+			for (Integer iLoop =1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+				if OpenAndReadTextFile.lsData[iLoop].Contains("Examples: ")
+					if OpenAndReadTextFile.lsData[iLoop+1].Contains ("|")
+						List<String> lsPar = OpenAndReadTextFile.lsData[iLoop+1].Split ("|")// Spliting all inputs with '|'.
+						for (Integer pLoop = 1; pLoop<=lsPar.Count(); pLoop++)// Getting all inputs.
+							if !lsPar[pLoop].IsEmpty ()
+								lsPar[pLoop]=lsPar[pLoop].Replace("-","")
+								lsAllParameters.Add (lsPar[pLoop])
+						lsPar = {}
+					if OpenAndReadTextFile.lsData[iLoop+2].Contains ("|")
+						List<String> lsInputs = OpenAndReadTextFile.lsData[iLoop+2].Split ("|")// Spliting all inputs with '|'.
+						for (Integer nLoop = 1; nLoop<=lsInputs.Count(); nLoop++)// Getting all inputs.
+							if !lsInputs[nLoop].IsEmpty()
+								lsAllInputs.Add (lsInputs[nLoop].Replace(",","?"))
+						lsInputs = {}
+						
+		//updating Parameters and inputs in json file.
+		TextFile textFile
+		sAllParameters = String.Join (lsAllParameters, ",")//Converting String to list<String> by using delemiter ','. 
+		sAllInputs = String.Join (lsAllInputs, ",")
+		textFile.Open (sDataFile+sParametersAndInputFile, FileMode.Write)//Writing into json file.
+		textFile.Write (sAllParameters)
+		textFile.Write (sAllInputs)
+		
+class ConvertDataDrivenToATSteps : Step
+	%StepInfo[Desc="Convert Cucumber data driven to AT steps.",Group="Steps"]
+	parameter String sFeatureFile
+	parameter String sUpdatedFile
+	Main()
+		Integer iPosition,iIndex,iLength,iRemove
+		String sSubString
+		List<String> lsData,lsSplit
+		
+		//Reading Json File.
+		step OpenAndReadTextFile
+			sFile:sUpdatedFiles+sFeatureFile
+		
+		//Replacing unwanted things.
+		for (Integer iLoop =1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Contains("<")
+				iPosition = OpenAndReadTextFile.lsData[iLoop].IndexOf ("""<")
+				iIndex = OpenAndReadTextFile.lsData[iLoop].LastIndexOf (">""")
+				iLength = OpenAndReadTextFile.lsData[iLoop].Length ()
+				iRemove = iIndex-iPosition
+				sSubString = OpenAndReadTextFile.lsData[iLoop].Substring (iPosition, iRemove+2)
+				sSubString = sSubString.Replace ("""", " ")
+				sSubString = sSubString.Replace ("<", " ")
+				sSubString = sSubString.Replace (">", " ")
+				sSubString = sSubString.Replace (" And ", " ")
+				sSubString = sSubString.Replace (" and ", " ")
+				lsSplit = sSubString.Split("  ")
+				OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Remove (iPosition, iRemove+2)//Removing all variables in step name.
+				lsData.Add (OpenAndReadTextFile.lsData[iLoop])
+				if OpenAndReadTextFile.lsData[iLoop].Contains ("%StepInfo[Desc")
+					for (Integer jLoop = 1; jLoop<=lsSplit.Count(); jLoop++)//Getting all variable names in step name.
+						if !lsSplit[jLoop].IsEmpty()
+							lsSplit[jLoop]=lsSplit[jLoop].Replace("-","")
+							lsData.Add (String.Tabs(1)+"parameter Object {lsSplit[jLoop].Replace(" ","").TrimLeft()}")
+			else
+				lsData.Add (OpenAndReadTextFile.lsData[iLoop])
+		//Write all updated data into .z file.
+		lsData.WriteFile (sUpdatedFiles+sUpdatedFile)
+		
+
+class ConvertToATTestCase : Step
+	%StepInfo[Desc="Getting Test case info from feature file.",Group="TestCase"]
+	parameter String sFeatureFile
+	parameter String sUpdatedFile
+	out parameter List<String> lsTestInfo
+	Main()
+		//Reading text file.
+		String sTcInfo, sClassInfo
+		
+		step OpenAndReadTextFile
+			sFile:sTCFeatureFile+sFeatureFile
+		
+		for (Integer iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Contains ("Feature:")
+				sClassInfo = OpenAndReadTextFile.lsData[iLoop]
+				sClassInfo = sClassInfo.GetField ("Feature:", 2)
+				sClassInfo = sClassInfo.Replace (" ", "")
+				lsTestInfo.Add ("class {sClassInfo} : Test")
+			if OpenAndReadTextFile.lsData[iLoop].Contains ("Scenario Outline:") || OpenAndReadTextFile.lsData[iLoop].Contains ("Scenario:")
+				sTcInfo = OpenAndReadTextFile.lsData[iLoop]
+				sTcInfo = sTcInfo.GetField (":", 2)
+				sTcInfo = sTcInfo.TrimLeft ()
+				lsTestInfo.Add (String.Tabs(1)+"%TestInfo[Desc=""{sTcInfo}."",Group=""{sClassInfo}"",Table=""""]")
+				lsTestInfo.Add (String.Tabs(1)+"Main()")
+		lsTestInfo.WriteFile (sUpdatedTCFiles+sUpdatedFile)
+		
+
+class GettingStepsFromFeatureFile : Step
+	%StepInfo[Desc="Getting step names and parameters from feature file.",Group="TestCase"]
+	parameter String sUpdatedFeatureFile
+	parameter List<String> lsTestInfo
+	parameter List<String> lsKeyWords
+	parameter String sUpdatedFile
+	out parameter List<String> lsATTestInfo
+	Main()
+		Integer iPosition,iIndex,iLength,iRemove
+		String sStepName,sStepName1,sStepName2=" ",sPar,sSubString
+		List<String> lsStepName,lsStepNames,lsData,lsSplit
+		
+		step OpenAndReadTextFile
+			sFile:sTCFeatureFile+sUpdatedFeatureFile
+		// Print (OpenAndReadTextFile.lsData)
+		
+		for (Integer iLoop =1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Contains("Scenario Outline:")|| OpenAndReadTextFile.lsData[iLoop].Contains ("Scenario:")//Searching for "Scenario Outline:" 
+				for (Integer jLoop = iLoop+1; jLoop<=OpenAndReadTextFile.lsData.Count(); jLoop++)//Getting Step name
+					for (Integer kLoop = 1; kLoop<=lsKeyWords.Count(); kLoop++)//Searching KeyWords. Ex: Given, When, Then, And and But. 
+						if OpenAndReadTextFile.lsData[jLoop].Contains(lsKeyWords[kLoop])
+							sStepName = OpenAndReadTextFile.lsData[jLoop].GetField (lsKeyWords[kLoop], 2)//Removing KeyWords.
+							lsStepName = sStepName.Split (" ")
+							sStepName2=" "
+							for (Integer mLoop = 1; mLoop<=lsStepName.Count(); mLoop++)//Removing space between the step words.
+								sStepName1=lsStepName[mLoop].TrimLeft()
+								sStepName1 = sStepName1.Replace (sStepName1[1], sStepName1[1].ToUpper())//Change first leter into Upper case.
+								sStepName2 = sStepName2+sStepName1//convert step name into camelcase type.
+								if mLoop==lsStepName.Count()
+									if lsStepNames.IsNull()
+										lsTestInfo.Add (String.Tabs(2)+"step {sStepName2.TrimLeft()}")// Getting Step Name.
+										if OpenAndReadTextFile.lsData[jLoop+1].Contains("|")
+											List<String> lsPara = OpenAndReadTextFile.lsData[jLoop+1].Split ("|")//Spliting all parameters with '|'.
+											for (Integer nLoop=1; nLoop<=lsPara.Count(); nLoop++)//Getting all parameters.
+												if lsPara[nLoop].IsAlphaNumeric()
+													lsPara[nLoop] = lsPara[nLoop].Replace ("-", "")
+													lsTestInfo.Add (String.Tabs(3)+"{lsPara[nLoop].Replace("|","").TrimLeft()}:_")// Getting prameters
+											break
+									else
+										lsTestInfo.Add (String.Tabs(2)+"step {sStepName2.TrimLeft()}")// Getting Step info.
+										if OpenAndReadTextFile.lsData[jLoop+1].Contains("|")
+											List<String> lsPara = OpenAndReadTextFile.lsData[jLoop+1].Split ("|")//Spliting all parameters with '|'.
+											for (Integer nLoop=1; nLoop<=lsPara.Count(); nLoop++)//Getting all parameters.
+												if lsPara[nLoop].IsAlphaNumeric()
+													lsPara[nLoop] = lsPara[nLoop].Replace ("-", "")
+													lsTestInfo.Add (String.Tabs(3)+"{lsPara[nLoop].Replace("|","").TrimLeft()}:_")// Getting prameters
+										break
+										
+		//Getting Parameter names from data driven senario. 
+		for (Integer iLoop = 1; iLoop<=lsTestInfo.Count(); iLoop++)
+			if lsTestInfo[iLoop].Contains ("<")
+				iPosition = lsTestInfo[iLoop].IndexOf ("""<")
+				iIndex = lsTestInfo[iLoop].LastIndexOf (">""")
+				iLength = lsTestInfo[iLoop].Length ()
+				iRemove = iIndex-iPosition
+				sSubString = lsTestInfo[iLoop].Substring (iPosition, iRemove+2)
+				sSubString = sSubString.Replace ("""", " ")
+				sSubString = sSubString.Replace ("<", " ")
+				sSubString = sSubString.Replace (">", " ")
+				sSubString = sSubString.Replace (" And ", " ")
+				sSubString = sSubString.Replace (" and ", " ")
+				lsSplit = sSubString.Split("  ")
+				lsTestInfo[iLoop] = lsTestInfo[iLoop].Remove (iPosition, iRemove+2)// Removing all variables in step name.
+				lsData.Add (lsTestInfo[iLoop])
+				if lsTestInfo[iLoop].Contains ("step ")
+					for (Integer jLoop = 1; jLoop<=lsSplit.Count(); jLoop++)//Getting all variable names in step name.
+						if !lsSplit[jLoop].IsEmpty()
+							lsSplit[jLoop] = lsSplit[jLoop].Replace ("-", "")
+							lsData.Add (String.Tabs(3)+"{lsSplit[jLoop].Replace(" ","").TrimLeft()}:_")
+			else
+				lsData.Add (lsTestInfo[iLoop])
+		// Print (lsData)
+		TextFile textFile
+		textFile.Open (sUpdatedTCFiles+sUpdatedFile, FileMode.Append)
+		for (Integer iLoop = 1; iLoop<=lsData.Count(); iLoop++)
+			textFile.Write (lsData[iLoop])
+		textFile.Close ()
+		// lsData.WriteFile (sUpdatedTCFiles+sUpdatedFile)
+		
+
+

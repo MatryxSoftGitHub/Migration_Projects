@@ -1,0 +1,20 @@
+﻿// Directory Locations for Saving converted Files
+
+String sSeleniumJavaFolderPath = GetWorkingDirectoryPath()+"\Other\JavaFiles\" // manually need to be added to the working project folder
+String sTextFolderPath = GetWorkingDirectoryPath()+"\Other\TempTextFiles"
+String sImplicitExplicitWaitFolderPath = GetWorkingDirectoryPath()+"\Other\ImplicitExplicitWait"
+String sAscentialTestFolderPath = GetWorkingDirectoryPath()+"\Other\ATConvertedFiles"
+
+// Working Directory
+String sWorkingDirectory = ""
+String GetWorkingDirectoryPath()
+	%FuncInfo[Desc="Gets the Current Working Directory Path",Group="DirectoryPath"]
+	List<String> lsOut
+	System.Execute ("%CD%", lsOut)
+	sWorkingDirectory = lsOut[1].GetField ("'", 2)
+	sWorkingDirectory = sWorkingDirectory.GetField ("'", 1)
+	return sWorkingDirectory
+	
+
+// 
+const Integer iDotRepeatCount = 3

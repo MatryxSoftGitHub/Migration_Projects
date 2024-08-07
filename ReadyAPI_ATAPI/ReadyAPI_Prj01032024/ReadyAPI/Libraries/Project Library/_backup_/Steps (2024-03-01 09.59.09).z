@@ -1,0 +1,20 @@
+﻿class Demo : Step
+	parameter String sExpectedStatus
+	parameter String sFirstStatusMessage
+	parameter String sFirstStatusMessage1
+	Main()
+		// switch sExpectedStatus
+			// case sFirstStatusMessage
+				// Print ("1")
+				// break
+			// case sFirstStatusMessage1
+				// Print ("2")
+				// break
+			// default
+		DateTime dtLocalTime = DateTime.Now()
+		
+		DateTime dtUtcTime = dtLocalTime.LocalToUtc()
+		
+		Print (dtUtcTime)
+		// 
+		

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="214290D8">
+		<Record Name="Record_Transaction">
+			<Field Name="RowId" Type="String" Unique="true"/>
+			<Field Name="UserName" Type="String"/>
+			<Field Name="Password" Type="String"/>
+			<Field Name="sStartProxy" Type="String"/>
+			<Field Name="ProxyAs" Type="String"/>
+			<Field Name="sStr" Type="String"/>
+			<Field Name="AdHocBankTransactionDate" Type="String"/>
+			<Field Name="Memo" Type="String"/>
+			<Field Name="CompanyName" Type="String"/>
+			<Field Name="BankAccount" Type="String"/>
+			<Field Name="TransactionAmount" Type="String"/>
+			<Field Name="ReferrenceName" Type="String"/>
+			<Field Name="TransactionLines_RevenueSpendCategory" Type="String"/>
+			<Field Name="TransactionLines_Memo" Type="String"/>
+			<Field Name="TransactionLines_CostCenter" Type="String"/>
+		</Record>
+		<List Name="Record_TransactionList" ItemType="Record_Transaction"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_Transaction" Type="Record_TransactionList" KeyField="RowId">
+			<Record_Transaction/>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_Transaction"/>
+	</Layout>
+</DataStore>

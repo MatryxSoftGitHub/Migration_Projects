@@ -1,0 +1,231 @@
+﻿// app MainWin Orders
+	// path [@ObjectClass=="Orders"]
+	// path [@WinClass=="Afx:"]
+	// AppObject lvw_Header
+		// path [@WinClass=="SysHeader32"]
+	// MenuItem Menu
+		// path [@Text==2]
+	// ListView lvw_Orders
+		// path [@WinClass=="SysListView32"]
+// app DialogBox Save
+	// path [@Text=="Save"]
+	// path [@WinClass=="#32770"]
+	// TextField Filename
+		// path [@WinClass=="Edit"]
+		// path [right of StaticText[@Text=="File name:"]]
+	// PushButton Save
+		// path [@Text=="&Save"]
+		// path [@WinClass=="Button"]
+// app DialogBox Orders1
+	// path [@Text=="Orders"]
+	// path [@WinClass=="#32770"]
+	// PushButton No
+		// path [@Text=="&No"]
+		// path [@WinClass=="Button"]
+// app DialogBox Neworder
+	// path [@Text=="New order"]
+	// path [@WinClass=="#32770"]
+	// RadioButton rbn_Card
+		// path [@Text=="Master Card"]
+		// path [@WinClass=="Button"]
+	// TextField txt_Zip
+		// path [@WinClass=="Edit"]
+		// path [right of StaticText[@Text=="Zip:"]]
+	// TextField txt_Street
+		// path [@WinClass=="Edit"]
+		// path [right of StaticText[@Text=="Street:"]]
+	// TextField txt_CustomerName
+		// path [@WinClass=="Edit"]
+		// path [right of StaticText[@Text=="Customer Name:"]]
+	// TextField txt_City
+		// path [@WinClass=="Edit"]
+		// path [right of StaticText[@Text=="City:"]]
+	// TextField txt_CardNr
+		// path [@WinClass=="Edit"]
+		// path [right of StaticText[@Text=="Card Nr:"]]
+	// TextField State
+		// path [@WinClass=="Edit"]
+		// path [right of StaticText[@Text=="State:"]]
+	// ComboBox Product
+		// path [@WinClass=="ComboBox"]
+		// path [right of StaticText[@Text=="Product :"]]
+	// AppObject StartDate
+		// path [@WinId==1003]
+		// path [@WinClass=="SysDateTimePick32"]
+	// AppObject ExpirationDate
+		// path [@WinId==1015]
+		// path [@Text=="10/24/2019"]
+		// path [@WinClass=="SysDateTimePick32"]
+	// PushButton btn_OK
+		// path [@Text=="OK"]
+		// path [@WinClass=="Button"]
+// app DialogBox ConfirmSaveAs
+	// path [@Text=="Confirm Save As"]
+	// path [@WinClass=="#32770"]
+	// PushButton Yes
+		// path [@Text=="&Yes"]
+		// path [@WinClass=="Button"]
+// app MainWin UntitledOrders
+	// path [@Caption=="Untitled - Orders"]
+	// MenuItem File
+		// path [@Text=="File"]
+		// MenuItem New
+			// path [@Text=="New"]
+		// MenuItem Open
+			// path [@Text=="Open"]
+		// MenuItem xSave
+			// path [@Text=="Save"]
+		// MenuItem SaveAs
+			// path [@Text=="Save As"]
+		// MenuItem Exit
+			// path [@Text=="Exit"]
+	// MenuItem xOrders
+		// path [@Text=="Orders"]
+		// MenuItem NewOrder
+			// path [@Text=="New order"]
+		// MenuItem EditOrder
+			// path [@Text=="Edit order"]
+		// MenuItem WorkWithBugs
+			// path [@Text=="Work with bugs"]
+		// MenuItem DeleteOrder
+			// path [@Text=="Delete order"]
+	// MenuItem Report
+		// path [@Text=="Report"]
+		// MenuItem GenerateCustomersList
+			// path [@Text=="Generate customers list"]
+	// MenuItem View
+		// path [@Text=="View"]
+		// MenuItem LargeIcons
+			// path [@Text=="Large Icons"]
+		// MenuItem SmallIcons
+			// path [@Text=="Small Icons"]
+		// MenuItem xList
+			// path [@Text=="List"]
+		// MenuItem Details
+			// path [@Text=="Details"]
+// app MainWin ZeenyxDataEditor
+	// path [@Caption like "* - Zeenyx Data Editor"]
+	// MenuBar MainMenu
+		// MenuItem File
+			// path [@Text=="File"]
+			// MenuItem New
+				// path [@Text=="New"]
+			// MenuItem Open
+				// path [@Text=="Open"]
+			// MenuItem xSave
+				// path [@Text=="Save"]
+			// MenuItem SaveAs
+				// path [@Text=="Save As"]
+			// MenuItem Close
+				// path [@Text=="Close"]
+			// MenuItem RecentFiles
+				// path [@Text=="Recent Files"]
+				// MenuItem N1CVBtoZLanguageDTWriteResultPathds
+					// path [@Text=="1 C:\VBtoZLanguage\DT_WriteResultPath.ds"]
+				// MenuItem N2CVBtoZLanguageDTGlobalds
+					// path [@Text=="2 C:\VBtoZLanguage\DT_Global.ds"]
+			// MenuItem Exit
+				// path [@Text=="Exit"]
+		// MenuItem Edit
+			// path [@Text=="Edit"]
+			// MenuItem Cut
+				// path [@Text=="Cut"]
+			// MenuItem Copy
+				// path [@Text=="Copy"]
+			// MenuItem Paste
+				// path [@Text=="Paste"]
+			// MenuItem Delete
+				// path [@Text=="Delete"]
+			// MenuItem SelectAll
+				// path [@Text=="Select All"]
+			// MenuItem Find
+				// path [@Text=="Find"]
+			// MenuItem FindNext
+				// path [@Text=="Find Next"]
+			// MenuItem Replace
+				// path [@Text=="Replace"]
+		// MenuItem Data
+			// path [@Text=="Data"]
+			// MenuItem ImportFromCSV
+				// path [@Text=="Import from CSV"]
+			// MenuItem Types
+				// path [@Text=="Types"]
+		// MenuItem Help
+			// path [@Text=="Help"]
+			// MenuItem Contents
+				// path [@Text=="Contents"]
+			// MenuItem AboutDataEditor
+				// path [@Text=="About Data Editor"]
+// app DialogBox DataEditor
+	// path [@Caption=="Data Editor"]
+	// PushButton OK
+		// path [@Text=="OK"]
+
+app MainWin Orders
+	path [@ObjectClass=="Orders"]
+	path [@WinClass=="Afx:"]
+	 AppObject lvw_Header
+		path [@WinClass=="SysHeader32"]
+	 MenuItem Menu
+		path [@Text==2]
+	 ListView lvw_Orders
+		path [@WinClass=="SysListView32"]
+app DialogBox Save
+	path [@Text=="Save"]
+	path [@WinClass=="#32770"]
+	 TextField Filename
+		path [@WinClass=="Edit"]
+		path [right of StaticText[@Text=="File name:"]]
+	 PushButton Save
+		path [@Text=="&Save"]
+		path [@WinClass=="Button"]
+app DialogBox Orders
+	path [@Text=="Orders"]
+	path [@WinClass=="#32770"]
+	 PushButton No
+		path [@Text=="&No"]
+		path [@WinClass=="Button"]
+app DialogBox Neworder
+	path [@Text=="New order"]
+	path [@WinClass=="#32770"]
+	 RadioButton rbn_Card
+		path [@Text=="Master Card"]
+		path [@WinClass=="Button"]
+	 TextField txt_Zip
+		path [@WinClass=="Edit"]
+		path [right of StaticText[@Text=="Zip:"]]
+	 TextField txt_Street
+		path [@WinClass=="Edit"]
+		path [right of StaticText[@Text=="Street:"]]
+	 TextField txt_CustomerName
+		path [@WinClass=="Edit"]
+		path [right of StaticText[@Text=="Customer Name:"]]
+	 TextField txt_City
+		path [@WinClass=="Edit"]
+		path [right of StaticText[@Text=="City:"]]
+	 TextField txt_CardNr
+		path [@WinClass=="Edit"]
+		path [right of StaticText[@Text=="Card Nr:"]]
+	 TextField State
+		path [@WinClass=="Edit"]
+		path [right of StaticText[@Text=="State:"]]
+	 ComboBox Product
+		path [@WinClass=="ComboBox"]
+		path [right of StaticText[@Text=="Product :"]]
+	 AppObject StartDate
+		path [@WinId==1003]
+		path [@WinClass=="SysDateTimePick32"]
+	 AppObject ExpirationDate
+		path [@WinId==1015]
+		path [@Text=="10/24/2019"]
+		path [@WinClass=="SysDateTimePick32"]
+	 PushButton btn_OK
+		path [@Text=="OK"]
+		path [@WinClass=="Button"]
+app DialogBox ConfirmSaveAs
+	path [@Text=="Confirm Save As"]
+	path [@WinClass=="#32770"]
+	 PushButton Yes
+		path [@Text=="&Yes"]
+		path [@WinClass=="Button"]
+

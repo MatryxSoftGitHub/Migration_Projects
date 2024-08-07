@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="7E417754">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="Record_KeywordConversion">
+			<Field Name="lsUFT_Keyword" Type="ListOfString"/>
+			<Field Name="lsAT_Keyword" Type="ListOfString"/>
+			<Field Name="lsUFT_Methods" Type="ListOfString"/>
+			<Field Name="lsAT_Methods" Type="ListOfString"/>
+		</Record>
+		<List Name="Record_KeywordConversionList" ItemType="Record_KeywordConversion"/>
+	</Types>
+	<Objects>
+		<Object Name="DTKeywordConversion" Type="Record_KeywordConversionList">
+			<Record_KeywordConversion>
+				<lsUFT_Keyword>
+					<String>Const </String>
+					<String>End Function</String>
+					<String>Function </String>
+					<String>Call</String>
+					<String>call</String>
+					<String>Then</String>
+					<String>ElseIf</String>
+					<String>End If</String>
+					<String>End </String>
+					<String>If</String>
+					<String>Else</String>
+					<String>For</String>
+					<String>Next</String>
+					<String>Exit For</String>
+					<String>On Error Resume Next</String>
+					<String>On error resume next</String>
+					<String>On Error Resume next</String>
+					<String>On Error resume next</String>
+					<String>On Error Resume</String>
+					<String>On error resume</String>
+					<String>wait</String>
+					<String>Err.number &lt;&gt; 0</String>
+					<String>Err.Number &lt;&gt; 0</String>
+				</lsUFT_Keyword>
+				<lsAT_Keyword>
+					<String></String>
+					<String>                       </String>
+					<String></String>
+					<String></String>
+					<String></String>
+					<String></String>
+					<String>else if</String>
+					<String></String>
+					<String></String>
+					<String>if</String>
+					<String>else</String>
+					<String>for</String>
+					<String></String>
+					<String>break</String>
+					<String></String>
+					<String></String>
+					<String></String>
+					<String></String>
+					<String></String>
+					<String></String>
+					<String>Sleep</String>
+					<String>GetErrorCount()&gt;0</String>
+					<String>GetErrorCount()&gt;0</String>
+				</lsAT_Keyword>
+				<lsUFT_Methods>
+					<String>.Set</String>
+					<String>.Activate</String>
+					<String>.SetSecure</String>
+					<String>.GetVisibleText</String>
+					<String>.Exist</String>
+					<String>.CaptureBitmap</String>
+					<String>.ChildObjects</String>
+					<String>.MouseMove</String>
+					<String>.DblClick</String>
+					<String>Ucase(</String>
+					<String>ucase(</String>
+					<String>Lcase(</String>
+					<String>lcase(</String>
+					<String>trim</String>
+					<String>.GetROProperty</String>
+					<String>.Click</String>
+					<String>.click</String>
+					<String>.highlight</String>
+					<String>.WaitProperty</String>
+					<String>.Wait </String>
+					<String>.CreateTextFile</String>
+					<String>.CreateFolder</String>
+					<String>.Writeline</String>
+					<String>.OpenTextFile</String>
+					<String>ForWriting</String>
+					<String>ForReading</String>
+					<String>.CopyFile</String>
+					<String>.MoveFile</String>
+					<String>DeleteFolder</String>
+					<String>.FileExists</String>
+					<String>split(</String>
+					<String>len(</String>
+					<String>replace(</String>
+					<String>right(</String>
+					<String>left(</String>
+					<String>Mid(</String>
+					<String>mid(</String>
+					<String>LTrim(</String>
+					<String>Ltrim(</String>
+					<String>ltrim(</String>
+					<String>lTrim(</String>
+					<String>RTrim(</String>
+					<String>Rtrim(</String>
+					<String>rtrim(</String>
+					<String>rTrim(</String>
+					<String>InStr(</String>
+					<String>instr(</String>
+					<String>Instr(</String>
+					<String>inStr(</String>
+					<String>StrComp(</String>
+					<String>strComp(</String>
+					<String>Strcomp(</String>
+					<String>strcomp(</String>
+					<String>.NextLine</String>
+					<String>.NextPage</String>
+					<String>.PrevLine</String>
+					<String>.PrevPage</String>
+					<String>.GetITemProperty</String>
+					<String>.GetItemsCount</String>
+					<String>.GetSelection()</String>
+					<String>.ColumnCount()</String>
+					<String>.GetColumnHeader(</String>
+					<String>.Clear</String>
+					<String>.RefreshObject</String>
+					<String>SystemUtil.Run</String>
+					<String>.RightClick</String>
+					<String>.Type</String>
+					<String>.Expand</String>
+					<String> or </String>
+					<String> and </String>
+					<String>Array(&quot;</String>
+				</lsUFT_Methods>
+				<lsAT_Methods>
+					<String>.SetValue(</String>
+					<String>.SetActive()</String>
+					<String>.SetPassword(</String>
+					<String>.GetText()</String>
+					<String>.WaitWhileExists</String>
+					<String>.CaptureImage</String>
+					<String>.GetChildren</String>
+					<String>.MoveMouse</String>
+					<String>.DoubleClick</String>
+					<String>ToUpper(</String>
+					<String>ToUpper(</String>
+					<String>ToLower(</String>
+					<String>ToLower(</String>
+					<String>Trim</String>
+					<String>.GetAttr(</String>
+					<String>.Click()</String>
+					<String>.Click()</String>
+					<String>.HoverMouse</String>
+					<String>.GetAttr(</String>
+					<String>.Sleep(</String>
+					<String>.Open</String>
+					<String>.CreateDir</String>
+					<String>.Write</String>
+					<String>.Open</String>
+					<String>FileMode.Write</String>
+					<String>FileMode.Read</String>
+					<String>System.CopyFile</String>
+					<String>System.MoveFile</String>
+					<String>System.DeleteDir</String>
+					<String>System.FileExists</String>
+					<String>Split(</String>
+					<String>Length(</String>
+					<String>Replace(</String>
+					<String>Right(</String>
+					<String>Left(</String>
+					<String>Substring(</String>
+					<String>Substring(</String>
+					<String>TrimLeft(</String>
+					<String>TrimLeft(</String>
+					<String>TrimLeft(</String>
+					<String>TrimLeft(</String>
+					<String>TrimRight(</String>
+					<String>TrimRight(</String>
+					<String>TrimRight(</String>
+					<String>TrimRight(</String>
+					<String>IndexOf(</String>
+					<String>IndexOf(</String>
+					<String>IndexOf(</String>
+					<String>IndexOf(</String>
+					<String>FuzzytMatch(</String>
+					<String>FuzzytMatch(</String>
+					<String>FuzzytMatch(</String>
+					<String>FuzzytMatch(</String>
+					<String>.ScrollByLine</String>
+					<String>.ScrollByPage</String>
+					<String>.ScrollByLine</String>
+					<String>.ScrollByPage</String>
+					<String>.GetAttr</String>
+					<String>.GetAttr(&quot;&quot;)  Need to provide Attr Name</String>
+					<String>.GetAttr(&quot;&quot;)   Need to provide Attr Name</String>
+					<String>.GetAttr(&quot;&quot;)   Need to provide Attr Name</String>
+					<String>.GetColumnNames(</String>
+					<String>.GenKeyEvents(&quot;&lt;Ctrl-A&gt;&quot;+&quot;&lt;Delete&quot;&gt;)</String>
+					<String>GenKeyEvents(&quot;&lt;F5&quot;&gt;)</String>
+					<String>System.Run</String>
+					<String>.GenMouseEvents(MouseAction.Click, null, null, 2)</String>
+					<String>TypeKeys</String>
+					<String>.Expand</String>
+					<String>||</String>
+					<String>&amp;</String>
+					<String>{&quot;</String>
+				</lsAT_Methods>
+			</Record_KeywordConversion>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="DTKeywordConversion">
+			<Field Name="lsUFT_Keyword"/>
+			<Field Name="lsAT_Keyword" Width="174"/>
+			<Field Name="lsUFT_Methods" Width="152"/>
+			<Field Name="lsAT_Methods" Width="343"/>
+		</Object>
+	</Layout>
+</DataStore>

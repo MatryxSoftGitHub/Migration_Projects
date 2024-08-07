@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="73E80415">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="record_Sleeps">
+			<Field Name="SeleniumSleepMethods" Type="ListOfString"/>
+			<Field Name="AscentialTestSleepMethods" Type="ListOfString"/>
+		</Record>
+		<List Name="record_SleepsList" ItemType="record_Sleeps"/>
+	</Types>
+	<Objects>
+		<Object Name="Sleeps" Type="record_SleepsList">
+			<record_Sleeps>
+				<SeleniumSleepMethods>
+					<String>Thread.sleep(1000)</String>
+					<String>Thread.sleep(2000)</String>
+					<String>Thread.sleep(3000)</String>
+					<String>Thread.sleep(5000)</String>
+					<String>Thread.sleep(6000)</String>
+					<String>Thread.sleep(9000)</String>
+					<String>Thread.sleep(10000)</String>
+					<String>Thread.sleep(30000)</String>
+					<String>Thread.sleep(50000)</String>
+					<String>Thread.sleep(60000)</String>
+					<String>Thread.sleep(120000)</String>
+				</SeleniumSleepMethods>
+				<AscentialTestSleepMethods>
+					<String>Sleep(1)</String>
+					<String>Sleep(2)</String>
+					<String>Sleep(3)</String>
+					<String>Sleep(5)</String>
+					<String>Sleep(6)</String>
+					<String>Sleep(9)</String>
+					<String>Sleep(10)</String>
+					<String>Sleep(30)</String>
+					<String>Sleep(50)</String>
+					<String>Sleep(60)</String>
+					<String>Sleep(120)</String>
+				</AscentialTestSleepMethods>
+			</record_Sleeps>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Sleeps">
+			<Field Name="SeleniumSleepMethods" Width="268"/>
+			<Field Name="AscentialTestSleepMethods" Width="256"/>
+		</Object>
+	</Layout>
+</DataStore>

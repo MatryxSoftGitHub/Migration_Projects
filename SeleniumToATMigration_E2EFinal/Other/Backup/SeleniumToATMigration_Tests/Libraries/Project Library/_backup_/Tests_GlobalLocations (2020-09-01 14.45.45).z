@@ -1,0 +1,11 @@
+﻿//Directory locations for Tests files
+
+
+String sSeleniumTestsJavaFolderPath = GetWorkingDirectoryPath()+"\Other\Tests\SeleniumTestsJavaFiles\" // manually need to be added to the working project folder
+String sTestsTextFolderPath = GetWorkingDirectoryPath()+"\Other\Tests\TestsTempTextFiles"
+String sTestsImplicitExplicitWaitFolderPath = GetWorkingDirectoryPath()+"\Other\Tests\TestsImplicitExplicitWait"
+String sTestsAscentialTestFolderPath = GetWorkingDirectoryPath()+"\Other\Tests\TestsATConvertedFiles"
+String sIntegratedSeq1OutFileName=sSequence1OutputFilePath+"\Seq1IntegratedOuputFile.txt"
+
+
+//CreateDirectory

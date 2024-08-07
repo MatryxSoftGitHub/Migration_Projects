@@ -1,0 +1,16 @@
+﻿// Directory Locations for Saving converted Files
+
+String sTextFileFolderPath = GetWorkingDirectoryPath()+"\Other\TempTextFiles"
+String sImplicitExplicitWaitFolderPath = GetRunDir()+"\Other\ImplicitExplicitWait"
+String sAscentialTesttFolderPath = GetRunDir()+"\Other\ATConvertedFiles"
+
+// Working Directory
+String sWorkingDirectory = ""
+String GetWorkingDirectoryPath()
+	%FuncInfo[Desc="Gets the Current Working Directory Path",Group="DirectoryPath"]
+	List<String> lsOut
+	System.Execute ("%CD%", lsOut)
+	sWorkingDirectory = lsOut[1].GetField ("'", 2)
+	sWorkingDirectory = sWorkingDirectory.GetField ("'", 1)
+	return sWorkingDirectory
+	

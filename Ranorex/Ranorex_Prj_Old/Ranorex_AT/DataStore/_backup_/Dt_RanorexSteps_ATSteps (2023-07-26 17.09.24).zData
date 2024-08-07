@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="C4339E78">
+		<List Name="StringList" ItemType="String"/>
+		<Record Name="Record_RanorexSteps_ATSteps">
+			<Field Name="RowId" Type="String" Unique="true"/>
+			<Field Name="lsRanorexMethods" Type="StringList"/>
+			<Field Name="lsATMethods" Type="StringList"/>
+		</Record>
+		<List Name="Record_RanorexSteps_ATStepsList" ItemType="Record_RanorexSteps_ATSteps"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_RanorexSteps_ATSteps" Type="Record_RanorexSteps_ATStepsList">
+			<Record_RanorexSteps_ATSteps>
+				<RowId>1</RowId>
+				<lsRanorexMethods>
+					<String>.Focus();</String>
+					<String>.Click();</String>
+					<String>.PressKeys(</String>
+					<String>Delay.Seconds(</String>
+					<String>.Press(</String>
+					<String>{ControlKey down}</String>
+					<String>{ENTER}</String>
+					<String>Keyboard.</String>
+					<String>{</String>
+					<String>}</String>
+				</lsRanorexMethods>
+				<lsATMethods>
+					<String>.SetFocus()</String>
+					<String>.Click()</String>
+					<String>.TypeKeys(</String>
+					<String>Sleep(</String>
+					<String>.GenKeyEvents(</String>
+					<String>&lt;Down&gt;</String>
+					<String>&lt;ENTER&gt;</String>
+					<String>UA.</String>
+					<String IsNull="true"/>
+					<String IsNull="true"/>
+				</lsATMethods>
+			</Record_RanorexSteps_ATSteps>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_RanorexSteps_ATSteps">
+			<Field Name="RowId"/>
+			<Field Name="lsRanorexMethods" Width="164"/>
+			<Field Name="lsATMethods" Width="117"/>
+		</Object>
+	</Layout>
+</DataStore>

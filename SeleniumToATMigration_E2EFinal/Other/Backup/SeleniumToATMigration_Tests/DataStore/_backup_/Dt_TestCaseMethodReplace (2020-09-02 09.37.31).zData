@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="7C8A1887">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="record_TestMethodsReplacement">
+			<Field Name="SeleniumMethods" Type="ListOfString"/>
+			<Field Name="ATMethods" Type="ListOfString"/>
+		</Record>
+		<List Name="record_TestMethodsReplacementList" ItemType="record_TestMethodsReplacement"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_TestCaseMethodReplace" Type="record_TestMethodsReplacementList">
+			<record_TestMethodsReplacement>
+				<SeleniumMethods/>
+				<ATMethods/>
+			</record_TestMethodsReplacement>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_TestCaseMethodReplace"/>
+	</Layout>
+</DataStore>

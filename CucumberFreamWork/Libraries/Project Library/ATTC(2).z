@@ -1,0 +1,140 @@
+﻿class CreateAdHocPayment : Test
+	%TestInfo[Desc="Create ad hoc payment.",Group="CreateAdHocPayment",Table=""]
+	Main ()
+		step UserIsOnLoginPage
+		step UserShouldGetWorkdayTransre_previewTiTlePage
+			PageTitle:_
+		step UserEntErsUsernameAndPassword
+			userName:_
+			password:_
+		step UserCliCkOnSignInButton
+		step UserGetsRememberDiviceMessage
+		step UserCliCkOnSkipButton
+		step UserShouldGetTiTleOfTheHomePage
+		step UserSearchForStartProxyInTheSearchBarAndUserCliCkOnStartProxyLink
+			StartProxy:_
+		step EnterInTheActAsAliceChow
+			ActAs:_
+		step CliCkOK
+		step SearchCreateAdHocPaymentInTheSearchBar
+			PaymentType:_
+		step UserCliCkOnCreateAdHocPaymentLink
+		step UserEntErsValuesForAdHocPaymentInformation
+			Company:_
+			BankAccount:_
+			Payee:_
+			Currency:_
+			PaymentTypes:_
+			ShipToAddress:_
+			HandlingCode:_
+		step UserEntErsValuesForPaymentDetails
+			ControlTotalAmount:_
+			FreightAmount:_
+			OtherCharges:_
+			Memo:_
+		step UserEntErsValuesForLinesTable
+			LinesCompany:_
+			SpendCategory:_
+			TaxApplicability:_
+			Quantity:_
+			UnitCost:_
+			LinesMemo:_
+			LinesCostCenter:_
+			AdditionalWorktags:_
+class CreateAdHocTransaction : Test
+	%TestInfo[Desc="Create ad hoc Transaction.",Group="CreateAdHocTransaction",Table=""]
+	Main ()
+		step UserIsOnLoginPage
+		step UserShouldGetWorkdayTransre_previewTiTlePage
+			PageTitle:_
+		step UserEntErsUsernameAndPassword
+			userName:_
+			password:_
+		step UserCliCkOnSignInButton
+		step UserGetsRememberDiviceMessage
+		step UserCliCkOnSkipButton
+		step UserShouldGetTiTleOfTheHomePage
+		step UserSearchForStartProxyInTheSearchBarAndUserCliCkOnStartProxyLink
+			StartProxy:_
+		step EnterInTheActAsAliceChow
+			ActAs:_
+		step CliCkOK
+		step SearchCreateAdHocPaymentInTheSearchBar
+			PaymentType:_
+		step UserCliCkOnTestAdHocTransactionLink
+		step UserEntErsValuesForAdHocBankTransactionInformation
+			Memo:_
+			Company:_
+			BankAccount:_
+			Currency:_
+		step SelectDepositOrWithdrawalRadioButton
+		step UserEntErsValuesForAdHocBankTransactionDetails
+			TransactionAmount:_
+			Purpose:_
+			Reference:_
+		step ClickOnAdHocBankTransactionLinesTab
+		step UserEntErsValuesForAdHocBankTransactionLinesTable
+			LinesCompany:_
+			SelectRevenueSpendCategory:_
+			LedgerAccount:_
+			Amount:_
+			LinesMemo:_
+			CostCenter:_
+class PurchaseOrderEvent : Test
+	%TestInfo[Desc="Create urchase Order Event.",Group="PurchaseOrderEvent",Table="PurchaseOrderEvent"]
+	Main()
+		PurchaseOrderEventRecord purchaseOrderEventRecord = DataStore.Query ("PurchaseOrderEvent[1]")
+		step UserIsOnLoginPage
+		step UserShouldGetWorkdayTransre_previewTiTlePage
+			PageTitle:purchaseOrderEventRecord.PageTitle
+		step UserEntErsUsernameAndPassword
+			userName:purchaseOrderEventRecord.userName
+			password:purchaseOrderEventRecord.password
+		step UserCliCkOnSignInButton
+		step UserGetsRememberDiviceMessage
+		step UserCliCkOnSkipButton
+		step UserShouldGetTiTleOfTheHomePage
+		step UserSearchForStartProxyInTheSearchBarAndUserCliCkOnStartProxyLink
+			StartProxy:purchaseOrderEventRecord.StartProxy
+		step EnterInTheActAsAliceChow
+			ActAs:purchaseOrderEventRecord.ActAs
+		step CliCkOK
+		step SearchCreatePurchaseOrderInTheSearchBar
+			PaymentType:purchaseOrderEventRecord.PaymentType
+		step UserCliCkOnCreatePurchaseOrderLink
+		step UserShouldProvideValideDataToCreatePurchaseOrderCompanyAndSupplierAndCurrency
+			Company:purchaseOrderEventRecord.Company
+			Supplier:purchaseOrderEventRecord.Supplier
+			Currency:purchaseOrderEventRecord.Currency
+		step EntErTpdayDateForDocumentDateField
+		step CliCkOnCreateBlanckPurchaseOrderRadioButton
+		step CliCkOnOKButton
+		step UserShouldBeAbleToSeeCreatePurchaseOrderPage
+		step UserProvideDataForSummarySection
+			// Supplier:_
+			// Currency:_
+			FreightAmount:purchaseOrderEventRecord.FreightAmount
+			OtherCharges:purchaseOrderEventRecord.OtherCharges
+			Supplier1:purchaseOrderEventRecord.Supplier1
+			LinesCurrency:purchaseOrderEventRecord.LinesCurrency
+		step UserShouldProvideProPerDataForTermsAndTaxesSetion
+			PaymentTerms:purchaseOrderEventRecord.PaymentTerms
+			OverridePaymentType:purchaseOrderEventRecord.OverridePaymentType
+			ShippingTerms:purchaseOrderEventRecord.ShippingTerms
+			ShippingMethod:purchaseOrderEventRecord.ShippingMethod
+			ShippingInstructions:purchaseOrderEventRecord.ShippingInstructions
+			SupplierContract:purchaseOrderEventRecord.SupplierContract
+			DefaultTaxOption:purchaseOrderEventRecord.DefaultTaxOption
+			DefaultTaxCode:purchaseOrderEventRecord.DefaultTaxCode
+		step GoToContactInformationSectionAndProvideData
+			IssueOption:purchaseOrderEventRecord.IssueOption
+			Buyer:purchaseOrderEventRecord.Buyer
+			BillTocontact:purchaseOrderEventRecord.BillTocontact
+			BillToContactDetails:purchaseOrderEventRecord.BillToContactDetails
+			BillToAddress:purchaseOrderEventRecord.BillToAddress
+			ShipToContact:purchaseOrderEventRecord.ShipToContact
+			ShipToContactDetail:purchaseOrderEventRecord.ShipToContactDetail
+			ShipToAddress:purchaseOrderEventRecord.ShipToAddress
+			Memo:purchaseOrderEventRecord.Memo
+			InternalMemo:purchaseOrderEventRecord.InternalMemo
+		

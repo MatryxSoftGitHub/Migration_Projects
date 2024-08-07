@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="73E80415">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="record_Parent">
+			<Field Name="lsAscentialTestMethod" Type="ListOfString"/>
+		</Record>
+		<List Name="record_ParentObjMethodList" ItemType="record_Parent"/>
+	</Types>
+	<Objects>
+		<Object Name="Parent" Type="record_ParentObjMethodList">
+			<record_Parent>
+				<lsAscentialTestMethod>
+					<String>.Click()</String>
+					<String>.SetValue(</String>
+					<String>.IsPresent()</String>
+					<String>.GetText()</String>
+					<String>.IsEnabled()</String>
+					<String>.IsDisabled()</String>
+					<String>.WaitWhileExists</String>
+					<String>.WaitUntilExists</String>
+					<String>&quot;null&quot;</String>
+				</lsAscentialTestMethod>
+			</record_Parent>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Parent"/>
+	</Layout>
+</DataStore>

@@ -1,0 +1,22 @@
+class aprrove : Step
+	%StepInfo[Desc="aprrove",Group="null"]
+	Main()
+		JSExecutor.WaitWhileExists(30)
+		// Inbox icon or button
+		Btn_Inbox.Click()
+		Sleep(5)
+		String InboxItemName = "Ad Hoc Payment: "
+		AppObject LabelInboxItemName = ApprovalProcessPages.InboxItemName.GetObject()
+		LabelInboxItemName.Click()
+		Sleep(5)
+		if (Txt_areaComment.IsPresent() == true)
+			Txt_areaComment.SetValue("Approved")
+		Sleep(5)
+		if (Btn_Approve.IsPresent() == true)
+			Btn_Approve.Click()
+		else if (Btn_Submit.IsPresent() == true)
+			Btn_Submit.Click()
+		else if (Btn_Ok.IsPresent() == true)
+			Btn_Ok.Click()
+		else
+			Print("Check the button for approval")

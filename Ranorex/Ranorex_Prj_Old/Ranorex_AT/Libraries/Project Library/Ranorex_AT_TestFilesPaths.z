@@ -1,0 +1,7 @@
+﻿String sInputFilesTestDir = "C:\Ranorex\Test_InPutFiles\"
+String sTestExtension = "rxtst"
+String sTestcaseGroupName = "Workday"
+
+//Write files
+String sWriteTestFileDir = "C:\Ranorex\Test_OutPutFiles\"
+String sTestWriteFinalFile = "Ranorex_Tests.z"

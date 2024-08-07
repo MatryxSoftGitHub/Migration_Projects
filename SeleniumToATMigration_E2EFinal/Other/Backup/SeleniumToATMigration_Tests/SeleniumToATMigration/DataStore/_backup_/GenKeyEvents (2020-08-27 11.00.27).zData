@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="2B99C8EE">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="Record_GenKeyEvents">
+			<Field Name="SeleniumKeyEvents" Type="ListOfString"/>
+			<Field Name="AtKeyEvents" Type="ListOfString"/>
+		</Record>
+		<List Name="Record_GenKeyEventsList" ItemType="Record_GenKeyEvents"/>
+	</Types>
+	<Objects>
+		<Object Name="GenKeyEvents" Type="Record_GenKeyEventsList">
+			<Record_GenKeyEvents>
+				<SeleniumKeyEvents>
+					<String>Keys.CONTROL, &quot;a&quot;</String>
+					<String IsNull="true"/>
+					<String IsNull="true"/>
+				</SeleniumKeyEvents>
+				<AtKeyEvents>
+					<String>.GenKeyEvents (&quot;&lt;Ctrl-X&gt;”)</String>
+					<String IsNull="true"/>
+					<String IsNull="true"/>
+				</AtKeyEvents>
+			</Record_GenKeyEvents>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="GenKeyEvents">
+			<Field Name="SeleniumKeyEvents" Width="301"/>
+			<Field Name="AtKeyEvents" Width="347"/>
+		</Object>
+	</Layout>
+</DataStore>

@@ -1,0 +1,586 @@
+﻿class OpenAndReadTextFile : Step
+	%StepInfo[Desc="Open and read the text file",Group="TextFile"]
+	parameter String sFile
+	out parameter List<String> lsData
+	Main()
+		String sData
+		TextFile textFile
+		
+		textFile.Open (sFile, FileMode.Read, FileEncoding.Auto)// Reading from Source file
+		while textFile.Read (sData) //fetching all data into a list
+			lsData.Add (sData)
+			// Print (lsData)
+		textFile.Close()
+		
+
+class DeleteUnwantedData_GetATFormat : Step
+	%StepInfo[Desc="Delete unwanted data and get the AT format.",Group="OR"]
+	parameter String sReadFile
+	parameter String sDeleteUnmantedTagsFile
+	parameter String sATFormatFle
+	Main()
+		Integer iLoop,jLoop,iCount,iAppObj,iPath,kLoop,mLoop
+		String sZfileName
+		List<String> list,list2,list3,list4,list5
+		Boolean bAppFolder= false
+		
+		step OpenAndReadTextFile
+			sFile:sReadFile
+		
+		for (iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Contains ("<appfolder")
+				bAppFolder = true
+			if bAppFolder== true
+				if OpenAndReadTextFile.lsData[iLoop].Contains ("refpath=""")
+					list5.Add (OpenAndReadTextFile.lsData[iLoop].GetField("""",2))
+			if OpenAndReadTextFile.lsData[iLoop].Contains ("<item")
+				bAppFolder = false
+		for (kLoop = 1; kLoop<=OpenAndReadTextFile.lsData.Count(); kLoop++)
+			for (mLoop = 1; mLoop<=list5.Count(); mLoop++)
+				if OpenAndReadTextFile.lsData[kLoop].Contains (list5[mLoop]+"/")
+					OpenAndReadTextFile.lsData[kLoop]= OpenAndReadTextFile.lsData[kLoop].Replace(list5[mLoop]+"/","")
+					break
+		
+		// Print (list5)
+		//Delete junk Strings.
+		for (iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Trim().Contains( lsOpenTag[1]) ||OpenAndReadTextFile.lsData[iLoop].Trim().Contains( lsOpenTag[2])
+				for (jLoop = iLoop+1; jLoop<=OpenAndReadTextFile.lsData.Count(); jLoop++)
+					if OpenAndReadTextFile.lsData[jLoop].Trim().Contains( lsClosingTag[1] )||OpenAndReadTextFile.lsData[jLoop].Trim().Contains( lsClosingTag[2])
+						iLoop = jLoop
+						break
+					else
+						//do nothing.
+			else
+				list.Add (OpenAndReadTextFile.lsData[iLoop])
+		
+		//Delete unwanted data
+		for (iLoop = 1; iLoop<=list.Count(); iLoop++)
+			for (jLoop = 1; jLoop<=lsUnWantedTag.Count(); jLoop++)
+				if list[iLoop].Trim().StartsWith (lsUnWantedTag[jLoop])
+					break
+				else
+					if jLoop == lsUnWantedTag.Count()
+						list2.Add (list[iLoop])
+		
+		// Update AT hierarchy
+		for (iLoop = 1; iLoop<=list2.Count(); iLoop++)
+			iCount=0
+			GetingTapsCount (list2[iLoop], iCount)
+			if iCount==1
+				list2[iLoop] = list2[iLoop].Trim()
+				list2[iLoop] = String.Tabs(iCount-1)+list2[iLoop]
+			else if iCount>1
+				list2[iLoop] = list2[iLoop].Trim()
+				list2[iLoop] = String.Tabs(iCount-2)+list2[iLoop]
+		
+		list2.WriteFile (sDeleteUnmantedTagsFile)
+		
+		// Get zFile name
+		for (iLoop = 1; iLoop<=list2.Count(); iLoop++)
+			if list2[iLoop].Contains ("classname=") && !list2[iLoop].Contains ("@classname=")
+				sZfileName = list2[iLoop].GetField ("""", 2)
+			if list2[iLoop].Contains ("Root")
+				for (jLoop = iLoop+1; jLoop<=list2.Count(); jLoop++)
+					list3.Add (list2[jLoop])
+				iLoop=jLoop
+		
+		//Delete unwanted paths
+		for (iLoop = 1; iLoop<=list3.Count(); iLoop++)
+			if ( list3[iLoop].Trim()).StartsWith ("name=")
+				GetingTapsCount (list3[iLoop], iAppObj)
+				GetingTapsCount (list3[iLoop+1], iPath)
+				if iAppObj==iPath
+					list3[iLoop+1] = list3[iLoop+1].Trim ()
+					list3[iLoop+1] = String.Tabs(iPath+1)+list3[iLoop+1]
+					if list3[iLoop+2].Contains ("/")
+						list3.Remove (iLoop+2)
+					else
+						iLoop=iLoop+1
+		list3.WriteFile (sATFormatFle)
+		
+GetingTapsCount(String sStr, out Integer iTabCounts)
+	%FuncInfo[Desc="Geting Taps Count in a string."]
+	Integer iLoop,iCount=0
+	
+	for (iLoop = 1; iLoop<=sStr.Length(); iLoop++)
+		if sStr[iLoop].IsSpace()
+			iCount++
+		else
+			break
+	iTabCounts = iCount
+	//Print(iTabCounts)
+	
+class UpDateParantObj : Step
+	%StepInfo[Desc="Chainging ranorax Attr, object class to AT Attr, object class.",Group="OR"]
+	parameter String sReadFile
+	parameter String sParantObj_PathFile
+	out parameter List<String> list2
+	Main()
+		Integer iLoop,jLoop,iCount,iAppObj,iPath,kLoop,mLoop
+		String sAttr, sValue,sAttr1,sValue1
+		List<String> list,list3,list4
+		Boolean bWrite =false
+		
+		step OpenAndReadTextFile
+			sFile:sReadFile
+		
+		//UpDate paranet object.
+		for (iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop][1] == "n"
+				OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("name=""", "app WebPage ")
+				OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("""", "")
+				list.Add (OpenAndReadTextFile.lsData[iLoop])
+				OpenAndReadTextFile.lsData[iLoop+1] = OpenAndReadTextFile.lsData[iLoop+1].GetField ("='", 2)
+				OpenAndReadTextFile.lsData[iLoop+1] = OpenAndReadTextFile.lsData[iLoop+1].GetField ("'", 1)
+				OpenAndReadTextFile.lsData[iLoop+1] = String.Tabs(1)+("path [@Caption==""{OpenAndReadTextFile.lsData[iLoop+1]}""]")
+				list.Add (OpenAndReadTextFile.lsData[iLoop+1])
+				iLoop = iLoop+1
+				// break
+			else
+				if OpenAndReadTextFile.lsData[iLoop].Contains("name=""")
+					iCount=0
+					bWrite = false
+					for (jLoop = 1; jLoop<=lsPathTag.Count(); jLoop++)
+						if OpenAndReadTextFile.lsData[iLoop+1].Contains (lsPathTag[jLoop])//lsPathTag = {"tag[","input[","button[","@innertext[","combobox"}
+							OpenAndReadTextFile.lsData[iLoop+1] = OpenAndReadTextFile.lsData[iLoop+1].Replace ("~","=")
+							GetingTapsCount (OpenAndReadTextFile.lsData[iLoop+1], iCount)
+							step ReplaceObjClasses
+								sObjCls:lsPathTag[jLoop]
+							OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("name=""", ReplaceObjClasses.ATObject)
+							OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("""", "")
+							list.Add (OpenAndReadTextFile.lsData[iLoop])
+							OpenAndReadTextFile.lsData[iLoop+1] = OpenAndReadTextFile.lsData[iLoop+1].GetField (lsPathTag[jLoop], 2)
+							sAttr = OpenAndReadTextFile.lsData[iLoop+1].GetField ("='", 1)
+							step ReplaceObjAttr
+								sObjAttr:sAttr
+							sValue = OpenAndReadTextFile.lsData[iLoop+1].GetField ("='", 2)
+							sValue = sValue.Replace ("'", "")
+							sValue = sValue.Replace ("]", "")
+							sValue = sValue.Replace ("""", "")
+							OpenAndReadTextFile.lsData[iLoop+1] = String.Tabs(iCount)+("path {ReplaceObjAttr.ATAttr}{sValue}""]")
+							list.Add (OpenAndReadTextFile.lsData[iLoop+1])
+							iLoop = iLoop+1
+							bWrite = true
+							break
+						else
+							if jLoop== lsPathTag.Count()
+								iCount=0
+								for (kLoop = 1; kLoop<=lsAttr.Count(); kLoop++)//lsAttr= {"innertext","title","name"}
+									Integer iPath = OpenAndReadTextFile.lsData[iLoop+1].LastIndexOf ("[@", 2)
+									if iPath>0
+										String sPath = OpenAndReadTextFile.lsData[iLoop+1].Substring (iPath)
+										if sPath.Contains (lsAttr[kLoop])
+											GetingTapsCount (OpenAndReadTextFile.lsData[iLoop+1], iCount)
+											sValue = OpenAndReadTextFile.lsData[iLoop+1].GetField (lsAttr[kLoop], 2)
+											sValue = sValue.Replace ("'", "")
+											sValue = sValue.Replace ("=", "")
+											sValue = sValue.Replace ("]", "")
+											sValue = sValue.Replace ("""", "")
+											step ReplaceObjAttr
+												sObjAttr:lsAttr[kLoop]
+											step ReplaceObjClasses
+												sObjCls:lsAttr[kLoop]
+											OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("name=""", ReplaceObjClasses.ATObject)
+											list.Add (OpenAndReadTextFile.lsData[iLoop])
+											OpenAndReadTextFile.lsData[iLoop+1] = String.Tabs(iCount)+("path {ReplaceObjAttr.ATAttr}{sValue}""]")
+											list.Add (OpenAndReadTextFile.lsData[iLoop+1])
+											iLoop = iLoop+1
+											bWrite = true
+											break
+										else
+											if lsAttr.Count()==kLoop
+												Integer iTabs = 0
+												GetingTapsCount (OpenAndReadTextFile.lsData[iLoop], iTabs)
+												OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("name=""", "AppObject ")
+												OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("""","")
+												Integer iPos = OpenAndReadTextFile.lsData[iLoop+1].LastIndexOf ("[@")
+												if iPos>0
+													OpenAndReadTextFile.lsData[iLoop+1]=OpenAndReadTextFile.lsData[iLoop+1].Substring (iPos)
+													sAttr1 = OpenAndReadTextFile.lsData[iLoop+1].GetField ("=",1)
+													sValue1 = OpenAndReadTextFile.lsData[iLoop+1].GetField ("=", 2)
+													step ReplaceObjAttr
+														sObjAttr:sAttr1
+													sValue1=sValue1.Replace("]","")
+													sValue1 = sValue1.Replace ("""", "")
+													sValue1 = sValue1.Replace ("'", "")
+													OpenAndReadTextFile.lsData[iLoop+1] = "{String.Tabs(iTabs+1)}path {ReplaceObjAttr.ATAttr}{sValue1}""]"
+													list.Add (OpenAndReadTextFile.lsData[iLoop])
+													list.Add (OpenAndReadTextFile.lsData[iLoop+1])
+													bWrite = true
+													iLoop = iLoop+1
+												else
+													OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("name=""", "AppObject ")
+													OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("""","")
+													OpenAndReadTextFile.lsData[iLoop+1] = OpenAndReadTextFile.lsData[iLoop].Replace ("refpath=", "path==")
+													list.Add (OpenAndReadTextFile.lsData[iLoop])
+													list.Add (OpenAndReadTextFile.lsData[iLoop+1])
+													bWrite = true
+													iLoop = iLoop+1
+											else
+												//do nothing
+									else
+										OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("name=""", "AppObject ")
+										OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("""","")
+										OpenAndReadTextFile.lsData[iLoop+1] = OpenAndReadTextFile.lsData[iLoop+1].Replace ("refpath=", "path [")
+										list.Add (OpenAndReadTextFile.lsData[iLoop])
+										list.Add (OpenAndReadTextFile.lsData[iLoop+1])
+										bWrite = true
+										iLoop = iLoop+1
+										break
+					if bWrite == false
+						OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("name=""", "AppObject ")
+						OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("""","")
+						OpenAndReadTextFile.lsData[iLoop+1] = OpenAndReadTextFile.lsData[iLoop+1].Replace ("refpath=", "path [")
+						list.Add (OpenAndReadTextFile.lsData[iLoop])
+						list.Add (OpenAndReadTextFile.lsData[iLoop+1])
+						iLoop = iLoop+1
+		
+		for (mLoop = 1; mLoop<=list.Count(); mLoop++)
+			if list[mLoop].Contains( "path")
+				list2.Add (list[mLoop])
+			else
+				list[mLoop] = list[mLoop].Replace ("""", "")
+				list2.Add (list[mLoop])
+		list2.WriteFile (sParantObj_PathFile)
+		
+class ReplaceObjClasses : Step
+	%StepInfo[Group="OR"]
+	parameter String sObjCls
+	out parameter String ATObject
+	Main()
+		sObjCls = sObjCls.Replace ("[", "")
+		sObjCls = sObjCls.Replace ("@", "")
+		
+		switch sObjCls
+			case "input"
+				ATObject = "WebTextField  "
+				break
+			case "button"
+				ATObject = "WebPushButton "
+				break
+			case "innertext"
+				ATObject = "WebTextField "
+				break
+			case "tag"
+				ATObject = "WebLink "
+				break
+			case "title"
+				ATObject = "WebTextField "
+				break
+			case "name"
+				ATObject = "WebPushButton "
+				break
+			case "combobox"
+				ATObject = "ComboBox "
+				break
+		
+class ReplaceObjAttr : Step
+	%StepInfo[Group="OR"]
+	parameter String sObjAttr
+	out parameter String ATAttr
+	Main()
+		sObjAttr =  sObjAttr.Replace("[","")
+		sObjAttr = sObjAttr.Replace ("@", "")
+		
+		switch sObjAttr
+			case "type"
+				ATAttr = "[@Type=="""
+				break
+			case "innertext"
+				ATAttr = "[@Text=="""
+				break
+			case "aria-label"
+				ATAttr = "[@Name=="""
+				break
+			case "title"
+				ATAttr = "[@Text=="""
+				break
+			case "tagname"
+				ATAttr = "[@ElemClass=="""
+				break
+			case "text"
+				ATAttr = "[@Text=="""
+				break
+			case "name"
+				ATAttr = "[@Name=="""
+				break
+			case "accessiblename"
+				ATAttr = "[@Name=="""
+				break
+			case "controlid"
+				ATAttr = "[@ElemId=="""
+				break
+			case "automationid"
+				ATAttr = "[@ElemId=="""
+				break
+			case "placeholder"
+				ATAttr = "[@Placeholder=="""
+				break
+		
+class GetATFormat : Step
+	%StepInfo[Desc="Get AT Steps format.",Group="Steps"]
+	parameter String sReadFile
+	parameter String sStep_Name
+	parameter String sWriteFile
+	out parameter List<String> lsParameters
+	out parameter List<String> lsInputData
+	Main()
+		Integer iCount ,iFirstAlphaPos,iAlpha
+		List<String> list,Out_list
+		Boolean bOpenBrac = false
+		lsParameters={}
+		lsInputData = {}
+		
+		step OpenAndReadTextFile
+			sFile:sReadFile
+		
+		//Getting Parameters.
+		for (Integer iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count()-3; iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Contains("public string")
+				lsParameters.Add(OpenAndReadTextFile.lsData[iLoop].GetField(" ",3))
+				if OpenAndReadTextFile.lsData[iLoop-1].Contains (OpenAndReadTextFile.lsData[iLoop].GetField(" ",3))
+					lsInputData.Add(OpenAndReadTextFile.lsData[iLoop-1].GetField ("""", 2))
+				if OpenAndReadTextFile.lsData[iLoop-2].Contains (OpenAndReadTextFile.lsData[iLoop].GetField(" ",3))
+					lsInputData.Add (OpenAndReadTextFile.lsData[iLoop-2].GetField ("""", 2))
+				
+		// Get only code and replace and "repo." with null.
+		for (Integer iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count()-3; iLoop++)
+			if OpenAndReadTextFile.lsData[iLoop].Contains ("void ITestModule.Run()")
+				iLoop = iLoop+2
+				bOpenBrac=true
+			if bOpenBrac==true
+				OpenAndReadTextFile.lsData[iLoop] =OpenAndReadTextFile.lsData[iLoop].Replace("repo1.","")
+				OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace ("repo.","")
+				list.Add (OpenAndReadTextFile.lsData[iLoop])
+		//delete spaces
+		GetingTapsCount (list[1], iCount)
+		for (Integer jLoop = 1; jLoop<=list.Count(); jLoop++)
+			if jLoop ==1
+				Out_list.Add ("class {sStep_Name.GetField(".",1)} : Step")
+				Out_list.Add (String.Tabs(1)+"%StepInfo[Desc="""",Group=""""]")
+				if lsParameters.Count()>0
+					for (Integer lLoop = 1; lLoop<=lsParameters.Count(); lLoop++)
+						Out_list.Add (String.Tabs(1)+"parameter String {lsParameters[lLoop]}")
+				Out_list.Add (String.Tabs(1)+"Main()")
+				Out_list.Add (String.Tabs(2)+list[jLoop].Remove (1, iCount))
+			else
+				if list[jLoop].StartsWith ("//")
+					list[jLoop] = (String.Tabs(2)+list[jLoop].Remove (1, iCount))
+					if list[jLoop].StartsWith ("//")== false
+						Out_list.Add (String.Tabs(2)+"//"+list[jLoop].Remove (1, iCount))
+					else
+						Out_list.Add (String.Tabs(2)+list[jLoop].Remove (1, iCount))
+				else
+					Out_list.Add (String.Tabs(2)+list[jLoop].Remove (1, iCount))
+		// Print (Out_list)
+				// if list[jLoop].StartsWith ("//")
+					// iAlpha = 0
+					// iFirstAlphaPos=0
+					// for (Integer kLoop = 3; kLoop<=list[jLoop].Length(); kLoop++)
+						// if list[jLoop][kLoop].IsAlpha()==false
+							// iFirstAlphaPos++
+						// else
+							// iAlpha++
+							// break
+					// // list[jLoop]=list[jLoop].Remove (3, iFirstAlphaPos)
+					// if iAlpha>0
+						// list[jLoop] = list[jLoop].Replace ("//", "")
+						// Print (iFirstAlphaPos)
+						// Print (list[jLoop])
+						// list[jLoop] = list[jLoop].Insert (iFirstAlphaPos, "//")
+						// Print (list[jLoop])
+						// // list[jLoop] = (String.Tabs(2)+list[jLoop].Remove (1, iCount))
+						// if list[jLoop].Contains("//")
+							// Out_list.Add (String.Tabs(2)+list[jLoop])
+						// else
+							// Out_list.Add (String.Tabs(2)+list[jLoop].Remove (1, iCount))
+				// else
+					// Out_list.Add (String.Tabs(2)+list[jLoop].Remove (1, iCount))
+		
+		Out_list.WriteFile (sWriteFile)
+		
+class GettingAllFileNames : Step
+	%StepInfo[Desc="Getting all file names from specific dir",Group="Com"]
+	parameter String sDir_InputOR
+	parameter String sExtensions
+	out parameter List<String> Out_sFileList
+	Main()
+		List <FileInfo> fInfo = System.GetFileList (sDir_InputOR, "*.{sExtensions}")
+		// Print(fInfo)
+		
+		for (Integer iLoop = 1; iLoop<=fInfo.Count(); iLoop++)
+			String sStr = [String]fInfo[iLoop]
+			Out_sFileList.Add (sStr.GetField (",", 1).Replace (sStr[1], ""))
+		// Print (Out_sFileList)
+		
+class ReplaceRanorexMathodsToAt : Step
+	%StepInfo[Desc="Replace Ranorex Mathods To At.",Group="Steps"]
+	parameter String sReadFile
+	parameter List<String> lsRanorexMethods
+	parameter List<String> lsATMethods
+	parameter String sWriteFile
+	out parameter List<String> list2
+	Main()
+		Integer iLoop,jLoop,iCount,iAppObj,iPath,kLoop,mLoop
+		Boolean bMethod = false
+		Sleep(3)
+		step OpenAndReadTextFile
+			sFile:sReadFile
+		
+		//Replace Ranorex methods to AT methods.
+		for (iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			for (jLoop = 1; jLoop<=lsRanorexMethods.Count(); jLoop++)
+				if OpenAndReadTextFile.lsData[iLoop].Contains (lsRanorexMethods[jLoop])
+					OpenAndReadTextFile.lsData[iLoop] = OpenAndReadTextFile.lsData[iLoop].Replace (lsRanorexMethods[jLoop], lsATMethods[jLoop])
+					OpenAndReadTextFile.lsData[iLoop]= (OpenAndReadTextFile.lsData[iLoop].Replace(");",")"))
+					bMethod = true
+			if bMethod == false
+				OpenAndReadTextFile.lsData[iLoop]= (OpenAndReadTextFile.lsData[iLoop].Replace(");",")"))
+						
+		// Remove unwanted lines. Ex: Mouse.DefaultMoveTime= 300;
+		
+		for (iLoop = 1; iLoop<=OpenAndReadTextFile.lsData.Count(); iLoop++)
+			for (jLoop = 1; jLoop<=lsUnWantedLines.Count(); jLoop++)
+				if OpenAndReadTextFile.lsData[iLoop].Contains (lsUnWantedLines[jLoop])
+					break
+				else if OpenAndReadTextFile.lsData[iLoop].IsNullOrSpace ()
+					break
+				else
+					if jLoop == lsUnWantedLines.Count()
+						list2.Add (OpenAndReadTextFile.lsData[iLoop])
+		list2.WriteFile (sWriteFile)
+		
+class ConvertCSVtoDS : Step
+	%StepInfo[Desc="Converts CSV File to AT .DS format",Group="DT Conversion"]
+	parameter String sFileName = null
+	Main()
+		// List <FileInfo> lFileInfo = System.GetFileList (sActCSVFilePath, "*.csv")
+		System.Run ("DataEditor.exe")//Launch Data Editor.
+		Sleep(2)
+		ZeenyxDataEditor.WaitUntilExists(10)
+		ZeenyxDataEditor.MainMenu.Data.ImportFromCSV.Select ()//Getting File info.
+		Sleep(2)
+		UA.GenKeyEvents (sFileName, 0.2)// Provide csv file path.
+		UA.GenKeyEvents ("<Enter>")
+		Sleep (1)
+		ZeenyxDataEditor.MainMenu.File.SaveAs.Select ()//Convert Csv File to Ds file.
+		sFileName = sFileName.Replace (".csv", ".ds")
+		UA.GenKeyEvents (sFileName, 0.2)
+		UA.GenKeyEvents ("<Enter>")
+		ZeenyxDataEditor.MainMenu.File.Click()
+		Sleep (1)
+		ZeenyxDataEditor.MainMenu.File.New.Click()
+		ZeenyxDataEditor.Close()
+		
+class ConvertXlsToCSV : Step
+	%StepInfo[Desc="Convert Xls file to Csv file.",Group="DT Conversion"]
+	parameter String sXlsFile
+	parameter String sCsvFile
+	Main()
+		System.Run (sXlsFile)
+		Sleep(5)
+		UA.GenKeyEvents ("<Alt-F>")
+		UA.GenKeyEvents ("<Alt-A>")
+		UA.GenKeyEvents ("<Alt-O>")
+		UA.GenKeyEvents ("<Delete>")
+		
+		UA.GenKeyEvents (sCsvFile)
+		UA.GenKeyEvents ("<Tab>")
+		Sleep (1)
+		UA.GenKeyEvents ("c")
+		Sleep (1)
+		UA.GenKeyEvents ("c")
+		Sleep (1)
+		UA.GenKeyEvents ("c")
+		Sleep (1)
+		UA.GenKeyEvents ("c")
+		Sleep (1)
+		UA.GenKeyEvents ("<Enter>")
+		Sleep (1)
+		UA.GenKeyEvents ("<Enter>")
+		Sleep (1)
+		UA.GenKeyEvents ("<Ctrl-F4>")
+		Sleep (1)
+		UA.GenKeyEvents ("<Alt-F4>")
+		Sleep (1)
+		
+		
+
+
+
+
+
+
+
+class ConvertingRanorexTC_ATTC : Step
+	%StepInfo[Desc="Converting ranorex TestCase to AT TastCase",Group="TC"]
+	parameter List<String> lsData
+	out parameter List<String> Out_lsUpdatedData
+	Main()
+		List<String> lsTest, lsTest1
+		Boolean bChildhierarchy = false
+		Out_lsUpdatedData = {}
+		
+		//Getting steps names.
+		for (Integer iLoop = 1; iLoop<=lsData.Count(); iLoop++)
+			if lsData[iLoop].Contains ("<childhierarchy>")
+				bChildhierarchy=true
+			if lsData[iLoop].Contains ("</childhierarchy>")
+				bChildhierarchy = false
+			if bChildhierarchy==true
+					if lsData[iLoop].Contains ("name=""") && !lsData[iLoop-2].Contains("<smartfoldernode")
+					lsTest.Add (lsData[iLoop])
+			if bChildhierarchy==false
+					lsTest1.Add (lsData[iLoop])
+		lsTest.Remove (1)
+		
+		//Ignoring SetUp (OnStart) and TearDown (OnFinished) steps.
+		for (Integer jLoop = 1; jLoop<=lsTest.Count(); jLoop++)
+			if lsTest[jLoop].Contains ("setup")
+				lsTest.Remove (jLoop)
+				lsTest.Remove (jLoop)
+				jLoop=jLoop+1
+			if lsTest[jLoop].Contains ("teardown")
+				lsTest.Remove (jLoop)
+				lsTest.Remove (jLoop)
+				jLoop=jLoop+1
+		
+		//Getting testcase and calles steps structured.
+		for (Integer mLoop = 2; mLoop<=lsTest.Count(); mLoop++)
+			for (Integer kLoop = 1; kLoop<=lsTest1.Count(); kLoop++)
+				if mLoop==2
+					lsTest[mLoop] = lsTest[mLoop].GetField ("""", 2)
+					Out_lsUpdatedData.Add ("[-] class {lsTest[mLoop]} : Test")
+					Out_lsUpdatedData.Add (String.Tabs(1)+"[ ] %TestInfo[Desc="""",Group=""{sTestcaseGroupName}""]")
+					Out_lsUpdatedData.Add (String.Tabs(1)+"[-] Main()")
+					break
+				else
+					lsTest[mLoop] = lsTest[mLoop].Replace (">", "")
+					if lsTest1[kLoop].Trim ().Contains (lsTest[mLoop].Trim()) && !lsTest1[kLoop].Contains("worksheetname=")
+						if !lsTest1[kLoop-1].Contains("<smartfoldernode") && !lsTest1[kLoop-2].Contains("<smartfoldernode") && !lsTest1[kLoop-3].Contains("<smartfoldernode")
+							if lsTest1[kLoop-1].Contains ("enabled=""False""") || lsTest1[kLoop-2].Contains ("enabled=""False""") || lsTest1[kLoop-3].Contains ("enabled=""False""")|| lsTest1[kLoop-4].Contains ("enabled=""False""")
+								Out_lsUpdatedData.Add (String.Tabs(2)+"//[-] step { lsTest[mLoop].GetField ("""", 2)}")
+								for (Integer nLoop = kLoop; nLoop<=lsTest1.Count(); nLoop++)
+									if lsTest1[nLoop].Contains("variablename=""")
+										Out_lsUpdatedData.Add (String.Tabs(3)+"//[ ]"+lsTest1[nLoop].GetField ("""", 2)+":_")
+									if lsTest1[nLoop].Contains("</testmodule>")
+										break
+							else
+								Out_lsUpdatedData.Add (String.Tabs(2)+"[-] step { lsTest[mLoop].GetField ("""", 2)}")
+								for (Integer nLoop = kLoop; nLoop<=lsTest1.Count(); nLoop++)
+									if lsTest1[nLoop].Contains ("variablename=""")
+										Out_lsUpdatedData.Add (String.Tabs(3)+"[ ]"+lsTest1[nLoop].GetField ("""", 2)+":_")
+									if lsTest1[nLoop].Contains("</testmodule>")
+										break
+		
+		
+class Demo : Step
+	parameter String ss = null
+	Main()
+		String sYear = "11-02-2023"
+		Date dt , dt1
+		dt = Date.Parse ("MM-dd-yyyy", sYear)
+		dt1=dt.Add (365)
+		Print (dt1)
+		

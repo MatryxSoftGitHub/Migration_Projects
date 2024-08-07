@@ -1,0 +1,43 @@
+class CreateAdHocPayment : Test
+	%TestInfo[Desc="Create ad hoc payment.",Group="CreateAdHocPayment",Table=""]
+	Main()
+		step UserIsOnLoginPage
+		step UserShouldGetWorkdayTransre_previewTiTlePage
+			PageTitle:_
+		step UserEntErsUsernameAndPassword
+			userName:_
+			password:_
+		step UserCliCkOnSignInButton
+		step UserGetsRememberDiviceMessage
+		step UserCliCkOnSkipButton
+		step UserShouldGetTiTleOfTheHomePage
+		step UserSearchForStartProxyInTheSearchBarAndUserCliCkOnStartProxyLink
+			StartProxy:_
+		step EnterInTheActAsAliceChow
+			ActAs:_
+		step CliCkOK
+		step SearchCreateAdHocPaymentInTheSearchBar
+			PaymentType:_
+		step UserCliCkOnCreateAdHocPaymentLink
+		step UserEntErsValuesForAdHocPaymentInformation
+			Company:_
+			BankAccount:_
+			Payee:_
+			Currency:_
+			PaymentType:_
+			ShipToAddress:_
+			HandlingCode:_
+		step UserEntErsValuesForPaymentDetails
+			ControlTotalAmount:_
+			FreightAmount:_
+			OtherCharges:_
+			Memo:_
+		step UserEntErsValuesForLinesTable
+			LinesCompany:_
+			SpendCategory:_
+			TaxApplicability:_
+			Quantity:_
+			UnitCost:_
+			LinesMemo:_
+			LinesCostCenter:_
+			AdditionalWorktags:_

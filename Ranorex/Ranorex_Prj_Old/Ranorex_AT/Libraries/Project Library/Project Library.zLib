@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Library>
+	<Files>
+		<File RelPath="App Objects.z"/>
+		<File RelPath="DataTable_FilePaths.z"/>
+		<File RelPath="OR_FilesPaths.z"/>
+		<File RelPath="Ranorex_AppObjects.z"/>
+		<File RelPath="Ranorex_AT_StepsFilesPaths.z"/>
+		<File RelPath="Ranorex_AT_TestFilesPaths.z"/>
+		<File RelPath="Ranorex_Steps.z"/>
+		<File RelPath="Ranorex_Tests.z"/>
+		<File RelPath="Steps.z"/>
+		<File RelPath="Tests.z"/>
+	</Files>
+</Library>

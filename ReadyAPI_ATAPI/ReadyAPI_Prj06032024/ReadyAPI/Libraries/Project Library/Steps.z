@@ -1,0 +1,9 @@
+﻿class Demo : Step
+	parameter String sKey
+	parameter String sEndpoint
+	Main()
+		// DateTime dtCurrentDateTime = DateTime.Now()
+		// Print (dtCurrentDateTime)
+		
+		Print ("Setting testsuite property [" + sKey + "] to [" + sEndpoint + "]")
+		

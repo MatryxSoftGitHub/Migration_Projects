@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="9A23E162">
+		<Record Name="Record_UFTOR_TO_ATOR">
+			<Field Name="TestcaseID" Type="String"/>
+			<Field Name="SourceFile" Type="String"/>
+			<Field Name="DestinationFile" Type="String"/>
+			<Field Name="sFinalDestination" Type="String"/>
+		</Record>
+		<List Name="Record_UFTOR_TO_ATORList" ItemType="Record_UFTOR_TO_ATOR"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_UFTOR_TO_ATOR" Label="UFTOR_TO_ATOR" Type="Record_UFTOR_TO_ATORList">
+			<Record_UFTOR_TO_ATOR>
+				<TestcaseID>ConvertingUFTOR_ExactATOR</TestcaseID>
+				<SourceFile>C:\Users\MatryxSoft4\Desktop\ConvertedToATFile.txt</SourceFile>
+				<DestinationFile>C:\Users\MatryxSoft4\Desktop\Merge.txt</DestinationFile>
+				<sFinalDestination>C:\Users\MatryxSoft4\Desktop\RemoveSpaces.txt</sFinalDestination>
+			</Record_UFTOR_TO_ATOR>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_UFTOR_TO_ATOR">
+			<Field Name="TestcaseID" Width="174"/>
+			<Field Name="SourceFile" Width="298"/>
+			<Field Name="DestinationFile" Width="276"/>
+			<Field Name="sFinalDestination"/>
+		</Object>
+	</Layout>
+</DataStore>

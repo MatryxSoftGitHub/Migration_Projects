@@ -1,0 +1,228 @@
+﻿<repository
+id="5e853b90-ea0e-4504-8046-04d2f92ef0df"
+name="BankAccountTransferForSettlement">
+	<codegen
+	classname="BankAccountTransferForSettlement"
+	namespace="Workday_Ranorex">
+	</codegen>
+	<rootfolder
+	capname="unknown"
+	id="6a57baa6-d6f5-49f0-b6b3-6c7b04b2a40c"
+	isrooted="True"
+	name="Root"
+	searchtimeout="0ms"
+	usecache="True">
+		<appfolder
+		addcaps="container,webdocument"
+		capname="webdocument"
+		id="27881717-b432-424b-b2ca-1f174e9c6db0"
+		isrooted="True"
+		name="CreateBankAccountTransferForSettlement"
+		refpath="/dom[@domain='impl.workday.com']"
+		searchtimeout="30000ms"
+		usecache="False">
+			<folder
+			addcaps="unknown,webelement,ultag"
+			capname="ultag"
+			id="8f7dd866-b709-4cdf-9104-957d36c1bbaf"
+			isrooted="True"
+			name="TransferPaymentDetails"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/div/ul/li[2]/div[2]/div/div/div/div/div/div[1]/input[@type='TransferPaymentDetails']"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="unknown,webelement,spantag"
+				capname="spantag"
+				id="7923eabc-a313-4e76-bc81-b3d04b5d01a7"
+				name="Txt_Date"
+				refimgid="21da17fe-8aca-40e0-a720-54fee015d67f"
+				searchtimeout="30000ms">
+					/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/?/?/ul/li[1]/div[2]/div/div/div/div[1]/span[@innertext~'..']
+				</item>
+				<item
+				addcaps="unknown,webelement,inputtag"
+				capname="inputtag"
+				id="47a18ef6-61c2-43bd-bc80-f5962c529e07"
+				name="Txt_Currency"
+				refimgid="59d30783-6019-43f5-ac9e-398fbbf686e4"
+				refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/div/ul/li[2]/div[2]/div/div/div/div/div/div[1]/input[@type='text']"
+				searchtimeout="30000ms">
+					/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/?/?/ul/li[2]/div[2]/div/div/div/div/div/div[1]/input[@type='text']
+				</item>
+				<item
+				addcaps="unknown,webelement,inputtag"
+				capname="inputtag"
+				id="fe547e97-c25d-4f69-8c76-fc0711ec9493"
+				name="Txt_Amount"
+				refimgid="446ed7fe-54e7-4b0f-ab14-fa213d3e7d8b"
+				refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/div/ul/li[3]/div[2]/div/div/input[@type='text']"
+				searchtimeout="30000ms">
+					/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/?/?/ul/li[3]//input[@type='text']
+				</item>
+				<item
+				addcaps="unknown,webelement,inputtag"
+				capname="inputtag"
+				id="c220d855-bc6c-4ff5-9663-5d3d257b647b"
+				name="Txt_PaymentType"
+				refimgid="f0f62094-29ba-4e10-8c0e-ce9dbdcc1bf0"
+				refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/div/ul/li[4]/div[2]/div/div/div/div/div/div[1]/input[@type='text']"
+				searchtimeout="30000ms">
+					/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/?/?/ul/li[4]/div[2]/div/div/div/div/div/div[1]/input[@type='text']
+				</item>
+				<item
+				addcaps="unknown,webelement,inputtag"
+				capname="inputtag"
+				id="984458fe-c799-4041-8256-d063364a869d"
+				name="Txt_IntiatingCompany"
+				refimgid="bf7e511e-2aa1-4a5b-b218-83b808830a73"
+				refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/div/ul/li[5]/div[2]/div/div/div/div/div/div[1]/input[@type='text']"
+				searchtimeout="30000ms">
+					/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/?/?/ul/li[5]/div[2]/div/div/div/div/div/div[1]/input[@type='text']
+				</item>
+				<item
+				addcaps="unknown,webelement,inputtag"
+				capname="inputtag"
+				id="7f04f4b8-e3fe-4727-91fe-25347e395b78"
+				name="Txt_IntiatingAccount"
+				refimgid="f6ea4bc9-bb6f-4eea-be0b-0df1ddf99aa4"
+				refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/div/ul/li[6]/div[2]/div/div/div/div/div/div[1]/input[@type='text']"
+				searchtimeout="30000ms">
+					/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/?/?/ul/li[6]/div[2]/div/div/div/div/div/div[1]/input[@type='text']
+				</item>
+				<item
+				addcaps="unknown,webelement,inputtag"
+				capname="inputtag"
+				id="652072c6-0411-4734-a967-b2de30023d51"
+				name="Txt_Memo"
+				refimgid="9337ee42-2161-4854-982c-66e4d86bdf9c"
+				refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/div/ul/li[8]/div[2]/div/div/input[@type='text']"
+				searchtimeout="30000ms">
+					/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/?/?/ul/li[8]//input[@type='text']
+				</item>
+				<basepath>
+					/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[1]/div/div[2]/?/?/ul
+				</basepath>
+			</folder>
+			<item
+			addcaps="unknown,webelement,inputtag"
+			capname="inputtag"
+			id="1e0727b2-77e1-4471-8e72-e91a17542038"
+			name="Txt_ToAccount"
+			refimgid="adcf9d8c-3bf9-4949-9c21-70d968a4c69f"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[2]/div/div/div[2]/div/div[2]/div/ul/li[2]/div[2]/div/div/div/div/div/div[1]/input[@type='text']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[2]/div/div/div[2]/div/div[2]/?/?/ul/li[2]/div[2]/div/div/div/div/div/div[1]/input[@type='text']
+			</item>
+			<item
+			addcaps="unknown,webelement,buttontag"
+			capname="buttontag"
+			id="bf49a17f-81db-492f-8370-dbf5e03ca41f"
+			name="Btn_Cancel"
+			refimgid="b5a75e0b-55ff-41b4-b326-d98e8b17ab9c"
+			refpath="/dom[@domain='impl.workday.com']/body/div[9]/div/div/div/div[2]/div[2]/div/div[1]/div[2]/button[@title='Cancel']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']/body/div[9]/div/div/div/div[2]/div[2]/div/div[1]/div[2]/button[@title='Cancel']
+			</item>
+			<item
+			addcaps="unknown,webelement,divtag"
+			capname="divtag"
+			id="9e7aa19d-17ce-4175-9447-ac214dd97a46"
+			name="Dlg_TakingTooLongToProcess"
+			refimgid="7f99073c-aad3-4784-af24-6c687e28bc19"
+			refpath="/dom[@domain='impl.workday.com']/body/div[9]/div/div/div"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']/body/div[9]/div/div/div
+			</item>
+			<item
+			addcaps="unknown,webelement,buttontag"
+			capname="buttontag"
+			id="ebf26d6e-6638-4cd3-b365-240ab58000e4"
+			name="Lnk_SelectFiles"
+			refimgid="2aee2048-f7bb-4d1c-b54a-66f38af9f105"
+			refpath="/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[3]/div/div[2]/div[3]/div/button[@title='Select files']"
+			searchtimeout="30000ms">
+				/dom[@domain='impl.workday.com']//div[#'mainContent']/section/div[1]/div/div/div[1]/div/div/div[3]/div/div[2]/div[3]/?/?/button[@title='Select files']
+			</item>
+			<basepath>
+				/dom[@domain='impl.workday.com']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAGHRFWHRTb2Z0d2FyZQBQYWlu
+dC5ORVQgdjMuMzE3g3eGAAACKklEQVQ4T43R20vTcRjHcS/6G4Kgyy6KKKjwJogIDBJjIBUt2YVD
+yoGVmWUWzozMC92YaWqeSE1s0dThOtjBWUlKkMxDudXU1lCU6XSepzu82+/nvNrX6APP1e95Xt/f
+9/vEbaWh7TO1xi4qmjspfWKhuLqN++VGtLqn5BTVk1lQRbRVHGn4X8nTNclYtD020smBYDjaHhsJ
+cIxPbY8YIr+9viEGgqGwDBxLvixXfGJaLCLdedUfCwRDyPDKWoiF5SAuT0AMSA+2BXhXZqmydFBu
+bkfbmkFpayPOyQW8CwHs7jUxIN1NOkEa1llLGA7bsYX7KbTd4GiuiUuVbxhyzTMwuiwGpFX5lkLU
+dFjJ+55Mw5yGGpsRtX6Kk2Ue9jWewtBRx9eRJTEg7XnWF+TBo25SzUmo3inINLjIKoPD1QXsbNvN
+6fxr9Az5xIDm9kOm5gLce+xEW/aF1BYlCmshSr2PMxm32HV3B8ez0/jQPycG1NklTMxsUGUaQaMD
+lc7EIcse4vXJJF18xX7FVUpq6njd5xUDKVeKcE2v4xib52bxIAdza9mbf4CE9OscUZo5q3nO295p
+zD0zYuBcegHOCb+8KpvDi6G5hRMX8klIKaei6b083PdjCdNHjxhQqO/gcPsj77CB27PO2OQa9j+r
+8tq+/VyODC/yaXBxeyBRlUPv8Dzt3eO86PrNs85Rml7+ot7soLrVTqVpsypMTjGQcD5L/vC/tTkV
+F/cXNG0rDkAnVtkAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,nativewindow"
+		capname="form"
+		id="654d33e1-c351-4e24-8041-7b85800027ac"
+		isrooted="True"
+		name="Open"
+		refpath="/form[@title='Open']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="combobox,nativewindow"
+			capname="combobox"
+			id="f5b9bf9f-4343-48da-bc0d-afb648cb7ac1"
+			name="Cbo_File"
+			refimgid="b6f711b3-be14-4d82-91c1-9cf041182af6"
+			refpath="/form[@title='Open']/combobox[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Open']/combobox[@controlid='1148']
+			</item>
+			<item
+			addcaps="text,nativewindow"
+			capname="text"
+			id="c73fda58-80dd-4846-a26b-f44cfd9ce072"
+			name="Txt_File"
+			refimgid="294b6733-3d05-4f13-8bc4-520d1633aef9"
+			refpath="/form[@title='Open']/combobox[@controlid='1148']/text[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Open']/?/?/text[@controlid='1148']
+			</item>
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="59460dfc-7424-4d05-ab9e-7bd64f59973c"
+			name="Btn_Open"
+			refimgid="09e07c92-3f27-4256-853d-2f2de512c57c"
+			refpath="/form[@title='Open']/button[@text='&amp;Open']"
+			searchtimeout="30000ms">
+				/form[@title='Open']/button[@text='&amp;Open']
+			</item>
+			<basepath>
+				/form[@title='Open']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAJMSURBVDhPrZJLTxNhFIbnD8CmgqDiJbKQlUsT
+pbTTaaWt9EYVlaGUFht0ISsT117QqGw06o5eMYArSNSNxHgtKIylBMXYmWkxxii40WkkKp3X+YYZ
+sVFX+ibP7nvec07yUf89H1l7pdjmOC+22WdFv0MSfM2S6LNmea+tb8m9u0J79ufkD7ns+bZ9bwR/
+M4TWvRB8NggeBrybBt9iBu+iFwSXxaY9Lw/nsTLCAYcs7rdDLSCy16oUWFYLXKTEBN5hlHl7I6Np
+q6m/c7yyr9f7dk4R1AJteo71loQT/rzQY+KFSBMvRsw5MWIkpMvOqR86em7XtcDKXece5DxKSfgg
+hAcTuPlEwvBjCfmXaSze8uDz7UYsj5vw/X4TSpPMWU2nqK03ume3DUZw5KQHzxxGiA8n0Hm9CFd/
+ES2XimCvFvEuPwk8t2kwkDk6o+lKwWC3tCXVjR0DIQwHWjCiTNVl58VVhh5JKGVaFdkKcKTAImk6
+RdUlQ9LmVBgEtj+oFvwqOy7oBX5VBmchG6wVbEp2ZTcmukCoS4Tk9PzrJbK2Lh++UsSr/PwHfbpW
+sHZCbSp4ZkMiCEKtws7hXoy9yKhTCaNZDu+n2K+6DI5GiaNPaTpFGUbDFTWx4EJNvBOE9fGASsPQ
+MTQke3B5zPtzsipPWwryvLv8V1YnAtbqeEBWAKEq1oF1MRbbB9qxPGWTdVnmzLI8Q1s0rTyGGMtU
+RQMFQ5SFzvg957e1yebCX2U95BxDvOO0Ido+Q4+0L355ynxamTZnyM2/rf3voagf2nKwO/rr1QsA
+AAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<basepath>
+		</basepath>
+	</rootfolder>
+	<variables>
+	</variables>
+</repository>

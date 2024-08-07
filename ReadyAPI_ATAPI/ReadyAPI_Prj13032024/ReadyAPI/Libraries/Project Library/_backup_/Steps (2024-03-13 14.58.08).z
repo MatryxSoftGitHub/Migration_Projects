@@ -1,0 +1,171 @@
+﻿class Demo : Step
+	parameter String sAccept
+	Main()
+		Integer iAdd = 0,iTemp,iNozeroToAdd = 0,iCounter = 0
+		String sHexaDecimalNo = "" ,sBinaryNo = sAccept
+		List<String> lsBinaryNo = {}
+		
+		 // Validate if the input string contains only binary digits (0s and 1s)
+		for(Integer i =1 ; i<=sAccept.Length();i++)
+			if Integer.Parse(sAccept[i]) != 1 && Integer.Parse(sAccept[i]) != 0
+				throw Exception ("The given input  is not a Binary Instance {sAccept}")
+		// Calculate the number of zeros needed to make the length of the binary string divisible by 4
+		while sAccept.Length() % 4 != 0
+				sAccept = "0" + sAccept
+		 // Split the binary string into groups of four digits and store them in a list
+		for (Integer i = 1; i < sAccept.Length(); i += 4)
+			lsBinaryNo.Add (sAccept.Substring(i,4))
+		// Initialize counter for the position of the binary digit
+		for (Integer j = 1; j<=lsBinaryNo.Count(); j++)
+			String sTemp = lsBinaryNo[j]
+			iCounter = sTemp.Length()
+			 // Convert binary digits to decimal using powers of 2
+			for (Integer i = 1; i<=sTemp.Length(); i++)
+				iTemp = Integer.Parse (sTemp[i])
+				if(iTemp!=0)
+					iAdd = iAdd+Math.Pow(2,iCounter-1)
+				iCounter--
+				
+			if(iAdd>9)
+				switch iAdd
+					case 10
+						sHexaDecimalNo = sHexaDecimalNo + "A"
+						break
+					case 11
+						sHexaDecimalNo = sHexaDecimalNo + "B"
+						break
+					case 12
+						sHexaDecimalNo = sHexaDecimalNo + "C"
+						break
+					case 13
+						sHexaDecimalNo = sHexaDecimalNo + "D"
+						break
+					case 14
+						sHexaDecimalNo = sHexaDecimalNo + "E"
+						break
+					case 15
+						sHexaDecimalNo = sHexaDecimalNo + "F"
+						break
+			else
+				sHexaDecimalNo = sHexaDecimalNo + iAdd.Format()
+			iAdd = 0
+		Print(sHexaDecimalNo)
+		
+		
+		
+		
+		
+		
+		
+			
+		// // //sAccept = "110110"
+		// List<Integer> iHexno = {0,1,2,3,4}
+		// Integer k = 1, m = 1, iTemp, iDecno = 0, iBinno
+		// String sHexaValue = ""
+		//  
+		// // // Scanner accept = new Scanner(System.in); 
+		// // Print("Enter a binary number:")
+		// // 
+		// iBinno = Integer.Parse (sAccept)
+		// // Conversion from binary to decimal
+		// while iBinno>0
+			// // Calculate the remainder when dividing by 2
+			// iTemp = iBinno%2
+			// // Update the decimal number by adding the remainder multiplied by k
+			// iDecno = iDecno+iTemp*k
+			// // Multiply k by 2
+			// k=k*2 
+			// // Divide the binary number by 10 to move to the next digit
+			// iBinno = iBinno/10
+		// // Reset k to 0 for the next loop
+		// k = 1
+		// // Conversion from decimal to hexadecimal
+		// while iDecno!=0
+			// iHexno [k] =iDecno%16
+			// iDecno = iDecno/16
+			// k++
+		// Print ("The hexadecimal number is :")
+		// for(m=k-1;m>=0;m--) 
+			// Print(iHexno[m])
+			// if iHexno[m]>9
+				// sHexaValue = sHexaValue + (Char(iHexno[m]+55))
+			// else 
+				// sHexaValue = sHexaValue + [String]iHexno[m]
+		// Print(sHexaValue)
+		// 
+		// 
+		// // 
+		// // 
+		// // 
+		// // 
+		// // 
+		// // 
+		// // 
+		// // int[] hexno=new int[100]; 
+			// //   int k = 1, m=0,cr,decno=0; 
+			// //   Scanner accept = new Scanner(System.in); 
+			// //   System.out.println("Enter a binary number:"); 
+			// //    
+			// //   int binno=accept.nextInt(); 
+			// //   while(binno>0) 
+			// //   { 
+				// //    cr=binno%2; 
+				// //    decno=decno+cr*k; 
+				// //    k=k*2; 
+				// //    binno=binno/10; 
+					// // 
+			// //   } 
+			// //   k=0; 
+			// //   while(decno!=0) { 
+				// //    hexno[k]=decno%16; 
+				// //    decno=decno/16; 
+				// //    k++; 
+					// // 
+			// //   } 
+			// //  System.out.print("The hexadecimal number is :"); 
+			// //   
+			// //  for(m=k-1;m>=0;m--) 
+			// //  { 
+				// //   if(hexno[m]>9) 
+				// //   { 
+					// //    System.out.print((char) (hexno[m]+55)); 
+				// //   } 
+				// //   else 
+				// //   { 
+					// //    System.out.print( (hexno[m])); 
+				// //   } 
+			// //  } 
+			// //  System.out.println(); 
+		// // } 
+		// //  
+		// // }
+		// // 
+		// 
+		
+class Sample : Step
+	parameter String Numbers = null
+	parameter String iNum = null
+	Main()
+		// String sValue = "mcbqeudgyucbdsncWUYWYFWHU"
+		// String sNam = sValue.Replace ("W", "")
+		// Print(sNam)
+		
+		
+		String sItemValue = " <EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>",sModifiedItemValue
+		if (sItemValue.Contains("<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>")) 
+			sModifiedItemValue = sItemValue.Replace ("<EnableMessageIntegrityCheck>1</EnableMessageIntegrityCheck>", "<ModifiedDisableTag>1</ModifiedDisableTag>")
+			// // Print modifiedItemValue for debugging purposes
+			Print("modifiedItemValue " + sModifiedItemValue)
+		
+		
+		
+class Samp : Step
+	Main()
+		DateTime dtCurrentDateTime = DateTime.Now()
+		Print(dtCurrentDateTime)
+		String sFormattedDateTime
+		
+		sFormattedDateTime = dtCurrentDateTime.Format (" ddd MMM ")
+		
+		Print (sFormattedDateTime)
+		

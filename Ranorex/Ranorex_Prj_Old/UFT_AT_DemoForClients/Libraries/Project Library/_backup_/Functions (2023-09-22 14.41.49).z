@@ -1,0 +1,1307 @@
+﻿// String sCapturePath = "C:\Temp\"
+// String sSSFileName = "DesktopSS_"
+// String sUsername
+// String sPassword
+// String sNetworkUsername
+// String sNetworkPasscode
+// String screenShotFileName
+//EX: call isDirectLoanApplicableF||CurrentState() 
+//********************************************************************************************* 
+Boolean isDirectLoanApplicableForCurrentState() 
+	Boolean bDirectLoanApplicableForCurrentState 
+	//handling f|| direct loan states 
+	if (sCurrentState == "NC" || sCurrentState == "SC" || sCurrentState == "FL" || sCurrentState == "GA" ||  sCurrentState == "AL"||  sCurrentState == "OH") 
+		bDirectLoanApplicableForCurrentState = true 
+	else 
+		bDirectLoanApplicableForCurrentState = false  
+	//Err|| Handling 
+	if (GetErrorCount() > 0) 
+		LogError("Failed Step/Function: isDirectLoanApplicableForCurrentState") 
+	return bDirectLoanApplicableForCurrentState
+// 
+//New Login Function
+BranchPlusLogin()
+	List <String> lsPopupDlgList1 = {}
+	//Load file paths required for scripts from external XML file
+	//Environment.LoadFromFile "\\\sfcnas-cl-201\Shared\BranchPlus\Global_Path_Configuration.xml"
+	
+	//Handling Un Expected Dialog
+	handle_Dialog("sfc_branch_plus\.exe","Close the program")
+	handle_Dialog("RDP Clip Monitor","Close the program")	
+	
+	//Validating if there are any open windows	 
+	if BranchPlus.WaitUntilExists(2)
+		for (AppObject ao in DialogBox[all]) 
+				if ao.GetAttr("WinClass")=="micclass" 
+						lsPopupDlgList1.Add (ao)  
+			if  (lsPopupDlgList1.Count() >= 1) 
+				 //Initilize Test - Kill Previous processes and map result html file
+				initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+				//Handling Un Expected Dialog
+				handle_Dialog("sfc_branch_plus\.exe","Close the program")
+				handle_Dialog("RDP Clip Monitor","Close the program")
+				//Login to Branch Application
+				Login_BranchPlus_Application()		  	
+			
+			//Getting the User ID (Cashdrawer)
+			String userID = get_Existing_CashDrawer_User()
+			
+			//Login into Branch with Cash Drawer User
+			changeLogInUser(userID,"auto123")		
+	else
+		//Initilize Test - Kill Previous processes and map result html file
+		initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+		//Handling Un Expected Dialog
+		handle_Dialog("sfc_branch_plus\.exe","Close the program")
+		handle_Dialog("RDP Clip Monitor","Close the program")
+		//Login to Branch Application
+		Login_BranchPlus_Application()
+		
+		//Getting the User ID (Cashdrawer)
+		String userID = get_Existing_CashDrawer_User()
+		
+		//Login into Branch with Cash Drawer User
+		changeLogInUser(userID,"auto123")
+	
+	//Error Handling
+	 if GetErrorCount () > 0  
+			 LogError("Failed in Step/BranchPlusLogin")
+Login_BranchPlus_Application()
+	 // loginSheetPath = Environment.Value("BranchPlusSharedPath") & "LoginDetails.xlsx"
+	//##############
+	//Handling Special Case i.e, SOme Time Branch Login Window will not get identified as PBWindow.
+	//##############
+	if BranchPLUSLogon.WaitUntilExists(5)
+		killBranchPlusProcess()
+		Sleep(3)
+		initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+		Sleep(2)
+		//PbWindow("Pbname:=w_bp_logon").Highlight
+		if BranchPLUSLogon.txtUserName.IsPresent()
+			//Enter System user credentials
+			BranchPLUSLogon.txtUserName.SetText(sUsername)
+			BranchPLUSLogon.txtPassword.SetText(sPassword)
+			//Click() on OK
+			BranchPLUSLogon.btnOK.Click()
+		
+		//Verify Network login Authentication
+		if BranchPLUSLogon.NetworkLoginAuthentication.IsPresent()
+			BranchPLUSLogon.NetworkLoginAuthentication.txtNetworkUser.SetText(sNetworkUsername)
+			BranchPLUSLogon.NetworkLoginAuthentication.txtNetworkPassword.SetText(sNetworkPasscode)
+			BranchPLUSLogon.NetworkLoginAuthentication.btnOK.Click()
+			//Handling Version Mismatch pop up
+			handle_VersionMismatch_Popup()
+			if BranchPLUS.WaitUntilExists(5)
+				//writeReportLog("Validate Branch Plus Login","Passed",FailComments,"")
+			else
+				LogError("Validate Branch Plus Login Failed")
+		else
+			//Fail Log - Branch Network Login window not displayed
+			LogError("Branch Plus Network Login window not displayed")
+	else
+		//Fail Log - Branch System Login window not displayed
+		LogError("Branch Plus System Login window not displayed")
+		
+		
+		//Error Handling
+		if GetErrorCount() > 0 			
+			LogError("Failed in Step/Login_BranchPlus_Application")
+changeLogInUser(String NewUserID,String NewPassword)
+	//currentState = Environment.Value("currentState")    ????
+	
+	BranchPlus.SetActive()
+	BranchPlus.TypeKeys ("<F4>")
+	if (BranchPlus.CashDrawerLoginWindow.WaitUntilExists(5))
+		BranchPlus.CashDrawerLoginWindow.txtuserid.SetText(NewUserID)
+		BranchPlus.CashDrawerLoginWindow.txtpassword.SetText(NewPassword)
+		BranchPlus.CashDrawerLoginWindow.btnOK.Click()
+		if BranchPlus.CashDrawerLoginWindow.Question.btnNo.IsPresent()
+			BranchPlus.CashDrawerLoginWindow.Question.btnNo.Click()
+			Print("Login With user assigned with Cash Drawer Passed>> " , NewUserID)
+		if GetErrorCount() > 0
+			LogError("Login With user assigned with Cash Drawer Failed >> : {NewUserID}")
+	//Error Handling
+	if GetErrorCount() > 0 			
+		LogError("Failed in Step/changeLogInUser : Failed")
+		
+handle_Dialog(String dialogWindow, String buttonName)
+	String sCurrentDateTime = DateTime.Now().Format("yyyymmdd_hhmmss")
+	sCapturePath = sCapturePath +sSSFileName+ sCurrentDateTime +".png"
+	if (DialogBox[dialogWindow].GetAttr("Title") == dialogWindow)
+		UA.CaptureImage(sCapturePath)
+		String sPushBtnName =DialogBox[dialogWindow].PushButton[1].GetAttr("Name")
+		DialogBox[dialogWindow].PushButton[sPushBtnName].Click()
+	
+	//Handling On Error
+	if GetErrorCount() > 0 			
+		LogError("Failed in Step/handle_Dialog Failed")
+	
+initilizeBranchPlusTest(String BranchPlusApp)
+	//Kill oprn processesgetTotalPrinicpleBalance_From_PaymentTab
+	//SystemUtil.CloseProcessByName "iexplore.exe"
+	KillProcess("chrome.exe")
+	KillProcess("excel.exe")
+	KillProcess("sfc_branch_plus.exe")
+	System.Run (BranchPlusApp)
+	
+	if GetErrorCount() > 0
+		LogError("Failed in initilizeBranchPlusTest, Failed")
+	
+//UFT On Pass Capture Screen Shot
+LogSuccessMessage_And_CaptureScreenShot(String LogSummary,String LogDetails )
+	String sCurrentDateTime = DateTime.Now().Format("yyyymmdd_hhmmss")
+	sCapturePath = sCapturePath + sSSFileName+ sCurrentDateTime +".png"
+	UA.CaptureImage(sCapturePath)
+	Print(sCapturePath)
+	Print(LogSummary)
+	Print(LogDetails)
+	//Error handling
+	if GetErrorCount() > 0
+		LogError("Failed in LogSuccessMessage_And_CaptureScreenShot")
+String captureDesktopScreenShot()	
+	String sCurrentDateTime = DateTime.Now().Format("yyyymmdd_hhmmss")
+	sCapturePath = sCapturePath + sSSFileName+ sCurrentDateTime +".png"
+	UA.CaptureImage(sCapturePath)
+	return sCapturePath
+	
+// '******************************************************************************************************************
+// 'EX: Call Get_Data_DB("Select * from CUSTOMER_TBL where SSN=253981024", "LAST_NAME")
+// '******************************************************************************************************************
+ String runSQLQuery(String query, String requiredFieldName)
+	String conn, sGetQueryValue
+	List<String> rs
+	Database database 
+	database.Connect ("DSN=branch; Dbq=??;Uid=support;Pwd=sql") //??
+	LogSuccessMessage("Test Data Get Query",query)
+	// database.Connect ("Driver=Microsoft Excel Driver (*.xls);Dbq= C:\Users\pradeep.Matryxsoft\Desktop\QAEXCEL.xls;ReadOnly=0") 
+	database.Execute (query) 
+	database.Fetch(sGetQueryValue)
+	database.Disconnect()  
+	
+	if GetErrorCount() > 0  			
+		LogError("Failed to runSQLQuery")
+	return sGetQueryValue
+	
+
+
+// 'UFT On Pass Capture Screen Shot
+LogSuccessMessage(String LogSummary, String LogDetails )	
+	screenShotFileName = captureDesktopScreenShot()
+	Print(LogSummary)
+	Print(LogDetails)
+	Print(screenShotFileName)
+	//Error handling
+	if GetErrorCount () > 0 			
+		LogError("Failed in Step/: LogSuccessMessage")
+	return 
+	
+//UFT Log Failure Message
+LogFailureMessage(String LogSummary, String LogDetails )
+	screenShotFileName = captureDesktopScreenShot()
+	Print(LogSummary)
+	Print(LogDetails)
+	if GetErrorCount () > 0
+		LogError("Failed in LogFailureMessage")
+	
+
+//This will click on  Button in Credit Decision Window
+clickOnButton_CreditDecisionWindow()
+	
+	//click on 
+	BranchPlus.CreditDecision.btnNext.Click()
+	//PbWindow("BranchPlus").PbWindow("CreditDecision").WinButton("btn").Click()
+	Sleep (5)
+	
+//This will enter the Applicant Details in Credit Decision Window (To be done later)
+enterPrimaryApplicantDetails_CreditDecisionWindow(String lastName, String firstName, String SSN, String dob)
+	Sleep (2)
+	//Enter Last Name
+	BranchPlus.CreditDecision.WaitWhileExists(10)
+	// waitTillCreditDecisionLoads("STEP 6") need to verify
+	CreditDecisionSTEP.LastName.SetText (lastName)
+	CreditDecisionSTEP.FirstName.SetText (firstName)
+	CreditDecisionSTEP.SSN.SetText (SSN)
+	CreditDecisionSTEP.DobDt.SetText (dob)
+	
+	
+
+
+//Update CoApplicant Details
+Update_CoApplicant_Details(String row_num,String Co_Applicant_Last_Name,String Co_Applicant_First_Name,String Co_Applicant_SSN,String Co_Applicant_DOB,String customer_Type)
+	
+	//Select //Add Row// Button
+	Click_Add_Row_Button()
+	
+	//Enter Co-Applicant Details in Credit Decision Window
+	enter_Co_ApplicantDetails_CreditDecisionWindow(row_num,Co_Applicant_Last_Name,Co_Applicant_First_Name,Co_Applicant_SSN,Co_Applicant_DOB,customer_Type)
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed to Update_CoApplicant_Details")
+	
+//Click on //Add Row// Button
+Click_Add_Row_Button()
+	
+	//Click on //Add Row// Button
+	CreditDecisionSTEP.AddRow.Click()
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed to Click_Add_Row_Button")
+	
+//This will enter the Co-Applicant Details in Credit Decision Window
+enter_Co_ApplicantDetails_CreditDecisionWindow(String sRowNumber, String lastName, String firstName, String SSN, String dob, String applicant_type)
+	
+	//Create Object for Data Window
+	Integer iRowNumber =Integer.Parse(sRowNumber)
+	CreditDecisionSTEP.CoApplicantTable.Row[iRowNumber].ApplicantType.SetText(applicant_type)
+	CreditDecisionSTEP.CoApplicantTable.Row[iRowNumber].LastName.SetText(lastName)
+	CreditDecisionSTEP.CoApplicantTable.Row[iRowNumber].FirstName.SetText(firstName)
+	CreditDecisionSTEP.CoApplicantTable.Row[iRowNumber].SSN.SetText(SSN)
+	CreditDecisionSTEP.CoApplicantTable.Row[iRowNumber].DOB.SetText(dob)
+	if GetErrorCount () > 0 			
+		LogError("Failed to enter_Co_ApplicantDetails_CreditDecisionWindow")
+	
+//to Edit value in PBDataWindow text field during Runtime
+TypeText_PBDataWindow(AppObject tblPBDataWindow,String sRowNumber, String ColumnName, String CellValue)
+	Integer iRowNumber = Integer.Parse(sRowNumber)
+	
+	if tblPBDataWindow.Row[iRowNumber].ColumnName.WaitUntilExists(5)
+		tblPBDataWindow.Row[iRowNumber].ColumnName.TypeKeys(CellValue)
+	
+//to set value in PBDataWindow during Runtime
+SetValue_PBDataWindow(AppObject tblPBDataWindow, String sRowNumber, String ColumnName,String CellValue)
+	String reqColumnStatus
+	//tblPBDataWindow.highlight
+	Sleep (2)
+	Integer iRowNumber = Integer.Parse(sRowNumber)
+	//if req radio is unchecked - check it
+	reqColumnStatus = tblPBDataWindow.Row[iRowNumber].ColumnName.GetText()
+	if (reqColumnStatus == CellValue)
+		//Do nothing
+	else
+		tblPBDataWindow.Row[iRowNumber].ColumnName.SetText(CellValue)
+	
+	
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed to SetValue_PBDataWindow")
+	
+//to set value in PBDataWindow during Runtime
+Select_PBDataWindow(AppObject tblPBDataWindow, String sRowNumber, String ColumnName)
+	String reqColumnStatus
+	//tblPBDataWindow.highlight
+	Sleep (2)
+	Integer iRowNumber = Integer.Parse(sRowNumber)
+	//if req radio is unchecked - check it
+	reqColumnStatus = tblPBDataWindow.Row[iRowNumber].ColumnName.Click()
+	
+
+ValidateDualLoan_SSN(String SSNNumber)
+	if (BranchPlus.w_acct_loan_disclosure.w_message.WaitUntilExists(5))
+		LogError("Looks Like there is already a Customer on file with the above SSN Number : {SSNNumber}")
+		BranchPlus.w_acct_loan_disclosure.w_message.btnYes.Click()
+	if GetErrorCount () > 0 			
+		LogError("Failed to ValidateDualLoan_SSN")
+	
+
+
+//This will enter the Applicant Address in Credit Decision Window
+enterApplicantAddess_CreditDecisionWindow(String addr1, String addr2, String city, String zipCode )
+	//Applicant Address
+	//waitTillCreditDecisionLoads("STEP 6")
+	CreditDecisionSTEP.txt_Address.SetText(addr1)
+	CreditDecisionSTEP.Addr2.SetValue(addr2)
+	CreditDecisionSTEP.City.SetText (city)
+	CreditDecisionSTEP.Zipcode.SetValue(zipCode)
+	if GetErrorCount () > 0 			
+		LogError("Failed to enterApplicantAddess_CreditDecisionWindow")
+	
+
+
+//Sleep till Credt Decision Loads
+waitTillCreditDecisionLoads(String expectedTitle)
+	 String sActualTitle
+	for (Integer itr = 1; itr<=10 ; itr++)
+		sActualTitle = BranchPlus.CreditDecision.GetAttr ("Title")
+			if (sActualTitle.Contains( expectedTitle))
+	
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed to waitTillCreditDecisionLoads")
+	
+
+
+//This will enter the Co_Applicant Address in Credit Decision Window
+enter_Co_ApplicantAddess_CreditDecisionWindow(Integer row_num, String addr1,String zipCode)
+	
+	//Co-Applicant Address	
+	CreditDecisionSTEP.CoApplicantAddrTB.Row[row_num].WaitUntilExists(5)
+
+	CreditDecisionSTEP.CoApplicantAddrTB.Row[row_num].Addr1.SetText(addr1)
+	CreditDecisionSTEP.CoApplicantAddrTB.Row[row_num].Zipcode.SetText(zipCode)
+	if GetErrorCount () > 0 			
+		LogError("Failed to enter_Co_ApplicantAddess_CreditDecisionWindow")
+	
+
+
+//Select Cell in CoApplicant Window (Obj to string)
+Select_Cell_CoApplicant_Window(Integer rowNum, String colName)
+	
+	//Select Cell in CoApplicant Window
+	CreditDecisionSTEP.CoApplicantAddrTB.Row[rowNum].$colName.Click()
+	
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed to Select_Cell_CoApplicant_Window")
+
+// 
+MLAVerification_Credit_Decision_Window_CoApplicant()
+	
+	Sleep(3)
+	if (CreditDecisionSTEP.CoApplicantTable.WaitWhileExists(5))
+		
+		//#####################
+		//for window 10 Special Handling 
+		//#####################
+		clickMLAVerificationButton_CoApplicant()
+		Boolean bmlaVerificationWindow = BranchPlus.CreditDecision.verifyMLAPopUp.GetReport.WaitUntilExists(10)
+		if bmlaVerificationWindow
+			Sleep(10)
+			//Click on //GetReport// button
+			BranchPlus.CreditDecision.verifyMLAPopUp.GetReport.SetFocus()
+			BranchPlus.CreditDecision.verifyMLAPopUp.GetReport.Click()
+			//Logger
+			Print("MLA Report has been Printed successfully")
+			//click on Close button
+			BranchPlus.CreditDecision.verifyMLAPopUp.CreditReport.Close.Click()
+			//Verify MLA Covered checkbox
+			Sleep(4)
+			String MlaCoveredstatus = GetValue_PBDataWindow(CreditDecisionSTEP.CoApplicantTable,"1","mla_value")
+			//MsgBox MlaCoveredstatus
+			Sleep(2)
+			if (MlaCoveredstatus == "No")
+				Print("MLA Covered autopopulated to //No//")				
+			else
+				LogError("MLA Covered autopopulated to //Yes//")				
+			
+		else
+			LogError("MLA Lending Verification window not displayed")			
+		
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed in MLAVerification_Credit_Decision_Window_CoApplicant")
+	
+
+
+//@Method clickMLAVerificationButton_CoApplicant
+//@Author Chandra
+//@Date 18 MAr 2019
+//@Description This will click on the MLA button based on OS Name in Co applicant Window
+
+//Ex: clickMLAVerificationButton_CoApplicant
+//*********************************************************************************************
+clickMLAVerificationButton_CoApplicant()
+	
+	String osVersion = System.GetEnvVar("OS")
+	osVersion = osVersion.Replace("Workstation","")
+	if (osVersion.Trim() == "Windows 10")
+		BranchPlus.btn_VerifyMLAStatus_CreditDecision_CoApplication_Win10.Click()
+	else
+		BranchPlus.btn_VerifyMLAStatus_CreditDecision_CoApplication.Click()
+	
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed to clickMLAVerificationButton_CoApplicant")
+	
+
+clickMLAVerificationButton()
+	
+	String osVersion = System.GetEnvVar("OS")
+	osVersion = osVersion.Replace("Workstation","")
+	if (osVersion.Trim() == "Windows 10")
+		BranchPlus.btn_VerifyMLAStatus_CreditDecision_Win10.Click()
+	else
+		BranchPlus.btn_VerifyMLAStatus_CreditDecision.Click()
+	
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed to clickMLAVerificationButton")
+	
+
+//This will handel the USPS Window
+handleUSPSWindow()
+	if BranchPlus.CreditDecision.USPS_Window.WaitUntilExists(5)
+		BranchPlus.CreditDecision.USPS_Window.btnUseAddressAbove.Click()
+		//LogError("USPS Window appeared and Handeled","Passed","","")	
+	
+
+
+//@methodName: enter_Primary_Employer_Details_CreditDecision_Window(emplrName,position,dept,shift,supervisor,workyrs,workmos,salSource,payday,salPeriodType,grossSal)
+//@Author Ranjitha
+//@Date 12 June 2018
+//@Description This is will enter the Primary Employer details in Credit Decision window
+
+//Ex: enter_Primary_Employer_Details_CreditDecision_Window("Security Finance","Tester","Testing","Day","John Edwards","2","5","Full-time Job","Every Other Monday","Biweekly","3000")
+//********************************************************************************************************
+enter_Primary_Employer_Details_CreditDecision_Window(String emplrName,String position,String dept,String shift,String supervisor,String workyrs,String workmos,String  salSource,String payday,String salPeriodType,String grossSal)
+	Integer RowNumber = 1
+	Sleep(3)
+	if (BranchPlus.CreditDecision.tbldwStep.WaitWhileExists(5))
+		Sleep(3)
+		//Enter Employer Details
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].EmpName.TypeKeys(emplrName)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].EmpPos.TypeKeys(position)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].Dept.TypeKeys(dept)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].Shift.TypeKeys(shift)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].Supervisor.TypeKeys(supervisor)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].WorkYear.SetText(workyrs)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].WorkMons.SetText(workmos)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].SalarySource.SetText(salSource)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].PayDay.SetText(payday)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].SalaryPeriodType.SetText(salPeriodType)
+		BranchPlus.CreditDecision.tbldwStep.PrimaryEmpDetailsTB.Row[RowNumber].GrossSalary.SetText(grossSal)
+		Sleep(3)
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed in entering Primary employer details_CreditDecision_Window")
+	
+
+//This will handel the USPS Window for Co-Applicant
+handleUSPSWindow_CoApplicant()
+	if BranchPlus.CreditDecision.USPS_WindowCo.WaitUntilExists(5)
+		BranchPlus.CreditDecision.USPS_WindowCo.btnUseAddressAbove.Click()
+		Print("USPS Window for Co-Applicant appeared and Handeled")
+	else
+		LogError("USPS Window for Co-Applicant does not exist")
+	
+	//Error Handling
+	if GetErrorCount () > 0 			
+		LogError("Failed to handleUSPSWindow_CoApplicant")
+
+//This will enter the Collateral Details in Credit Decision Window
+enterCollateralDetails_CreditDecisionWindow(String vin, String descr, String make, String model, String style, String mfyear, String color, String mileage, String cylinder, String other, String tradeDesc)
+	Integer rownum = 1
+	//Enter details in Collateral section
+	BranchPlus.CreditDecision.tbldwStep.WaitUntilExists(10)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].New_yn.SetText("Yes")
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Vin.SetText(vin)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Descr.TypeKeys(descr)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Make.SetText(make)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Model.SetText(model)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Style.SetText(style)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Year.SetText(mfyear)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Color.SetText(color)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Mileage.SetText(mileage)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Cylinder.SetText(cylinder)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].Other.SetText(other)
+	BranchPlus.CreditDecision.tbldwStep.CollateralDetailsTB.Row[rownum].TradeDescr.SetText(tradeDesc)
+	if GetErrorCount() > 0  			
+		LogError("Failed to enterCollateralDetails_CreditDecisionWindow")
+	
+
+
+
+//Ex: enter_DirectLoan_FinanceDetails_CreditDecisionWindow_RefinanceCurrentCustomer("3000","60","0.16")
+//*************************************************************************************************************
+enter_DirectLoan_FinanceDetails_CreditDecisionWindow_RefinanceCurrentCustomer(String purchaseAmt,String terms,String intRate)
+	Integer rownum = 1
+	if (DirectLoan_FinanceDetails_Refinance.WaitWhileExists(5))
+		//Enter Finance Details
+		DirectLoan_FinanceDetails_Refinance.DirectLoan_RefinanceTB.Row[rownum].PurchaseAmt.SetText(purchaseAmt)
+		DirectLoan_FinanceDetails_Refinance.DirectLoan_RefinanceTB.Row[rownum].PurchaseAmt.SetText(terms)
+		DirectLoan_FinanceDetails_Refinance.DirectLoan_RefinanceTB.Row[rownum].PurchaseAmt.SetText(intRate)
+	
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed in Step/enter_DirectLoan_FinanceDetails_CreditDecisionWindow_RefinanceCurrentCustomer")
+
+//Ex: enter_DirectLoan_FinanceDetails_CreditDecisionWindow("3000","60","0.16")
+
+enter_DirectLoan_FinanceDetails_CreditDecisionWindow(String purchaseAmt,String terms,String intRate)
+	Integer rownum = 1
+	if (DirectLoan_FinanceDetails.WaitWhileExists(5))
+		//Enter Finance Details
+		DirectLoan_FinanceDetails.DirectLoanTB.Row[rownum].PurchaseAmt.SetText(purchaseAmt)
+		DirectLoan_FinanceDetails.DirectLoanTB.Row[rownum].PurchaseAmt.SetText(terms)
+		DirectLoan_FinanceDetails.DirectLoanTB.Row[rownum].PurchaseAmt.SetText(intRate)
+	
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed in Step/enter_DirectLoan_FinanceDetails_CreditDecisionWindow_RefinanceCurrentCustomer")
+
+//This will validate the First Payment Date in the Credit Decision Window
+validateFirstPaymentDate_CreditDecisionWindow()
+	Integer rownum = 1
+	  DirectLoan_FinanceDetails_Refinance.WaitWhileExists(5)
+	  DirectLoan_FinanceDetails_Refinance.SetFocus()
+	//Verify First payment date validation 
+	String loanDate = DirectLoan_FinanceDetails_Refinance.DirectLoan_RefinanceTB.Row[rownum].FundingDate.GetText()
+	String firstPaymentdate = DirectLoan_FinanceDetails_Refinance.DirectLoan_RefinanceTB.Row[rownum].FundingDueDate.GetText()
+	//Validating the Data
+	Date dFirstpaymentdate = Date.Parse("yyyy-MM-dd", firstPaymentdate)
+	Date dLoanDate = Date.Parse("yyyy-MM-dd", loanDate)
+	dLoanDate = dLoanDate.Add(30)
+	validateDataAndReport(dFirstpaymentdate,dLoanDate,"Validate First Payment date: {firstPaymentdate}")	
+	
+
+
+// validateDataAndReport(Object actualData, Object expectedData, Object customMessage)	
+	// 
+	// if (actualData.ToUpper()== expectedData.ToUpper())
+		// //LogError( customMessage & "  is Matching","Passed",FailComments,"YES")
+		// Print ( customMessage + "  is Matching | Actual and Expected data is : " +actualData)
+		// //Msgbox "PASS: " & customMessage & "  is Matching"	
+	// else
+		// LogError( customMessage + "  is Not Matching. Actual >> " +  actualData + " Expected Data >> " + expectedData)
+		// //Msgbox "FAIL: " & customMessage & "  is Not Matching. Actual >> " &  actualData & " Expected Data >> " & expectedData
+		// 
+	// //Error handling
+	// if GetErrorCount() > 0 
+		// LogError("Failed in validateDataAndReport")
+	// 
+
+
+enter_ChargeAmount_InTitleFee(String chrgAmt)
+	
+	if (TbwCompnent.WaitWhileExists(5))
+		//Set Charge Amount
+		if (sCurrentState == "FL" )
+			TbwCompnent.ChargeAmttitleFeeTB.Row[2].ChargeAmount.SetText(chrgAmt)
+		else
+			TbwCompnent.ChargeAmttitleFeeTB.Row[1].ChargeAmount.SetText(chrgAmt)
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed in to enter Charge Amount for Title Fee")
+	
+
+
+
+
+//Ex: enter_Stipulated_Details_CreditDecision_Window(completed_Signed_Application,coMaker_agreement,copy_of_Valid_Driver_License,PFS_Credit_Verifictn_Authorizn_Form,list_of_Relatives,proof_of_Residence,proof_of_Income,PFS_Insurance_Verification_Form)
+//***********************************************************************************************************************************************************************
+enter_Stipulated_Details_CreditDecision_Window(String completed_Signed_Application, String coMaker_agreement,String copy_of_Valid_Driver_License,String PFS_Credit_Verifictn_Authorizn_Form,String list_of_Relatives,String proof_of_Residence,String proof_of_Income,String PFS_Insurance_Verification_Form)
+	
+	 
+	if (BranchPlus.CreditDecision.tbldwStep.StipulatedDetailsTB.WaitWhileExists(5) )
+		//Enter Stipulate Details
+		BranchPlus.CreditDecision.tbldwStep.StipulatedDetailsTB.Row[1].OtherStipulation.TypeKeys(completed_Signed_Application)
+		BranchPlus.CreditDecision.tbldwStep.StipulatedDetailsTB.Row[2].OtherStipulation.TypeKeys(coMaker_agreement)
+		BranchPlus.CreditDecision.tbldwStep.StipulatedDetailsTB.Row[3].OtherStipulation.TypeKeys(copy_of_Valid_Driver_License)
+		BranchPlus.CreditDecision.tbldwStep.StipulatedDetailsTB.Row[4].OtherStipulation.TypeKeys(PFS_Credit_Verifictn_Authorizn_Form)
+		BranchPlus.CreditDecision.tbldwStep.StipulatedDetailsTB.Row[5].OtherStipulation.TypeKeys(list_of_Relatives)
+		BranchPlus.CreditDecision.tbldwStep.StipulatedDetailsTB.Row[6].OtherStipulation.TypeKeys(proof_of_Residence)
+		BranchPlus.CreditDecision.tbldwStep.StipulatedDetailsTB.Row[7].OtherStipulation.TypeKeys(proof_of_Income)
+		BranchPlus.CreditDecision.tbldwStep.StipulatedDetailsTB.Row[8].OtherStipulation.TypeKeys(PFS_Insurance_Verification_Form)
+	
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed in entering stipulated details_CreditDecision_Window")
+	
+
+
+//Selecting the Application Status in Credit Decision Window
+setValueInApplicationStatus_CreditDecisionWindow(String applicationStatus)
+	BranchPlus.CreditDecision.tbldwStep.ApplicationstatusTB.WaitWhileExists(10)
+	//Enter details in Application status
+	BranchPlus.CreditDecision.tbldwStep.ApplicationstatusTB.Row[1].ApplicationStatus.Select("app_status")
+	// Set crdDecision = PbWindow("BranchPlus").PbWindow("CreditDecision").PbDataWindow("tbldwStep")
+	// crdDecision.SelectCell "#1","app_status"
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to setValueInApplicationStatus_CreditDecisionWindow")
+	
+
+
+//Clicking on Finish Button
+clickOnFinishButton_CreditDecisionWindow()
+	BranchPlus.CreditDecision.Finish.Click()
+	
+
+
+
+
+//Ex: handleCreditDecision_Popup("Yes")
+//*********************************************************************************
+handleCreditDecision_Popup(String buttonName)
+	
+	if (BranchPlus.CreditDecision.WaitWhileExists(20))
+		BranchPlus.CreditDecision.PushButton[buttonName].Click()
+	 else 
+		BranchPlus.CreditDecision.PushButton[buttonName].Click()
+	 
+	if GetErrorCount() > 0  			
+		LogError("Credit Decision pop up NOT Found. Please verify")
+		
+
+
+//This will Open the Maintenance Window  by Pressing the F2 Key and Search with SSN 
+openMaintenanceAndSearchWithSSNNumber(String ssn)
+	
+	Sleep (5)
+	BranchPlus.SetActive()
+	BranchPlus.TypeKeys("<F2>")
+	Sleep (2)	
+	if (BranchPlus.CustomerSearchWindow.dw_search.IsPresent())
+		BranchPlus.CustomerSearchWindow.dw_search.SearchTB.Row[1].SSN.SetText(ssn)
+		BranchPlus.CustomerSearchWindow.btnOK.Click()
+		Print("Search With SSN Number >> " + "******" + ssn.Right (4)) // ??
+	else
+		LogError("Search With SSN Number >> " + "******" +  ssn.Right (4))
+	
+	Sleep(5)
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to openMaintenanceAndSearchWithSSNNumber")
+	
+
+
+//This will Navigate to Specified Tab
+navigateToTab(String tabName)
+	BranchPlus.CustomerF2Window.Tab[tabName].Select()
+	Sleep (3)
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to navigateToTab")
+	
+
+
+//This will set the values in the Fields US Resident Radio BUton, credit Score & Email
+setValuesIn_CustomerTab(String USResident, String creditScore, String Email)
+	Sleep (5)
+	if (BranchPlus. CustomerF2Window.dw_cust.IsPresent())
+		BranchPlus. CustomerF2Window.dw_cust.CustomerUSResidentTB.Row[1].USResident.SetText(USResident)
+		BranchPlus. CustomerF2Window.dw_cust.CustomerUSResidentTB.Row[1].CreditScore.SetText(creditScore)
+		BranchPlus. CustomerF2Window.dw_cust.CustomerUSResidentTB.Row[1].Email.SetText(Email)
+		
+		//Logger
+		LogError("Updated the data in the Fields USResident, Credit Score & Email")
+	else
+		LogError("Customer Tab in F2 Window did not get Loaded. Please check ")		
+		
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to setValuesIn_CustomerTab")
+	
+
+
+//This will set the Values in the Budget Tab
+enterValuesIn_BudgetTab(String monthlyInc1,String monthlyInc2,String monthlyPay1,String monthlyPay2, String monthlyPay3, String monthlyPay4)
+	
+	//PbWindow("BranchPlus").PbWindow("CustomerF2Window").PbDataWindow("dw_budget").Check CheckPoint("dw_budget")
+	
+	if (BranchPlus.CustomerF2Window.dw_budget.BudgetDetailsTB.Row[6].IsPresent())
+		BranchPlus.CustomerF2Window.dw_budget.BudgetDetailsTB.Row[1].MonthlyInc.SetText(monthlyInc1)
+		BranchPlus.CustomerF2Window.dw_budget.BudgetDetailsTB.Row[2].MonthlyInc.SetText(monthlyInc2)
+		BranchPlus.CustomerF2Window.dw_budget.BudgetDetailsTB.Row[3].MonthlyPay.SetText(monthlyPay1)
+		BranchPlus.CustomerF2Window.dw_budget.BudgetDetailsTB.Row[4].MonthlyPay.SetText(monthlyPay2)
+		BranchPlus.CustomerF2Window.dw_budget.BudgetDetailsTB.Row[5].MonthlyPay.SetText(monthlyPay3)
+		BranchPlus.CustomerF2Window.dw_budget.BudgetDetailsTB.Row[6].MonthlyPay.SetText(monthlyPay4)
+		Print("Data in the Budget Tab has been updated")
+	else
+		LogError("Budget Tab in F2 Window did not get Loaded. Please check ")		
+		
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to enterValuesIn_BudgetTab")
+	
+
+
+//This will click on the "Add Row" Button
+clickButton_AddRow()
+	BranchPlus.btnAddRow.Click()
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to clickButton_AddRow")
+	
+
+//This will Add the Reference Details in Reference Tab
+addReferenceDetails_ReferenceTab(Integer rowNum, String referenceType, String firstName, String lastName, String homePhone, String cellPhone, String otherPhone)
+	
+	if (BranchPlus.CustomerF2Window. dw_list_reference.IsPresent())
+		BranchPlus.CustomerF2Window. dw_list_reference.ReferenceDetailsTB.Row[rowNum].CustRefType.SetText(referenceType)
+		BranchPlus.CustomerF2Window. dw_list_reference.ReferenceDetailsTB.Row[rowNum].FirstName.TypeKeys(firstName)
+		BranchPlus.CustomerF2Window. dw_list_reference.ReferenceDetailsTB.Row[rowNum].LastName.TypeKeys(lastName)
+		BranchPlus.CustomerF2Window. dw_list_reference.ReferenceDetailsTB.Row[rowNum].Phone1.SetText(homePhone)
+		BranchPlus.CustomerF2Window. dw_list_reference.ReferenceDetailsTB.Row[rowNum].Phone2.SetText(cellPhone)
+		BranchPlus.CustomerF2Window. dw_list_reference.ReferenceDetailsTB.Row[rowNum].Phone3.SetText(otherPhone)
+		
+		Print("New Reference : {rowNum}  has been Added >>  {lastName} ,{firstName}")
+	else
+		LogError("Reference Tab in F2 Window did not get Loaded. Please check ")		
+		
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to addReferenceDetails_ReferenceTab")
+	
+
+
+//This will enter the mandatory information in the Insurance Tab
+enterInsuranceDetails_InsuranceTab(Integer rowNum, String companyName,String PolicyNumber,String startDate, String endDate)
+	
+	if (BranchPlus.CustomerF2Window.dw_insurance.IsPresent())
+		BranchPlus.CustomerF2Window.dw_insurance.InsuranceDetailsTB.Row[rowNum].CompanyName.SetText(companyName)
+		BranchPlus.CustomerF2Window.dw_insurance.InsuranceDetailsTB.Row[rowNum].PolicyNo.SetText(PolicyNumber)
+		BranchPlus.CustomerF2Window.dw_insurance.InsuranceDetailsTB.Row[rowNum].StartDate.SetText(startDate)
+		BranchPlus.CustomerF2Window.dw_insurance.InsuranceDetailsTB.Row[rowNum].EndDate.SetText(endDate)
+		
+		//Logger
+		Print("New Insurance  with,  {rowNum} has been added")
+	else
+		LogError("Insurance Tab in F2 Window did not get Loaded. Please check ")	
+	
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to enterInsuranceDetails_InsuranceTab")
+	
+
+
+//This will select the Value in the Status Select List in F2 window Account Tab
+changeAccountStatus_InAccountTab(String accStatus)
+	 Sleep (1)
+	if (BranchPlus.CustomerF2Window.dw_acct.IsPresent())
+		BranchPlus.CustomerF2Window.dw_acct.AccountStatusTB.Row[1].AccountStatus.SetText(accStatus)
+	 //Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to changeAccountStatus_InAccountTab")
+	
+
+//Call clickButtonInPBWindow("Redirecting To Test","OK")
+// Ex: Call clickButtonInPBWindow("Branch Setup","Cancel") 
+clickButtonInPBWindow(String windowTitle,String buttonName)
+	
+	if (BranchPlus.DialogBox[windowTitle].PushButton[buttonName].WaitWhileExists(5))
+		BranchPlus.DialogBox[windowTitle].PushButton[buttonName].Click()
+	else if (BranchPlus.DialogBox[windowTitle].PushButton[buttonName].WaitWhileExists(5))
+		BranchPlus.DialogBox[windowTitle].PushButton[buttonName].Click()
+	else
+		LogError("Failed to Click on Button : {buttonName} in window: {windowTitle}")
+	
+	Sleep (3)
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed in Step/: clickButtonInPBWindow")
+	
+
+
+// Done
+//Ex: handle_DualLoan_PopUp()
+//********************************************************************************************************
+handle_DualLoan_PopUp()
+	//Click on Close button in Dual Loan Pop up
+	if (BranchPlus.CreditReport.WaitWhileExists(10))
+		BranchPlus.CreditReport.Close.Click()
+		if (w_bp_frame.CreditDecisionSearchWindow.dw_search.WaitWhileExists(10) )
+			//Enter Reason
+			w_bp_frame.CreditDecisionSearchWindow.dw_search.DualLoanSearchTB.Row[1].Reason.SetText("Test123")
+			w_bp_frame.CreditDecisionSearchWindow.btnOk.Click()
+
+
+//This will click on Process Button
+clickButton_Process()
+	
+	BranchPlus.btnProcess.Click()
+	 //Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to clickButton_Process")
+	
+
+
+validatePartialDataAndReport(String actualData, String expectedData, String customMessage)	
+	actualData = actualData.ToUpper()
+	expectedData = expectedData.ToUpper()
+	if (actualData.IndexOf(expectedData) > 0)
+		Print("{customMessage} is Matching")
+		//Msgbox "PASS: " & customMessage & "  is Matching"	
+	else
+		LogError("{customMessage}  is Not Matching. Actual is {actualData} &  Expected Data is {expectedData}")
+		//Msgbox "FAIL: " & customMessage & "  is Not Matching. Actual >> " &  actualData & " Expected Data >> " & expectedData
+	
+	//Error handling
+	if GetErrorCount() > 0 
+		LogError("Failed in validatePartialDataAndReport")
+		
+
+//Ignoring the Loan Processing
+//Example Call clickButton_Level1PBwindow_DP("Process Loan Validation","No")
+Boolean clickButton_Level1PBwindow_DP(String windowTitle,String buttonName)
+	Boolean bFlag = false
+	List<String> lsDialogTitle = {}
+	if (BranchPlus.DialogBox[windowTitle].PushButton[buttonName].WaitWhileExists(5))
+		BranchPlus.DialogBox[windowTitle].PushButton[buttonName].Click()
+		bFlag = true
+	else 
+			for (AppObject ao in DialogBox[all])
+				lsDialogTitle.Add( ao.GetAttr("Title"))
+			if (lsDialogTitle.Find(windowTitle)>0)
+				BranchPlus.DialogBox[windowTitle].PushButton[buttonName].Click()
+				bFlag = true
+	if (BranchPlus.DialogBox[windowTitle].PushButton[buttonName].WaitWhileExists(5))
+		BranchPlus.DialogBox[windowTitle].PushButton[buttonName].Click()
+		bFlag = true
+	
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed in Step/: clickButton_Level1PBwindow_DP")
+	return bFlag
+
+
+ //This will click on "x" Close button
+closeCurrentWindow()
+	
+	Sleep(3)
+	BranchPlus.btnClose.Click()
+	Sleep(3)
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to closeCurrentWindow")
+	
+
+
+searchAccountWithReferenceId(String refID)
+	BranchPlus.SetActive()
+	//Open
+	sendKeys("F2")
+	enterValuesIn_CustmerSearch("acct_id",refID)
+	clickOkButton_CustomerSearchWindow()
+	//Error Handling
+	if GetErrorCount() > 0 
+		LogError("Failed in step/searchAccountWithReferenceId")
+	
+
+
+sendKeys(String keys)
+	UA.GenKeyEvents("<{keys}>",0.2)
+	Sleep (2)
+	//Error handling
+	if GetErrorCount() > 0 
+		LogError("Failed in sendKeys")
+	
+
+
+enterValuesIn_CustmerSearch(String colName, String CellValue) // ?? on Table
+	if BranchPlus.CustomerSearchWindow.dw_search.WaitWhileExists(10)
+		BranchPlus.CustomerSearchWindow.dw_search.SearchTB.Row[1].$colName.SetText(CellValue)
+	 if GetErrorCount() > 0 
+		LogError("Failed in step/enterValuesIn_CustmerSearch")
+
+clickOkButton_CustomerSearchWindow()
+	if (BranchPlus.CustomerSearchWindow.WaitWhileExists(10))
+		BranchPlus.CustomerSearchWindow.btnOK.Click()
+		Sleep (5)
+		//Sleep till accounts load
+		wait_Till_Accounts_Load_F2()
+	if GetErrorCount() > 0 
+		LogError("Failed in step/clickOkButton_CustomerSearchWindow")
+
+wait_Till_Accounts_Load_F2()
+	for (Integer itr = 1; itr <= 20; itr++)
+		Sleep(2)
+		 String data = getLoanNumbeGenerated_AccountTab()
+		 if (!data.IsEmpty())
+			break
+	//error handling
+	if GetErrorCount() > 0 
+		LogError("Failed to wait_Till_Accounts_Load_F2")
+	
+
+setValue_In_CustomerTab(String fldName, String fieldValue)
+	
+	
+	//Get Field ID Based on File Name 
+	String Coll_ID = getFieldIDBasedOnFieldName_CustomerTab(fldName)
+	
+	//Set value in Customer Tab
+	BranchPlus.CustomerF2Window.dw_cust.CustomerUSResidentTB.WaitWhileExists(5)
+	BranchPlus.CustomerF2Window.dw_cust.CustomerUSResidentTB.Row[1].$Coll_ID.SetText(fieldValue)
+	
+	//Error Handling
+	if GetErrorCount() > 0 
+		LogError("Failed Step/Function: setValue_In_CustomerTab")
+		
+
+//Ex //clickButton_Next()
+//*************************************************************************************************************************************************
+clickButton_Next()
+	if (BranchPlus.btnNext.WaitWhileExists(2))
+		BranchPlus.btnNext.Click()
+	if GetErrorCount() > 0 
+		LogError("Failed in step/clickButton_Next")
+	
+
+
+
+//Ex: processDirectLoan_ToMakeActive("Automation Testing","Test Employer")
+//********************************************************************************************************
+// processDirectLoan_ToMakeActive(String reason, String payToName)
+	// 
+	// Sleep (2)
+	// clickButton_Process()
+	// 
+	// //For Joint Customer Popup
+	// //clickButton_Level1PBwindow_DP("Process Loan Validation","Yes")
+	// 
+	// //validate_For_DualLoan_Warning_Popup()
+	// //Redirecting To Test popup
+	// if (sCurrentState == "NC" )
+		// clickButtonInPBWindow("Redirecting To Test","OK")
+	// 
+	// //Handle Dual Loan Pop up
+	// if (sCurrentState== "NC" )
+		// handle_DualLoan_PopUp()
+	// 
+	// //Check below process for Loan validation for other State,This is Not applicable to GA(10.0.0)
+	// //Process Loan Validation popup Click on Yes button
+	// //clickButtonInPBWindow("Process Loan Validation ","Yes")
+	// 
+	// //Click ok button in Truth in lending Disclosure window
+	// //LogError("Capturing screenshot in Truth in lending Disclosure window during Direct Loan process","Passed","","Y")
+	// BranchPlus.w_acct_loan_disclosure.btnOK.Click()
+	// 
+	// //Click Yes button in Process Loan pop up
+	// //LogError("Capturing screenshot in Process Loan pop up during Direct Loan process","Passed","","Y")
+	// BranchPlus.w_acct_loan_disclosure.w_message.btnYes.Click()
+	// 
+	// //enter reason in Check Book Payment Load Proceeds window
+	// if (BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[1].Reason.WaitWhileExists(5))
+		// BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[1].Reason.SetText(reason)
+	// if (BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[2].Reason.WaitWhileExists(5))
+		// BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[2].PayTo.SetText(payToName)
+		// BranchPlus.w_checkbook_pmt_split.dw_list.CheckBookPayTB.Row[2].Reason.SetText(reason)
+	// 
+	// //LogError("Capturing screenshot in Check Book Payment Load Proceeds window during Direct Loan process","Passed","","Y")
+	// //Clickin on Process Button
+	// BranchPlus.w_checkbook_pmt_split.btnProcess.Click()
+	// 
+	// //Handling Check Number Popup by clicking on Yes button
+	// Sleep (5)
+	// //Click on Mailing validation dailog -- 9.2.0 Release handled
+	// handle_PbWindow("w_message","OK")
+	// //Handeling Check Number Popup
+	// if (BranchPlus.NextCheckNumberPopUp.WaitWhileExists(5))
+		// BranchPlus.NextCheckNumberPopUp.btnYes.Click()
+	// 
+	// Sleep (5)
+	// //Handling Multiple Checks
+	// if (BranchPlus.NextCheckNumberPopUp.WaitWhileExists(5))
+		// BranchPlus.NextCheckNumberPopUp.btnYes.Click()
+	// //Error Handling
+	// if GetErrorCount() > 0 
+			// LogError("Failed to Process the Direct Loan")
+	// 
+
+
+//This will Click on the Save Button
+clickOnSaveButon()
+	BranchPlus.btnSave.Click()
+	Sleep (5)
+	//Error Handling
+	if GetErrorCount() > 0  			
+		LogError("Failed to clickOnSaveButon")
+	
+
+
+//Click() on Mailing validation dailog -- 9.2.0 Release handled // handle_PbWindow("w_message","OK")  //*** NEED To Revisit this 
+handle_PbWindow(String windowName,String buttonName)      
+	if (BranchPlus.DialogBox[windowName].PushButton[buttonName].WaitWhileExists(5))
+		BranchPlus.DialogBox[windowName].PushButton[buttonName].Click()
+	else if  (BranchPlus.DialogBox[windowName].PushButton[buttonName].WaitWhileExists(5))
+		BranchPlus.DialogBox[windowName].PushButton[buttonName].Click()
+	 //Error Handling 
+	 if GetErrorCount() > 0                  
+		  LogError("Failed in Step/clickButton_InWindow")
+		
+		
+
+//Fetching the Loan Number") // Ex: loanNumber = getLoanNumbeGenerated_AccountTab() //This will fetch the Loan Account Number generated 
+String getLoanNumbeGenerated_AccountTab()      
+	 String loanAccNumber = null
+	  if (BranchPlus.CustomerF2Window.dw_acct.WaitWhileExists(5))
+		 Sleep (5) 
+		AppObject custTable = BranchPlus.CustomerF2Window.dw_acct
+		 for (Integer itr = 1; itr<=200; itr++) 
+			  loanAccNumber =  GetValue_PBDataWindow(custTable,"1","cf_loan_nbr") 
+			  if (loanAccNumber != "Loan Not Processed")
+				  //LogError("Loan Account Number: "& loanAccNumber,"Passed",FailComments,"YES") 
+				  break      
+		   
+	  
+	 if GetErrorCount() > 0       
+		  LogError("Failed to getLoanNumbeGenerated_AccountTab") 
+	
+	return loanAccNumber
+ 
+// Ex: getFieldIDBasedOnFieldName_CustomerTab(fieldName) 
+ //@Description This return the column/field ID for the Field Name specified for Customer tab of F2 Screen  //Ex getFieldIDBasedOnFieldName_CustomerTab("First Name") 
+//********************************************************************************************* 
+String getFieldIDBasedOnFieldName_CustomerTab(String fldName) 
+	 //Variable 
+	 String idToReturn = null 
+	 //Fetching ID//s based on Name 
+	 if fldName == "First Name"  
+		  idToReturn = "first_name" 
+	 else if fldName == "Last Name"  
+		  idToReturn = "last_name" 
+	 else if fldName == "Mid Name"  
+		  idToReturn = "middle_name" 
+	 else if fldName == "Credit Score"  
+		  idToReturn = "credit_score" 
+	 else if fldName == "Affiliation"  
+		  idToReturn = "affil_type" 
+	 else if fldName == "Name Suffix"       
+		  idToReturn = "suffix" 
+	 else if fldName == "Opted Out"       
+		  idToReturn = "opted_out" 
+	 else if fldName == "Allow Solicitation"       
+		  idToReturn = "allow_solicit_yn" 
+	 else if fldName == "Welcome Call"       
+		  idToReturn = "welcome_call_yn" 
+	 else if fldName == "Email"  
+		  idToReturn = "email" 
+	 else if fldName == "Cust ID"  
+		  idToReturn = "compute_3" 
+	 else 
+		  LogError("Please pass the Proper parameter value to method getFieldIDBasedOnFieldName_CustomerTab") 
+	 return idToReturn 
+
+// Validating Account Status (Need to make it work for generic purpose)
+//Ex: actLoanStatus = GetValue_PBDataWindow(pbReportWindow, "#" & requiredRowNumber,"acct_status_descr")      to get value during runtime 
+String GetValue_PBDataWindow(AppObject tblPBDataWindow,String sRowNumber,String ColumnName) 
+	 String sGetAccountStatus = null
+	sRowNumber = sRowNumber.Replace("#", "")
+	Integer iRowNumber = Integer.Parse (sRowNumber)
+	if (BranchPlus.CustomerF2Window.dw_acct.WaitWhileExists(5))
+		sGetAccountStatus = BranchPlus.CustomerF2Window.dw_acct.AccountStatusTB.Row[iRowNumber].AccountStatus.GetText()
+		
+	 //Error Handling 
+	 if GetErrorCount() > 0                  
+		  LogError("Failed to GetValue_PBDataWindow") 
+	return sGetAccountStatus
+	  
+
+// //Handling Version Mismatch pop up 
+//@Description This will handle the Version mismatch pop up after Branchplus login
+handle_VersionMismatch_Popup() 
+	if (ResaleOfRepo_Header_Signature.VersionMismatch.WaitWhileExists(10))
+		LogError("Version Mismatch Pop-Up Appeared, Please deploy latest build")
+		ResaleOfRepo_Header_Signature.VersionMismatch.Yes.Click()
+	 if GetErrorCount() > 0  
+		  LogError("Failed in step/handle_VersionMismatch_Popup") 
+
+//killBranchPlusProcess()
+killBranchPlusProcess()
+	KillProcess("sfc_branch_plus.exe")
+	 Sleep(2)
+
+
+// Matryxsoft Util
+Integer ListFind_ByPartialText (List<String> lsTargetList, String sSearchItem, Boolean bPartialString)
+	String sPartialText 
+	if (bPartialString == null) 
+			bPartialString = true 
+	if bPartialString == false 
+			return lsTargetList.Find(sSearchItem) 
+	else
+		 for (sPartialText in lsTargetList)  
+			 if (sPartialText.IsNull() == false && sPartialText like sSearchItem) 
+					return lsTargetList.Find(sPartialText) 
+	return 0  
+// false moves down if true scrolls up according to UFT
+// MouseScroll (MouseScrollDirection sScrollDirection, String sWheelTurns)
+	//  %FuncInfo[Desc="This scrolls the mouse wheel up/down based on the input for the turns given as input",Group="Other"] 
+	//  //Author: Kavyashree Parkala 
+	//  System.Execute (GetRunDir ()+"\Project\Other\DoMouseScroll.exe "+ sScrollDirection + " " + sWheelTurns)  
+// KillProcess(String sProcessName) 
+	//  %FuncInfo[Desc="This function will kill system process.Do not add extension with the process name.",Group="Process"] 
+	//  String sProcess = "Taskkill " + "/IM " + sProcessName +"*" + " /" + "F" 
+	//  System.Execute (sProcess)  
+AppObject GenericHandlingDataWindow (AppObject ao)
+	String sObjectHierarchy = "{ao}"
+	String sParent_Obj, sChild_Obj1,sChild_Obj2,sChild_Obj3,sChild_Obj4
+	List<String> lsChild_Obj = sObjectHierarchy.Split (".") 
+	 switch lsChild_Obj.Count() 
+		case 3 
+			 sParent_Obj=lsChild_Obj[1] 
+			 sChild_Obj1 = lsChild_Obj[2] 
+			 sChild_Obj2 = lsChild_Obj[3] 
+			 return $sParent_Obj.$sChild_Obj1.$sChild_Obj2
+		case 4
+			 sParent_Obj=lsChild_Obj[1] 
+			 sChild_Obj1 = lsChild_Obj[2] 
+			 sChild_Obj2 = lsChild_Obj[3] 
+			 sChild_Obj3 = lsChild_Obj[4] 
+			return $sParent_Obj.$sChild_Obj1.$sChild_Obj2.$sChild_Obj3
+		case 5
+			 sParent_Obj=lsChild_Obj[1] 
+			 sChild_Obj1 = lsChild_Obj[2] 
+			 sChild_Obj2 = lsChild_Obj[3] 
+			 sChild_Obj3 = lsChild_Obj[4] 
+			 sChild_Obj4 = lsChild_Obj[5] 
+			 return $sParent_Obj.$sChild_Obj1.$sChild_Obj2.$sChild_Obj3.$sChild_Obj4
+		default 
+			 LogError ("Child objects count is empty {lsChild_Obj.Count()} or greaterthan {lsChild_Obj.Count()}") 
+	
+List<String> GetAllMenuItems(AppObject Menu, out List<String> lsMenuItems)
+	for (MenuItem m in Menu.MenuItem[all])
+		lsMenuItems.Add(m.GetText())
+		GetAllMenuItems(m,lsMenuItems)
+	// Print(lsMenuItems)
+	
+
+
+// Original Functions
+BranchPlusLogin_old()
+	%FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	//Load file paths required for scripts from external XML file
+	//Environment.LoadFromFile "\\\sfcnas-cl-201\Shared\BranchPlus\Global_Path_Configuration.xml"
+	//Handling Un Expected Dialog
+	String userID
+	handle_Dialog("sfc_branch_plus\.exe","Close the program")
+	handle_Dialog("RDP Clip Monitor","Close the program")
+	if BranchPlus.WaitWhileExists(5) 
+		//if PbWindow("w_bp_frame").PbObject("PbObject").WaitWhileExists(5) || BranchPlus.CreditDecision.WaitWhileExists(5) 
+		if (BranchPlus.btnClose.WaitWhileExists(1) || BranchPlus.CreditDecision.WaitWhileExists(1) )// || w_bp_frame.w_view_report.WaitWhileExists(1))
+			//Initilize Test - Kill Previous processes and map result html file
+			initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.cmd")
+			//Handling Un Expected Dialog
+			handle_Dialog("sfc_branch_plus\.exe","Close the program")
+			handle_Dialog("RDP Clip Monitor","Close the program")
+			//Login to Branch Application
+			Login_BranchPlus_Application()
+			//Getting the User ID (Cashdrawer)
+			userID = get_Existing_CashDrawer_User()
+			//Login into Branch with Cash Drawer User
+			changeLogInUser(userID,"auto123")
+		else
+			//Getting the User ID (Cashdrawer)
+			userID = get_Existing_CashDrawer_User()
+			//Login into Branch with Cash Drawer User
+			changeLogInUser(userID,"auto123")		
+	else
+		//Initilize Test - Kill Previous processes and map result html file
+		initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+		//Handling Un Expected Dialog
+		handle_Dialog("sfc_branch_plus\.exe","Close the program")
+		handle_Dialog("RDP Clip Monitor","Close the program")
+		//Login to Branch Application
+		Login_BranchPlus_Application()
+		//Getting the User ID (Cashdrawer)
+		userID = get_Existing_CashDrawer_User()
+		//Login into Branch with Cash Drawer User
+		changeLogInUser(userID,"auto123")
+	if GetErrorCount()>0  			
+			writeReportLog("Failed in Step/BranchPlusLogin","Failed", Error_Description ,"")
+
+//*****************************************************************************************
+//@methodName: BranchPlusLogin_Without_CashDrawer()
+//@Author Jeevan
+//@Date 27 June 2018
+//@Description This will login to BranchPlus application with out assining Cash Drawer
+//*****************************************************************************************
+BranchPlusLogin_Without_CashDrawer()
+	%FuncInfo[Desc="This is to get the Loan Number from App DB based on Account status, Account Type Code and Delinquency Status for Reverse flow.",Group="BranchPlusFunctions"]
+	//	if w_bp_frame.WaitWhileExists(5) 
+	//		
+	//		//w_bp_frame.PbObject("pbname:=mdi_1")
+	//		if PbWindow("w_bp_frame").PbObject("PbObject").WaitWhileExists(5) || BranchPlus.CreditDecision.WaitWhileExists(5) 
+	//			//Initilize Test - Kill Previous processes and map result html file
+	//			 initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+	//			//Login to Branch Application
+	//			 Login_BranchPlus_Application()
+	//		else
+	//		//Login to Branch Application is not Required			
+	//				
+	//	else
+	//		//Initilize Test - Kill Previous processes and map result html file
+	//		 initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+	//		//Login to Branch Application
+	//		 Login_BranchPlus_Application()
+	//		
+	//	
+	// if w_bp_frame.WaitWhileExists(5) 
+		// if BranchPlus.btnClose.WaitWhileExists(5) || BranchPlus.CreditDecision.WaitWhileExists(5)  || w_bp_frame.w_view_report.WaitWhileExists(5) 
+			// //Initilize Test - Kill Previous processes and map result html file
+			// initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+			// //Handling Un Expected Dialog
+			// handle_Dialog("sfc_branch_plus\.exe","Close the program")
+			// handle_Dialog("RDP Clip Monitor","Close the program")
+			// //Login to Branch Application
+			// Login_BranchPlus_Application()
+		// else
+	// else
+		// //Initilize Test - Kill Previous processes and map result html file
+		// initilizeBranchPlusTest("C:\BranchRoot\App\sfc_branch_plus\RunBranchPlus.CMD")
+		// //Handling Un Expected Dialog
+		// handle_Dialog("sfc_branch_plus\.exe","Close the program")
+		// handle_Dialog("RDP Clip Monitor","Close the program")
+		// //Login to Branch Application
+		// Login_BranchPlus_Application()
+	// if GetErrorCount()>0  			
+		// writeReportLog("Failed in Step/BranchPlusLogin_Without_CashDrawer","Failed", Error_Description ,"")
+//This function is created separately for a specific test, not prefering its usage for regular sripting
+Login_BranchPlus()
+	%FuncInfo[Desc="This will login to BranchPlus application USING Support User.",Group="BranchPlusFunctions"]
+	//**************************************************************************************	
+	//loginSheetPath = Environment.Value("BranchPlusSharedPath") & "LoginDetails.xlsx")
+	//Importing Test Data from Excel Shet(specific sheet)
+	//	 importSpecificSheet(loginSheetPath,"Login")
+	// DataTable.AddSheet("Login")
+	// DataTable.ImportSheet loginSheetPath,"Login","Login"
+	// DataTable.GetSheet("Login").SetValue(CurrentRow 1
+	// user_Name = DataTable.Value("UserName","Login")
+	// password = DataTable.Value("Password","Login")
+	// network_Username = DataTable.Value("NetworkUsername","Login")
+	// network_Passcode = DataTable.Value("NetworkPasscode","Login")
+	//**************************************************************************************
+	//PbWindow("Pbname:=w_bp_logon").Highlight
+	//LoginWin = PbWindow("Pbname:=w_bp_logon").PbEdit("pbname:=sle_userid").IsPresent()
+	if BranchPlus.CashDrawerLoginWindow.txtuserid.WaitWhileExists (5)
+		//Enter System user credentials
+		BranchPLUSLogon.txtUserName.SetValue("")
+		BranchPLUSLogon.txtUserName.SetValue(sUsername)
+		BranchPLUSLogon.txtPassword.SetValue(sPassword)
+		//Click on OK
+		BranchPlus.CashDrawerLoginWindow.btnOK.Click()
+		//Verify Network login Authentication
+		if BranchPLUSLogon.NetworkLoginAuthentication.txtNetworkUser.IsPresent()
+			BranchPLUSLogon.NetworkLoginAuthentication.txtNetworkUser.SetValue(sNetworkUsername)
+			BranchPLUSLogon.NetworkLoginAuthentication.txtNetworkPassword.SetValue(sNetworkPasscode)
+			BranchPLUSLogon.NetworkLoginAuthentication.btnOK.Click()
+			//Handling Version Mismatch pop up
+			handle_VersionMismatch_Popup()
+			if BranchPlus.IsPresent()
+				// writeReportLog("Validate Branch Plus Login","Passed",FailComments,"")
+			else
+				LogError (" Branch Plus Login Failed")
+		else
+			//Fail Log - Branch Network Login window not displayed
+			LogError ("Branch Plus Network Login window not displayed, Failed")
+	else
+		//Fail Log - Branch System Login window not displayed
+		LogError("Branch Plus System Login window not displayed, Failed")
+	//Removing the Data Sheet from UFT
+	// DataTable.DeleteSheet("Login")
+//*****************************************************************************************
+//@methodName: get_Existing_CashDrawer_User()
+//@Author Karthik
+//@Date 18 June 2018
+//@Description This will get the existing cash drawer user from DB
+//Ex: get_Existing_CashDrawer_User()
+//*****************************************************************************************
+String get_Existing_CashDrawer_User()
+	%FuncInfo[Desc="This will get the existing cash drawer user from DB.",Group="BranchPlusFunctions"]
+	//Get the Cash Drawer from the Shared Location 
+	String sGetExistingCDUserID, sQuery
+	String sFilePath = System.GetEnvVar(sBranchPlusSQLPath+ "CashDrawerUser_SQLQuery.txt")
+	//Updating the Query in the UFT Log
+	// Reporter.ReportEvent micDone,"Query to Identify the Cash Drawer & Set Pwd",sQuery
+	//Returing the 1st User ID with Cash Drawer    
+	//sGetExistingCDUserID = runSQLQuery(lsQuery[1],"userid")		
+	Database db
+	db.Connect ("Driver=Microsoft Excel Driver (*.xlsx);Dbq={sFilePath};ReadOnly=0")
+	db.Execute("SELECT 'userid' FROM [Sheet1$]")
+	db.Fetch(sGetExistingCDUserID)
+	return sGetExistingCDUserID
+// Update_ColumnValue_Into_DB
+ Update_ColumnValue_Into_DB(String sName1, String Name2, String RowNumber, String sAddress, Straing sBranchName, String aJointAddress, String ID)
+	
+	// Update_ColumnValue_Into_DB("w_wiz_new_cust", "dw_coapp", "#1", "addr2","branchplusqa.bp_applicantaddress","joint_address2",System.GetEnvVar("ID"))
+

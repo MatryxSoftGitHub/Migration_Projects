@@ -1,0 +1,305 @@
+class aprrove : Step
+%StepInfo[Desc="aprrove",Group="null"]
+Main()
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+// Inbox icon or button
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", Btn_Inbox);
+JSExecutor.executeScript("arguments[0].click();", Btn_Inbox);
+Thread.sleep(5000);
+String InboxItemName = "Ad Hoc Payment: ";
+WebElement LabelInboxItemName = driver.findElement(By.xpath("//div[@data-automation-id=\"inbox_row_title\" and contains(text(),\"" + InboxItemName + "\")]"));
+LabelInboxItemName.click();
+Thread.sleep(5000);
+if (Txt_areaComment.isDisplayed() == true)
+{
+Txt_areaComment.sendKeys("Approved");
+}
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", Btn_Approve);
+Thread.sleep(5000);
+if (Btn_Approve.isDisplayed() == true)
+{
+JSExecutor.executeScript("arguments[0].click();", Btn_Approve);
+}
+else if (Btn_Submit.isDisplayed() == true)
+{
+JSExecutor.executeScript("arguments[0].click();", Btn_Submit);
+}
+else if (Btn_Ok.isDisplayed() == true)
+{
+JSExecutor.executeScript("arguments[0].click();", Btn_Ok);
+}
+else
+{
+System.out.println("Check the button for approval");
+}
+class SendKeysAndClickEnterUsingTableName_RadioBtn : Step
+%StepInfo[Desc="SendKeysAndClickEnterUsingTableName_RadioBtn",Group="null"]
+parameter String TableName
+parameter String columnName
+parameter String TestData
+Main()
+throws InterruptedException
+{
+if (TestData.trim().isEmpty())
+{
+System.out.println("Skipping the step as the user did not enter any data in the data sheet");
+}
+else
+{
+try
+{
+Thread.sleep(9000);
+WebElement textColName = driver
+.findElement(By.xpath("//span[text()='" + columnName + "']/ancestor::td"));
+String dataAutoId = textColName.getAttribute("data-automation-id");
+System.out.println(dataAutoId);
+String[] colData = dataAutoId.split("-");
+String colNum = colData[1];
+WebElement SpanTablePromotion = driver.findElement(By.xpath("(//caption[text()='" + TableName
++ "']/following-sibling::tbody//td[contains(@headers,\"columnheader" + colNum
++ "\")]//span[@data-automation-id=\"promptIcon\"])"));
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", SpanTablePromotion);
+Thread.sleep(2000);
+SpanTablePromotion.isDisplayed();
+SpanTablePromotion.click();
+Thread.sleep(2000);
+WebElement TableNameWithRowHeader = driver.findElement(By.xpath("//caption[text()='" + TableName
++ "']/following-sibling::tbody//td[contains(@headers,\"columnheader" + colNum + "\")]//input"));
+TableNameWithRowHeader.sendKeys(TestData);
+TableNameWithRowHeader.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+WebElement Rbtn_Grid = driver
+.findElement(By.xpath("//div[text()='" + TestData + "']/..//input[@type=\"radio\"]"));
+if (Rbtn_Grid.isDisplayed() == true)
+{
+Thread.sleep(5000);
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", Rbtn_Grid);
+Thread.sleep(2000);
+JSExecutor.executeScript("arguments[0].click();", Rbtn_Grid);
+}
+WebElement VerifyTableSelectedData = driver.findElement(By.xpath("//td[contains(@headers,\"columnheader"
++ colNum + "\")]//div[contains(@data-automation-id,\"selectedItem\")]//p[text()='" + TestData
++ "']"));
+if (VerifyTableSelectedData.isDisplayed())
+{
+System.out.println("Table Radio Data is selected " + TestData);
+}
+else
+{
+System.out.println("Table Radio Data is not selected ");
+}
+}
+catch (Exception e)
+{
+System.out.println("Element not found");
+}
+}
+}
+class SendKeys_Table : Step
+%StepInfo[Desc="SendKeys_Table",Group="null"]
+parameter String columnName
+parameter String TestData
+Main()
+{
+if (TestData.trim().isEmpty())
+{
+System.out.println("Skipping the step as the user did not enter any data in the data sheet");
+}
+else
+{
+try
+{
+Thread.sleep(5000);
+WebElement textColName = driver.findElement(By.xpath("//span[text()='" + columnName + "']/ancestor::td"));
+String dataAutoId = textColName.getAttribute("data-automation-id");
+System.out.println(dataAutoId);
+String[] colData = dataAutoId.split("-");
+String colNum = colData[1];
+WebElement inputRowHeader = driver.findElement(By.xpath("(//td[contains(@headers,\"columnheader" + colNum + "\")]//input)[1]"));
+inputRowHeader.click();
+inputRowHeader.sendKeys(Keys.CONTROL, "a");
+System.out.println("Entering the data" + TestData);
+inputRowHeader.sendKeys(TestData);
+System.out.println("Data has been entered into the field");
+}
+catch (NoSuchElementException e)
+{
+System.out.println("Element not found");
+}
+catch (Exception e)
+{
+System.out.println("Fail to sendkeys and click enter for the element");
+}
+}
+}
+class ClickOnSubmit : Step
+%StepInfo[Desc="ClickOnSubmit",Group="null"]
+Main()
+{
+Thread.sleep(2000);
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", Btn_Submit);
+Btn_Submit.isDisplayed();
+Btn_Submit.click();
+}
+class Uploadfile : Step
+%StepInfo[Desc="Uploadfile",Group="null"]
+Main()
+{
+String filePath = "E:\\vidyaWorkspace482020\\EclipseWorkspace\\WorkdayBP_Selenium\\UploadFiles\\SampleUploadFile.txt";
+Thread.sleep(2000);
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", AttachmentsTab);
+Thread.sleep(3000);
+Actions actions = new Actions(driver);
+actions.moveToElement(AttachmentsTab).click().perform();
+Btn_SelectFiles.isDisplayed();
+Thread.sleep(3000);
+fileUpload.sendKeys(filePath);
+Thread.sleep(3000);
+}
+class AddDetailsToLinesTab_Step : Step
+%StepInfo[Desc="AddDetailsToLinesTab_Step",Group="null"]
+Main()
+{
+// Add details to lines tab in Create Ad Hoc Payment Page
+// ---------------------------------------------------------------------------------------------------
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Thread.sleep(2000);
+// Navigate to lines tab
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].scrollIntoView(true);", LinesTab);
+Actions actions = new Actions(driver);
+actions.moveToElement(LinesTab).click().perform();
+int localVar = 1;
+if (localVar > 1)
+{
+AddRow.click();
+Thread.sleep(2000);
+}
+JSExecutor.executeScript("arguments[0].click();", ColumnLine);
+Header.isDisplayed();
+Thread.sleep(2000);
+TextColmnName.click();
+CommonsFunctions func = new CommonsFunctions(driver);
+Thread.sleep(2000);
+// Spend Category
+func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "Spend Category", "Advertising");
+// Quantity
+func.SendKeys_Table("Quantity", "1" + Keys.ENTER);
+Thread.sleep(2000);
+// Unit Cost
+func.SendKeys_Table("Unit Cost", "1000");
+Thread.sleep(2000);
+// Cost Center
+func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "*Cost Center", "100-000 General Overhead");
+Thread.sleep(2000);
+}
+class AddDetailsToAdHocPaymentPage_Step : Step
+%StepInfo[Desc="AddDetailsToAdHocPaymentPage_Step",Group="null"]
+Main()
+{
+// Add details to Create Ad Hoc Payment Page
+// ---------------------------------------------------------------------------------------------------
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+// Company
+Thread.sleep(5000);
+Txt_Company.sendKeys("NYT USD  - New York Home Office");
+Txt_Company.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+// Bank Account
+Txt_BankAccount.sendKeys("NYT Operating - JPMC USD-4785");
+Txt_BankAccount.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+// label payee ---------------------
+// Rdo_LabelPayee.click();
+JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+JSExecutor.executeScript("arguments[0].click();", Rdo_LabelPayee);
+Thread.sleep(5000);
+// Text payee
+Txt_LabelPayee.sendKeys("AM Best Rating Services, Inc. - 9279");
+Thread.sleep(2000);
+Txt_LabelPayee.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+//		// Currency//
+//		JSExecutor.executeScript("arguments[0].click();", SpanIconOption);//
+//		Txt_Currency.click();
+//		Txt_Currency.sendKeys("USD");
+//		Txt_Currency.sendKeys(Keys.ENTER);
+//
+//		// Payment Date
+//		Txt_PaymentDate.sendKeys("08-31-2020");
+//
+//		// Payment Type
+//		Txt_PaymentType.sendKeys("ACH");
+//		Thread.sleep(2000);
+//		Txt_PaymentType.sendKeys(Keys.ENTER);
+// ControlTotalAmount
+Txt_ControlTotalAmount.sendKeys(Keys.CONTROL, "a");
+Txt_ControlTotalAmount.sendKeys("1000");
+// Memo
+Txt_Memo.sendKeys("TestMemo1");
+}
+class SearchForBP_Step : Step
+%StepInfo[Desc="SearchForBP_Step",Group="null"]
+parameter String sBPSearchValue
+Main()
+{
+//Search for BP---------------------------------------------------------------------------------------------------
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+Txt_BPSearch.click();
+Txt_BPSearch.sendKeys(sBPSearchValue);
+Txt_BPSearch.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+Lnk_BPSearch.click();
+}
+class LoginToWorkday_Step : Step
+%StepInfo[Desc="LoginToWorkday_Step",Group="null"]
+Main()
+{
+config=new ConfigDataProvider();
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+sTxt_Username.sendKeys(config.GetUsername());
+Txt_Password.sendKeys(config.GetPassword());
+Btn_SignIn.click();
+Lnk_Skip.click();
+}
+class StartProxyAndActAs_Step : Step
+%StepInfo[Desc="StartProxyAndActAs_Step",Group="null"]
+parameter String sStartProxy
+parameter String sActAs
+Main()
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//Search for Start proxy--------------------------------------------------------------------------------------
+Txt_WorkdaySearch.sendKeys(Keys.CONTROL, "a");
+Txt_WorkdaySearch.sendKeys(sStartProxy);
+Thread.sleep(5000);
+Txt_WorkdaySearch.sendKeys(Keys.ENTER);
+Lnk_StartProxy.click();
+//Act As Start proxy--------------------------------------------------------------------------------------------------
+Txt_ActAs.click();
+Txt_ActAs.sendKeys(sActAs);
+Txt_ActAs.sendKeys(Keys.ENTER);
+Thread.sleep(5000);
+Btn_Ok.click();
+Thread.sleep(5000);
+}
+class StopProxy_Step : Step
+%StepInfo[Desc="StopProxy_Step",Group="null"]
+parameter String sStopProxy
+Main()
+{
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//Search for Stop proxy--------------------------------------------------------------------------------------
+Txt_WorkdaySearch.sendKeys(Keys.CONTROL, "a");
+Txt_WorkdaySearch.sendKeys(sStopProxy);
+Thread.sleep(5000);
+Txt_WorkdaySearch.sendKeys(Keys.ENTER);
+Lnk_StopProxy.click();
+Thread.sleep(3000);
+Btn_Ok.click();
+}

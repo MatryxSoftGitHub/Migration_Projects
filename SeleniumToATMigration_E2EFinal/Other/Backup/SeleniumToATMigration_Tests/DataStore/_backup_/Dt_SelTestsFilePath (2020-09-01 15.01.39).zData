@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="C872189C">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="Record_SelTestsFilePath">
+			<Field Name="TestCaseId" Type="String"/>
+			<Field Name="JavaFileNamePath" Type="ListOfString"/>
+			<Field Name="TextFilesPath" Type="ListOfString"/>
+			<Field Name="sSeq1IntegratedOutFileName" Type="String"/>
+			<Field Name="Indent_OutFileName" Type="ListOfString"/>
+			<Field Name="TestsZeeFilePath" Type="String"/>
+		</Record>
+		<List Name="Record_SelTestsFilePathList" ItemType="Record_SelTestsFilePath"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_SelTestsFilePath" Type="Record_SelTestsFilePathList">
+			<Record_SelTestsFilePath>
+				<TestCaseId>SeleniumTestsConversionToAtFormat</TestCaseId>
+				<JavaFileNamePath>
+					<String>ForwardVideoPlay.java</String>
+					<String>LikeSubscribeChannel.java</String>
+					<String>RandomVideoPlay.java</String>
+				</JavaFileNamePath>
+				<TextFilesPath>
+					<String>ForwardVideoPlay.txt</String>
+					<String>LikeSubscribeChannel.txt</String>
+					<String>RandomVideoPlay.txt</String>
+				</TextFilesPath>
+				<sSeq1IntegratedOutFileName>Seq1IntegratedOuputFile.txt</sSeq1IntegratedOutFileName>
+				<Indent_OutFileName>
+					<String>ForwardVideoPlay.txt</String>
+					<String>LikeSubscribeChannel.txt</String>
+					<String>RandomVideoPlay.txt</String>
+				</Indent_OutFileName>
+				<TestsZeeFilePath>Test.z</TestsZeeFilePath>
+			</Record_SelTestsFilePath>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_SelTestsFilePath">
+			<Field Name="TestCaseId" Width="189"/>
+			<Field Name="JavaFileNamePath" Width="267"/>
+			<Field Name="TextFilesPath" Width="253"/>
+			<Field Name="sSeq1IntegratedOutFileName"/>
+			<Field Name="Indent_OutFileName" Width="143"/>
+			<Field Name="TestsZeeFilePath" Width="185"/>
+		</Object>
+	</Layout>
+</DataStore>

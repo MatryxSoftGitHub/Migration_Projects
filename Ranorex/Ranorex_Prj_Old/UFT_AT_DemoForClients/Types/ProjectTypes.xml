@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Types CRC="0AAB144D">
+	<List Name="ListOfString" ItemType="String"/>
+	<Record Name="Record_ConvertingUFTORtoExactATOR">
+		<Field Name="TestcaseID" Type="String"/>
+		<Field Name="lsDeleteTags" Type="ListOfString"/>
+		<Field Name="lsOrignalFinalObjRepo" Type="ListOfString"/>
+		<Field Name="sRepositoryFile" Type="String"/>
+		<Field Name="sOrgUFTFileName" Type="String"/>
+		<Field Name="sUFTModifiedOrgFile" Type="String"/>
+		<Field Name="sModifiedUFTFileName" Type="String"/>
+		<Field Name="sUFTSourceFile" Type="String"/>
+		<Field Name="sUFTtoATConvertFile" Type="String"/>
+		<Field Name="sATDestinationFile" Type="String"/>
+		<Field Name="sFinalPath" Type="String"/>
+		<Field Name="sFinalATObjFile" Type="String"/>
+		<Field Name="lsUnwnatedPathStmt_Web" Type="ListOfString"/>
+		<Field Name="lsUnwnatedPathStmt_Win" Type="ListOfString"/>
+		<Field Name="sExistingDirPath" Type="String"/>
+	</Record>
+	<List Name="Record_ConvertingUFTORtoExactATORList" ItemType="Record_ConvertingUFTORtoExactATOR"/>
+	<Record Name="Record_UFTConvertion_Steps">
+		<Field Name="TestcaseID" Type="String" Unique="true"/>
+		<Field Name="lsStepsSourceFilePath" Type="ListOfString"/>
+		<Field Name="lsStepFormateSourceFile" Type="ListOfString"/>
+		<Field Name="lsUFTMethods" Type="ListOfString"/>
+		<Field Name="lsATMethods" Type="ListOfString"/>
+		<Field Name="lsUFTConditionalStatments" Type="ListOfString"/>
+		<Field Name="lsATConditionalStatments" Type="ListOfString"/>
+		<Field Name="sDeleteDir" Type="String"/>
+		<Field Name="lsDestinationFiles" Type="ListOfString"/>
+	</Record>
+	<List Name="Record_UFTConvertion_StepsList" ItemType="Record_UFTConvertion_Steps"/>
+	<Record Name="Record_UFTConvertions_Steps">
+		<Field Name="TestcaseID" Type="String"/>
+		<Field Name="lsUFTMethods" Type="ListOfString"/>
+		<Field Name="lsATMethods" Type="ListOfString"/>
+	</Record>
+	<List Name="Record_UFTConvertions_StepsList" ItemType="Record_UFTConvertions_Steps"/>
+	<List Name="IntegerList" ItemType="Integer"/>
+	<Record Name="Record_UFTTestToATTest">
+		<Field Name="RowId" Type="String" Unique="true"/>
+		<Field Name="lsUFTOrgTestFile" Type="ListOfString"/>
+		<Field Name="sTCName_TestInfo" Type="String"/>
+		<Field Name="lsActionFile" Type="ListOfString"/>
+		<Field Name="lsDirPath" Type="ListOfString"/>
+	</Record>
+	<List Name="Record_UFTTestToATTestList" ItemType="Record_UFTTestToATTest"/>
+	<Record Name="Record_KeywordConversion">
+		<Field Name="lsUFT_Keyword" Type="ListOfString"/>
+		<Field Name="lsAT_Keyword" Type="ListOfString"/>
+		<Field Name="lsUFT_Methods" Type="ListOfString"/>
+		<Field Name="lsAT_Methods" Type="ListOfString"/>
+	</Record>
+	<List Name="Record_KeywordConversionList" ItemType="Record_KeywordConversion"/>
+	<RestrictedString Name="MouseScrollDirection">
+		<Values>
+			<Value>up</Value>
+			<Value>down</Value>
+		</Values>
+	</RestrictedString>
+</Types>

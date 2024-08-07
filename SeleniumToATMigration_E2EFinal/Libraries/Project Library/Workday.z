@@ -1,0 +1,79 @@
+﻿// class aprrove : Step
+	// %StepInfo[Desc="aprrove",Group="null"]
+	// Main()
+		// ApprovalProcessPages.JSExecutor.WaitWhileExists(30)
+		// // Inbox icon or button
+		// JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		// JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Btn_Inbox)
+		// ApprovalProcessPages.JSExecutor.executeScript("arguments[0].Click()", Btn_Inbox)
+		// Sleep(5)
+		// String InboxItemName = "Ad Hoc Payment: "
+		// AppObject LabelInboxItemName = driver.findElement(By.xpath("//div[@data-automation-id=\"inbox_row_title\" and contains(text(),\"" + InboxItemName + "\")]"))
+		// ApprovalProcessPages.LabelInboxItemName.Click()
+		// Sleep(5)
+		// if (ApprovalProcessPages.Txt_areaComment.IsPresent() == true)
+			// ApprovalProcessPages.Txt_areaComment.SetValue("Approved")
+		// JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Btn_Approve)
+		// Sleep(5)
+		// if (ApprovalProcessPages.Btn_Approve.IsPresent() == true)
+			// ApprovalProcessPages.JSExecutor.executeScript("arguments[0].Click()", Btn_Approve)
+		// else if (ApprovalProcessPages.Btn_Submit.IsPresent() == true)
+			// ApprovalProcessPages.Btn_Submit.Click()
+		// else if (ApprovalProcessPages.Btn_Ok.IsPresent() == true)
+			// ApprovalProcessPages.JSExecutor.executeScript("arguments[0].Click()", Btn_Ok)
+		// else
+			// Print("Check the button for approval")
+// class SendKeysAndClickEnterUsingTableName_RadioBtn : Step
+	// %StepInfo[Desc="SendKeysAndClickEnterUsingTableName_RadioBtn",Group="null"]
+	// parameter String TableName
+	// parameter String columnName
+	// parameter String TestData
+	// Main()
+			// Print("Skipping the step as the user did not enter any data in the data sheet")
+				// Thread.sleep(9000)
+				// AppObject textColName = driver.findElement(By.xpath("//span[text()='" + columnName + "']/ancestor::td"))
+				// String dataAutoId = textColName.GetAttr("data-automation-id")
+				// Print(dataAutoId)
+				// List<String> colData = dataAutoId.Split("-")
+				// String colNum = colData[1]
+				// AppObject SpanTablePromotion = driver.findElement(By.xpath("(//caption[text()='" + TableName+ "']/following-sibling::tbody//td[contains(@headers,\"columnheader" + colNum+ "\")]//span[@data-automation-id=\"promptIcon\"])"))
+				// JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+				// JSExecutor.executeScript("arguments[0].scrollIntoView(true)", SpanTablePromotion)
+				// Sleep(2)
+				// CommonsFunctions.SpanTablePromotion.IsPresent()
+				// CommonsFunctions.SpanTablePromotion.Click()
+				// Sleep(2)
+				// AppObject TableNameWithRowHeader = driver.findElement(By.xpath("//caption[text()='" + TableNamestep + "']/following-sibling::tbody//td[contains
+				// CommonsFunctions.TableNameWithRowHeader.SetValue(TestData)
+				// CommonsFunctions.TableNameWithRowHeader.SetValue(Keys.ENTER)
+				// Sleep(5)
+				// AppObject Rbtn_Grid = driver.findElement(By.xpath("//div[text()='" + TestData + "']/..//input[@type=\"radio\"]"))
+				// Sleep(5)
+				// JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Rbtn_Grid)
+				// Sleep(2)
+				// CommonsFunctions.JSExecutor.executeScript("arguments[0].Click()", Rbtn_Grid)
+				// AppObject VerifyTableSelectedData = driver.findElement(By.xpath("//td[contains(@headers,\"columnheader + colNum + "\")]//div[contains(@data-automation-id,\"selectedItem\")]//p[text()='" + TestData+ "']"))
+				// Print("Table Radio Data is selected " + TestData)
+				// Print("Table Radio Data is not selected ")
+				// Print("Element not found")
+// class SendKeys_Table : Step
+	// %StepInfo[Desc="SendKeys_Table",Group="null"]
+	// parameter String columnName
+	// parameter String TestData
+	// Main()
+		// Print("Skipping the step as the user did not enter any data in the data sheet")
+				// Sleep(5)
+				// AppObject textColName = driver.findElement(By.xpath("//span[text()='" + columnName + "']/ancestor::td"))
+				// String dataAutoId = textColName.GetAttr("data-automation-id")
+				// Print(dataAutoId)
+				// List<String> colData = dataAutoId.Split("-")
+				// String colNum = colData[1]
+				// AppObject inputRowHeader = driver.findElement(By.xpath("(//td[contains(@headers,\"columnheader" + colNum + "\")]//input)[1]"))
+				// CommonsFunctions.inputRowHeader.Click()
+				// CommonsFunctions.inputRowHeader.SetValue(Keys.CONTROL, "a")
+				// Print("Entering the data" + TestData)
+				// CommonsFunctions.inputRowHeader.SetValue(TestData)
+				// Print("Data has been entered into the field")
+					// Print("Element not found")
+						// Print("Fail to sendkeys and click enter for the element")
+// 

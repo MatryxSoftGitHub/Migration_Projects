@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="5D30A03D">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="record_DataTypeConversion">
+			<Field Name="SeleniumDataTypes" Type="ListOfString"/>
+			<Field Name="AscentialTestDataType" Type="ListOfString"/>
+			<Field Name="Declarion" Type="ListOfString"/>
+		</Record>
+		<List Name="record_DataTypeConversionList" ItemType="record_DataTypeConversion"/>
+	</Types>
+	<Objects>
+		<Object Name="DataTypeConversion" Type="record_DataTypeConversionList">
+			<record_DataTypeConversion>
+				<SeleniumDataTypes>
+					<String>parseInt</String>
+					<String>Integer.valueOf</String>
+					<String>Double.parseDouble</String>
+					<String>toString</String>
+					<String>String.valueOf</String>
+					<String>(int)</String>
+					<String>(int)Math.round</String>
+					<String>Float.parseFloat</String>
+				</SeleniumDataTypes>
+				<AscentialTestDataType>
+					<String>Parse</String>
+					<String>Integer.Parse</String>
+					<String>Real.Parse</String>
+					<String>Format</String>
+					<String>String.Format</String>
+					<String> </String>
+					<String> </String>
+					<String>Real.Parse</String>
+				</AscentialTestDataType>
+				<Declarion>
+					<String>converts String to integer</String>
+					<String>converts String to integer</String>
+					<String>converts double to Real</String>
+					<String>converts integer to String</String>
+					<String>converts integer to String</String>
+					<String>converts Integer to Real</String>
+					<String>converts Integer to Real</String>
+					<String>converts float to Real</String>
+				</Declarion>
+			</record_DataTypeConversion>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="DataTypeConversion">
+			<Field Name="SeleniumDataTypes" Width="257"/>
+			<Field Name="AscentialTestDataType"/>
+			<Field Name="Declarion" Width="271"/>
+		</Object>
+	</Layout>
+</DataStore>

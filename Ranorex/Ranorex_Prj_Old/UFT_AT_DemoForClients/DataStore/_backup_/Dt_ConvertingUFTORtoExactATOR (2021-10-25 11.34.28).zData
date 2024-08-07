@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="F2AB72F3">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="Record_ConvertingUFTORtoExactATOR">
+			<Field Name="TestcaseID" Type="String"/>
+			<Field Name="lsDeleteTags" Type="ListOfString"/>
+			<Field Name="lsOrignalFinalObjRepo" Type="ListOfString"/>
+			<Field Name="sRepositoryFile" Type="String"/>
+			<Field Name="sOrgUFTFileName" Type="String"/>
+			<Field Name="sUFTModifiedOrgFile" Type="String"/>
+			<Field Name="sModifiedUFTFileName" Type="String"/>
+			<Field Name="sUFTSourceFile" Type="String"/>
+			<Field Name="sUFTtoATConvertFile" Type="String"/>
+			<Field Name="sATDestinationFile" Type="String"/>
+			<Field Name="sFinalPath" Type="String"/>
+			<Field Name="sFinalATObjFile" Type="String"/>
+			<Field Name="lsUnwnatedPathStmt_Web" Type="ListOfString"/>
+			<Field Name="lsUnwnatedPathStmt_Win" Type="ListOfString"/>
+			<Field Name="sExistingDirPath" Type="String"/>
+		</Record>
+		<List Name="Record_ConvertingUFTORtoExactATORList" ItemType="Record_ConvertingUFTORtoExactATOR"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_ConvertingUFTORtoExactATOR" Label="UFTOR_TO_ATOR" Type="Record_ConvertingUFTORtoExactATORList">
+			<Record_ConvertingUFTORtoExactATOR>
+				<TestcaseID>1</TestcaseID>
+				<lsDeleteTags>
+					<String>supported automation patterns</String>
+					<String>localized control type</String>
+					<String>&lt;Properties</String>
+					<String>&lt;ObjectRepository</String>
+					<String>&lt;OrdinalIdentifier</String>
+					<String>&lt;BasicIdentification</String>
+					<String>&lt;PropertyRef</String>
+					<String>&lt;LastUpdateTime</String>
+					<String>&lt;ChildObjects</String>
+					<String>&lt;CustomReplay</String>
+					<String>&lt;Behavior</String>
+					<String>&lt;CheckpointsAndOutputs</String>
+					<String>&lt;Parameters</String>
+					<String>&lt;/Properties</String>
+					<String>&lt;/ObjectRepository</String>
+					<String>&lt;/OrdinalIdentifier</String>
+					<String>&lt;/BasicIdentification</String>
+					<String>&lt;/PropertyRef</String>
+					<String>&lt;/LastUpdateTime</String>
+					<String>&lt;/ChildObjects</String>
+					<String>&lt;/CustomReplay</String>
+					<String>&lt;/Behavior</String>
+					<String>&lt;/CheckpointsAndOutputs</String>
+					<String>&lt;/Parameters</String>
+					<String>&lt;Metadata</String>
+					<String>&lt;/Metadata</String>
+				</lsDeleteTags>
+				<lsOrignalFinalObjRepo>
+					<String>UFTORtoATOR</String>
+					<String>UFTORtoATOR\RepositoryDestionPath.xml</String>
+					<String>UFTORtoATOR\FinalATPathFile.txt</String>
+				</lsOrignalFinalObjRepo>
+				<sRepositoryFile>Repository.xml</sRepositoryFile>
+				<sOrgUFTFileName>ConvertObjATFiles\UFTOrginalFormat.txt</sOrgUFTFileName>
+				<sUFTModifiedOrgFile>ConvertObjATFiles\UFTModifiedOrgFile1.txt</sUFTModifiedOrgFile>
+				<sModifiedUFTFileName>ConvertObjATFiles\UFTModifiedFormat2.txt</sModifiedUFTFileName>
+				<sUFTSourceFile>ConvertObjATFiles\UFTObjectRepo3.txt</sUFTSourceFile>
+				<sUFTtoATConvertFile>ConvertObjATFiles\ConvertUFTtoATRepo4.txt</sUFTtoATConvertFile>
+				<sATDestinationFile>ConvertObjATFiles\ConvertedAT5.txt</sATDestinationFile>
+				<sFinalPath>FinalATORFile.txt</sFinalPath>
+				<sFinalATObjFile>ConvertObjATFiles\FinalATObjFile6.txt</sFinalATObjFile>
+				<lsUnwnatedPathStmt_Web>
+					<String>@opentitle</String>
+					<String>@openedbytestingtool</String>
+					<String>@number</String>
+					<String>@micclass</String>
+					<String>@browserindex</String>
+					<String>@user-input in post data</String>
+					<String>@user input in get data</String>
+					<String>@url without form data</String>
+					<String>@index</String>
+					<String>@form data</String>
+					<String>@document size</String>
+					<String>@all data in get method</String>
+					<String>@_xpath</String>
+					<String>@width</String>
+					<String>@visible</String>
+					<String>@view</String>
+					<String>@items count</String>
+					<String>@html tag</String>
+					<String>@height</String>
+					<String>@abs</String>
+					<String>@first item</String>
+					<String>@default value</String>
+					<String>@acc</String>
+					<String>@abs</String>
+					<String>@type</String>
+					<String>@rows</String>
+					<String>@non user-input in</String>
+					<String>@placeholder</String>
+					<String>@max</String>
+					<String>@html tag</String>
+					<String>@default value</String>
+					<String>@role</String>
+					<String>@value</String>
+				</lsUnwnatedPathStmt_Web>
+				<lsUnwnatedPathStmt_Win>
+					<String>@is owned window</String>
+					<String>@is child window</String>
+				</lsUnwnatedPathStmt_Win>
+				<sExistingDirPath>ConvertObjATFiles</sExistingDirPath>
+			</Record_ConvertingUFTORtoExactATOR>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_ConvertingUFTORtoExactATOR">
+			<Field Name="TestcaseID" Width="174"/>
+			<Field Name="sUFTSourceFile" Width="209"/>
+			<Field Name="sUFTtoATConvertFile" Width="256"/>
+			<Field Name="sATDestinationFile" Width="217"/>
+			<Field Name="lsDeleteTags"/>
+			<Field Name="sOrgUFTFileName" Width="220"/>
+			<Field Name="sModifiedUFTFileName" Width="242"/>
+			<Field Name="sFinalPath"/>
+			<Field Name="sRepositoryFile"/>
+			<Field Name="sUFTModifiedOrgFile" Width="228"/>
+			<Field Name="lsOrignalFinalObjRepo" Width="290"/>
+			<Field Name="sFinalATObjFile" Width="227"/>
+			<Field Name="lsUnwnatedPathStmt_Web"/>
+			<Field Name="lsUnwnatedPathStmt_Win"/>
+			<Field Name="sExistingDirPath" Width="225"/>
+		</Object>
+	</Layout>
+</DataStore>

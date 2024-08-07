@@ -1,0 +1,88 @@
+class ClickOnSubmit : Step
+	%StepInfo[Desc="ClickOnSubmit",Group="null"]
+	Main()
+		Sleep(2)
+		Btn_Submit.IsPresent()
+		Btn_Submit.Click()
+class Uploadfile : Step
+	%StepInfo[Desc="Uploadfile",Group="null"]
+	Main()
+		String filePath = "E:\\vidyaWorkspace482020\\EclipseWorkspace\\WorkdayBP_Selenium\\UploadFiles\\SampleUploadFile.txt"
+		Sleep(2)
+		Sleep(3)
+		AttachmentsTab.Click()
+		Btn_SelectFiles.IsPresent()
+		Sleep(3)
+		fileUpload.SetValue(filePath)
+		Sleep(3)
+class AddDetailsToLinesTab_Step : Step
+	%StepInfo[Desc="AddDetailsToLinesTab_Step",Group="null"]
+	Main()
+		// Add details to lines tab in Create Ad Hoc Payment Page
+		// ---------------------------------------------------------------------------------------------------
+		JSExecutor.WaitWhileExists(30)
+		Sleep(2)
+		// Navigate to lines tab
+		LinesTab.Click()
+		Integer localVar = 1
+		if (localVar > 1)
+			AddRow.Click()
+			Sleep(2)
+		ColumnLine.Click()
+		Header.IsPresent()
+		Sleep(2)
+		TextColmnName.Click()
+		Sleep(2)
+		// Spend Category
+		func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "Spend Category", "Advertising")
+		// Quantity
+		func.SendKeys_Table("Quantity", "1" + Keys.ENTER)
+		Sleep(2)
+		// Unit Cost
+		func.SendKeys_Table("Unit Cost", "1000")
+		Sleep(2)
+		// Cost Center
+		func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "*Cost Center", "100-000 General Overhead")
+		Sleep(2)
+class AddDetailsToAdHocPaymentPage_Step : Step
+	%StepInfo[Desc="AddDetailsToAdHocPaymentPage_Step",Group="null"]
+	Main()
+		// Add details to Create Ad Hoc Payment Page
+		// ---------------------------------------------------------------------------------------------------
+		Thread.WaitWhileExists(30)
+		// Company
+		Sleep(5)
+		Txt_Company.SetValue("NYT USD  - New York Home Office")
+		Txt_Company.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		// Bank Account
+		Txt_BankAccount.SetValue("NYT Operating - JPMC USD-4785")
+		Txt_BankAccount.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		// label payee ---------------------
+		// Rdo_LabelPayee.Click()
+		Rdo_LabelPayee.Click()
+		Sleep(5)
+		// Text payee
+		Txt_LabelPayee.SetValue("AM Best Rating Services, Inc. - 9279")
+		Sleep(2)
+		Txt_LabelPayee.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		//		// Currency//
+						SpanIconOption.Click()
+		//		Txt_Currency.Click()
+		//		Txt_Currency.SetValue("USD")
+		//		Txt_Currency.GenKeyEvents ("<Enter>")
+		//
+		//		// Payment Date
+		//		Txt_PaymentDate.SetValue("08-31-2020")
+		//
+		//		// Payment Type
+		//		Txt_PaymentType.SetValue("ACH")
+		//		Sleep(2)
+		//		Txt_PaymentType.GenKeyEvents ("<Enter>")
+		// ControlTotalAmount
+		Txt_ControlTotalAmount.GenKeyEvents("<Ctrl-A>")
+		Txt_ControlTotalAmount.SetValue("1000")
+		// Memo
+		Txt_Memo.SetValue("TestMemo1")

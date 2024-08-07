@@ -1,0 +1,83 @@
+﻿app WebPage SoftwareTestingTools
+		path [@Title=="Software Testing Tools: Automated Testing, Manual Testing and Test Management | Zeenyx Software"]
+		path [@Text=="https://zeenyx.com"]
+		path [@Name=="Software Testing Tools: Automated Testing, Manual Testing and Test Management | Zeenyx Software"]
+app WebPage ZeenyxInformationRequest
+	path [@Text=="https://zeenyx.com/InfoRequest.html"]
+	path [@Title=="Zeenyx Information Request for Software Testing"]
+	WebRadioGroup RequestType
+		path [@Name=="RequestType"]
+		path [@ElemId=="RequestType_3"]
+		path [@ElemClass==""]
+	WebPopupList State
+		path [@Name=="State"]
+		path [@ElemId=="State"]
+		path [@ElemClass==""]
+	WebTextField ZipCode
+		path [@Name=="ZipCode"]
+		path [@ElemId=="ZipCode"]
+		path [@ElemClass==""]
+	WebTextField Request
+		path [@Name=="Request"]
+		path [@ElemId=="Request"]
+		path [@ElemClass==""]
+	WebTextField PhoneNumber
+		path [@Name=="PhoneNumber"]
+		path [@ElemId=="PhoneNumber"]
+		path [@ElemClass==""]
+	WebTextField LastName
+		path [@Name=="LastName"]
+		path [@ElemId=="LastName"]
+		path [@ElemClass==""]
+	WebTextField FirstName
+		path [@Name=="FirstName"]
+		path [@ElemId=="FirstName"]
+		path [@ElemClass==""]
+	WebTextField Email
+		path [@Name=="Email"]
+		path [@ElemId=="Email"]
+		path [@ElemClass==""]
+	WebTextField ConfirmEmail
+		path [@Name=="ConfirmEmail"]
+		path [@ElemId=="ConfirmEmail"]
+		path [@ElemClass==""]
+	WebTextField CompanyName
+		path [@Name=="CompanyName"]
+		path [@ElemId=="CompanyName"]
+		path [@ElemClass==""]
+	WebTextField City
+		path [@Name=="City"]
+		path [@ElemId=="City"]
+		path [@ElemClass==""]
+	WebTextField Address2
+		path [@Name=="Address2"]
+		path [@ElemId=="Address2"]
+		path [@ElemClass==""]
+	WebTextField Address1
+		path [@Name=="Address1"]
+		path [@ElemId=="Address1"]
+		path [@ElemClass==""]
+	WebCheckBox NewsLetterRegister
+		path [@Name=="NewsLetterRegister"]
+		path [@ElemId=="NewsLetterRegister"]
+		path [@ElemClass==""]
+	WebCheckBox FirstTimeContact
+		path [@Name=="FirstTimeContact"]
+		path [@ElemId=="FirstTimeContact"]
+		path [@ElemClass==""]
+app WebPage SoftwareTestingTools_2
+	path [@Text=="https://zeenyx.com/#"]
+	path [@Title=="Software Testing Tools: Automated Testing, Manual Testing and Test Management | Zeenyx Software"]
+	WebLink InfoRequest
+		path [@Text=="Info Request"]
+		path [@Name=="Info Request"]
+		path [@ElemId==""]
+		path [@URL=="https://zeenyx.com/InfoRequest.html"]
+		path [@ElemClass=="MenuBarItemHover"]
+	WebLink CONTACT
+		path [@Text=="CONTACT"]
+		path [@Name=="CONTACT"]
+		path [@ElemId==""]
+		path [@URL=="https://zeenyx.com/#"]
+		path [@ElemClass=="MenuBarItemSubmenu MenuBarItemSubmenuHover"]
+

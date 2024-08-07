@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="F40ED36A">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="record_DataTypes">
+			<Field Name="Selenium_DataTypes" Type="ListOfString"/>
+			<Field Name="AscentialTest_DataType" Type="ListOfString"/>
+		</Record>
+		<List Name="DataTypesList" ItemType="record_DataTypes"/>
+	</Types>
+	<Objects>
+		<Object Name="DataTypes" Label="DataTypes" Type="DataTypesList">
+			<record_DataTypes>
+				<Selenium_DataTypes>
+					<String>int</String>
+					<String>short</String>
+					<String>long</String>
+					<String>byte</String>
+					<String>boolean</String>
+					<String>double</String>
+					<String>float</String>
+					<String>char</String>
+					<String>object</String>
+					<String>Date</String>
+					<String>String</String>
+					<String>WebElement</String>
+					<String>int[]</String>
+					<String>String[]</String>
+					<String>boolean[]</String>
+					<String>Object[]</String>
+					<String>double[]</String>
+					<String>float[]</String>
+				</Selenium_DataTypes>
+				<AscentialTest_DataType>
+					<String>Integer</String>
+					<String>Integer</String>
+					<String>Integer</String>
+					<String>Integer</String>
+					<String>Boolean</String>
+					<String>Real</String>
+					<String>Real</String>
+					<String>Char</String>
+					<String>Object</String>
+					<String>Date</String>
+					<String>String</String>
+					<String>AppObject</String>
+					<String>List&lt;Integer&gt;</String>
+					<String>List&lt;String&gt;</String>
+					<String>List&lt;Boolean&gt;</String>
+					<String>List&lt;Object&gt;</String>
+					<String>List&lt;Real&gt;</String>
+					<String>List&lt;Real&gt;</String>
+				</AscentialTest_DataType>
+			</record_DataTypes>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="DataTypes"/>
+	</Layout>
+</DataStore>

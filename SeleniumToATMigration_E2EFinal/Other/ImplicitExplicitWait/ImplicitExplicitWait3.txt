@@ -1,0 +1,98 @@
+class ClickOnSubmit : Step
+	%StepInfo[Desc="ClickOnSubmit",Group="null"]
+	Main()
+		Sleep(2)
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", Btn_Submit)
+		Btn_Submit.isDisplayed()
+		Btn_Submit.click()
+class Uploadfile : Step
+	%StepInfo[Desc="Uploadfile",Group="null"]
+	Main()
+		String filePath = "E:\\vidyaWorkspace482020\\EclipseWorkspace\\WorkdayBP_Selenium\\UploadFiles\\SampleUploadFile.txt"
+		Sleep(2)
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", AttachmentsTab)
+		Sleep(3)
+		Actions actions = new Actions(driver)
+		actions.moveToElement(AttachmentsTab).click().perform()
+		Btn_SelectFiles.isDisplayed()
+		Sleep(3)
+		fileUpload.sendKeys(filePath)
+		Sleep(3)
+class AddDetailsToLinesTab_Step : Step
+	%StepInfo[Desc="AddDetailsToLinesTab_Step",Group="null"]
+	Main()
+		// Add details to lines tab in Create Ad Hoc Payment Page
+		// ---------------------------------------------------------------------------------------------------
+		JSExecutor.WaitWhileExists(30)
+		Sleep(2)
+		// Navigate to lines tab
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		JSExecutor.executeScript("arguments[0].scrollIntoView(true)", LinesTab)
+		Actions actions = new Actions(driver)
+		actions.moveToElement(LinesTab).click().perform()
+		int localVar = 1
+		if (localVar > 1)
+			AddRow.click()
+			Sleep(2)
+		JSExecutor.executeScript("arguments[0].click()", ColumnLine)
+		Header.isDisplayed()
+		Sleep(2)
+		TextColmnName.click()
+		CommonsFunctions func = new CommonsFunctions(driver)
+		Sleep(2)
+		// Spend Category
+		func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "Spend Category", "Advertising")
+		// Quantity
+		func.SendKeys_Table("Quantity", "1" + Keys.ENTER)
+		Sleep(2)
+		// Unit Cost
+		func.SendKeys_Table("Unit Cost", "1000")
+		Sleep(2)
+		// Cost Center
+		func.SendKeysAndClickEnterUsingTableName_RadioBtn("Lines", "*Cost Center", "100-000 General Overhead")
+		Sleep(2)
+class AddDetailsToAdHocPaymentPage_Step : Step
+	%StepInfo[Desc="AddDetailsToAdHocPaymentPage_Step",Group="null"]
+	Main()
+		// Add details to Create Ad Hoc Payment Page
+		// ---------------------------------------------------------------------------------------------------
+		Thread.WaitWhileExists(30)
+		// Company
+		Sleep(5)
+		Txt_Company.sendKeys("NYT USD  - New York Home Office")
+		Txt_Company.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		// Bank Account
+		Txt_BankAccount.sendKeys("NYT Operating - JPMC USD-4785")
+		Txt_BankAccount.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		// label payee ---------------------
+		// Rdo_LabelPayee.click()
+		JavascriptExecutor JSExecutor = (JavascriptExecutor) driver
+		JSExecutor.executeScript("arguments[0].click()", Rdo_LabelPayee)
+		Sleep(5)
+		// Text payee
+		Txt_LabelPayee.sendKeys("AM Best Rating Services, Inc. - 9279")
+		Sleep(2)
+		Txt_LabelPayee.GenKeyEvents ("<Enter>")
+		Sleep(5)
+		//		// Currency//
+		//		JSExecutor.executeScript("arguments[0].click()", SpanIconOption)//
+		//		Txt_Currency.click()
+		//		Txt_Currency.sendKeys("USD")
+		//		Txt_Currency.GenKeyEvents ("<Enter>")
+		//
+		//		// Payment Date
+		//		Txt_PaymentDate.sendKeys("08-31-2020")
+		//
+		//		// Payment Type
+		//		Txt_PaymentType.sendKeys("ACH")
+		//		Sleep(2)
+		//		Txt_PaymentType.GenKeyEvents ("<Enter>")
+		// ControlTotalAmount
+		Txt_ControlTotalAmount.GenKeyEvents("<Ctrl-A>")
+		Txt_ControlTotalAmount.sendKeys("1000")
+		// Memo
+		Txt_Memo.sendKeys("TestMemo1")

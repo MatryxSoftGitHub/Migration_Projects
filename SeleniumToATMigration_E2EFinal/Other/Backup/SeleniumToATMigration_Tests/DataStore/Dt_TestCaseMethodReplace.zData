@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="3E22D8E6">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="record_TestMethodsReplacement">
+			<Field Name="SeleniumMethods" Type="ListOfString"/>
+			<Field Name="AscentialTestMethods" Type="ListOfString"/>
+		</Record>
+		<List Name="record_TestMethodsReplacementList" ItemType="record_TestMethodsReplacement"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_TestCaseMethodReplace" Type="record_TestMethodsReplacementList">
+			<record_TestMethodsReplacement>
+				<SeleniumMethods>
+					<String>System.out.println</String>
+					<String>Thread.sleep(3000)</String>
+					<String>Thread.sleep(5000)</String>
+				</SeleniumMethods>
+				<AscentialTestMethods>
+					<String>Print</String>
+					<String>Sleep(3)</String>
+					<String>Sleep(5)</String>
+				</AscentialTestMethods>
+			</record_TestMethodsReplacement>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_TestCaseMethodReplace">
+			<Field Name="SeleniumMethods" Width="154"/>
+			<Field Name="AscentialTestMethods" Width="195"/>
+		</Object>
+	</Layout>
+</DataStore>

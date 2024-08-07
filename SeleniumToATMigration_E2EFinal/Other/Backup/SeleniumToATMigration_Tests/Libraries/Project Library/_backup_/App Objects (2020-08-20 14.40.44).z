@@ -1,0 +1,4 @@
+﻿app WebPage SimpleContextMenu
+	path [@Title=="Simple Context Menu"]
+	WebText ContextmenuoneBtnBtnneutral
+		path [@ElemClass=="context-menu-one btn btn-neutral"]

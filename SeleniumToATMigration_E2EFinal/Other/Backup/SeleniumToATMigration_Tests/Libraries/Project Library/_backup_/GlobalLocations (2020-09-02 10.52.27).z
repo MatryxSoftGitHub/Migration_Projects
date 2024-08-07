@@ -1,0 +1,30 @@
+﻿// Directory Locations for Saving converted Files
+
+String sSeleniumJavaFolderPath = GetWorkingDirectoryPath()+"\Other\JavaFiles\" // manually need to be added to the working project folder
+String sTextFolderPath = GetWorkingDirectoryPath()+"\Other\TempTextFiles"
+String sImplicitExplicitWaitFolderPath = GetWorkingDirectoryPath()+"\Other\ImplicitExplicitWait"
+String sAscentialTestFolderPath = GetWorkingDirectoryPath()+"\Other\ATConvertedFiles"
+String sSequence1OutputFilePath = GetWorkingDirectoryPath()+"\Other\Sequence1OutputFile"
+String sAppObjectsOutputFilePath = GetWorkingDirectoryPath()+"\Other\AppObjectsOutputFile"
+String FinalAppObjectOutPutFile = "\ATFinalAPPObjectOut.txt"
+
+// Working Directory
+String sWorkingDirectory = ""
+
+// Used for FindElements By Path
+const Integer iDotRepeatCount = 3
+
+
+//Directory locations for Tests files
+
+
+String sSeleniumTestsJavaFolderPath = GetWorkingDirectoryPath()+"\Other\Tests\SeleniumTestsJavaFiles\" // manually need to be added 
+String sTestsTextFolderPath = GetWorkingDirectoryPath()+"\Other\Tests\TestsTempTextFiles"
+String sIntegratedSeq1OutFileName=sSequence1OutputFilePath+"\Seq1IntegratedOuputFile.txt"
+String sTestImplicitExplicitWaitFolderPath = GetWorkingDirectoryPath()+"\Other\Tests\ImplicitExplicitWait"
+String sAscentialFolderPath=GetWorkingDirectoryPath()+"\Other\Tests\MethodsConversionFile"
+//CreateDirectory
+String sTests=GetWorkingDirectoryPath()+"Other\Tests"
+String sZeeFile=GetWorkingDirectoryPath()+"\"
+
+

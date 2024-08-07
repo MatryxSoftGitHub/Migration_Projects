@@ -1,0 +1,27 @@
+class SelectTheReqProduct : Step
+	%StepInfo[Desc="SelectTheReqProduct",Group="null"]
+	parameter String sProductName
+	Main()
+		System.out.println("Search a product in Flipkart Application")
+		Itm_Popularity.WaitWhileExists(30)
+		Itm_Popularity.click()
+		Sleep(5)
+		for (WebElement listProducts : sTxt_SearchedProducts)
+			// System.out.println(listProducts.getText())
+			// int iNumOfProducts =sTxt_SearchedProducts.size()
+			// System.out.println(iNumOfProducts)
+			// if (listProducts.getText() == (sProductName.trim()))
+			if (listProducts.getText().contains(sProductName.trim()))
+				Actions actions = new Actions(driver)
+				actions.moveToElement(listProducts).perform()
+				listProducts.click()
+		Sleep(2)
+class SelectProductUsingName : Step
+	%StepInfo[Desc="SelectProductUsingName",Group="null"]
+	parameter String sProductName
+	Main()
+		System.out.println("Add details to Delivery Address to book product")
+		ReqProduct.WaitWhileExists(30)
+		Sleep(5)
+		WebElement ReqProduct = driver.findElement(By.xpath("//*[contains(text(),'" + sProductName + "')]"))
+		ReqProduct.click()

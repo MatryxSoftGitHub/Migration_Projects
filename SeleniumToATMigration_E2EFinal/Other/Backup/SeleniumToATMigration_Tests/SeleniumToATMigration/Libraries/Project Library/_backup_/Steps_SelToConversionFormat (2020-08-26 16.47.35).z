@@ -1,0 +1,58 @@
+﻿// Nagaraj And Sharan
+class AddsNewLineForOpenAndCloseBraces : Step
+	%StepInfo[Desc="Adds a New line for Open And Close Braces",Group="SelToConversionFormat"]
+	parameter String sReadFile
+	parameter List<String> lsOriginalSelData
+	Main()
+		List<String>  lsSplit, lsSplit2, lsDataAfterBracesSplit
+		String sObrace,  sCbrace, sReadData
+		sObrace = Char (123)
+		sCbrace = Char (125)
+		Boolean bOutOfRange = false
+		// Read entire selenium java file
+		
+		// Reads each line to check for the braces
+		for (Integer i = 1; i<=lsOriginalSelData.Count(); i++)
+			// Gets Repaetable braces
+			step GetRepaetableCharCount
+				sData:lsOriginalSelData[i]
+				sChar:sCbrace
+			if (GetRepaetableCharCount.iRepeatCharCount>1)
+				lsOriginalSelData.Remove(i)
+				for (Integer j=1; j<=GetRepaetableCharCount.iRepeatCharCount; j++)
+					if (lsOriginalSelData.Count()<i+j-1)
+						lsOriginalSelData.Add (sCbrace) // Adds the brace if it comes at the very end of the file
+						bOutOfRange = true 
+					else
+						lsOriginalSelData.Insert (i+j-1, sCbrace)
+				i = i+GetRepaetableCharCount.iRepeatCharCount
+			if bOutOfRange == false // if it is not the end of the file
+				if lsOriginalSelData[i].Trim().Length() ==1 // Checks for only one character which contains brace alone
+					if lsOriginalSelData[i].Trim().StartsWith(sObrace) || lsOriginalSelData[i].Trim().StartsWith(sCbrace)
+						// do nothing
+				else
+					if lsOriginalSelData[i].Contains(sCbrace) && lsOriginalSelData[i].Contains(sObrace) // checks for both open brace and close brace
+						// Print(lsOriginalSelData[i])
+						lsSplit = lsOriginalSelData[i].Split (sCbrace)
+						lsSplit2=lsSplit[2].Split(sObrace)
+						lsOriginalSelData[i] = sCbrace
+						lsOriginalSelData.Insert(i+1, lsSplit2[1])
+						lsOriginalSelData.Insert (i+2, sObrace)
+						i = i+2
+					else if lsOriginalSelData[i].Contains(sObrace) && (lsOriginalSelData[i][2].IsAlpha() || lsOriginalSelData[i][2].Trim().Contains(" ")) // checks for open brace
+						lsSplit = lsOriginalSelData[i].Split (sObrace)
+						lsOriginalSelData[i] = lsOriginalSelData[i].Replace (lsOriginalSelData[i], lsSplit[1])
+						lsOriginalSelData.Insert (i+1, sObrace)
+						i = i+1
+					else
+						if lsOriginalSelData[i].Contains(sCbrace) && (lsOriginalSelData[i][2].IsAlpha() || lsOriginalSelData[i][2].Trim().Contains(" "))// Checks for close brace
+							lsSplit = lsOriginalSelData[i].Split (sCbrace)
+							lsOriginalSelData[i] = lsOriginalSelData[i].Replace (lsOriginalSelData[i], lsSplit[1])
+							lsOriginalSelData.Insert (i+1, sCbrace)
+							i = i+1
+					
+		// lsOriginalSelData.WriteFile(sReadFile)
+		// Print (lsOriginalSelData)
+			
+		
+		

@@ -1,0 +1,88 @@
+app WebPage ApprovalProcessPages
+	path [@Title like "*", contains<InboxItemName>]
+	AppObject InboxItemName
+		path [@Text=="{ InboxItemName }" ];}"]"]
+app WebPage CreateAdHocPaymentPage
+	path [@Title like "*", contains<Txt_Company> || contains <Txt_BankAccount> || contains <Rdo_LabelPayee>]
+	AppObject Txt_Company
+		path [@Text=="Company"]
+	AppObject Txt_BankAccount
+		path [@Text=="Bank Account"]
+	AppObject Rdo_LabelPayee
+		path [@Text=="Payee"]
+	AppObject Txt_LabelPayee
+		path [@Text=="Payee"]
+	AppObject SpanIconOption
+		path [@Text=="Currency"]
+	AppObject Txt_Currency
+		path [@Text=="Currency"]
+	AppObject Txt_PaymentDate
+		path [@Text=="Payment Date"]
+	AppObject Txt_PaymentType
+		path [@Text=="Payment Type"]
+	AppObject Txt_ControlTotalAmount
+		path [@Text=="Control Total Amount"]
+	AppObject Txt_Memo
+		path [@Text=="Memo"]
+	AppObject LinesTab
+		path [@Text=="Lines"]
+	AppObject ColumnLine
+		path [@Text=="Lines"]
+	AppObject AddRow
+		path [@Title=="Add Row"]
+	AppObject Header
+		path [@ElemClass=="input[1]"]
+	AppObject TextColmnName
+		path [@Text=="Order"]
+	AppObject AttachmentsTab
+		path [@Text=="Attachments"]
+	AppObject Btn_SelectFiles
+		path [@Text=="Attachments"]
+	AppObject fileUpload
+		path [@Text=="file"]
+	AppObject Btn_Submit
+		path [@Title == "Submit"]
+app WebPage HomePage
+	path [@Title like "*", contains<Txt_BPSearch> || contains <Lnk_BPSearch>]
+	AppObject Txt_BPSearch
+		path [@Text == "search" && @Placeholder== "Search"]
+	AppObject Lnk_BPSearch
+		path [@Text == "Create Ad Hoc Payment" || @ElemId == "Create Ad Hoc Payment"]
+app WebPage LoginPage
+	path [@Title like "*", contains<sTxt_Username> || contains <Txt_Password> || contains <Btn_SignIn>]
+	AppObject sTxt_Username
+		path [@Label== "Username"]
+	AppObject Txt_Password
+		path [@Label=="Password"]
+	AppObject Btn_SignIn
+		path [@Text == "Sign In" || @ElemId == "Sign In"]
+	AppObject Lnk_Skip
+		path [@Text=="Skip" && @ElemId=="linkButton"]
+app WebPage ProxyAs_Page
+	path [@Title like "*", contains<Txt_WorkdaySearch> || contains <Lnk_StartProxy> || contains <Lnk_StopProxy>]
+	AppObject Txt_WorkdaySearch
+		path [@Label=="search all of workday"]
+	AppObject Lnk_StartProxy
+		path [@Text=="Start Proxy"]
+	AppObject Lnk_StopProxy
+		path [@Text=="Stop Proxy"]
+	AppObject Txt_ActAs
+		path [@Text=="Act As"]
+	AppObject Btn_Ok
+		path [@Text == "OK" || @ElemId == "OK"]
+app WebPage CommonsFunctions
+	path [@Title like "*", contains<columnName> || contains <TableName> || contains <TableName>]
+	AppObject columnName
+		path [@Text=="{ columnName }"]
+	AppObject TableName
+		path [@Text=="{ TableName}"]
+	AppObject TableName
+		path [@Text=="{ TableName}"]
+	AppObject TestData
+		path [@Text=="{ TestData }"]
+	AppObject TestData
+		path [@Text=="{ TestData}"]
+	AppObject columnName
+		path [@Text=="{ columnName }"]
+	AppObject colNum
+		path [contains[@headers,"columnheader" }" colNum }" //input[1];"]

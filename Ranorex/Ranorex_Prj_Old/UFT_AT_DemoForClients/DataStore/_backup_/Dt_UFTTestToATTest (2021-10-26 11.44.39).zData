@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="D754806F">
+		<Record Name="Record_UFTTestToATTest">
+			<Field Name="RowId" Type="String" Unique="true"/>
+			<Field Name="sUFTOrgTestFile" Type="String"/>
+			<Field Name="sTCName_TestInfo" Type="String"/>
+			<Field Name="sActionFile" Type="String"/>
+			<Field Name="sTestFormatFile" Type="String"/>
+		</Record>
+		<List Name="Record_UFTTestToATTestList" ItemType="Record_UFTTestToATTest"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_UFTTestToATTest" Type="Record_UFTTestToATTestList" KeyField="RowId">
+			<Record_UFTTestToATTest/>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_UFTTestToATTest"/>
+	</Layout>
+</DataStore>

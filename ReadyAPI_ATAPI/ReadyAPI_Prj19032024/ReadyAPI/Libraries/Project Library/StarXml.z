@@ -1,0 +1,153 @@
+dll "StarXML.dll"
+	int32 C_XML_Create  ()  name "XML_Create"
+	bool32 C_XML_Destroy (int32 hxml)  name "XML_Destroy"
+	
+	bool32 C_XML_Load (int32 hxml, string sFileName)  name "XML_Load"
+	bool32 C_XML_Save (int32 hxml, string sFileName, uint32 nFlags)  name "XML_Save"
+	
+	bool32 C_XML_FindElems (int32 hxml, string sPath, out string lsElems[nNumElems], inout int32 nNumElems)  name "XML_FindElems"
+	
+	bool32 C_XML_GetElemText  (int32 hxml, string sPath, out string sText)  name "XML_GetElemText"
+	bool32 C_XML_SetElemText  (int32 hxml, string sPath, string sText)  name "XML_SetElemText"
+	
+	bool32 C_XML_GetElemContents  (int32 hxml, string sPath, out string sContents)  name "XML_GetElemContents"
+	bool32 C_XML_SetElemContents  (int32 hxml, string sPath, string sContents)  name "XML_SetElemContents"
+	
+	bool32 C_XML_CreateElem (int32 hxml, string sPath, string sNewPath, out string sNewElem)  name "XML_CreateElem"
+	bool32 C_XML_DeleteElem (int32 hxml, string sPath)  name "XML_DeleteElem"
+	bool32 C_XML_MoveElem (int32 hxml, string sSrcPath, string sDstPath)  name "XML_MoveElem"
+	
+	bool32 C_XML_GetElemAttr  (int32 hxml, string sPath, string sAttr, out string sValue)  name "XML_GetElemAttr"
+	bool32 C_XML_SetElemAttr  (int32 hxml, string sPath, string sAttr, string sValue)  name "XML_SetElemAttr"
+	
+	bool32 C_XML_DeleteElemAttr (int32 hxml, string sPath, string sAttr)  name "XML_DeleteElemAttr"
+	
+	bool32 C_XML_GetManyElemText (int32 hxml, string sPath, string lsFields[], int32 nNumFields, out string lsValues[nNumFields])  name "XML_GetManyElemText"
+	
+	bool32 C_XML_SetHeaderLen (int32 hxml, int32 nHeaderLen)  name "XML_SetHeaderLen"
+	bool32 C_XML_GetHeaderLen (int32 hxml, out int32 nHeaderLen)  name "XML_GetHeaderLen"
+	
+	bool32 C_XML_SetHeaderStr (int32 hxml, string sHeader)  name "XML_SetHeaderStr"
+	bool32 C_XML_GetHeaderStr (int32 hxml, out string sHeader)  name "XML_GetHeaderStr"
+	
+	bool32 C_XML_LoadSequenceFile (int32 hxml, string sPath)  name "XML_LoadSequenceFile"
+	
+	string C_XML_GetLastError ()  name "XML_GetLastError"
+
+alias HXML = Integer
+
+const Integer XML_FLAG_SORT_ATTR = 0x0001
+const Integer XML_FLAG_ONE_ATTR_PER_LINE = 0x0002
+
+HXML XML_Create  ()
+	return (C_XML_Create ())
+
+void XML_Destroy (HXML hxml)
+	if (! C_XML_Destroy (hxml))
+		throw Exception (C_XML_GetLastError())
+
+void XML_Load (HXML hxml, String sFileName)
+	if (! C_XML_Load (hxml, sFileName))
+		throw Exception (C_XML_GetLastError())
+
+void XML_Save (HXML hxml, String sFileName, Integer nFlags = 0)
+	if (! C_XML_Save (hxml, sFileName, nFlags))
+		throw Exception (C_XML_GetLastError())
+
+List<String> XML_FindElems (HXML hxml, String sPath)
+	List<String> lsElems
+	Integer nNumElems = 256
+	
+	if (! C_XML_FindElems (hxml, sPath, lsElems, nNumElems))
+		throw Exception (C_XML_GetLastError())
+	
+	return (lsElems)
+
+String XML_GetElemText (HXML hxml, String sPath)
+	String sText
+	if (! C_XML_GetElemText (hxml, sPath, sText))
+		throw Exception (C_XML_GetLastError())
+	return (sText)
+
+void XML_SetElemText (HXML hxml, String sPath, String sText)
+	if (! C_XML_SetElemText (hxml, sPath, sText))
+		throw Exception (C_XML_GetLastError())
+
+String XML_GetElemContents (HXML hxml, String sPath)
+	String sContents
+	if (! C_XML_GetElemContents (hxml, sPath, sContents))
+		throw Exception (C_XML_GetLastError())
+	return (sContents)
+
+void XML_SetElemContents (HXML hxml, String sPath, String sContents)
+	if (! C_XML_SetElemContents (hxml, sPath, sContents))
+		throw Exception (C_XML_GetLastError())
+
+String XML_CreateElem (HXML hxml, String sFindPath, String sNewPath)
+	String sElem
+	if (! C_XML_CreateElem (hxml, sFindPath, sNewPath, sElem))
+		throw Exception (C_XML_GetLastError())
+	return (sElem)
+
+void XML_DeleteElem (HXML hxml, String sPath)
+	if (! C_XML_DeleteElem (hxml, sPath))
+		throw Exception (C_XML_GetLastError())
+
+void XML_MoveElem (HXML hxml, String sSrcPath, String sDstPath)
+	if (! C_XML_MoveElem (hxml, sSrcPath, sDstPath))
+		throw Exception (C_XML_GetLastError())
+
+String XML_GetElemAttr (HXML hxml, String sPath, String sAttr)
+	String sValue
+	if (! C_XML_GetElemAttr (hxml, sPath, sAttr, sValue))
+		throw Exception (C_XML_GetLastError())
+	return (sValue)
+
+void XML_SetElemAttr (HXML hxml, String sPath, String sAttr, String sValue)
+	if (! C_XML_SetElemAttr (hxml, sPath, sAttr, sValue))
+		throw Exception (C_XML_GetLastError())
+
+void XML_DeleteElemAttr (HXML hxml, String sPath, String sAttr)
+	if (! C_XML_DeleteElemAttr (hxml, sPath, sAttr))
+		throw Exception (C_XML_GetLastError())
+
+List<String> XML_GetManyElemText (HXML hxml, String sPath, List<String> lsFields)
+	Integer nNumFields = lsFields.Count()
+	List<String> lsValues
+	
+	if (! C_XML_GetManyElemText (hxml, sPath, lsFields, nNumFields, lsValues))
+		throw Exception (C_XML_GetLastError())
+	
+	return (lsValues)
+
+void XML_SetHeaderLen (HXML hxml, Integer nHeaderLen)
+	if (! C_XML_SetHeaderLen (hxml, nHeaderLen))
+		throw Exception (C_XML_GetLastError())
+
+Integer XML_GetHeaderLen (HXML hxml)
+	Integer nHeaderLen
+	if (! C_XML_GetHeaderLen (hxml, nHeaderLen))
+		throw Exception (C_XML_GetLastError())
+	return (nHeaderLen)
+
+void XML_SetHeaderStr (HXML hxml, String sHeader)
+	if (! C_XML_SetHeaderStr (hxml, sHeader))
+		throw Exception (C_XML_GetLastError())
+
+String XML_GetHeaderStr (HXML hxml)
+	String sHeader
+	if (! C_XML_GetHeaderStr (hxml, sHeader))
+		throw Exception (C_XML_GetLastError())
+	return (sHeader)
+
+void XML_LoadSequenceFile (HXML hxml, String sPath)
+	if (! C_XML_LoadSequenceFile (hxml, sPath))
+		throw Exception (C_XML_GetLastError())
+
+void TestXml ()
+	HXML hxml = XML_Create ()
+	XML_Load (hxml, "D:\UberAgent\StarXML\test\Step5 Output.xml")
+	Print (XML_GetElemText (hxml, "/ConfirmShipmentRequest/SplsTID/Trantype"))
+	Print (XML_GetElemAttr (hxml, "/ConfirmShipmentRequest", "CallerName"))
+	Print (XML_FindElems (hxml, "Shipment"))
+	

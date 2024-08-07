@@ -1,0 +1,44 @@
+record Record_ConvertingUFTORtoExactATOR
+	String TestcaseID
+	List<String> lsDeleteTags
+	List<String> lsOrignalFinalObjRepo
+	String sRepositoryFile
+	String sOrgUFTFileName
+	String sUFTModifiedOrgFile
+	String sModifiedUFTFileName
+	String sUFTSourceFile
+	String sUFTtoATConvertFile
+	String sATDestinationFile
+	String sFinalPath
+	String sFinalATObjFile
+	List<String> lsUnwnatedPathStmt_Web
+	List<String> lsUnwnatedPathStmt_Win
+	String sExistingDirPath
+record Record_UFTConvertion_Steps
+	String TestcaseID
+	List<String> lsStepsSourceFilePath
+	List<String> lsStepFormateSourceFile
+	List<String> lsUFTMethods
+	List<String> lsATMethods
+	List<String> lsUFTConditionalStatments
+	List<String> lsATConditionalStatments
+	String sDeleteDir
+	List<String> lsDestinationFiles
+record Record_UFTConvertions_Steps
+	String TestcaseID
+	List<String> lsUFTMethods
+	List<String> lsATMethods
+record Record_UFTTestToATTest
+	String RowId
+	List<String> lsUFTOrgTestFile
+	String sTCName_TestInfo
+	List<String> lsActionFile
+	List<String> lsDirPath
+record Record_KeywordConversion
+	List<String> lsUFT_Keyword
+	List<String> lsAT_Keyword
+	List<String> lsUFT_Methods
+	List<String> lsAT_Methods
+restricted String MouseScrollDirection
+	"up"
+	"down"

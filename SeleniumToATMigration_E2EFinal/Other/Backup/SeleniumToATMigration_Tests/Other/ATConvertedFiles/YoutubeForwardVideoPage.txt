@@ -1,0 +1,30 @@
+class initWebDriver : Step
+	%StepInfo[Desc="initWebDriver",Group="null"]
+	parameter String URL
+	Main()
+		// Setting up Chrome driver path.
+		System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe")
+		// Launching Chrome browser.
+		driver.get(URL)
+		driver.manage().window().maximize()
+class main : Step
+	%StepInfo[Desc="main",Group="null"]
+	parameter List<String> args
+	Main()
+	sSearchBox.SetValue(sBookKey)
+		AppObject searchResult = getElement(By.xpath(sSearchResult))
+		searchResult.Click()
+		By.xpath.WaitUntilExists(30,NotExistAction.None)
+		By.xpath.WaitUntilExists(30,NotExistAction.None)
+		getElement(By.xpath(sViewCartXPath)).Click()
+		getElement(By.cssSelector("form[id='view-cart-form'] button")).Click()
+		getElement(By.xpath("//input[@id='email' and @name='email']")).SetValue("test@testmail.com")
+		// pause for a second and close the browser.
+		Sleep(1)
+		step endSession
+	AppObject getElement(final By locator)
+		.pollingEvery(5, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
+		.WaitUntilExists(30,NotExistAction.None)
+			@Override
+			public AppObject apply(WebDriver arg0)
+				return arg0.findElement(locator)

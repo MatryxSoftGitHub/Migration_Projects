@@ -1,0 +1,73 @@
+class New_CreateEmployee : Step
+	%StepInfo[Desc="",Group=""]
+	parameter String varFirstName
+	parameter String varSecondName
+	parameter String varSocialSecurity
+	parameter String varAddress
+	parameter String varCity
+	parameter String varZipCode
+	parameter String varPhone
+	parameter String varStartDate
+	parameter String varTerminationDate
+	parameter String varBOD
+	parameter String varSalary
+	parameter String varCity_Validate
+	Main()
+		PowerBuilderUltimateSuiteSampleAppli.Element20001.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Text25.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Text25.TypeKeys(varFirstName)
+		Validate.AttributeEqual(PowerBuilderUltimateSuiteSampleAppli.Text25Info, "Text", varFirstName)
+		PowerBuilderUltimateSuiteSampleAppli.EmpLname.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Text25.TypeKeys(varSecondName)
+		Validate.AttributeEqual(PowerBuilderUltimateSuiteSampleAppli.Text25Info, "Text", varSecondName)
+		PowerBuilderUltimateSuiteSampleAppli.ListItem.Click()
+		PbusSample.Self.Click()
+		PowerBuilderUltimateSuiteSampleAppli.RD.Click()
+		PbusSample.Self.Click()
+		PowerBuilderUltimateSuiteSampleAppli.ComboBoxSex.Click()
+		PbusSample.Self.Click()
+		PowerBuilderUltimateSuiteSampleAppli.SocialSecurity.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible()
+		UA.GenKeyEvents(varSocialSecurity)
+		PowerBuilderUltimateSuiteSampleAppli.Street.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible()
+		UA.GenKeyEvents(varAddress)
+		//Validate.AttributeEqual(PowerBuilderUltimateSuiteSampleAppli.StreetInfo, "Text", varAddress)
+		// 
+		PowerBuilderUltimateSuiteSampleAppli.City.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible()
+		UA.GenKeyEvents(varCity)
+		//Validate.AttributeEqual(PowerBuilderUltimateSuiteSampleAppli.CityInfo, "Text", varCity_Validate)
+		// 
+		varCity = PowerBuilderUltimateSuiteSampleAppli.City.Element.GetAttributeValueText("Text")
+		PowerBuilderUltimateSuiteSampleAppli.ListItemAB.Click()
+		PbusSample.Self.Click()
+		PowerBuilderUltimateSuiteSampleAppli.ZipCode.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible()
+		UA.GenKeyEvents(varZipCode)
+		PowerBuilderUltimateSuiteSampleAppli.Phone.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible()
+		UA.GenKeyEvents(varPhone)
+		PowerBuilderUltimateSuiteSampleAppli.StartDate.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible()
+		UA.GenKeyEvents(varStartDate)
+		//PowerBuilderUltimateSuiteSampleAppli.TerminationDate.Click()
+		// 
+		//PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible()
+		//UA.GenKeyEvents(varTerminationDate)
+		// 
+		PowerBuilderUltimateSuiteSampleAppli.DateOfBirth.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible()
+		UA.GenKeyEvents(varBOD)
+		PowerBuilderUltimateSuiteSampleAppli.Salary.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Self.EnsureVisible()
+		UA.GenKeyEvents(varSalary)
+		PowerBuilderUltimateSuiteSampleAppli.Element1005.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Element1004.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Element20001.Click()
+		PowerBuilderUltimateSuiteSampleAppli.Element20001.Click()
+		Validate.NotExists(PowerBuilderUltimateSuiteSampleAppli.Text25Info)
+		//PowerBuilderUltimateSuiteSampleAppli.Element20001.Click()
+		// 
+		//PowerBuilderUltimateSuiteSampleAppli.SelfInfo.WaitUntilExists(1000)
+		e Feature Data

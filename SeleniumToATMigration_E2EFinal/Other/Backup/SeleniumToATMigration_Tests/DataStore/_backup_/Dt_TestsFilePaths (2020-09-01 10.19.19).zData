@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="21CA2120">
+		<List Name="ListOfString" ItemType="String"/>
+		<Record Name="Record_TestsFilePath">
+			<Field Name="lsJavaFile" Type="ListOfString"/>
+			<Field Name="lsTxtFile" Type="ListOfString"/>
+			<Field Name="lsIndentationFile" Type="ListOfString"/>
+			<Field Name="lsImplicitansExplicitWait" Type="ListOfString"/>
+			<Field Name="lsAscentialFile" Type="ListOfString"/>
+			<Field Name="sTestsZee" Type="String"/>
+			<Field Name="sATClass_SelFunctionOut" Type="String"/>
+		</Record>
+		<List Name="Record_TestsFilePathList" ItemType="Record_TestsFilePath"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_TestsFilePaths" Type="Record_TestsFilePathList">
+			<Record_TestsFilePath>
+				<lsJavaFile>
+					<String>ApprovalProcessPages.java</String>
+					<String>CommonsFunctions.java</String>
+					<String>CreateAdHocPaymentPage.java</String>
+					<String>HomePage.java</String>
+					<String>LoginPage.java</String>
+					<String>ProxyAs_Page.java</String>
+				</lsJavaFile>
+				<lsTxtFile>
+					<String>YoutubeForwardVideoPage.txt</String>
+					<String>YoutubeRandomVideoStreamingPage.txt</String>
+					<String>YoutubeSearchChannelPage.txt</String>
+					<String>YoutubeSignInPage.txt</String>
+					<String>YoutubeSignOutPage.txt</String>
+					<String>YoutubeVideoStreamingPage.txt</String>
+				</lsTxtFile>
+				<lsIndentationFile>
+					<String>Indentation1.txt</String>
+					<String>Indentation2.txt</String>
+					<String>Indentation3.txt</String>
+					<String>Indentation4.txt</String>
+					<String>Indentation5.txt</String>
+					<String>Indentation6.txt</String>
+				</lsIndentationFile>
+				<lsImplicitansExplicitWait>
+					<String>ImplicitExplicitWait1.txt</String>
+					<String>ImplicitExplicitWait2.txt</String>
+					<String>ImplicitExplicitWait3.txt</String>
+					<String>ImplicitExplicitWait4.txt</String>
+					<String>ImplicitExplicitWait5.txt</String>
+					<String>ImplicitExplicitWait6.txt</String>
+				</lsImplicitansExplicitWait>
+				<lsAscentialFile>
+					<String>YoutubeForwardVideoPage.txt</String>
+					<String>YoutubeRandomVideoStreamingPage.txt</String>
+					<String>YoutubeSearchChannelPage.txt</String>
+					<String>YoutubeSignInPage.txt</String>
+					<String>YoutubeSignOutPage.txt</String>
+					<String>YoutubeVideoStreamingPage.txt</String>
+				</lsAscentialFile>
+				<sTestsZee>Steps.z</sTestsZee>
+				<sATClass_SelFunctionOut>Seq1IntegratedOuputFile.txt</sATClass_SelFunctionOut>
+			</Record_TestsFilePath>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_TestsFilePaths"/>
+	</Layout>
+</DataStore>

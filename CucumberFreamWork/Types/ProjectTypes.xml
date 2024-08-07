@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Types CRC="131223EF">
+	<Enum Name="WebBrowserType" IsZee="true">
+		<Value Name="InternetExplorer" Label="Internet Explorer" Value="0"/>
+		<Value Name="Firefox" Label="Firefox" Value="1"/>
+		<Value Name="Chrome" Label="Chrome" Value="2"/>
+		<Value Name="Edge" Label="Edge" Value="3"/>
+	</Enum>
+	<List Name="StringList" ItemType="String"/>
+	<Record Name="Record_ConvertFeatureFileToATSteps">
+		<Field Name="RowId" Type="String" Unique="true"/>
+		<Field Name="lsFeatureFile" Type="StringList"/>
+		<Field Name="lsKeyWords" Type="StringList"/>
+		<Field Name="lsUpdatedFile" Type="StringList"/>
+		<Field Name="sParametersAndInputFile" Type="String"/>
+		<Field Name="lsDeleteDir" Type="StringList"/>
+		<Field Name="lsTCDeleteDir" Type="StringList"/>
+		<Field Name="lsTCFeatureFiles" Type="StringList"/>
+		<Field Name="lsUpdatedTCFiles" Type="StringList"/>
+		<Field Name="DSFiles" Type="StringList"/>
+	</Record>
+	<List Name="Record_ConvertFeatureFileToATStepsList" ItemType="Record_ConvertFeatureFileToATSteps"/>
+	<Record Name="CreateAdHocPaymentRecord">
+		<Field Name="PageTitle" Label="PageTitle" Type="String"/>
+		<Field Name="userName" Label="userName" Type="String"/>
+		<Field Name="password" Label="password" Type="String"/>
+		<Field Name="StartProxy" Label="StartProxy" Type="String"/>
+		<Field Name="ActAs" Label="ActAs" Type="String"/>
+		<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+		<Field Name="Company" Label="Company" Type="String"/>
+		<Field Name="BankAccount" Label="BankAccount" Type="String"/>
+		<Field Name="Payee" Label="Payee" Type="String"/>
+		<Field Name="Currency" Label="Currency" Type="String"/>
+		<Field Name="PaymentTypes" Label="PaymentTypes" Type="String"/>
+		<Field Name="ShipToAddress" Label="ShipToAddress" Type="String"/>
+		<Field Name="HandlingCode" Label="HandlingCode" Type="String"/>
+		<Field Name="ControlTotalAmount" Label="ControlTotalAmount" Type="String"/>
+		<Field Name="FreightAmount" Label="FreightAmount" Type="String"/>
+		<Field Name="OtherCharges" Label="OtherCharges" Type="String"/>
+		<Field Name="Memo" Label="Memo" Type="String"/>
+		<Field Name="LinesCompany" Label="LinesCompany" Type="String"/>
+		<Field Name="SpendCategory" Label="SpendCategory" Type="String"/>
+		<Field Name="TaxApplicability" Label="TaxApplicability" Type="String"/>
+		<Field Name="Quantity" Label="Quantity" Type="String"/>
+		<Field Name="UnitCost" Label="UnitCost" Type="String"/>
+		<Field Name="LinesMemo" Label="LinesMemo" Type="String"/>
+		<Field Name="LinesCostCenter" Label="LinesCostCenter" Type="String"/>
+		<Field Name="AdditionalWorktags" Label="AdditionalWorktags" Type="String"/>
+	</Record>
+	<List Name="CreateAdHocPaymentList" ItemType="CreateAdHocPaymentRecord"/>
+	<Record Name="CreateAdHocTransactionRecord">
+		<Field Name="PageTitle" Label="PageTitle" Type="String"/>
+		<Field Name="userName" Label="userName" Type="String"/>
+		<Field Name="password" Label="password" Type="String"/>
+		<Field Name="startProxy" Label="startProxy" Type="String"/>
+		<Field Name="ActAs" Label="ActAs" Type="String"/>
+		<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+		<Field Name="Memo" Label="Memo" Type="String"/>
+		<Field Name="Company" Label="Company" Type="String"/>
+		<Field Name="BankAccount" Label="BankAccount" Type="String"/>
+		<Field Name="Currency" Label="Currency" Type="String"/>
+		<Field Name="TransactionAmount" Label="TransactionAmount" Type="String"/>
+		<Field Name="Purpose" Label="Purpose" Type="String"/>
+		<Field Name="Reference" Label="Reference" Type="String"/>
+		<Field Name="LinesCompany" Label="LinesCompany" Type="String"/>
+		<Field Name="SelectRevenueSpendCategory" Label="SelectRevenueSpendCategory" Type="String"/>
+		<Field Name="LedgerAccount" Label="LedgerAccount" Type="String"/>
+		<Field Name="Amount" Label="Amount" Type="String"/>
+		<Field Name="LinesMemo" Label="LinesMemo" Type="String"/>
+		<Field Name="CostCenter" Label="CostCenter" Type="String"/>
+	</Record>
+	<List Name="CreateAdHocTransactionList" ItemType="CreateAdHocTransactionRecord"/>
+	<Record Name="PurchaseOrderEventRecord">
+		<Field Name="PageTitle" Label="PageTitle" Type="String"/>
+		<Field Name="userName" Label="userName" Type="String"/>
+		<Field Name="password" Label="password" Type="String"/>
+		<Field Name="startProxy" Label="startProxy" Type="String"/>
+		<Field Name="ActAs" Label="ActAs" Type="String"/>
+		<Field Name="PaymentType" Label="PaymentType" Type="String"/>
+		<Field Name="Company" Label="Company" Type="String"/>
+		<Field Name="Supplier" Label="Supplier" Type="String"/>
+		<Field Name="Currency" Label="Currency" Type="String"/>
+		<Field Name="Supplier1" Label="Supplier1" Type="String"/>
+		<Field Name="LinesCurrency" Label="LinesCurrency" Type="String"/>
+		<Field Name="FreightAmount" Label="FreightAmount" Type="String"/>
+		<Field Name="OtherCharges" Label="OtherCharges" Type="String"/>
+		<Field Name="PaymentTerms" Label="PaymentTerms" Type="String"/>
+		<Field Name="OverridePaymentType" Label="OverridePaymentType" Type="String"/>
+		<Field Name="ShippingTerms" Label="ShippingTerms" Type="String"/>
+		<Field Name="ShippingMethod" Label="ShippingMethod" Type="String"/>
+		<Field Name="ShippingInstructions" Label="ShippingInstructions" Type="String"/>
+		<Field Name="SupplierContract" Label="SupplierContract" Type="String"/>
+		<Field Name="DefaultTaxOption" Label="DefaultTaxOption" Type="String"/>
+		<Field Name="DefaultTaxCode" Label="DefaultTaxCode" Type="String"/>
+		<Field Name="IssueOption" Label="IssueOption" Type="String"/>
+		<Field Name="Buyer" Label="Buyer" Type="String"/>
+		<Field Name="BillTocontact" Label="BillTocontact" Type="String"/>
+		<Field Name="BillToContactDetails" Label="BillToContactDetails" Type="String"/>
+		<Field Name="BillToAddress" Label="BillToAddress" Type="String"/>
+		<Field Name="ShipToContact" Label="ShipToContact" Type="String"/>
+		<Field Name="ShipToContactDetail" Label="ShipToContactDetail" Type="String"/>
+		<Field Name="ShipToAddress" Label="ShipToAddress" Type="String"/>
+		<Field Name="Memo" Label="Memo" Type="String"/>
+		<Field Name="InternalMemo" Label="InternalMemo" Type="String"/>
+		<Field Name="StartProxy" Type="String"/>
+	</Record>
+	<List Name="PurchaseOrderEventList" ItemType="PurchaseOrderEventRecord"/>
+</Types>

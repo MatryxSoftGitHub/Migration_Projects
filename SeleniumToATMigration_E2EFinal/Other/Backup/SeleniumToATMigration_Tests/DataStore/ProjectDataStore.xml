@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Object Name="DataTypeConversion" Type="record_DataTypeConversionList" FileName="DataTypeConversion.zData"/>
+	<Object Name="DataTypes" Label="DataTypes" Type="DataTypesList" FileName="DataTypes.zData"/>
+	<Object Name="Dt_DataPaths" Type="Record_PathsList" FileName="Dt_DataPaths.zData"/>
+	<Object Name="Dt_FindElement" Type="Record_FindElementList" FileName="Dt_FindElement.zData"/>
+	<Object Name="Dt_MigrateSeleniumToAT" Type="Record_MigrateSeleniumToATList" FileName="Dt_MigrateSeleniumToAT.zData"/>
+	<Object Name="Dt_SelTestsFilePath" Type="Record_SelTestsFilePathList" FileName="Dt_SelTestsFilePath.zData"/>
+	<Object Name="Dt_TestCaseMethodReplace" Type="record_TestMethodsReplacementList" FileName="Dt_TestCaseMethodReplace.zData"/>
+	<Object Name="GenKeyEvents" Type="Record_GenKeyEventsList" FileName="GenKeyEvents.zData"/>
+	<Object Name="Methods" Type="ReplaceMethodsList" FileName="Methods.zData"/>
+	<Object Name="Parent" Type="record_ParentObjMethodList" FileName="Parent.zData"/>
+	<Object Name="ReplacePathSyntaxTB" Type="ReplacePathSyntaxTBRecordList" FileName="ReplacePathSyntaxTB.zData"/>
+	<Object Name="Sleeps" Type="record_SleepsList" FileName="Sleeps.zData"/>
+</DataStore>

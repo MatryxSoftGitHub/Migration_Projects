@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStore>
+	<Types CRC="1399CD10">
+		<Record Name="Record_UFTConvertions_Steps">
+			<Field Name="TestcaseID" Type="String"/>
+		</Record>
+		<List Name="Record_UFTConvertions_StepsList" ItemType="Record_UFTConvertions_Steps"/>
+	</Types>
+	<Objects>
+		<Object Name="Dt_UFTConvertions_Steps" Type="Record_UFTConvertions_StepsList">
+			<Record_UFTConvertions_Steps/>
+		</Object>
+	</Objects>
+	<Layout>
+		<Object Name="Dt_UFTConvertions_Steps"/>
+	</Layout>
+</DataStore>
